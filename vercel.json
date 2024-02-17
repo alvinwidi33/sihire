@@ -1,8 +1,8 @@
-{
-    "rewrites": [
-    {
-    "source": "/(.*)",
-    "destination": "/sihire/src/"
-    }
-        ]
-}
+  {
+       "rewrites": [
+           {
+               "source": "/(.*)",
+               "destination": "sihire/public/index.html"
+           }
+       ]
+   }
