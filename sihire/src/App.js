@@ -7,7 +7,7 @@ function App() {
 
   useEffect(()=>{
     const getData = async () => {
-      await fetch('http://127.0.0.1:8000/api/users/').then(
+      await fetch('https://sihire-be.vercel.app/api/users/').then(
         resp => resp.json()).then(data => {
           setUsers(data);
         })
