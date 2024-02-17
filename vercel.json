@@ -2,7 +2,7 @@
     "rewrites": [
     {
     "source": "/(.*)",
-    "destination": "/sihire/src/index.js"
+    "destination": "/sihire/src/"
     }
         ]
 }
