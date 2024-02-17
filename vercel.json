@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+    {
+    "source": "/sihire/(.*)",
+    "destination": "/index.html"
+    }
+        ]
+}
