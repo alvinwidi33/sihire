@@ -2,7 +2,7 @@
        "rewrites": [
            {
                "source": "/",
-               "destination": "sihire/"
+               "destination": "sihire/public/index.html"
            }
        ]
    }
