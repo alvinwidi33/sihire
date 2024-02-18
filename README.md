@@ -6,3 +6,4 @@ Anggota:
 2. Alvin Widi Nugroho - 2106751902
 3. Monica Shannon Clio Aurelie - 2106751732
 4. Maureen Esther Wijaya - 2106705335
+5. Alicia Kirana Utomo - 2106751505
