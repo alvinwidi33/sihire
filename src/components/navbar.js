@@ -10,14 +10,18 @@ function Navbar() {
     };
 
     const navbarStyle = {
-        backgroundColor: '#',
+        backgroundColor: '#fff',
         padding: '10px',
         textAlign: 'right',
         display: 'flex',
+        position:"fixed",
+        width:"100%",
+        top:"0",
+        zIndex:"1000"
     };
 
     const linkStyle = {
-        marginLeft: '32px',
+        marginLeft: '2.8%',
         fontFamily: 'Inter, sans-serif',
         fontSize: '16px',
         fontWeight: 'bold',
