@@ -7,6 +7,7 @@ function Home() {
         position: 'relative',
         width: '100%',
         height: '550px',
+        marginTop:"55px"
     };
 
     const imageStyle = {
@@ -49,7 +50,7 @@ function Home() {
         width: '100%',
         height: '394px',
         backgroundColor: '#891313', 
-        marginTop:'615px'
+        marginTop:'600px'
     };
     const textFrame = {
         position: 'absolute',
@@ -64,16 +65,16 @@ function Home() {
     };
     const cardContainer = {
         marginTop:'150px',
-        marginLeft:'28px',
-        marginRight:'28px',
+        marginLeft:'1%',
+        marginRight:'1%',
         display: 'grid',
         gridTemplateColumns: 'repeat(4, 1fr)',
         gridGap: '20px',
         top:'50%',
         };
     const Card = styled.div`
-        width: 104%;
-        height: 100%;
+        width: 290px;
+        height: 220px;
         background-color: #fff;
         border-radius: 10px;
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 2.8);
@@ -108,13 +109,13 @@ function Home() {
     };
     const cardTitle={
         marginBottom:'4px',
-        marginTop: '12px',
+        marginTop: '4px',
         textAlign: 'center',
         fontFamily:'Inter, sans-serif',
         fontSize:'20px',
         fontWeight:'600',
-        marginLeft:'4px',
-        marginRight:'4px',
+        marginLeft:'8px',
+        marginRight:'8px',
     };
     return (
         <React.Fragment>
