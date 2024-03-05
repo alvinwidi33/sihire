@@ -8,6 +8,9 @@ import Services from './pages/services';
 import ContactUs from './pages/contact-us';
 import OurProjects from './pages/our-projects';
 import Careers from './pages/careers';
+// BARU NIH
+import AddJobApplication from './pages/add-job-application';
+import JobApplicationDetail from './pages/job-application-detail';
 
 function App() {
 
@@ -21,6 +24,8 @@ function App() {
         <Route path="/our-projects" element={<OurProjects />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/careers" element={<Careers />} />
+        <Route path='/add-job-application' element={<AddJobApplication />} />
+        <Route path='/job-application-detail' element={<JobApplicationDetail />} />
       </Routes>
     </Router>
   );
