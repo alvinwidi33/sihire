@@ -10,8 +10,9 @@ import OurProjects from './pages/our-projects';
 import Careers from './pages/careers';
 import AddJobApplication from './pages/add-job-application';
 import JobApplicationDetail from './pages/job-application-detail';
-import JobPosting from './pages/job-posting';
+import JobList from './pages/job-list';
 import Applicants from './pages/applicants';
+import DetailJob from './pages/detail-job';
 
 function App() {
 
@@ -27,8 +28,10 @@ function App() {
         <Route path="/careers" element={<Careers />} />
         <Route path='/add-job-application' element={<AddJobApplication />} />
         <Route path='/job-application-detail' element={<JobApplicationDetail />} />
-        <Route path='/job-posting-ga' element={<JobPosting />} />
+        <Route path='/job-list' element={<JobList />} />
         <Route path='/applicants' element={<Applicants />} />
+        <Route path='/job-list/:id' element={<DetailJob />} />
+
       </Routes>
     </Router>
   );

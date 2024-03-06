@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Logo from "../images/logo.png";
-import styled from 'styled-components';
 
 
 function Sidebar() {
