@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/sidebar';
 import { Link } from 'react-router-dom';
 
-function JobList() {
+function JobListInternal() {
   const [jobs, setJobs] = useState(null);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ function JobList() {
     <div key={job.id} style={{ marginLeft: "22%", boxShadow: "0 2px 10px rgba(0, 0, 0, 0.4)", padding: "14px", maxWidth: "68%", height: "70px", borderRadius: "6px", marginBottom:"16px" }}>
     <div className='job-item' style={{marginLeft:"4%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
       <span style={{ fontFamily: 'Inter, sans-serif', fontWeight: 'bold', fontSize: "24px", color: "#2A3E4B" }}>{job.job_name}</span>
-      <Link to={`/job-list/${job.id}`}>
+      <Link to={`/job-list-other/${job.id}`}>
       <button style={{width:"90px",padding: "8px",fontSize: "16px",fontFamily: 'Inter, sans-serif',fontWeight: 'bold',color: "#2A3E4B",borderRadius: "6px",cursor: "pointer",border: "2px solid #2A3E4B",}}>
   Detail
 </button>
@@ -39,4 +39,4 @@ function JobList() {
   );
 }
 
-export default JobList;
+export default JobListInternal;
