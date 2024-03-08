@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-
 function AddJobApplication() {
   const [formData, setFormData] = useState({
+    applicant: '',
+    user: '',
+    job: 1,
     nama: '',
     email: '',
     noTelepon: '',
@@ -10,14 +12,25 @@ function AddJobApplication() {
     coverLetter: null,
   });
 
+  const fd = new FormData();
+
+  console.log(formData);
+  console.log(fd);
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('https://sihire-be.vercel.app/api/users/logged-in/');
+        const response = await fetch('http://127.0.0.1:8000/api/users/logged-in/', {
+          method: 'GET',
+          headers: {
+              'Authorization': 'Token ' + window.localStorage.getItem("token")
+          },
+        });
         const userData = await response.json();
 
         setFormData({
           ...formData,
+          user: userData.user_id,
           nama: userData.name,
           email: userData.email,
           noTelepon: userData.phone,
@@ -26,13 +39,40 @@ function AddJobApplication() {
         console.error('Error fetching user data:', error);
       }
     };
+    const fetchApplicantData = async () => {
+      try {
+        const applicant_response = await fetch('http://127.0.0.1:8000/api/users/get-applicant/' + formData.user + '/', {
+          method: 'GET',
+        });
+
+        const applicantData = await applicant_response.json();
+
+        setFormData({
+          ...formData,
+          applicant: applicantData.applicant_id,
+        });
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
 
     fetchUserData();
-  }, []);
+    fetchApplicantData();
+  }, []); 
+
+  const [file, setFile] = useState()
+
+  function handleChange(event) {
+    setFile(event.target.files[0])
+  }
 
   const handleInputChange = (e) => {
-    const { name, type, files } = e.target;
-    const fieldValue = type === 'file' ? files[0] : e.target.value;
+
+    const { name, value, type, files } = e.target;
+
+    const fieldValue = type === 'file' ? files[0] : value;
+
+    fd.append([name],fieldValue);
 
     setFormData((prevData) => ({
       ...prevData,
@@ -41,24 +81,20 @@ function AddJobApplication() {
   };
 
   const handleSubmit = async (e) => {
+    fd.append("job", 1);
+    fd.append("applicant", formData.applicant);
+    fd.append("phone", formData.phone);
+    fd.append("cv", formData.cv);
+    fd.append("coverLetter", formData.coverLetter);
     e.preventDefault();
 
     try {
-      const formDataToSend = new FormData();
-      formDataToSend.append('nama', formData.nama);
-      formDataToSend.append('email', formData.email);
-      formDataToSend.append('noTelepon', formData.noTelepon);
-      formDataToSend.append('cv', formData.cv);
-      formDataToSend.append('coverLetter', formData.coverLetter);
-
-      const response = await fetch('https://sihire-be.vercel.app/api/job-application/post/', {
+      const response = await fetch('http://127.0.0.1:8000/api/job-application/post/', {
         method: 'POST',
-        body: formDataToSend,
+        headers: {
+        },
+        body: fd
       });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
 
       const result = await response.json();
       console.log('Form submitted successfully:', result);
@@ -126,8 +162,8 @@ function AddJobApplication() {
           <label htmlFor="coverLetter" className="block text-gray-600 font-semibold mb-2">Cover Letter</label>
           <input
             type="file"
-            id="cv"
-            name="cv"
+            id="coverLetter"
+            name="coverLetter"
             onChange={handleInputChange}
             className="w-full border rounded-md p-2"
             accept=".pdf, .doc, .docx"

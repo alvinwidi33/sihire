@@ -28,6 +28,11 @@ function formatDateTime(datetimeString) {
     <React.Fragment>
       <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", position: "absolute" }}>Job</p>
       <Sidebar />
+      <button style={{width:"90px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#fff", background: "#2A3E4B", 
+      borderRadius: "6px", cursor: "pointer", marginTop: "-180px", marginBottom: "12px", border: "2px solid #2A3E4B",
+      marginLeft: "82%", position:"absolute"}}>
+        Edit
+    </button>
       <div className="detail-job" style={{ position: "relative" }}>
         {job && (
           <React.Fragment key={job.id}>
