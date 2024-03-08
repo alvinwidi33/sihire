@@ -29,7 +29,7 @@ function formatDateTime(datetimeString) {
       <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", position: "absolute" }}>Job</p>
       <Sidebar />
       <div className="detail-job" style={{ position: "relative" }}>
-        {job && job.map(job => (
+        {job && (
   <React.Fragment key={job.id}>
     <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-190px", marginBottom: "12px" }}>
       {job.job_name}
@@ -47,7 +47,7 @@ function formatDateTime(datetimeString) {
   {job.datetime_closes && formatDateTime(job.datetime_closes)}
 </p>
   </React.Fragment>
-))}
+)}
 
       </div>
     </React.Fragment>
