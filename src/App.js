@@ -24,7 +24,6 @@ function App() {
 
   return (
     <Router>
-      {/* <Navbar /> */}
       <Routes>
         <Route path="/" exact element={<Home />} />
         <Route path="/our-team" element={<OurTeam />} />
