@@ -40,12 +40,17 @@ function formatDateTime(datetimeString) {
     <p style={{ marginLeft: "22%", fontSize: "16px", color: "#2A3E4B", marginBottom: "12px" }}>
         {job.description}
     </p>
-    <p style={{ marginTop:"12%",marginLeft: "22%", fontWeight: "bold", fontSize: "24px", color: "#2A3E4B", marginBottom: "4px" }}>
+    <p style={{ marginTop:"20%",marginLeft: "22%", fontWeight: "bold", fontSize: "24px", color: "#2A3E4B", marginBottom: "4px" }}>
         Closed Date
     </p>
     <p style={{ marginLeft: "22%", fontSize: "16px", color: "#2A3E4B", marginBottom: "12px" }}>
   {job.datetime_closes && formatDateTime(job.datetime_closes)}
 </p>
+<button style={{width:"420px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#fff", background: "#2A3E4B", 
+      borderRadius: "6px", cursor: "pointer", marginTop: "4%", marginBottom: "12px", border: "2px solid #2A3E4B",
+      marginLeft: "44%", position:"absolute"}}>
+        Apply
+    </button>
   </React.Fragment>
 ))}
 

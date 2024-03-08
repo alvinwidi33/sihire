@@ -22,6 +22,11 @@ function JobListGA() {
       <Sidebar />
       <div className="job-posting" style={{ position: "relative" }}>
         <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-190px", marginBottom:"12px" }}>Jobs Available</p>
+        <button style={{width:"90px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#fff", background: "#2A3E4B", 
+        borderRadius: "6px", cursor: "pointer", 
+        marginTop: "-52px", marginBottom: "12px", marginLeft: "82%", position:"absolute",border: "2px solid #2A3E4B", }}>
+        Add Job
+      </button>
   {jobs && jobs.map(job => (
     <div key={job.id} style={{ marginLeft: "22%", boxShadow: "0 2px 10px rgba(0, 0, 0, 0.4)", padding: "14px", maxWidth: "68%", height: "70px", borderRadius: "6px", marginBottom:"16px" }}>
     <div className='job-item' style={{marginLeft:"4%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
