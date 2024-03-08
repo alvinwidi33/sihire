@@ -41,7 +41,7 @@ function AddJobApplication() {
     };
     const fetchApplicantData = async () => {
       try {
-        const applicant_response = await fetch('http://127.0.0.1:8000/api/users/get-applicant/' + formData.user + '/', {
+        const applicant_response = await fetch('https://sihire-be.vercel.app/api/users/get-applicant/' + formData.user + '/', {
           method: 'GET',
         });
 
@@ -89,7 +89,7 @@ function AddJobApplication() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/job-application/post/', {
+      const response = await fetch('https://sihire-be.vercel.app/api/job-application/post/', {
         method: 'POST',
         headers: {
         },
