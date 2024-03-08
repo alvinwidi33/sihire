@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
 
 function AddJobApplication() {
-    // State for form fields
   const [formData, setFormData] = useState({
     nama: '',
     email: '',
@@ -10,24 +10,61 @@ function AddJobApplication() {
     coverLetter: null,
   });
 
-  // Handle form field changes
-  const handleInputChange = (e) => {
-    const { name, value, type, files } = e.target;
-    
-    // For file input, use files property
-    const fieldValue = type === 'file' ? files[0] : value;
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('https://sihire-be.vercel.app/api/users/logged-in/');
+        const userData = await response.json();
 
-    setFormData({
-      ...formData,
+        setFormData({
+          ...formData,
+          nama: userData.name,
+          email: userData.email,
+          noTelepon: userData.phone,
+        });
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  const handleInputChange = (e) => {
+    const { name, type, files } = e.target;
+    const fieldValue = type === 'file' ? files[0] : e.target.value;
+
+    setFormData((prevData) => ({
+      ...prevData,
       [name]: fieldValue,
-    });
+    }));
   };
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Add logic to handle form submission
-    console.log('Form submitted:', formData);
+
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('nama', formData.nama);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('noTelepon', formData.noTelepon);
+      formDataToSend.append('cv', formData.cv);
+      formDataToSend.append('coverLetter', formData.coverLetter);
+
+      const response = await fetch('https://sihire-be.vercel.app/api/job-application/post/', {
+        method: 'POST',
+        body: formDataToSend,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('Form submitted successfully:', result);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
 
   return (
@@ -35,7 +72,7 @@ function AddJobApplication() {
     <div className="container mx-auto mt-8" style={{marginTop:"3%"}}>
     <h1 className="text-2xl font-bold text-left mb-4">Job Application</h1>
     <hr className="mb-4 border-solid border-black" /> {/* Horizontal line */}
-      <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded shadow-md">
+      <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded shadow-md" encType="multipart/form-data">
       <h1 className="text-2xl font-bold text-center mb-4">Job Title 1</h1>
         <div className="mb-2">
           <label htmlFor="nama" className="block text-gray-600 font-semibold mb-2">Nama</label>
@@ -44,7 +81,7 @@ function AddJobApplication() {
             id="nama"
             name="nama"
             value={formData.nama}
-            onChange={handleInputChange}
+            readOnly
             className="w-full border rounded-md p-2"
             required
           />
@@ -56,7 +93,7 @@ function AddJobApplication() {
             id="email"
             name="email"
             value={formData.email}
-            onChange={handleInputChange}
+            readOnly
             className="w-full border rounded-md p-2"
             required
           />
@@ -68,7 +105,7 @@ function AddJobApplication() {
             id="noTelepon"
             name="noTelepon"
             value={formData.noTelepon}
-            onChange={handleInputChange}
+            readOnly
             className="w-full border rounded-md p-2"
             required
           />
