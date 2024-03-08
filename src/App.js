@@ -34,7 +34,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path='/add-job-application' element={<AddJobApplication />} />
-        <Route path='/job-application-detail' element={<JobApplicationDetail />} />
+        <Route path='/job-application-detail/:id' element={<JobApplicationDetail />} />
         <Route path='/applicants' element={<Applicants />} />
         <Route path='/job-list-applicant' element={<JobListApplicant />} />
         <Route path='/job-list-applicant/:id' element={<DetailJobApplicant />} />
