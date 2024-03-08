@@ -35,7 +35,7 @@ function JobApplicationDetail() {
   useEffect(() => {
     const fetchJobApplicationData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/job-application/get-detail/' + id + '/', {
+        const response = await fetch('https://sihire-be.vercel.app/api/job-application/get-detail/' + id + '/', {
           method: 'GET',
         });
         const jobApplicationData = await response.json();
@@ -53,7 +53,7 @@ function JobApplicationDetail() {
     };
     const fetchApplicantData = async () => {
       try {
-        const applicant_response = await fetch('http://127.0.0.1:8000/api/users/get-user/' + formData.applicant + '/', {
+        const applicant_response = await fetch('https://sihire-be.vercel.app/api/users/get-user/' + formData.applicant + '/', {
           method: 'GET',
         });
 
@@ -71,7 +71,7 @@ function JobApplicationDetail() {
     };
     const fetchJobData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/job-posting/get/' + formData.job + '/', {
+        const response = await fetch('https://sihire-be.vercel.app/api/job-posting/get/' + formData.job + '/', {
           method: 'GET',
         });
 
@@ -100,7 +100,7 @@ function JobApplicationDetail() {
     fd.append("status", "Withdrawn");
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/job-application/put/' + id + '/edit-status/', {
+      const response = await fetch('https://sihire-be.vercel.app/api/job-application/put/' + id + '/edit-status/', {
         method: 'PUT',
         headers: {
         },

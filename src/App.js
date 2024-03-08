@@ -19,6 +19,8 @@ import JobListOther from './pages/job-list-other';
 import DetailJobApplicant from './pages/detail-job-applicant';
 import JobListApplicant from './pages/job-list-applicant';
 import DetailJobGA from './pages/detail-job-ga';
+import AddJobPosting from './pages/add-job-posting';
+import EditJobPosting from './pages/edit-job-posting';
 
 function App() {
 
@@ -43,6 +45,8 @@ function App() {
         <Route path='/job-list-other' element={<JobListOther/>}/>
         <Route path='/job-list-other/:id' element={<DetailJobInternal />} />
         <Route path='/applicants' element={<Applicants />} />
+        <Route path='/add-job-posting' element={<AddJobPosting/>}/>
+        <Route path='/job-list-ga/:id/edit' element={<EditJobPosting/>}/>
       </Routes>
     </Router>
   );
