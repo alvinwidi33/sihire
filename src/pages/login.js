@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const history = useNavigate();
     const handleLogin = async (event) => {
         event.preventDefault();
 
@@ -12,7 +11,7 @@ const Login = () => {
         };
 
         try {
-            const response = await fetch('https://sihire-be.vercel.app/api/users/login/', {
+            const response = await fetch('http://127.0.0.1:8000/api/users/login/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -21,8 +20,10 @@ const Login = () => {
             });
 
             if (response.ok) {
-                console.log('Login successful:', response);
-                history.push('/src/pages/job-posting.js');
+                var json_response = await response.json();
+                window.localStorage.setItem("token", json_response.token);
+                console.log('Login successful');
+                window.location.href = "/job-posting";
             } else {
                 console.error('Login failed:', response.statusText);
             }
