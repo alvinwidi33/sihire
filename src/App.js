@@ -21,6 +21,7 @@ import JobListApplicant from './pages/job-list-applicant';
 import DetailJobGA from './pages/detail-job-ga';
 import AddJobPosting from './pages/add-job-posting';
 import EditJobPosting from './pages/edit-job-posting';
+import MyJobApplication from './pages/my-job-application';
 
 function App() {
 
@@ -35,10 +36,10 @@ function App() {
         <Route path="/careers" element={<Careers />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path='/add-job-application' element={<AddJobApplication />} />
+        <Route path='/add-job-application/:id' element={<AddJobApplication />} />
         <Route path='/job-application-detail/:id' element={<JobApplicationDetail />} />
         <Route path='/applicants' element={<Applicants />} />
-        <Route path='/job-list-applicant' element={<JobListApplicant />} />
+        <Route path='/job-list-applicant/' element={<JobListApplicant />} />
         <Route path='/job-list-applicant/:id' element={<DetailJobApplicant />} />
         <Route path='/job-list-ga' element={<JobListGA />} />
         <Route path='/job-list-ga/:id' element={<DetailJobGA />} />
@@ -47,6 +48,8 @@ function App() {
         <Route path='/applicants' element={<Applicants />} />
         <Route path='/add-job-posting' element={<AddJobPosting/>}/>
         <Route path='/job-list-ga/:id/edit' element={<EditJobPosting/>}/>
+        <Route path='/my-job-application/:applicant' element={<MyJobApplication/>}/>
+
       </Routes>
     </Router>
   );
