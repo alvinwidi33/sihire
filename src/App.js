@@ -8,6 +8,9 @@ import Services from './pages/services';
 import ContactUs from './pages/contact-us';
 import OurProjects from './pages/our-projects';
 import Careers from './pages/careers';
+import ManageUser from './pages/manage-user';
+import AddUser from './pages/add-user';
+import MyProfile from './pages/my-profile';
 import AddJobApplication from './pages/add-job-application';
 import JobApplicationDetail from './pages/job-application-detail';
 import Applicants from './pages/applicants';
@@ -34,6 +37,9 @@ function App() {
         <Route path="/our-projects" element={<OurProjects />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/careers" element={<Careers />} />
+        <Route path="/manage-user" element={<ManageUser />} />
+        <Route path="/add-user" element={<AddUser />} />
+        <Route path="/my-profile" element={<MyProfile />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path='/add-job-application/:id' element={<AddJobApplication />} />
