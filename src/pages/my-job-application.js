@@ -8,7 +8,7 @@ const MyJobApplication = () => {
     useEffect(() => {
         const getJobApplications = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/job-application/get/${applicant}/`);
+            const response = await fetch(`https://sihire-be.vercel.app/api/job-application/get/${applicant}/`);
             const data = await response.json();
             setJobApplications(data);
             console.log("data",data)
