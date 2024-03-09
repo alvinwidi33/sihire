@@ -29,7 +29,7 @@ const Login = () => {
                 } else if (json_response.role ==="Director"){
                     window.location.href = "/job-list-other/";
                 } else if (json_response.role ==="General Affairs"){
-                    window.location.href = "/job-list-other/";
+                    window.location.href = "/job-list-ga/";
                 } else if (json_response.role ==="Project Manager"){
                     window.location.href = "/job-list-other/";
                 } else if (json_response.role ==="Admin"){
