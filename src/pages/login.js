@@ -18,12 +18,23 @@ const Login = () => {
                 },
                 body: JSON.stringify(loginData),
             });
-
+            
             if (response.ok) {
                 var json_response = await response.json();
                 window.localStorage.setItem("token", json_response.token);
                 console.log('Login successful');
-                window.location.href = "/job-list-applicant/";
+                console.log("ayamayam",json_response)
+                if(json_response.role ==="Applicant"){
+                    window.location.href = "/job-list-applicant/";
+                } else if (json_response.role ==="Director"){
+                    window.location.href = "/job-list-other/";
+                } else if (json_response.role ==="General Affairs"){
+                    window.location.href = "/job-list-other/";
+                } else if (json_response.role ==="Project Manager"){
+                    window.location.href = "/job-list-other/";
+                } else if (json_response.role ==="Admin"){
+                    window.location.href = "/manage-user/";
+                }   
             } else {
                 console.error('Login failed:', response.statusText);
             }
