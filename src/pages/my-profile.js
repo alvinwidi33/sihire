@@ -9,7 +9,7 @@ function MyProfile() {
                 const response = await fetch('https://sihire-be.vercel.app/api/users/logged-in/', {
                     method: 'GET',
                     headers: {
-                        'Authorization': 'Token' + window.localStorage.getItem("token")
+                        'Authorization': 'Token ' + window.localStorage.getItem("token")
                     }
                 });
                 if (response.ok) {
