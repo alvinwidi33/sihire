@@ -1,23 +1,36 @@
 import React, { useState, useEffect } from 'react';
-
+import { useParams } from 'react-router-dom';
 function AddJobApplication() {
+  const { id } = useParams();
+  const [job, setJob] = useState(null);
+  
   const [formData, setFormData] = useState({
     applicant: '',
     user: '',
-    job: 1,
+    job: id,
     nama: '',
     email: '',
     noTelepon: '',
     cv: null,
     coverLetter: null,
   });
+  console.log("job",id)
 
   const fd = new FormData();
 
   console.log(formData);
   console.log(fd);
 
-  useEffect(() => {
+   useEffect(() => {
+    const getJob = async () => {
+      try {
+        const response = await fetch(`https://sihire-be.vercel.app/api/job-posting/get/${id}/`);
+        const data = await response.json();
+        setJob(data);
+      } catch (error) {
+        console.error('Error fetching job:', error);
+      }
+    };
     const fetchUserData = async () => {
       try {
         const response = await fetch('https://sihire-be.vercel.app/api/users/logged-in/', {
@@ -27,37 +40,36 @@ function AddJobApplication() {
           },
         });
         const userData = await response.json();
-
+        const applicant_id = await fetchApplicantData(userData.user_id);
         setFormData({
           ...formData,
           user: userData.user_id,
           nama: userData.name,
           email: userData.email,
           noTelepon: userData.phone,
+          applicant:applicant_id,
         });
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
     };
-    const fetchApplicantData = async () => {
+    const fetchApplicantData = async (userId) => {
       try {
-        const applicant_response = await fetch(`https://sihire-be.vercel.app/api/users/get-applicant/${formData.user}/`, {
+        const applicant_response = await fetch(`https://sihire-be.vercel.app/api/users/get-applicant/${userId}/`, {
           method: 'GET',
         });
-
+        console.log('ayam',applicant_response)
         const applicantData = await applicant_response.json();
-
-        setFormData({
-          ...formData,
-          applicant: applicantData.applicant_id,
-        });
+        console.log('kambing',applicantData)
+        return applicantData.applicant_id
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
     };
-
+    getJob();
     fetchUserData();
     fetchApplicantData();
+
   }, []); 
 
   const [file, setFile] = useState()
@@ -81,7 +93,7 @@ function AddJobApplication() {
   };
 
   const handleSubmit = async (e) => {
-    fd.append("job", 1);
+    fd.append("job", id);
     fd.append("applicant", formData.applicant);
     fd.append("phone", formData.phone);
     fd.append("cv", formData.cv);
@@ -107,9 +119,13 @@ function AddJobApplication() {
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
     <div className="container mx-auto mt-8" style={{marginTop:"3%"}}>
     <h1 className="text-2xl font-bold text-left mb-4">Job Application</h1>
-    <hr className="mb-4 border-solid border-black" /> {/* Horizontal line */}
+    <hr className="mb-4 border-solid border-black" /> 
       <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded shadow-md" encType="multipart/form-data">
-      <h1 className="text-2xl font-bold text-center mb-4">Job Title 1</h1>
+      {job && (
+        <React.Fragment key={job.id}>
+          <h1 className="text-2xl font-bold text-center mb-4">{job.job_name}</h1>
+        </React.Fragment>
+      )}
         <div className="mb-2">
           <label htmlFor="nama" className="block text-gray-600 font-semibold mb-2">Nama</label>
           <input

@@ -23,7 +23,7 @@ const Login = () => {
                 var json_response = await response.json();
                 window.localStorage.setItem("token", json_response.token);
                 console.log('Login successful');
-                window.location.href = "/job-posting";
+                window.location.href = "/job-list-applicant/";
             } else {
                 console.error('Login failed:', response.statusText);
             }

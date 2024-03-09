@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/sidebar';
 import { Link } from 'react-router-dom';
 
-function JobListApplicant(props) {
+function JobListApplicant() {
     const [jobs, setJobs] = useState(null);
 
   useEffect(() => {
