@@ -20,7 +20,7 @@ function AddJobApplication() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/users/logged-in/', {
+        const response = await fetch('https://sihire-be.vercel.app/api/users/logged-in/', {
           method: 'GET',
           headers: {
               'Authorization': 'Token ' + window.localStorage.getItem("token")
@@ -41,7 +41,7 @@ function AddJobApplication() {
     };
     const fetchApplicantData = async () => {
       try {
-        const applicant_response = await fetch('https://sihire-be.vercel.app/api/users/get-applicant/' + formData.user + '/', {
+        const applicant_response = await fetch(`https://sihire-be.vercel.app/api/users/get-applicant/${formData.user}/`, {
           method: 'GET',
         });
 
