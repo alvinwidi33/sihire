@@ -45,18 +45,30 @@ function ManageUser() {
     };
 
     const [users, setUsers] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalUsers, setTotalUsers] = useState(0);
 
     useEffect(() => {
-        // Fetch data from the API
-        fetch('https://sihire-be.vercel.app/api/users/get-all-users/?format=json')
-            .then(response => response.json())
-            .then(data => {
-                setUsers(data);
-            })
-            .catch(error => {
+        // Fetch data from the API with pagination
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`https://sihire-be.vercel.app/api/users/get-all-users/?format=json&page=${currentPage}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setUsers(data.results);
+                    setTotalUsers(data.count);
+                } else {
+                    console.error('Failed to fetch data');
+                }
+            } catch (error) {
                 console.error('Error fetching data:', error);
-            });
-    }, []);
+            }
+        };
+    
+        fetchData();
+    }, [currentPage]);
+
+    const totalPages = Math.ceil(totalUsers / 10);
 
     return (
         <div className="container mx-auto" style={containerStyle}>
@@ -65,17 +77,21 @@ function ManageUser() {
             </div>
             <hr className="divider" style={dividerStyle}></hr>
             <div className="px-5">
-                <h2 className="text-3xl font-bold" style={darkBlueText}>Users</h2>
-                <div className="flex items-center mt-4 mb-8">
-                    <div className="rounded-lg bg-white shadow-md flex-grow mr-4">
+                <div className="flex items-center mt-4">
+                    <h2 className="text-3xl font-bold" style={darkBlueText}>Users</h2>
+                    <div className="rounded-lg bg-white shadow-md flex-grow mr-4 ml-4">
                         <input type='text' id="search" placeholder='Search' className="py-3 px-4 rounded-lg w-full" />
                     </div>
-                    <button className="rounded-md bg-blue-700 text-white py-3 px-6" style={{ background: 'var(--WF-Base-800, #2D3648)' }}>
-                        <label className="font-bold">Add User</label>
-                    </button>
+                    <a href="https://sihire.vercel.app/add-user" rel="noopener noreferrer">
+                        <button className="rounded-md bg-blue-700 text-white py-3 px-6" style={{ background: 'var(--WF-Base-800, #2D3648)' }}>
+                            <label className="font-bold">Add User</label>
+                        </button>
+                    </a>
                 </div>
             </div>
             <div style={contentContainerStyle}>
+                <p>Total users: {totalUsers}</p>
+                <p>Page {currentPage} of {totalPages}</p>
                 <table style={tableStyle}>
                     <thead>
                         <tr>
@@ -108,6 +124,22 @@ function ManageUser() {
                         ))}
                     </tbody>
                 </table>
+            </div>
+            <div className="flex justify-center mt-8">
+            <button
+                onClick={() => setCurrentPage(prevPage => prevPage - 1)}
+                disabled={currentPage === 1}
+                className={`py-2 px-4 rounded-md mr-2 ${currentPage === 1 ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700 text-white'}`}
+            >
+                Previous
+            </button>
+            <button
+                onClick={() => setCurrentPage(prevPage => prevPage + 1)}
+                disabled={currentPage * 10 >= totalUsers}
+                className={`py-2 px-4 rounded-md ${currentPage * 10 >= totalUsers ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700 text-white'}`}
+            >
+                Next
+            </button>
             </div>
         </div>
     );
