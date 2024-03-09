@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/sidebar';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 function DetailJobApplicant() {
     const { id } = useParams();
@@ -46,11 +46,13 @@ function formatDateTime(datetimeString) {
     <p style={{ marginLeft: "22%", fontSize: "16px", color: "#2A3E4B", marginBottom: "12px" }}>
   {job.datetime_closes && formatDateTime(job.datetime_closes)}
 </p>
+<Link to={`/add-job-application/${job.id}`}>
 <button style={{width:"420px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#fff", background: "#2A3E4B", 
       borderRadius: "6px", cursor: "pointer", marginTop: "4%", marginBottom: "12px", border: "2px solid #2A3E4B",
       marginLeft: "44%", position:"absolute"}}>
         Apply
     </button>
+</Link>
   </React.Fragment>
 )}
 
