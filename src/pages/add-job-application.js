@@ -95,7 +95,7 @@ function AddJobApplication() {
   const handleSubmit = async (e) => {
     fd.append("job", id);
     fd.append("applicant", formData.applicant);
-    fd.append("phone", formData.phone);
+    fd.append("phone", formData.noTelepon);
     fd.append("cv", formData.cv);
     fd.append("coverLetter", formData.coverLetter);
     e.preventDefault();
@@ -133,7 +133,7 @@ function AddJobApplication() {
             id="nama"
             name="nama"
             value={formData.nama}
-            readOnly
+            disabled
             className="w-full border rounded-md p-2"
             required
           />
@@ -145,7 +145,7 @@ function AddJobApplication() {
             id="email"
             name="email"
             value={formData.email}
-            readOnly
+            disabled
             className="w-full border rounded-md p-2"
             required
           />
@@ -157,7 +157,7 @@ function AddJobApplication() {
             id="noTelepon"
             name="noTelepon"
             value={formData.noTelepon}
-            readOnly
+            disabled
             className="w-full border rounded-md p-2"
             required
           />
