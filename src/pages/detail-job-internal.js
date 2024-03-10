@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/sidebar';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 function DetailJobInternal() {
   const { id } = useParams();
@@ -26,9 +26,22 @@ function formatDateTime(datetimeString) {
 
   return (
     <React.Fragment>
+    <div style={{ marginLeft: '22%', position: 'absolute', marginBottom: '40px', marginTop:'80px' }}>
+  <Link to='/job-list-other' style={{ textDecoration: 'none', color: '#2A3E4B', cursor: 'pointer' }}>
+    <p style={{ display: 'inline', marginLeft: '4px' }}>List Job</p>
+  </Link>
+  <span style={{ display: 'inline', marginLeft: '10px' }}>{'>'}</span>
+  {job && (
+    <React.Fragment key={job.id}>
+      <Link to={`/job-list-other/${job.id}`} style={{ textDecoration: 'none', color: '#2A3E4B', cursor: 'pointer' }}>
+        <p style={{ display: 'inline', marginLeft: '10px' }}>Job Details</p>
+      </Link>
+    </React.Fragment>
+  )}
+</div>
       <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", position: "absolute" }}>Job</p>
       <Sidebar />
-      <div className="detail-job" style={{ position: "relative" }}>
+      <div className="detail-job" style={{ position: "relative", marginTop:'40px' }}>
         {job && (
   <React.Fragment key={job.id}>
     <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-190px", marginBottom: "12px" }}>

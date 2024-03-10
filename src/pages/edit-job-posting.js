@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/sidebar';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 function EditJobPosting() {
+  const [successMessage, setSuccessMessage] = useState('');
   const { id } = useParams();
   const [jobData, setJobData] = useState({
     job_name: '',
@@ -32,19 +33,14 @@ function EditJobPosting() {
 
   const rectangleStyle = {
     width: '70%',
-    height: '600px',
+    height: '650px',
     backgroundColor: '#fff',
     borderRadius: '10px',
     marginLeft: '22%',
     boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)',
-    marginTop: '-12%',
+    marginTop: '-10%',
   };
 
-  function formatDateTime(datetimeString) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    const formattedDate = new Date(datetimeString).toLocaleDateString(undefined, options);
-    return formattedDate;
-  }
   const handleSubmit = async (e) => {
   e.preventDefault();
 
@@ -69,6 +65,10 @@ function EditJobPosting() {
 
   if (response.ok) {
     console.log('Job updated successfully!');
+    setSuccessMessage("Job berhasil diperbarui!")
+        setTimeout(() => {
+          setSuccessMessage('');
+        }, 5000);
   } else {
     console.error('Failed to update job:', response.statusText);
   }
@@ -83,6 +83,24 @@ function EditJobPosting() {
 
   return (
     <React.Fragment>
+    <div style={{ marginLeft: '22%', position: 'absolute' }}>
+      <p style={{ fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', marginBottom: '40px' }}>Job</p>
+      <Link to='/job-list-ga'>
+        <p style={{ display: 'inline', marginLeft: '4px' }}>List Job</p>
+      </Link>
+      <span style={{ display: 'inline', marginLeft: '10px' }}>{'>'}</span>
+      {job && (
+        <React.Fragment key={job.id}>
+          <Link to={`/job-list-ga/${job.id}`}>
+            <p style={{ display: 'inline', marginLeft: '10px' }}>Job Details</p>
+          </Link>
+          <span style={{ display: 'inline', marginLeft: '10px' }}>{'>'}</span>
+          <Link to={`/job-list-ga/${job.id}/edit`}>
+            <p style={{ display: 'inline', marginLeft: '10px' }}>Edit Job</p>
+          </Link>
+        </React.Fragment>
+      )}
+    </div>
       <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute' }}>Job</p>
       <Sidebar />
       <div className="add-job-posting" style={{ position: 'relative' }}>
@@ -154,7 +172,7 @@ function EditJobPosting() {
               background: '#2A3E4B',
               borderRadius: '6px',
               cursor: 'pointer',
-              marginTop: '42%',
+              marginTop: '35%',
               marginBottom: '12px',
               border: '2px solid #2A3E4B',
               marginLeft: '20%',
@@ -163,6 +181,23 @@ function EditJobPosting() {
               Submit
             </button>
           </form>
+          {successMessage && (
+        <p
+          style={{
+            color: 'green',
+            position: 'fixed',
+            top: '50%',
+            left: '55%',
+            transform: 'translate(-50%, -50%)',
+            background: 'white',
+            padding: '20px',
+            borderRadius: '10px',
+            boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
+          }}
+        >
+          {successMessage}
+        </p>
+      )}
         </div>
       </div>
     </React.Fragment>

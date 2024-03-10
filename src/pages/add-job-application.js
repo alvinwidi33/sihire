@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 function AddJobApplication() {
   const { id } = useParams();
   const [job, setJob] = useState(null);
-  
+  const [successMessage, setSuccessMessage] = useState('');
   const [formData, setFormData] = useState({
     applicant: '',
     user: '',
@@ -95,8 +95,7 @@ function AddJobApplication() {
   const handleSubmit = async (e) => {
   e.preventDefault();
 
-  // Display confirmation popup
-  const isConfirmed = window.confirm('Apakah Anda yakin ingin mengapply pekerjaan ini?');
+  const isConfirmed = window.confirm('Apakah Anda yakin ingin melamar pekerjaan ini?');
 
   if (isConfirmed) {
     try {
@@ -113,6 +112,10 @@ function AddJobApplication() {
         },
         body: fd,
       });
+      setSuccessMessage("Job berhasil dilamar!")
+      setTimeout(() => {
+          setSuccessMessage('');
+        }, 5000);
 
       const result = await response.json();
       console.log('Form submitted successfully:', result);
@@ -124,10 +127,28 @@ function AddJobApplication() {
 
   return (
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
-    <div className="container mx-auto mt-8" style={{marginTop:"3%"}}>
-    <h1 className="text-2xl font-bold text-left mb-4">Job Application</h1>
+    <div className="container mx-auto mt-8" style={{ marginTop: "3%" }}>
+      <h1 className="text-2xl font-bold text-left mb-4">Job Application</h1>
+
+      <div style={{ marginLeft: '-1%', position: 'absolute', marginBottom: '40px' }}>
+        <Link to='/job-list-applicant'>
+          <p style={{ display: 'inline', marginLeft: '4px' }}>List Job</p>
+        </Link>
+        <span style={{ display: 'inline', marginLeft: '10px' }}>{'>'}</span>
+        {job && (
+          <React.Fragment key={job.id}>
+            <Link to={`/job-list-applicant/${job.id}`}>
+              <p style={{ display: 'inline', marginLeft: '10px' }}>Job Details</p>
+            </Link>
+            <span style={{ display: 'inline', marginLeft: '10px' }}>{'>'}</span>
+            <Link to={`/add-job-application/${job.id}`}>
+              <p style={{ display: 'inline', marginLeft: '10px' }}>Add Job Application</p>
+            </Link>
+          </React.Fragment>
+        )}
+      </div>
     <hr className="mb-4 border-solid border-black" /> 
-      <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded shadow-md" encType="multipart/form-data">
+      <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded shadow-md" style={{marginTop:'40px'}} encType="multipart/form-data">
       {job && (
         <React.Fragment key={job.id}>
           <h1 className="text-2xl font-bold text-center mb-4">{job.job_name}</h1>
@@ -197,6 +218,22 @@ function AddJobApplication() {
               <button type="submit" className="bg-gray-800 text-white px-40 py-2 rounded-md">Submit</button>
             </div>
       </form>
+      {successMessage && (
+        <p
+          style={{
+            color: 'green',
+            position: 'fixed',
+            top: '50%',
+            left: '55%',
+            transform: 'translate(-50%, -50%)',
+            background: 'white',
+            padding: '20px',
+            borderRadius: '10px',
+            boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
+          }}
+        >
+          {successMessage}</p>
+      )}
     </div>
     </div>
   );
