@@ -25,6 +25,7 @@ import DetailJobGA from './pages/detail-job-ga';
 import AddJobPosting from './pages/add-job-posting';
 import EditJobPosting from './pages/edit-job-posting';
 import MyJobApplication from './pages/my-job-application';
+import ChangePassword from './pages/change-password';
 
 function App() {
 
@@ -55,7 +56,7 @@ function App() {
         <Route path='/add-job-posting' element={<AddJobPosting/>}/>
         <Route path='/job-list-ga/:id/edit' element={<EditJobPosting/>}/>
         <Route path='/my-job-application/:applicant' element={<MyJobApplication/>}/>
-
+        <Route path='/change-password' element={<ChangePassword />} />
       </Routes>
     </Router>
   );
