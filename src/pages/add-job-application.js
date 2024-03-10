@@ -104,10 +104,6 @@ function AddJobApplication() {
       fd.append("phone", formData.noTelepon);
       fd.append("cv", formData.cv);
       fd.append("coverLetter", formData.coverLetter);
-      setSuccessMessage("Job berhasil dilamar!")
-      setTimeout(() => {
-          setSuccessMessage('');
-        }, 5000);
 
       const response = await fetch('https://sihire-be.vercel.app/api/job-application/post/', {
         method: 'POST',
@@ -115,6 +111,10 @@ function AddJobApplication() {
         },
         body: fd,
       });
+      setSuccessMessage("Job berhasil dilamar!")
+      setTimeout(() => {
+          setSuccessMessage('');
+        }, 5000);
 
       const result = await response.json();
       console.log('Form submitted successfully:', result);
