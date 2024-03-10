@@ -13,7 +13,7 @@ const ChangePassword = () => {
         };
 
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/users/change-password/', {
+            const response = await fetch('http://sihire-be.vercel.app/api/users/change-password/', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
