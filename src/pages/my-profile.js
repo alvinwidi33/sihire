@@ -3,6 +3,30 @@ import React, { useEffect, useState } from 'react';
 function MyProfile() {
     const [profileData, setProfileData] = useState(null);
 
+    const handleLogout = async (event) => {
+        event.preventDefault();
+
+        try {
+            const response = await fetch('https://sihire-be.vercel.app/api/users/logout/', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Token ' + window.localStorage.getItem("token"),
+                },
+            });
+
+            if (response.ok) {
+                var json_response = await response.json();
+                localStorage.removeItem("token");
+                console.log('Logout successful');
+                window.location.href = "/login";
+            } else {
+                console.error('logout failed:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error during logout:', error);
+        }
+    };
+
     useEffect(() => {
         const fetchProfileData = async () => {
             try {
@@ -82,6 +106,11 @@ function MyProfile() {
                     <div style={editButtonStyle}>
                         <button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md mt-4" style={{ background: 'var(--WF-Base-800, #2D3648)', width: '100%' }}>
                             Edit Profile
+                        </button>
+                    </div>
+                    <div style={editButtonStyle}>
+                        <button onClick={handleLogout} className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md mt-4" style={{ background: 'var(--WF-Base-800, #2D3648)', width: '100%' }}>
+                            Logout
                         </button>
                     </div>
                 </div>
