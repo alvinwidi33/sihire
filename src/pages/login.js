@@ -1,5 +1,3 @@
-import { useNavigate } from 'react-router-dom';
-
 const Login = () => {
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -11,7 +9,7 @@ const Login = () => {
         };
 
         try {
-            const response = await fetch('http://sihire-be.vercel.app/api/users/login/', {
+            const response = await fetch('https://sihire-be.vercel.app/api/users/login/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
