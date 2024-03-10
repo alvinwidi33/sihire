@@ -48,6 +48,7 @@ function Navbar() {
             <Link to="/our-projects" style={activeLink === '/our-projects' ? { ...linkStyle, ...activeLinkStyle } : linkStyle} onClick={() => handleSetActiveLink('/our-projects')}>Our Projects</Link>
             <Link to="/contact-us" style={activeLink === '/contact-us' ? { ...linkStyle, ...activeLinkStyle } : linkStyle} onClick={() => handleSetActiveLink('/contact-us')}>Contact Us</Link>
             <Link to="/careers" style={activeLink === '/careers' ? { ...linkStyle, ...activeLinkStyle } : linkStyle} onClick={() => handleSetActiveLink('/careers')}>Careers</Link>
+            <Link to="/dashb-job-appli" style={activeLink === '/dashb-job-appli' ? { ...linkStyle, ...activeLinkStyle } : linkStyle} onClick={() => handleSetActiveLink('/dashb-job-appli')}>Dashboard</Link>
             <style>{`
                 @keyframes moveUnderline {
                     from {

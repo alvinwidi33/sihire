@@ -62,15 +62,14 @@ function JobApplicationDetail() {
 
   const handleSubmit = async (e) => {
     const fd = new FormData();
-    fd.append("job", formData.job.id);
-    fd.append("applicant", formData.applicant.applicant_id);
+    fd.append("job", formData.job);
+    fd.append("applicant", formData.applicant);
     fd.append("status", "Withdrawn");
 
     try {
       const response = await fetch('https://sihire-be.vercel.app/api/job-application/put/' + id + '/edit-status/', {
         method: 'PUT',
         headers: {
-          
         },
         body: fd
       });
@@ -122,8 +121,7 @@ console.log('blablaaukauigus92002:',formData)
             </div>
           </div>
           <div className="flex justify-end mt-4">
-            <button className="bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded mr-2">Beri Ulasan</button>
-            <button onClick={handleSubmit} className="bg-white hover:bg-gray-200 text-black font-bold py-2 px-4 rounded border border-black">Withdraw</button>
+            <button className="bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded mr-2">Update Status</button>
           </div>
         </div>
       </div>
