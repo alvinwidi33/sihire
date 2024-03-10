@@ -93,19 +93,25 @@ function AddJobApplication() {
   };
 
   const handleSubmit = async (e) => {
-    fd.append("job", id);
-    fd.append("applicant", formData.applicant);
-    fd.append("phone", formData.noTelepon);
-    fd.append("cv", formData.cv);
-    fd.append("coverLetter", formData.coverLetter);
-    e.preventDefault();
+  e.preventDefault();
 
+  // Display confirmation popup
+  const isConfirmed = window.confirm('Apakah Anda yakin ingin mengapply pekerjaan ini?');
+
+  if (isConfirmed) {
     try {
+      fd.append("job", id);
+      fd.append("applicant", formData.applicant);
+      fd.append("phone", formData.noTelepon);
+      fd.append("cv", formData.cv);
+      fd.append("coverLetter", formData.coverLetter);
+
       const response = await fetch('https://sihire-be.vercel.app/api/job-application/post/', {
         method: 'POST',
         headers: {
+          // Add any headers if needed
         },
-        body: fd
+        body: fd,
       });
 
       const result = await response.json();
@@ -113,7 +119,8 @@ function AddJobApplication() {
     } catch (error) {
       console.error('Error submitting form:', error);
     }
-  };
+  }
+};
 
   return (
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
