@@ -7,7 +7,7 @@ function JobListInternal() {
 
   useEffect(() => {
     const getJobs = async () => {
-      await fetch('https://sihire-be.vercel.app/api/job-posting/get/')
+      await fetch('https://sihire-be.vercel.app/api/job-posting/get-internal/')
         .then(resp => resp.json())
         .then(data => {
           setJobs(data);

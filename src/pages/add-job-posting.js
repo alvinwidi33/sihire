@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/sidebar';
+import { Link } from 'react-router-dom';
 
 function AddJobPosting() {
-  const [error, setError] = useState('');
+   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [jobData, setJobData] = useState({
     job_name: '',
     description: '',
@@ -48,6 +50,16 @@ function AddJobPosting() {
 
       if (response.ok) {
         console.log('Job posted successfully!');
+        setSuccessMessage("Job berhasil dibuat!")
+        setJobData({
+          job_name: '',
+          description: '',
+          datetime_closes: '',
+          
+        });
+        setTimeout(() => {
+          setSuccessMessage('');
+        }, 5000);
       } else {
         console.error('Failed to post job:', response.statusText);
       }
@@ -70,6 +82,13 @@ function AddJobPosting() {
     <React.Fragment>
       <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute' }}>Job</p>
       <Sidebar />
+      <Link to ='/job-list-ga'>
+      <p style={{marginLeft:'22%', position:'absolute', marginTop:"-200px"}}>List Job</p>
+      </Link>
+      <p style={{marginLeft:'28%', position:'absolute', marginTop:"-200px"}}>{'>'}</p>
+      <Link to='/add-job-posting'>
+      <p style={{marginLeft:'30%', position:'absolute', marginTop:"-200px"}}>Add Job</p>
+      </Link>
       <div className="add-job-posting" style={{ position: 'relative' }}>
         <div className="rectangle" style={rectangleStyle}>
           <p style={{ marginTop: '12px', marginLeft: '29%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute' }}>Create Job</p>
@@ -129,8 +148,25 @@ function AddJobPosting() {
               }}
             >
               Submit
-            </button>
+            </button> 
           </form>
+          {successMessage && (
+        <p
+          style={{
+            color: 'green',
+            position: 'fixed',
+            top: '50%',
+            left: '55%',
+            transform: 'translate(-50%, -50%)',
+            background: 'white',
+            padding: '20px',
+            borderRadius: '10px',
+            boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
+          }}
+        >
+          {successMessage}
+        </p>
+      )}
         </div>
       </div>
     </React.Fragment>
