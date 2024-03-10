@@ -66,7 +66,7 @@ function JobApplicationDetail() {
     fd.append("status", "Withdrawn");
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/job-application/put/' + id + '/edit-status/', {
+      const response = await fetch('https://sihire-be.vercel.app/api/job-application/put/' + id + '/edit-status/', {
         method: 'PUT',
         headers: {
           
