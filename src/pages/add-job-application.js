@@ -108,6 +108,7 @@ function AddJobApplication() {
       const response = await fetch('https://sihire-be.vercel.app/api/job-application/post/', {
         method: 'POST',
         headers: {
+          // Add any headers if needed
         },
         body: fd,
       });
