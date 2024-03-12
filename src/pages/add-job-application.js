@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate, Navigate } from 'react-router-dom';
 function AddJobApplication() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [job, setJob] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
+  const [applicantData, setApplicantData] = useState(null);
   const [formData, setFormData] = useState({
     applicant: '',
     user: '',
@@ -11,8 +13,8 @@ function AddJobApplication() {
     nama: '',
     email: '',
     noTelepon: '',
-    cv: null,
-    coverLetter: null,
+    cv: '',
+    coverLetter: '',
   });
   console.log("job",id)
 
@@ -60,6 +62,7 @@ function AddJobApplication() {
         });
         console.log('ayam',applicant_response)
         const applicantData = await applicant_response.json();
+        setApplicantData(applicantData);
         console.log('kambing',applicantData)
         return applicantData.applicant_id
       } catch (error) {
@@ -78,19 +81,14 @@ function AddJobApplication() {
     setFile(event.target.files[0])
   }
 
-  const handleInputChange = (e) => {
+ const handleInputChange = (e) => {
+  const { name, value } = e.target;
 
-    const { name, value, type, files } = e.target;
-
-    const fieldValue = type === 'file' ? files[0] : value;
-
-    fd.append([name],fieldValue);
-
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: fieldValue,
-    }));
-  };
+  setFormData((prevData) => ({
+    ...prevData,
+    [name]: value,
+  }));
+};
 
   const handleSubmit = async (e) => {
   e.preventDefault();
@@ -100,6 +98,7 @@ function AddJobApplication() {
   if (isConfirmed) {
     try {
       fd.append("job", id);
+      await new Promise(resolve => setTimeout(resolve, 0));
       fd.append("applicant", formData.applicant);
       fd.append("phone", formData.noTelepon);
       fd.append("cv", formData.cv);
@@ -108,13 +107,13 @@ function AddJobApplication() {
       const response = await fetch('https://sihire-be.vercel.app/api/job-application/post/', {
         method: 'POST',
         headers: {
-          // Add any headers if needed
         },
         body: fd,
       });
       setSuccessMessage("Job berhasil dilamar!")
       setTimeout(() => {
           setSuccessMessage('');
+          navigate(`/my-job-application/${applicantData.applicant_id}`)
         }, 5000);
 
       const result = await response.json();
@@ -191,29 +190,29 @@ function AddJobApplication() {
           />
         </div>
         <div className="mb-2">
-          <label htmlFor="cv" className="block text-gray-600 font-semibold mb-2">CV</label>
-          <input
-            type="file"
-            id="cv"
-            name="cv"
-            onChange={handleInputChange}
-            className="w-full border rounded-md p-2"
-            accept=".pdf, .doc, .docx"
-            required
-          />
-        </div>
-        <div className="mb-2">
-          <label htmlFor="coverLetter" className="block text-gray-600 font-semibold mb-2">Cover Letter</label>
-          <input
-            type="file"
-            id="coverLetter"
-            name="coverLetter"
-            onChange={handleInputChange}
-            className="w-full border rounded-md p-2"
-            accept=".pdf, .doc, .docx"
-            required
-          />
-        </div>
+  <label htmlFor="cv" className="block text-gray-600 font-semibold mb-2">CV</label>
+  <input
+    type="text"
+    id="cv"
+    name="cv"
+    value={formData.cv}
+    onChange={handleInputChange}
+    className="w-full border rounded-md p-2"
+    required
+  />
+</div>
+<div className="mb-2">
+  <label htmlFor="coverLetter" className="block text-gray-600 font-semibold mb-2">Cover Letter</label>
+  <input
+    type="text"
+    id="coverLetter"
+    name="coverLetter"
+    value={formData.coverLetter}
+    onChange={handleInputChange}
+    className="w-full border rounded-md p-2"
+    required
+  />
+</div>
         <div className="flex justify-center">
               <button type="submit" className="bg-gray-800 text-white px-40 py-2 rounded-md">Submit</button>
             </div>

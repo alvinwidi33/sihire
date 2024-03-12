@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function UpdateStatusPage() {
   const [selectedStatus, setSelectedStatus] = useState('');
-  const history = useHistory();
+  const history = useNavigate();
 
   const handleStatusChange = (e) => {
     setSelectedStatus(e.target.value);
