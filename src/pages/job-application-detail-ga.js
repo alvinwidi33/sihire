@@ -22,8 +22,8 @@ function JobApplicationDetail() {
     nama: '',
     email: '',
     noTelepon: '',
-    cv: null,
-    coverLetter: null,
+    cv: '',
+    coverLetter: '',
     status:'',
   });
     const calculateProgress = (stageName) => {

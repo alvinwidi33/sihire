@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/sidebar';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 function EditJobPosting() {
+  const navigate = useNavigate()
   const [successMessage, setSuccessMessage] = useState('');
   const { id } = useParams();
   const [jobData, setJobData] = useState({
@@ -40,7 +41,6 @@ function EditJobPosting() {
     boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)',
     marginTop: '-10%',
   };
-
   const handleSubmit = async (e) => {
   e.preventDefault();
 
@@ -53,33 +53,28 @@ function EditJobPosting() {
     const transformedDate = jobData.datetime_closes
       ? new Date(jobData.datetime_closes).toISOString().split('T')[0]
       : null;
-
-    try {
-  const response = await fetch(`https://sihire-be.vercel.app/api/job-posting/edit/${id}/`, {
+    const response = await fetch(`https://sihire-be.vercel.app/api/job-posting/edit/${id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-        body: JSON.stringify({ ...jobData, datetime_closes: transformedDate }),
-      });
+      body: JSON.stringify({ ...jobData, datetime_closes: transformedDate }),
+    });
 
-  if (response.ok) {
-    console.log('Job updated successfully!');
-    setSuccessMessage("Job berhasil diperbarui!")
-        setTimeout(() => {
-          setSuccessMessage('');
-        }, 5000);
-  } else {
-    console.error('Failed to update job:', response.statusText);
-  }
-} catch (error) {
-  console.error('Error updating job:', error);
-}
-
+    if (response.ok) {
+      console.log('Job updated successfully!');
+      setSuccessMessage("Job berhasil diperbarui!");
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 5000);
+    } else {
+      console.error('Failed to update job:', response.statusText);
+    }
   } catch (error) {
     console.error('Error updating job:', error);
   }
 };
+
 
   return (
     <React.Fragment>
@@ -131,35 +126,48 @@ function EditJobPosting() {
                   Job Description
                 </p>
                 <textarea
-                  value={jobData.description}
-                  style={{
-                    borderRadius: '5px',
-                    border: '2px solid #CBD2E0',
-                    padding: '8px',
-                    marginTop: '210px',
-                    marginLeft: '7%',
-                    fontSize: '14px',
-                    color: '#2A3E4B',
-                    position: 'absolute',
-                    width: '58%',
-                    height: '200px',
-                    resize: 'none',
-                  }}
-                  onChange={(e) => setJobData({ ...jobData, description: e.target.value })}
-                />
+  value={jobData.description}
+  style={{
+    borderRadius: '5px',
+    border: '2px solid #CBD2E0',
+    padding: '8px',
+    marginTop: '210px',
+    marginLeft: '7%',
+    fontSize: '14px',
+    color: '#2A3E4B',
+    position: 'absolute',
+    width: '58%',
+    height: '200px',
+    resize: 'none',
+  }}
+  onChange={(e) =>
+    setJobData({
+      ...jobData,
+      description: e.target.value.replace(/\n/g, '<br>'),
+    })
+  }
+/>
+
                 <p style={{ marginTop: '440px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>
                   Closed Date
                 </p>
                 <input
-                type="date"
-                style={{
-                    borderRadius: '5px', border: '2px solid #CBD2E0', padding: '8px',
-                    marginTop: '470px', marginLeft: '7%', fontSize: '14px', color: '#2A3E4B',
-                    position: 'absolute', width: '58%',
-                }}
-                value={jobData.datetime_closes ? new Date(jobData.datetime_closes).toISOString().split('T')[0] : ''}
-                onChange={(e) => setJobData({ ...jobData, datetime_closes: e.target.value })}
-                />
+  type="date"
+  style={{
+    borderRadius: '5px',
+    border: '2px solid #CBD2E0',
+    padding: '8px',
+    marginTop: '470px',
+    marginLeft: '7%',
+    fontSize: '14px',
+    color: '#2A3E4B',
+    position: 'absolute',
+    width: '58%',
+  }}
+  value={jobData.datetime_closes ? jobData.datetime_closes.split('T')[0] : ''}
+  onChange={(e) => setJobData({ ...jobData, datetime_closes: e.target.value })}
+/>
+
               </React.Fragment>
             )}
             <button style={{
