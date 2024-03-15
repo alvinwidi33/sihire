@@ -26,7 +26,7 @@ import AddJobPosting from './pages/add-job-posting';
 import EditJobPosting from './pages/edit-job-posting';
 import MyJobApplication from './pages/my-job-application';
 import ChangePassword from './pages/change-password';
-
+import UpdateStatusPage from './pages/update-status-ga';
 function App() {
 
   return (
