@@ -57,6 +57,7 @@ function App() {
         <Route path='/job-list-ga/:id/edit' element={<EditJobPosting/>}/>
         <Route path='/my-job-application/:applicant' element={<MyJobApplication/>}/>
         <Route path='/change-password' element={<ChangePassword />} />
+        <Route path='/job-application-detail-ga/:id/update-status' element={<UpdateStatusPage/>}/>
       </Routes>
     </Router>
   );
