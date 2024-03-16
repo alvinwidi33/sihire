@@ -10,12 +10,6 @@ function JobListInternal() {
   return formattedDate;
 }
 
-  function formatDateTime(datetimeString) {
-    const options = { day: 'numeric', month: 'long', year: 'numeric' };
-    const formattedDate = new Date(datetimeString).toLocaleDateString('id-ID', options);
-    return formattedDate;
-  }
-
   useEffect(() => {
     const getJobs = async () => {
       await fetch('https://sihire-be.vercel.app/api/job-posting/get-internal/')
@@ -38,7 +32,7 @@ function JobListInternal() {
       <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", position: "absolute" }}>Job</p>
       <Sidebar />
       <div className="job-posting" style={{ position: "relative" }}>
-        <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-190px", marginBottom:"12px" }}>Lowongan</p>
+        <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-190px", marginBottom:"12px" }}>Lowongan Pekerjaan</p>
         {jobs && (
           <table style={{ marginLeft: "22%", borderCollapse: "collapse", width: "70%", }}>
             <thead style={{}}>
