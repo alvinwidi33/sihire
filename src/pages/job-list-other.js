@@ -10,12 +10,6 @@ function JobListInternal() {
   return formattedDate;
 }
 
-  function formatDateTime(datetimeString) {
-    const options = { day: 'numeric', month: 'long', year: 'numeric' };
-    const formattedDate = new Date(datetimeString).toLocaleDateString('id-ID', options);
-    return formattedDate;
-  }
-
   useEffect(() => {
     const getJobs = async () => {
       await fetch('https://sihire-be.vercel.app/api/job-posting/get-internal/')

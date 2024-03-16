@@ -98,7 +98,7 @@ async function handleClose() {
             {job.job_name}
           </p>
           <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "24px", color: "#2A3E4B", marginTop: "0", marginBottom: "4px" }}>
-            Job Description
+            Deskripsi
           </p>
           <p
   style={{
@@ -112,7 +112,7 @@ async function handleClose() {
   {job.description}
 </p>
 
-          <p style={{ marginTop: "8%", marginLeft: "22%", fontWeight: "bold", fontSize: "24px", color: "#2A3E4B", marginBottom: "4px" }}>
+          <p style={{ marginTop: "4%", marginLeft: "22%", fontWeight: "bold", fontSize: "24px", color: "#2A3E4B", marginBottom: "4px" }}>
             Tanggal Tutup
           </p>
           <p style={{ position:"absolute",marginLeft: "22%", fontSize: "16px", color: "#2A3E4B", marginBottom: "12px" }}>
