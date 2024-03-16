@@ -25,15 +25,15 @@ function JobListApplicant() {
       <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", position: "absolute" }}>Job</p>
       <Sidebar />
       <div className="job-posting" style={{ position: "relative" }}>
-        <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-190px", marginBottom:"12px" }}>Jobs Available</p>
+        <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-190px", marginBottom:"12px" }}>Lowongan Pekerjaan</p>
         {jobs && (
-          <table style={{ marginLeft: "22%", borderCollapse: "collapse", width: "80%" }}>
+          <table style={{ marginLeft: "22%", borderCollapse: "collapse", width: "70%" }}>
             <thead>
               <tr>
-                <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "left", fontWeight: "bold" }}>Job Name</th>
-                <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "left", fontWeight: "bold" }}>Close Date</th>
-                <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "left", fontWeight: "bold" }}>Lamar</th>
-                <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "left", fontWeight: "bold" }}>Detail</th>
+                <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Job Name</th>
+                <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Close Date</th>
+                <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Lamar</th>
+                <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Detail</th>
               </tr>
             </thead>
             <tbody>
@@ -41,14 +41,14 @@ function JobListApplicant() {
                 <tr key={job.id}>
                   <td style={{ border: "2px solid #2A3E4B", padding: "8px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', fontSize: "24px", color: "#2A3E4B" }}>{job.job_name}</td>
                   <td style={{ border: "2px solid #2A3E4B", padding: "8px" }}>{job.datetime_closes && formatDateTime(job.datetime_closes)}</td>
-                  <td style={{ border: "2px solid #2A3E4B", padding: "8px" }}>
+                  <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign:"center" }}>
                     <Link to={`/add-job-application/${job.id}`}>
                       <button style={{width:"90px",padding: "8px",fontSize: "16px",fontFamily: 'Inter, sans-serif',fontWeight: 'bold',color: "#fff",borderRadius: "6px",cursor: "pointer",border: "2px solid #2A3E4B",background:"#2A3E4B"}}>
                         Lamar
                       </button>
                     </Link>
                   </td>
-                  <td style={{ border: "2px solid #2A3E4B", padding: "8px" }}>
+                  <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign:"center" }}>
                     <Link to={`/job-list-applicant/${job.id}`}>
                       <button style={{width:"90px",padding: "8px",fontSize: "16px",fontFamily: 'Inter, sans-serif',fontWeight: 'bold',color: "#2A3E4B",borderRadius: "6px",cursor: "pointer",border: "2px solid #2A3E4B",}}>
                         Detail
