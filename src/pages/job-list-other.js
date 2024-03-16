@@ -4,6 +4,11 @@ import { Link } from 'react-router-dom';
 
 function JobListInternal() {
   const [jobs, setJobs] = useState(null);
+  function formatDateTime(datetimeString) {
+  const options = { day: 'numeric', month: 'long', year: 'numeric' };
+  const formattedDate = new Date(datetimeString).toLocaleDateString('id-ID', options);
+  return formattedDate;
+}
 
   function formatDateTime(datetimeString) {
     const options = { day: 'numeric', month: 'long', year: 'numeric' };
