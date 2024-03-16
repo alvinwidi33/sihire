@@ -1,14 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/sidebar';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 function DetailJobGA() {
+const [successMessage, setSuccessMessage] = useState('');
+const navigate = useNavigate();
 const { id } = useParams();
   const [job, setJob] = useState();
 function formatDateTime(datetimeString) {
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  const formattedDate = new Date(datetimeString).toLocaleDateString(undefined, options);
+  const options = { day: 'numeric', month: 'long', year: 'numeric' };
+  const formattedDate = new Date(datetimeString).toLocaleDateString('id-ID', options);
   return formattedDate;
+}
+
+async function handleClose() {
+  const shouldClose = window.confirm("Are you sure you want to close this job?");
+  if (!shouldClose) {
+    return; // If the user cancels, do nothing
+  }
+
+  const currentDate = new Date();
+  const formattedDate = currentDate.toISOString();
+  try {
+    const response = await fetch(`https://sihire-be.vercel.app/api/job-posting/edit/${id}/`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ datetime_closes: formattedDate }),
+    });
+    if (response.ok) {
+      const updatedJob = { ...job, datetime_closes: formattedDate };
+      setJob(updatedJob);
+      setSuccessMessage("Pekerjaan berhasil ditutup!");
+      setTimeout(() => {
+        setSuccessMessage('');
+        navigate("/job-list-ga")
+      }, 5000);
+    } else {
+      console.error('Failed to update closing date');
+    }
+  } catch (error) {
+    console.error('Error updating closing date:', error);
+  }
 }
 
   useEffect(() => {
@@ -53,6 +87,13 @@ function formatDateTime(datetimeString) {
               Edit
             </button>
           </Link>
+          <button onClick={handleClose} style={{
+              width: "90px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#2A3E4B", background: "#fff",
+              borderRadius: "6px", cursor: "pointer",
+              marginTop: "30px", marginBottom: "12px", marginLeft: "74%", position: "absolute", border: "2px solid #2A3E4B",
+            }}>
+              Tutup
+            </button>
           <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-170px", marginBottom: "12px" }}>
             {job.job_name}
           </p>
@@ -71,13 +112,30 @@ function formatDateTime(datetimeString) {
   {job.description}
 </p>
 
-          <p style={{ marginTop: "20%", marginLeft: "22%", fontWeight: "bold", fontSize: "24px", color: "#2A3E4B", marginBottom: "4px" }}>
-            Closed Date
+          <p style={{ marginTop: "8%", marginLeft: "22%", fontWeight: "bold", fontSize: "24px", color: "#2A3E4B", marginBottom: "4px" }}>
+            Tanggal Tutup
           </p>
-          <p style={{ marginLeft: "22%", fontSize: "16px", color: "#2A3E4B", marginBottom: "12px" }}>
+          <p style={{ position:"absolute",marginLeft: "22%", fontSize: "16px", color: "#2A3E4B", marginBottom: "12px" }}>
             {job.datetime_closes && formatDateTime(job.datetime_closes)}
           </p>
         </React.Fragment>
+      )}
+      {successMessage && (
+        <p
+          style={{
+            color: 'green',
+            position: 'fixed',
+            top: '50%',
+            left: '55%',
+            transform: 'translate(-50%, -50%)',
+            background: 'white',
+            padding: '20px',
+            borderRadius: '10px',
+            boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
+          }}
+        >
+          {successMessage}
+        </p>
       )}
     </div>
   </React.Fragment>

@@ -11,10 +11,10 @@ const [activePage, setActivePage] = useState('Job Posting');
   };
   return (
     <React.Fragment>
-      <div className="vertical-line" style={{ marginLeft: '18%', height: '120%', borderLeft: '2px solid #2A3E4B', position: 'absolute', top: '0', bottom: '0' }}></div>
+      <div className="vertical-line" style={{ marginLeft: '18%', height: '160%', borderLeft: '2px solid #2A3E4B', position: 'absolute', top: '0', bottom: '0',}}></div>
       <div style={{ position: 'relative' }}>
         <img src={Logo} alt="Logo" style={{ width: '169px', height: '48px', marginBottom: '20px', marginTop: '12px', marginLeft: '2%' }} />
-        <div className="horizontal-line" style={{ marginLeft:'18%', width: '82%', height: '2px', borderTop: '2px solid #2A3E4B', marginBottom: '20px', marginRight: '10px' }}></div>
+        <div className="horizontal-line" style={{ marginLeft:'18%', width: '86%', height: '2px', borderTop: '2px solid #2A3E4B', marginBottom: '20px', marginRight: '10px' }}></div>
       </div>
       <div className="sidebar" style={{ marginTop: '2px'}}>
       <ul>
