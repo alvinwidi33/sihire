@@ -61,7 +61,7 @@ function formatDateTime(datetimeString) {
 >
   {job.description}
 </p>
-    <p style={{ marginTop: "8%", marginLeft: "22%", fontWeight: "bold", fontSize: "24px", color: "#2A3E4B", marginBottom: "4px" }}>
+    <p style={{ marginTop: "4%", marginLeft: "22%", fontWeight: "bold", fontSize: "24px", color: "#2A3E4B", marginBottom: "4px" }}>
             Closed Date
           </p>
           <p style={{ position:"absolute",marginLeft: "22%", fontSize: "16px", color: "#2A3E4B", marginBottom: "12px" }}>
