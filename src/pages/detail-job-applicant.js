@@ -6,8 +6,8 @@ function DetailJobApplicant() {
     const { id } = useParams();
   const [job, setJob] = useState(null);
 function formatDateTime(datetimeString) {
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  const formattedDate = new Date(datetimeString).toLocaleDateString(undefined, options);
+  const options = { day: 'numeric', month: 'long', year: 'numeric' };
+  const formattedDate = new Date(datetimeString).toLocaleDateString('id-ID', options);
   return formattedDate;
 }
 
@@ -49,7 +49,7 @@ function formatDateTime(datetimeString) {
             {job.job_name}
           </p>
           <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "24px", color: "#2A3E4B", marginTop: "-0px", marginBottom: "4px" }}>
-            Job Description
+            Deskripsi
           </p>
           <p
   style={{
@@ -62,15 +62,15 @@ function formatDateTime(datetimeString) {
 >
   {job.description}
 </p>
-          <p style={{ marginTop: "20%", marginLeft: "22%", fontWeight: "bold", fontSize: "24px", color: "#2A3E4B", marginBottom: "4px" }}>
-            Closed Date
+          <p style={{ marginTop: "8%", marginLeft: "22%", fontWeight: "bold", fontSize: "24px", color: "#2A3E4B", marginBottom: "4px" }}>
+            Tanggal Tutup
           </p>
-          <p style={{ marginLeft: "22%", fontSize: "16px", color: "#2A3E4B", marginBottom: "12px" }}>
+          <p style={{ position:"absolute",marginLeft: "22%", fontSize: "16px", color: "#2A3E4B", marginBottom: "12px" }}>
             {job.datetime_closes && formatDateTime(job.datetime_closes)}
           </p>
           <Link to={`/add-job-application/${job.id}`}>
             <button style={{ width: "420px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#fff", background: "#2A3E4B", borderRadius: "6px", cursor: "pointer", marginTop: "4%", marginBottom: "12px", border: "2px solid #2A3E4B", marginLeft: "44%", position: "absolute" }}>
-              Apply
+              Lamar
             </button>
           </Link>
         </React.Fragment>

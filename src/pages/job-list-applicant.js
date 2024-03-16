@@ -3,8 +3,12 @@ import Sidebar from '../components/sidebar';
 import { Link } from 'react-router-dom';
 
 function JobListApplicant() {
-    const [jobs, setJobs] = useState(null);
-
+  const [jobs, setJobs] = useState(null);
+  function formatDateTime(datetimeString) {
+  const options = { day: 'numeric', month: 'long', year: 'numeric' };
+  const formattedDate = new Date(datetimeString).toLocaleDateString('id-ID', options);
+  return formattedDate;
+}
   useEffect(() => {
     const getJobs = async () => {
       await fetch('https://sihire-be.vercel.app/api/job-posting/get/')
@@ -22,19 +26,41 @@ function JobListApplicant() {
       <Sidebar />
       <div className="job-posting" style={{ position: "relative" }}>
         <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-190px", marginBottom:"12px" }}>Jobs Available</p>
-  {jobs && jobs.map(job => (
-    <div key={job.id} style={{ marginLeft: "22%", boxShadow: "0 2px 10px rgba(0, 0, 0, 0.4)", padding: "14px", maxWidth: "68%", height: "70px", borderRadius: "6px", marginBottom:"16px" }}>
-    <div className='job-item' style={{marginLeft:"4%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-      <span style={{ fontFamily: 'Inter, sans-serif', fontWeight: 'bold', fontSize: "24px", color: "#2A3E4B" }}>{job.job_name}</span>
-      <Link to={`/job-list-applicant/${job.id}`}>
-      <button style={{width:"90px",padding: "8px",fontSize: "16px",fontFamily: 'Inter, sans-serif',fontWeight: 'bold',color: "#2A3E4B",borderRadius: "6px",cursor: "pointer",border: "2px solid #2A3E4B",}}>
-  Detail
-</button>
-</Link>
-</div>
-    </div>
-  ))}
-</div>
+        {jobs && (
+          <table style={{ marginLeft: "22%", borderCollapse: "collapse", width: "80%" }}>
+            <thead>
+              <tr>
+                <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "left", fontWeight: "bold" }}>Job Name</th>
+                <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "left", fontWeight: "bold" }}>Close Date</th>
+                <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "left", fontWeight: "bold" }}>Lamar</th>
+                <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "left", fontWeight: "bold" }}>Detail</th>
+              </tr>
+            </thead>
+            <tbody>
+              {jobs.map(job => (
+                <tr key={job.id}>
+                  <td style={{ border: "2px solid #2A3E4B", padding: "8px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', fontSize: "24px", color: "#2A3E4B" }}>{job.job_name}</td>
+                  <td style={{ border: "2px solid #2A3E4B", padding: "8px" }}>{job.datetime_closes && formatDateTime(job.datetime_closes)}</td>
+                  <td style={{ border: "2px solid #2A3E4B", padding: "8px" }}>
+                    <Link to={`/add-job-application/${job.id}`}>
+                      <button style={{width:"90px",padding: "8px",fontSize: "16px",fontFamily: 'Inter, sans-serif',fontWeight: 'bold',color: "#fff",borderRadius: "6px",cursor: "pointer",border: "2px solid #2A3E4B",background:"#2A3E4B"}}>
+                        Lamar
+                      </button>
+                    </Link>
+                  </td>
+                  <td style={{ border: "2px solid #2A3E4B", padding: "8px" }}>
+                    <Link to={`/job-list-applicant/${job.id}`}>
+                      <button style={{width:"90px",padding: "8px",fontSize: "16px",fontFamily: 'Inter, sans-serif',fontWeight: 'bold',color: "#2A3E4B",borderRadius: "6px",cursor: "pointer",border: "2px solid #2A3E4B",}}>
+                        Detail
+                      </button>
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
     </React.Fragment>
   );
 }
