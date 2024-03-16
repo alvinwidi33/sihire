@@ -91,9 +91,9 @@ function AddJobPosting() {
       </Link>
       <div className="add-job-posting" style={{ position: 'relative' }}>
         <div className="rectangle" style={rectangleStyle}>
-          <p style={{ marginTop: '12px', marginLeft: '29%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute' }}>Create Job</p>
+          <p style={{ marginTop: '12px', marginLeft: '29%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute' }}>Buat Pekerjaan</p>
           <form onSubmit={handleSubmit}>
-            <p style={{ marginTop: '80px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Job Title</p>
+            <p style={{ marginTop: '80px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Judul Pekerjaan*</p>
             <input
               type="text"
               style={{
@@ -104,7 +104,7 @@ function AddJobPosting() {
               value={jobData.job_name}
               onChange={(e) => setJobData({ ...jobData, job_name: e.target.value })}
             />
-            <p style={{ marginTop: '180px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Job Description</p>
+            <p style={{ marginTop: '180px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Deskripsi*</p>
             <textarea
               style={{
                 borderRadius: '5px', border: '2px solid #CBD2E0', padding: '8px', marginTop: '210px',
@@ -114,18 +114,18 @@ function AddJobPosting() {
               value={jobData.description}
               onChange={(e) => setJobData({ ...jobData, description: e.target.value })}
             />
-            <p style={{ marginTop: '440px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Closed Date</p>
+            <p style={{ marginTop: '440px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Tanggal Tutup*</p>
             <input
-                type="date"
-                style={{
-                    borderRadius: '5px', border: '2px solid #CBD2E0', padding: '8px',
-                    marginTop: '470px', marginLeft: '7%', fontSize: '14px', color: '#2A3E4B',
-                    position: 'absolute', width: '58%',
-                }}
-                value={jobData.datetime_closes ? new Date(jobData.datetime_closes).toISOString().split('T')[0] : ''}
-                onChange={(e) => setJobData({ ...jobData, datetime_closes: e.target.value })}
-                />
-
+    type="date"
+    style={{
+        borderRadius: '5px', border: '2px solid #CBD2E0', padding: '8px',
+        marginTop: '470px', marginLeft: '7%', fontSize: '14px', color: '#2A3E4B',
+        position: 'absolute', width: '58%',
+    }}
+    value={jobData.datetime_closes ? new Date(jobData.datetime_closes).toISOString().split('T')[0] : ''}
+    onChange={(e) => setJobData({ ...jobData, datetime_closes: e.target.value })}
+    min={new Date().toISOString().split('T')[0]} // Set min attribute to current date
+/>
             {error && (
                 <p
                     style={{
@@ -149,6 +149,7 @@ function AddJobPosting() {
             >
               Submit
             </button> 
+            
           </form>
           {successMessage && (
         <p

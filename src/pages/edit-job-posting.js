@@ -66,6 +66,7 @@ function EditJobPosting() {
       setSuccessMessage("Job berhasil diperbarui!");
       setTimeout(() => {
         setSuccessMessage('');
+        navigate("/job-list-ga")
       }, 5000);
     } else {
       console.error('Failed to update job:', response.statusText);
@@ -152,22 +153,16 @@ function EditJobPosting() {
                   Closed Date
                 </p>
                 <input
-  type="date"
-  style={{
-    borderRadius: '5px',
-    border: '2px solid #CBD2E0',
-    padding: '8px',
-    marginTop: '470px',
-    marginLeft: '7%',
-    fontSize: '14px',
-    color: '#2A3E4B',
-    position: 'absolute',
-    width: '58%',
-  }}
-  value={jobData.datetime_closes ? jobData.datetime_closes.split('T')[0] : ''}
-  onChange={(e) => setJobData({ ...jobData, datetime_closes: e.target.value })}
+    type="date"
+    style={{
+        borderRadius: '5px', border: '2px solid #CBD2E0', padding: '8px',
+        marginTop: '470px', marginLeft: '7%', fontSize: '14px', color: '#2A3E4B',
+        position: 'absolute', width: '58%',
+    }}
+    value={jobData.datetime_closes ? new Date(jobData.datetime_closes).toISOString().split('T')[0] : ''}
+    onChange={(e) => setJobData({ ...jobData, datetime_closes: e.target.value })}
+    min={new Date().toISOString().split('T')[0]} // Set min attribute to current date
 />
-
               </React.Fragment>
             )}
             <button style={{
@@ -180,8 +175,8 @@ function EditJobPosting() {
               background: '#2A3E4B',
               borderRadius: '6px',
               cursor: 'pointer',
-              marginTop: '35%',
-              marginBottom: '12px',
+              marginTop: '44%',
+              marginBottom: '8px',
               border: '2px solid #2A3E4B',
               marginLeft: '20%',
               position: 'absolute',

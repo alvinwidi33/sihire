@@ -6,8 +6,8 @@ function DetailJobInternal() {
   const { id } = useParams();
   const [job, setJob] = useState(null);
 function formatDateTime(datetimeString) {
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  const formattedDate = new Date(datetimeString).toLocaleDateString(undefined, options);
+  const options = { day: 'numeric', month: 'long', year: 'numeric' };
+  const formattedDate = new Date(datetimeString).toLocaleDateString('id-ID', options);
   return formattedDate;
 }
 
@@ -61,15 +61,14 @@ function formatDateTime(datetimeString) {
 >
   {job.description}
 </p>
-    <p style={{ marginTop:"20%",marginLeft: "22%", fontWeight: "bold", fontSize: "24px", color: "#2A3E4B", marginBottom: "4px" }}>
-        Closed Date
-    </p>
-    <p style={{ marginLeft: "22%", fontSize: "16px", color: "#2A3E4B", marginBottom: "12px" }}>
-  {job.datetime_closes && formatDateTime(job.datetime_closes)}
-</p>
+    <p style={{ marginTop: "8%", marginLeft: "22%", fontWeight: "bold", fontSize: "24px", color: "#2A3E4B", marginBottom: "4px" }}>
+            Closed Date
+          </p>
+          <p style={{ position:"absolute",marginLeft: "22%", fontSize: "16px", color: "#2A3E4B", marginBottom: "12px" }}>
+            {job.datetime_closes && formatDateTime(job.datetime_closes)}
+          </p>
   </React.Fragment>
 )}
-
       </div>
     </React.Fragment>
   );
