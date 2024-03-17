@@ -52,7 +52,13 @@ function ManageUser() {
         // Fetch data from the API with pagination
         const fetchData = async () => {
             try {
-                const response = await fetch(`https://sihire-be.vercel.app/api/users/get-all-users/?format=json&page=${currentPage}`);
+                const response = await fetch(`https://sihire-be.vercel.app/api/users/get-all-users/?format=json&page=${currentPage}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Token ' + window.localStorage.getItem("token")
+                    }
+                });
+                
                 if (response.ok) {
                     const data = await response.json();
                     setUsers(data.results);
