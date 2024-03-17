@@ -1,31 +1,81 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function UpdateStatusPage() {
   const [selectedStatus, setSelectedStatus] = useState('');
   const history = useNavigate();
+  const { id } = useParams();
+  const [formData, setFormData] = useState({
+    applicant: '',
+    job: '',
+    jobName: '',
+    nama: '',
+    email: '',
+    noTelepon: '',
+    cv: null,
+    coverLetter: null,
+    status: '',
+  });
 
   const handleStatusChange = (e) => {
     setSelectedStatus(e.target.value);
+    // Update the form data as well if needed
+    setFormData({
+      ...formData,
+      status: e.target.value,
+    });
   };
 
-  const handleSubmit = async () => {
+  useEffect(() => {
+    const fetchJobApplicationData = async () => {
+      try {
+        const response = await fetch('https://sihire-be.vercel.app/api/job-application/get-detail/' + id + '/', {
+          method: 'GET',
+        });
+        const jobApplicationData = await response.json();
+
+        setFormData({
+          ...formData,
+          job: jobApplicationData.job,
+          applicant: jobApplicationData.applicant,
+          cv: jobApplicationData.cv,
+          coverLetter: jobApplicationData.coverLetter,
+          status: jobApplicationData.status,
+        });
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchJobApplicationData();
+
+    console.log(formData);
+  }, []); 
+
+  const handleSubmit = async (e) => {
+    // Use the selectedStatus from the state instead of formData.status
+    const fd = new FormData();
+    fd.append("job", formData.job.id);
+    fd.append("applicant", formData.applicant.applicant_id);
+    fd.append("status", selectedStatus); // Use selectedStatus instead
+
     try {
-      const response = await fetch('https://sihire-be.vercel.app/api/job-application/get-detail/', {
+      const response = await fetch('https://sihire-be.vercel.app/api/job-application/put/' + id + '/edit-status/', {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
+          
         },
-        body: JSON.stringify({ status: selectedStatus }),
+        body: fd
       });
 
-      if (response.ok) {
-        history.push('/job-application-detail'); 
-      } else {
-        console.error('Failed to update status');
-      }
+      const result = await response.json();
+      console.log('Form submitted successfully:', result);
+
+      // Redirect or perform any other action after successful submission
+      // For example, redirect to the job application detail page
+      history(`/job-application-detail-ga/${id}`);
     } catch (error) {
-      console.error('Error updating status:', error);
+      console.error('Error submitting form:', error);
     }
   };
 

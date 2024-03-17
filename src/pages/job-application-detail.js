@@ -123,7 +123,13 @@ console.log('blablaaukauigus92002:',formData)
           </div>
           <div className="flex justify-end mt-4">
             <button className="bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded mr-2">Beri Ulasan</button>
-            <button onClick={handleSubmit} className="bg-white hover:bg-gray-200 text-black font-bold py-2 px-4 rounded border border-black">Withdraw</button>
+           <button 
+            onClick={handleSubmit} 
+            className={`py-2 px-4 rounded border ${formData.status === 'Withdrawn' ? 'bg-gray-300 text-gray-600 cursor-not-allowed' : 'bg-white border-black hover:bg-gray-200 hover:text-black'}`}
+            disabled={formData.status === 'Withdrawn'}
+          >
+            Withdraw
+          </button>
           </div>
         </div>
       </div>
