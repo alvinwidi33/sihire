@@ -13,18 +13,18 @@ function AddJobPosting() {
 
   const rectangleStyle = {
     width: '70%',
-    height: '600px',
+    height: '640px',
     backgroundColor: '#fff',
     borderRadius: '10px',
     marginLeft: '22%',
     boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)',
-    marginTop: '-12%',
+    marginTop: '-14%',
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!jobData.job_name || !jobData.description || !jobData.datetime_closes) {
-      setError('Please fill in all the required fields.');
+      setError('Mohon isi semua form!');
       return;
     }
 
@@ -83,15 +83,15 @@ function AddJobPosting() {
       <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute' }}>Job</p>
       <Sidebar />
       <Link to ='/job-list-ga'>
-      <p style={{marginLeft:'22%', position:'absolute', marginTop:"-200px"}}>List Job</p>
+      <p style={{marginLeft:'22%', position:'absolute', marginTop:"-240px"}}>List Job</p>
       </Link>
-      <p style={{marginLeft:'28%', position:'absolute', marginTop:"-200px"}}>{'>'}</p>
+      <p style={{marginLeft:'26%', position:'absolute', marginTop:"-240px"}}>{'>'}</p>
       <Link to='/add-job-posting'>
-      <p style={{marginLeft:'30%', position:'absolute', marginTop:"-200px"}}>Add Job</p>
+      <p style={{marginLeft:'28%', position:'absolute', marginTop:"-240px"}}>Add Job</p>
       </Link>
       <div className="add-job-posting" style={{ position: 'relative' }}>
         <div className="rectangle" style={rectangleStyle}>
-          <p style={{ marginTop: '12px', marginLeft: '29%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute' }}>Buat Pekerjaan</p>
+          <p style={{ marginTop: '20px', marginLeft: '29%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute' }}>Buat Pekerjaan</p>
           <form onSubmit={handleSubmit}>
             <p style={{ marginTop: '80px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Judul Pekerjaan*</p>
             <input
@@ -124,7 +124,7 @@ function AddJobPosting() {
     }}
     value={jobData.datetime_closes ? new Date(jobData.datetime_closes).toISOString().split('T')[0] : ''}
     onChange={(e) => setJobData({ ...jobData, datetime_closes: e.target.value })}
-    min={new Date().toISOString().split('T')[0]} // Set min attribute to current date
+    min={new Date().toISOString().split('T')[0]}
 />
             {error && (
                 <p
@@ -143,7 +143,7 @@ function AddJobPosting() {
               style={{
                 width: '420px', padding: '8px', fontSize: '16px', fontFamily: 'Inter, sans-serif', fontWeight: 'bold',
                 color: '#fff', background: '#2A3E4B', borderRadius: '6px', cursor: 'pointer',
-                marginTop: '42%', marginBottom: '12px', border: '2px solid #2A3E4B',
+                marginTop: '40%', marginBottom: '12px', border: '2px solid #2A3E4B',
                 marginLeft: '20%', position: 'absolute',
               }}
             >

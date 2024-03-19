@@ -39,7 +39,7 @@ function EditJobPosting() {
     borderRadius: '10px',
     marginLeft: '22%',
     boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)',
-    marginTop: '-10%',
+    marginTop: '-15%',
   };
   const handleSubmit = async (e) => {
   e.preventDefault();
@@ -175,7 +175,7 @@ function EditJobPosting() {
               background: '#2A3E4B',
               borderRadius: '6px',
               cursor: 'pointer',
-              marginTop: '44%',
+              marginTop: '40%',
               marginBottom: '8px',
               border: '2px solid #2A3E4B',
               marginLeft: '20%',

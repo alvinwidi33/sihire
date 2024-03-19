@@ -26,7 +26,7 @@ function formatDateTime(datetimeString) {
 
   return (
   <React.Fragment>
-    <div style={{ marginLeft: '22%', position: 'absolute', marginBottom: '40px', marginTop:'80px' }}>
+    <div style={{ marginLeft: '22%', position: 'absolute', marginBottom: '40px', marginTop:'100px' }}>
   <Link to='/job-list-applicant' style={{ textDecoration: 'none', color: '#2A3E4B', cursor: 'pointer' }}>
     <p style={{ display: 'inline', marginLeft: '4px' }}>List Job</p>
   </Link>
@@ -45,7 +45,7 @@ function formatDateTime(datetimeString) {
     <div className="detail-job" style={{ position: "relative" }}>
       {job && (
         <React.Fragment key={job.id}>
-          <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-170px", marginBottom: "12px" }}>
+          <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-200px", marginBottom: "12px" }}>
             {job.job_name}
           </p>
           <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "24px", color: "#2A3E4B", marginTop: "-0px", marginBottom: "4px" }}>
@@ -56,13 +56,13 @@ function formatDateTime(datetimeString) {
     marginLeft: "22%",
     fontSize: "16px",
     color: "#2A3E4B",
-    marginBottom: "12px",
+    marginBottom: "20px",
     whiteSpace: "pre-line",
   }}
 >
   {job.description}
 </p>
-          <p style={{ marginTop: "4%", marginLeft: "22%", fontWeight: "bold", fontSize: "24px", color: "#2A3E4B", marginBottom: "4px" }}>
+          <p style={{marginLeft: "22%", fontWeight: "bold", fontSize: "24px", color: "#2A3E4B", marginBottom: "4px" }}>
             Tanggal Tutup
           </p>
           <p style={{ position:"absolute",marginLeft: "22%", fontSize: "16px", color: "#2A3E4B", marginBottom: "12px" }}>
