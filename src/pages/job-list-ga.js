@@ -70,11 +70,11 @@ function JobListGA() {
       <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", position: "absolute" }}>Job</p>
       <Sidebar /> 
       <div className="job-posting" style={{ position: "relative" }}>
-        <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-190px", marginBottom: "12px" }}>Lowongan Pekerjaan</p>
+        <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-220px", marginBottom: "32px" }}>Lowongan Pekerjaan</p>
         <Link to="/add-job-posting">
           <button style={{ width: "180px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#fff", background: "#2A3E4B",
             borderRadius: "6px", cursor: "pointer",
-            marginTop: "-52px", marginBottom: "12px", marginLeft: "80%", position: "absolute", border: "2px solid #2A3E4B", }}>
+            marginTop: "-72px", marginBottom: "32px", marginLeft: "80%", position: "absolute", border: "2px solid #2A3E4B", }}>
             Tambah Pekerjaan
           </button>
         </Link>
@@ -82,7 +82,7 @@ function JobListGA() {
           <table style={{ marginLeft: "22%", borderCollapse: "collapse", width: "70%" }}>
             <thead>
               <tr>
-                <th style={{ border: "2px solid #2A3E4B", padding: "4px", textAlign: "center", fontWeight: "bold" }}>JPekerjaan</th>
+                <th style={{ border: "2px solid #2A3E4B", padding: "4px", textAlign: "center", fontWeight: "bold" }}>Pekerjaan</th>
                 <th style={{ border: "2px solid #2A3E4B", padding: "4px", textAlign: "center", fontWeight: "bold" }}>Tanggal Tutup</th>
                 <th style={{ border: "2px solid #2A3E4B", padding: "4px", textAlign: "center", fontWeight: "bold" }}>Tutup</th>
                 <th style={{ border: "2px solid #2A3E4B", padding: "4px", textAlign: "center", fontWeight: "bold" }}>Detail</th>
