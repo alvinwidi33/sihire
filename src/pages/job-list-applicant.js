@@ -25,7 +25,7 @@ function JobListApplicant() {
       <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", position: "absolute" }}>Job</p>
       <Sidebar />
       <div className="job-posting" style={{ position: "relative" }}>
-        <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-190px", marginBottom:"12px" }}>Lowongan Pekerjaan</p>
+        <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-220px", marginBottom:"12px" }}>Lowongan Pekerjaan</p>
         {jobs && (
           <table style={{ marginLeft: "22%", borderCollapse: "collapse", width: "70%" }}>
             <thead>

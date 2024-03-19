@@ -75,14 +75,14 @@ async function handleClose() {
       )}
     </div>
     <Sidebar />
-    <div className="detail-job" style={{ position: 'relative', marginTop: '50px' }}>
+    <div className="detail-job" style={{ position: 'relative', marginTop: '-20px' }}>
       {job && (
         <React.Fragment key={job.id}>
           <Link to={`/job-list-ga/${job.id}/edit`}>
             <button style={{
               width: "90px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#fff", background: "#2A3E4B",
               borderRadius: "6px", cursor: "pointer",
-              marginTop: "30px", marginBottom: "12px", marginLeft: "82%", position: "absolute", border: "2px solid #2A3E4B",
+              marginBottom: "12px", marginLeft: "82%", position: "absolute", border: "2px solid #2A3E4B",
             }}>
               Edit
             </button>
@@ -90,11 +90,11 @@ async function handleClose() {
           <button onClick={handleClose} style={{
               width: "90px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#2A3E4B", background: "#fff",
               borderRadius: "6px", cursor: "pointer",
-              marginTop: "30px", marginBottom: "12px", marginLeft: "74%", position: "absolute", border: "2px solid #2A3E4B",
+              marginLeft: "74%", position: "absolute", border: "2px solid #2A3E4B",
             }}>
               Tutup
             </button>
-          <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-170px", marginBottom: "12px" }}>
+          <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-200px", marginBottom: "12px" }}>
             {job.job_name}
           </p>
           <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "24px", color: "#2A3E4B", marginTop: "0", marginBottom: "4px" }}>
@@ -105,14 +105,14 @@ async function handleClose() {
     marginLeft: "22%",
     fontSize: "16px",
     color: "#2A3E4B",
-    marginBottom: "12px",
+    marginBottom: "32px",
     whiteSpace: "pre-line",
   }}
 >
   {job.description}
 </p>
 
-          <p style={{ marginTop: "4%", marginLeft: "22%", fontWeight: "bold", fontSize: "24px", color: "#2A3E4B", marginBottom: "4px" }}>
+          <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "24px", color: "#2A3E4B", marginBottom: "4px" }}>
             Tanggal Tutup
           </p>
           <p style={{ position:"absolute",marginLeft: "22%", fontSize: "16px", color: "#2A3E4B", marginBottom: "12px" }}>
