@@ -47,13 +47,16 @@ function ManageUser() {
     const [users, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalUsers, setTotalUsers] = useState(0);
+    // Add a state variable to hold the selected role filter
+    const [selectedRole, setSelectedRole] = useState('');
 
+    // Modify the useEffect hook to fetch data based on the selected role filter
     useEffect(() => {
-        // Fetch data from the API with pagination
+        // Fetch data from the API with pagination and role filter
         const fetchData = async () => {
             try {
-                const response = await fetch(`https://sihire-be.vercel.app/api/users/get-all-users/?format=json&page=${currentPage}`, {
-                    method: 'GET',
+                const response = await fetch(`https://sihire-be.vercel.app/api/users/get-all-users/?format=json&page=${currentPage}&role=${selectedRole}`, {
+                        method: 'GET',
                     headers: {
                         'Authorization': 'Token ' + window.localStorage.getItem("token")
                     }
@@ -70,15 +73,15 @@ function ManageUser() {
                 console.error('Error fetching data:', error);
             }
         };
-    
+
         fetchData();
-    }, [currentPage]);
+    }, [currentPage, selectedRole]);
 
     const totalPages = Math.ceil(totalUsers / 10);
 
     return (
         <div className="container mx-auto" style={containerStyle}>
-            <div className="px-5" style={{paddingTop: '80px', paddingBottom: '15px'}}>
+            <div className="px-5" style={{paddingTop: '20px', paddingBottom: '15px'}}>
                 <h1 className="text-3xl font-bold" style={darkBlueText}>Manage User</h1>
             </div>
             <hr className="divider" style={dividerStyle}></hr>
@@ -88,6 +91,18 @@ function ManageUser() {
                     <div className="rounded-lg bg-white shadow-md flex-grow mr-4 ml-4">
                         <input type='text' id="search" placeholder='Search' className="py-3 px-4 rounded-lg w-full" />
                     </div>
+                    <select
+                        value={selectedRole}
+                        onChange={(e) => setSelectedRole(e.target.value)}
+                        className="py-3 px-4 rounded-lg mr-4 shadow-md"
+                    >
+                        <option value="">All Roles</option>
+                        <option value="Admin">Admin</option>
+                        <option value="General Affairs">General Affairs</option>
+                        <option value="Project Manager">Project Manager</option>
+                        <option value="Director">Director</option>
+                        <option value="Applicant">Applicant</option>
+                    </select>
                     <a href="https://sihire.vercel.app/add-user" rel="noopener noreferrer">
                         <button className="rounded-md bg-blue-700 text-white py-3 px-6" style={{ background: 'var(--WF-Base-800, #2D3648)' }}>
                             <label className="font-bold">Add User</label>
@@ -101,21 +116,21 @@ function ManageUser() {
                 <table style={tableStyle}>
                     <thead>
                         <tr>
-                            <th style={thStyle}>User ID</th>
                             <th style={thStyle}>Email</th>
                             <th style={thStyle}>Username</th>
-                            <th style={thStyle}>Name</th>
+                            <th style={thStyle}>Nama</th>
+                            <th style={thStyle}>No Telepon</th>
                             <th style={thStyle}>Role</th>
                             <th style={thStyle}>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map(user => (
+                        {users && users.map(user => (
                             <tr key={user.user_id}>
-                                <td style={tdStyle}>{user.user_id}</td>
                                 <td style={tdStyle}>{user.email}</td>
                                 <td style={tdStyle}>{user.username}</td>
                                 <td style={tdStyle}>{user.name}</td>
+                                <td style={tdStyle}>{user.phone}</td>
                                 <td style={tdStyle}>{user.role}</td>
                                 <td style={tdStyle}>
                                     <button

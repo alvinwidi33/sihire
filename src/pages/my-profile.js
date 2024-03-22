@@ -87,7 +87,7 @@ function MyProfile() {
 
     return (
         <div className="container mx-auto" style={containerStyle}>
-            <div className="px-5" style={{paddingTop: '80px', paddingBottom: '15px'}}>
+            <div className="px-5" style={{paddingTop: '20px', paddingBottom: '15px'}}>
                 <h1 className="text-3xl font-bold" style={darkBlueText}>Profile</h1>
             </div>
             <hr className="divider" style={dividerStyle}></hr>
