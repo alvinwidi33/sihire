@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate, Navigate } from 'react-router-dom';
+import { createClient } from "@supabase/supabase-js";
+import { v4 as uuidv4 } from "uuid";
+
+const supabase = createClient(
+  "https://ldhohewyhcdwckzcjtzn.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxkaG9oZXd5aGNkd2NremNqdHpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTAxNjY0MzksImV4cCI6MjAyNTc0MjQzOX0.73gDtZ0yUZmpXvIrga-Mw7amJNaPJu6av7wyr0OSCuo"
+);
+
 function AddJobApplication() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -75,20 +83,16 @@ function AddJobApplication() {
 
   }, []); 
 
-  const [file, setFile] = useState()
+  const [FileCV, setFileCV] = useState(undefined);
+  const [FileCoverLetter, setFileCoverLetter] = useState(undefined);
 
-  function handleChange(event) {
-    setFile(event.target.files[0])
+  function handleFileCVChange(event) {
+    setFileCV(event.target.files[0]);
   }
 
- const handleInputChange = (e) => {
-  const { name, value } = e.target;
-
-  setFormData((prevData) => ({
-    ...prevData,
-    [name]: value,
-  }));
-};
+  function handleFileCoverLetterChange(event) {
+    setFileCoverLetter(event.target.files[0]);
+  }
 
   const handleSubmit = async (e) => {
   e.preventDefault();
@@ -100,9 +104,31 @@ function AddJobApplication() {
       fd.append("job", id);
       await new Promise(resolve => setTimeout(resolve, 0));
       fd.append("applicant", formData.applicant);
-      fd.append("phone", formData.noTelepon);
-      fd.append("cv", formData.cv);
       fd.append("coverLetter", formData.coverLetter);
+
+      if (FileCV) {
+        const { data, error } = await supabase.storage
+          .from("sihire")
+          .upload("cv/" + uuidv4(), FileCV);
+        if (data) {
+          fd.append("cv", data.path);
+        } else {
+          console.log(error);
+          throw error;
+        }
+      }
+
+      if (FileCoverLetter) {
+        const { data, error } = await supabase.storage
+          .from("sihire")
+          .upload("coverletter/" + uuidv4(), FileCoverLetter);
+        if (data) {
+          fd.append("coverLetter", data.path);
+        } else {
+          console.log(error);
+          throw error;
+        }
+      }
 
       const response = await fetch('https://sihire-be.vercel.app/api/job-application/post/', {
         method: 'POST',
@@ -110,14 +136,16 @@ function AddJobApplication() {
         },
         body: fd,
       });
-      setSuccessMessage("Job berhasil dilamar!")
-      setTimeout(() => {
-          setSuccessMessage('');
-          navigate(`/my-job-application/${applicantData.applicant_id}`)
-        }, 5000);
 
       const result = await response.json();
-      console.log('Form submitted successfully:', result);
+      if (response.ok) {
+        console.log("Form submitted successfully:", result);
+        setSuccessMessage("Job berhasil dilamar!");
+        setTimeout(() => {
+          setSuccessMessage("");
+          navigate(`/my-job-application/${applicantData.applicant_id}`);
+        }, 5000);
+      }
     } catch (error) {
       console.error('Error submitting form:', error);
     }
@@ -190,29 +218,27 @@ function AddJobApplication() {
           />
         </div>
         <div className="mb-2">
-  <label htmlFor="cv" className="block text-gray-600 font-semibold mb-2">CV</label>
-  <input
-    type="text"
-    id="cv"
-    name="cv"
-    value={formData.cv}
-    onChange={handleInputChange}
-    className="w-full border rounded-md p-2"
-    required
-  />
-</div>
-<div className="mb-2">
-  <label htmlFor="coverLetter" className="block text-gray-600 font-semibold mb-2">Cover Letter</label>
-  <input
-    type="text"
-    id="coverLetter"
-    name="coverLetter"
-    value={formData.coverLetter}
-    onChange={handleInputChange}
-    className="w-full border rounded-md p-2"
-    required
-  />
-</div>
+          <label htmlFor="cv" className="block text-gray-600 font-semibold mb-2">CV</label>
+          <input
+            type="file"
+            id="cv"
+            name="cv"
+            onChange={handleFileCVChange}
+            className="w-full border rounded-md p-2"
+            required
+          />
+        </div>
+        <div className="mb-2">
+          <label htmlFor="coverLetter" className="block text-gray-600 font-semibold mb-2">Cover Letter</label>
+          <input
+            type="file"
+            id="coverLetter"
+            name="coverLetter"
+            onChange={handleFileCoverLetterChange}
+            className="w-full border rounded-md p-2"
+            required
+          />
+        </div>
         <div className="flex justify-center">
               <button type="submit" className="bg-gray-800 text-white px-40 py-2 rounded-md">Submit</button>
             </div>
