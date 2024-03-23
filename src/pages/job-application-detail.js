@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { createClient } from "@supabase/supabase-js";
+import { FileText } from 'lucide-react';
+
+const supabase = createClient(
+  "https://ldhohewyhcdwckzcjtzn.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxkaG9oZXd5aGNkd2NremNqdHpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTAxNjY0MzksImV4cCI6MjAyNTc0MjQzOX0.73gDtZ0yUZmpXvIrga-Mw7amJNaPJu6av7wyr0OSCuo"
+);
 
 function JobApplicationDetail() {
   const stages = [
@@ -42,12 +49,19 @@ function JobApplicationDetail() {
         });
         const jobApplicationData = await response.json();
 
+        const { data, error } = await supabase.storage
+          .from("sihire")
+          .createSignedUrls(
+            [jobApplicationData.cv, jobApplicationData.coverLetter],
+            60
+          );
+
         setFormData({
           ...formData,
           job: jobApplicationData.job,
           applicant: jobApplicationData.applicant,
-          cv: jobApplicationData.cv,
-          coverLetter: jobApplicationData.coverLetter,
+          cv: data[0].signedUrl,
+          coverLetter: data[0].signedUrl,
           status:jobApplicationData.status,
         });
       } catch (error) {
@@ -114,11 +128,47 @@ console.log('blablaaukauigus92002:',formData)
               <p>{formData.applicant.user?.phone}</p>
             </div>
             <div>
-              <strong>CV</strong>
-              <p>{formData.cv}</p>
+            <strong>CV</strong>
+              {
+                formData.cv ? 
+                <a
+                  href={formData.cv}
+                  target='__blank'
+                  rel='noopener noreferrer'
+                  className='mt-2'
+                >
+                  <FileText color='#bc3434' />
+                </a> : 
+                <a
+                  href={formData.cv}
+                  target='__blank'
+                  rel='noopener noreferrer'
+                  className='mt-2 cursor-not-allowed'
+                >
+                  <FileText color="#707070" />
+                </a>
+              }
               <br />
               <strong>Cover Letter</strong>
-              <p>{formData.coverLetter}</p>
+              {
+                formData.coverLetter ? 
+                <a
+                  href={formData.coverLetter}
+                  target='__blank'
+                  rel='noopener noreferrer'
+                  className='mt-2'
+                >
+                  <FileText color='#bc3434' />
+                </a> : 
+                <a
+                  href={formData.coverLetter}
+                  target='__blank'
+                  rel='noopener noreferrer'
+                  className='mt-2 cursor-not-allowed'
+                >
+                  <FileText color="#707070" />
+                </a>
+              }
             </div>
           </div>
           <div className="flex justify-end mt-4">
