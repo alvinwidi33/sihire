@@ -28,38 +28,37 @@ import MyJobApplication from './pages/my-job-application';
 import ChangePassword from './pages/change-password';
 import JobApplicationDetailGA from './pages/job-application-detail-ga';
 import UpdateStatusPage from './pages/update-status-ga';
-function App() {
+import ProtectedRoute from './routing/ProtectedRoute'
 
+function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" exact element={<Home />} />
-        <Route path="/our-team" element={<OurTeam />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/our-projects" element={<OurProjects />} />
-        <Route path="/contact-us" element={<ContactUs />} />
-        <Route path="/careers" element={<Careers />} />
-        <Route path="/manage-user" element={<ManageUser />} />
-        <Route path="/add-user" element={<AddUser />} />
-        <Route path="/my-profile" element={<MyProfile />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path='/add-job-application/:id' element={<AddJobApplication />} />
-        <Route path='/job-application-detail/:id' element={<JobApplicationDetail />} />
-        <Route path='/applicants' element={<Applicants />} />
-        <Route path='/job-list-applicant/' element={<JobListApplicant />} />
-        <Route path='/job-list-applicant/:id' element={<DetailJobApplicant />} />
-        <Route path='/job-list-ga' element={<JobListGA />} />
-        <Route path='/job-list-ga/:id' element={<DetailJobGA />} />
-        <Route path='/job-list-other' element={<JobListOther/>}/>
-        <Route path='/job-list-other/:id' element={<DetailJobInternal />} />
-        <Route path='/applicants' element={<Applicants />} />
-        <Route path='/add-job-posting' element={<AddJobPosting/>}/>
-        <Route path='/job-list-ga/:id/edit' element={<EditJobPosting/>}/>
-        <Route path='/my-job-application/:applicant' element={<MyJobApplication/>}/>
-        <Route path='/change-password' element={<ChangePassword />} />
-        <Route path='/job-application-detail-ga/:id' element={<JobApplicationDetailGA/>}/>
-        <Route path='/job-application-detail-ga/:id/update-status' element={<UpdateStatusPage/>}/>
+          <Route path="/" exact element={<Home />} />
+          <Route path="/our-team" element={<OurTeam />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/our-projects" element={<OurProjects />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/manage-user" element={<ProtectedRoute child={<ManageUser />} />} />
+          <Route path="/add-user" element={<ProtectedRoute child={<AddUser />} />} />
+          <Route path="/my-profile" element={<ProtectedRoute child={<MyProfile />} />} />
+          <Route path='/add-job-application/:id' element={<ProtectedRoute child={<AddJobApplication />} />} />
+          <Route path='/job-application-detail/:id' element={<ProtectedRoute child={<JobApplicationDetail />} />} />
+          <Route path='/applicants' element={<ProtectedRoute child={<Applicants />} />} />
+          <Route path='/job-list-applicant/' element={<ProtectedRoute child={<JobListApplicant />} />} />
+          <Route path='/job-list-applicant/:id' element={<ProtectedRoute child={<DetailJobApplicant />} />} />
+          <Route path='/job-list-ga' element={<ProtectedRoute child={<JobListGA />} />} />
+          <Route path='/job-list-ga/:id' element={<ProtectedRoute child={<DetailJobGA />} />} />
+          <Route path='/job-list-other' element={<ProtectedRoute child={<JobListOther />} />} />
+          <Route path='/job-list-other/:id' element={<ProtectedRoute child={<DetailJobInternal />} />} />
+          <Route path='/add-job-posting' element={<ProtectedRoute child={<AddJobPosting />} />} />
+          <Route path='/job-list-ga/:id/edit' element={<ProtectedRoute child={<EditJobPosting />} />} />
+          <Route path='/my-job-application/:applicant' element={<ProtectedRoute child={<MyJobApplication />} />} />
+          <Route path='/change-password' element={<ProtectedRoute child={<ChangePassword />} />} />
+          <Route path='/job-application-detail-ga/:id/update-status' element={<ProtectedRoute child={<UpdateStatusPage />} />} />
       </Routes>
     </Router>
   );
