@@ -28,6 +28,7 @@ import MyJobApplication from './pages/my-job-application';
 import ChangePassword from './pages/change-password';
 import JobApplicationDetailGA from './pages/job-application-detail-ga';
 import UpdateStatusPage from './pages/update-status-ga';
+import AddInterview from './pages/add-interview';
 import ProtectedRoute from './routing/ProtectedRoute'
 
 function App() {
@@ -58,7 +59,9 @@ function App() {
           <Route path='/job-list-ga/:id/edit' element={<ProtectedRoute child={<EditJobPosting />} />} />
           <Route path='/my-job-application/:applicant' element={<ProtectedRoute child={<MyJobApplication />} />} />
           <Route path='/change-password' element={<ProtectedRoute child={<ChangePassword />} />} />
+          <Route path='/job-application-detail-ga/:id' element={<ProtectedRoute child={<JobApplicationDetailGA />} />} />
           <Route path='/job-application-detail-ga/:id/update-status' element={<ProtectedRoute child={<UpdateStatusPage />} />} />
+          <Route path="/create-interview" element={<AddInterview/>}/>
       </Routes>
     </Router>
   );
