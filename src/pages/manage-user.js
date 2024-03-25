@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Navigate } from "react-router-dom";
 
 function ManageUser() {
     const containerStyle = {
@@ -78,6 +79,12 @@ function ManageUser() {
     }, [currentPage, selectedRole]);
 
     const totalPages = Math.ceil(totalUsers / 10);
+
+    // const token = JSON.parse(localStorage.getItem('token'));
+
+    // if (!token) {
+    //     return <Navigate to="/login" />;
+    // }
 
     return (
         <div className="container mx-auto" style={containerStyle}>
