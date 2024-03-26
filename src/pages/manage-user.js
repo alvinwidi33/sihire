@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 function ManageUser() {
     const containerStyle = {
@@ -110,11 +110,11 @@ function ManageUser() {
                         <option value="Director">Director</option>
                         <option value="Applicant">Applicant</option>
                     </select>
-                    <a href="https://sihire.vercel.app/add-user" rel="noopener noreferrer">
+                    <Link to={`/add-user`}>
                         <button className="rounded-md bg-blue-700 text-white py-3 px-6" style={{ background: 'var(--WF-Base-800, #2D3648)' }}>
                             <label className="font-bold">Add User</label>
                         </button>
-                    </a>
+                    </Link>
                 </div>
             </div>
             <div style={contentContainerStyle}>
