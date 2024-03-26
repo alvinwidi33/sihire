@@ -29,7 +29,8 @@ import ChangePassword from './pages/change-password';
 import JobApplicationDetailGA from './pages/job-application-detail-ga';
 import UpdateStatusPage from './pages/update-status-ga';
 import AddInterview from './pages/add-interview';
-import ProtectedRoute from './routing/ProtectedRoute'
+import ProtectedRoute from './routing/ProtectedRoute';
+import EditRoleUser from './pages/edit-role-user';
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
           <Route path='/job-application-detail-ga/:id' element={<ProtectedRoute child={<JobApplicationDetailGA />} />} />
           <Route path='/job-application-detail-ga/:id/update-status' element={<ProtectedRoute child={<UpdateStatusPage />} />} />
           <Route path="/create-interview" element={<AddInterview/>}/>
+          <Route path="/edit-user-role/:id" element={<ProtectedRoute child={<EditRoleUser />} />} />
       </Routes>
     </Router>
   );

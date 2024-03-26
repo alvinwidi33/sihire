@@ -67,8 +67,8 @@ function MyProfile() {
     };
 
     const profilePictureStyle = {
-        width: '100px',
-        height: '100px',
+        width: '200px',
+        height: '200px',
         borderRadius: '50%',
         backgroundColor: '#FFFFFF',
         margin: '0 auto',
@@ -77,12 +77,8 @@ function MyProfile() {
     };
 
     const profileInfoStyle = {
-        textAlign: 'center',
+        textAlign: 'left',
         marginTop: '20px',
-    };
-
-    const editButtonStyle = {
-        width: '50%',
     };
 
     return (
@@ -93,28 +89,34 @@ function MyProfile() {
             <hr className="divider" style={dividerStyle}></hr>
             {profileData && (
                 <div className="flex flex-col items-center mt-8">
-                    <div style={profilePictureStyle}></div>
-                    <h6 className="font-bold" style={darkBlueText}>{profileData.username}</h6>
-                    <div style={profileInfoStyle}>
-                        <p className="font-bold" style={darkBlueText}>Nama</p>
-                        <p>{profileData.name}</p>
-                        <p className="font-bold" style={darkBlueText}>Email</p>
-                        <p>{profileData.email}</p>
-                        <p className="font-bold" style={darkBlueText}>No Telpon</p>
-                        <p>{profileData.phone}</p>
-                    </div>
-                    <div style={editButtonStyle}>
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md mt-4" style={{ background: 'var(--WF-Base-800, #2D3648)', width: '100%' }}>
-                            Edit Profile
-                        </button>
-                    </div>
-                    <div style={editButtonStyle}>
-                        <button onClick={handleLogout} className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md mt-4" style={{ background: 'var(--WF-Base-800, #2D3648)', width: '100%' }}>
-                            Logout
-                        </button>
+                    <div className="flex justify-center items-center space-x-4">
+                        <div style={profilePictureStyle}></div>
+                        <div className="flex flex-col justify-center">
+                            <h6 className="font-bold text-2xl" style={darkBlueText}>{profileData.username}</h6>
+                            <div style={profileInfoStyle}>
+                                <p className="font-bold" style={darkBlueText}>Nama</p>
+                                <p>{profileData.name}</p>
+                                <p className="font-bold" style={darkBlueText}>Email</p>
+                                <p>{profileData.email}</p>
+                                <p className="font-bold" style={darkBlueText}>No Telpon</p>
+                                <p>{profileData.phone}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}
+            <div className="flex justify-end mt-4 mr-10">
+                <div className="mr-4">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md" style={{ background: 'var(--WF-Base-800, #2D3648)', fontSize: '1rem' }}>
+                        Edit Profile
+                    </button>
+                </div>
+                <div>
+                    <button onClick={handleLogout} className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded-md" style={{ fontSize: '1rem' }}>
+                        Logout
+                    </button>
+                </div>
+            </div>
         </div>
     );
 }
