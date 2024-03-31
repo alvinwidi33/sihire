@@ -14,8 +14,6 @@ const AddInterview = () => {
   const currentDate = new Date();
   const currentDateString = currentDate.toISOString().split('T')[0];
   const currentTimeString = currentDate.toTimeString().split(' ')[0];
-  const currentDateString = currentDate.toISOString().split('T')[0];
-  const currentTimeString = currentDate.toTimeString().split(' ')[0];
   const rectangleStyle = {
     width: '70%',
     height: '760px',
@@ -48,8 +46,6 @@ const AddInterview = () => {
       try {
         const response = await fetch(`http://127.0.0.1:8000/api/interview/get-job-name-applicants/`, {
           method: 'GET',
-        const response = await fetch(`http://127.0.0.1:8000/api/interview/get-job-name-applicants/`, {
-          method: 'GET',
         });
         const jobNames = await response.json();
         setJobOptions(jobNames);
@@ -59,7 +55,6 @@ const AddInterview = () => {
     };
     getJobNames();
   }, []);
-  }, []);
 
   useEffect(() => {
     const selectedJobApplicants = jobOptions.find(option => option.job.job_name === selectedJob)?.applicant;
@@ -67,13 +62,7 @@ const AddInterview = () => {
       setApplicants([selectedJobApplicants]);
     } else {
       setApplicants([]);
-    const selectedJobApplicants = jobOptions.find(option => option.job.job_name === selectedJob)?.applicant;
-    if (selectedJobApplicants) {
-      setApplicants([selectedJobApplicants]);
-    } else {
-      setApplicants([]);
     }
-  }, [selectedJob, jobOptions]);
   }, [selectedJob, jobOptions]);
 
  const handleJobChange = (event) => {
@@ -282,4 +271,3 @@ const AddInterview = () => {
 }
 
 export default AddInterview;
-
