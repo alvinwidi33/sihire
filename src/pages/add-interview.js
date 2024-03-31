@@ -4,11 +4,13 @@ import { useParams } from 'react-router-dom';
 
 const AddInterview = () => {
   const { startTime, endTime, job_name } = useParams();
-  const [interviewer, setInterviewer] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [interviewers, setInterviewers] = useState([]);
   const [jobOptions, setJobOptions] = useState([]);
   const [selectedJob, setSelectedJob] = useState('');
   const [applicants, setApplicants] = useState([]);
-  const [interviewData, setInterviewData] = useState({ applicant: '', datetime: '', startTime: '', endTime: '' });
+  const [interviewData, setInterviewData] = useState('');
+
   const currentDate = new Date();
   const currentDateString = currentDate.toISOString().split('T')[0];
   const currentTimeString = currentDate.toTimeString().split(' ')[0];
@@ -22,22 +24,22 @@ const AddInterview = () => {
     marginTop: '-14%',
   };
 
-useEffect(() => {
-  const getAvailableInterviewers = async () => {
-    try {
-      const response = await fetch(`http://127.0.0.1:8000/api/interview/get-interviewer/${interviewData.datetime}/${interviewData.startTime}/${interviewData.endTime}/${selectedJob}/`, {
-        method: 'GET',
-      });
-      const data = await response.json();
-      setInterviewer(data); 
-    } catch (error) {
-      console.error('Error fetching interviewer:', error);
+  useEffect(() => {
+    const getAvailableInterviewers = async () => {
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/api/interview/get-interviewer/`, {
+          method: 'GET',
+        });
+        const data = await response.json();
+        setInterviewers(data); 
+      } catch (error) {
+        console.error('Error fetching interviewer:', error);
+      }
+    };
+    if (interviewData.datetime && interviewData.startTime && interviewData.endTime && selectedJob) {
+      getAvailableInterviewers();
     }
-  };
-  if (interviewData.datetime && interviewData.startTime && interviewData.endTime && selectedJob) {
-    getAvailableInterviewers();
-  }
-}, [interviewData.datetime, interviewData.startTime, interviewData.endTime, selectedJob]);
+  }, [interviewData.datetime, interviewData.startTime, interviewData.endTime, selectedJob]); // Add dependencies to rerun effect when these values change
 
   useEffect(() => {
     const getJobNames = async () => {
@@ -63,21 +65,38 @@ useEffect(() => {
     }
   }, [selectedJob, jobOptions]);
 
-  const handleJobChange = (event) => {
-    setSelectedJob(event.target.value);
-  };
+ const handleJobChange = (event) => {
+  const selectedJob = event.target.value; 
+  setSelectedJob(selectedJob); 
+};
 
-  const handleSubmit = async () => {
+  const handleInterviewerChange = (event) => { // New handler to set the selected interviewer
+    setInterviewData({ ...interviewData, interviewer: event.target.value });
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
   try {
+    const selectedJobObject = jobOptions.find(option => option.job.job_name === selectedJob);
+    if (!selectedJobObject) {
+      throw new Error('Selected job not found.');
+    }
+    const isConfirmed = window.confirm('Apakah Anda yakin membuat interview?');
+
+    if (!isConfirmed) {
+      return;
+    }
+
     const datetimeStart = new Date(interviewData.datetime + 'T' + interviewData.startTime);
-    const datetimeEnd = new Date(datetimeStart.getTime() + 60 * 60 * 1000);
+    const datetimeEnd = new Date(interviewData.datetime + 'T' + interviewData.endTime);
     const formattedData = {
       ...interviewData,
       datetime_start: datetimeStart.toISOString(),
       datetime_end: datetimeEnd.toISOString(),
-      job_name: selectedJob, 
-      applicant: interviewData.applicant, 
+      applicant: interviewData.applicant,
+      interviewer_user_id: interviewData.interviewer,
+      job_application_id: selectedJobObject.id, 
     };
+
     const response = await fetch('http://127.0.0.1:8000/api/interview/add-interview/', {
       method: 'POST',
       headers: {
@@ -89,12 +108,21 @@ useEffect(() => {
     if (!response.ok) {
       throw new Error('Failed to submit interview schedule');
     }
-    alert('Interview schedule submitted successfully!');
+    if (response.ok) {
+        console.log('Job posted successfully!');
+        setSuccessMessage("Interview berhasil dibuat!")
+        setTimeout(() => {
+          setSuccessMessage('');
+        }, 5000);
+      } else {
+        console.error('Failed to post interview', response.statusText);
+      }
   } catch (error) {
     console.error('Error submitting interview schedule:', error);
     alert('Failed to submit interview schedule. Please try again later.');
   }
 };
+
   return (
     <React.Fragment>
       <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>Wawancara</p>
@@ -103,104 +131,140 @@ useEffect(() => {
         <div className="rectangle" style={rectangleStyle}>
           <p style={{ marginTop: '20px', marginLeft: '23%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute' }}>Buat Jadwal Wawancara</p>
           <form onSubmit={handleSubmit}>
-  <p style={{ marginTop: '80px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Posisi Pekerjaan*</p>
-  <select style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '110px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} id="job" value={selectedJob} onChange={handleJobChange}>
-    <option value="">Select Job</option>
-    {jobOptions.map(job => (
-      <option key={job.job.id} value={job.job.job_name}>{job.job.job_name}</option>
-    ))}
-  </select>
-  <p style={{ marginTop: '180px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Pelamar Tahap Interview*</p>
-  <select style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '210px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} id="applicant" value={interviewData.applicant} onChange={(e) => setInterviewData({ ...interviewData, applicant: e.target.value })}>
-    <option value="">Pilih Applicant</option>
-    {applicants && applicants.map(applicant => (
-      <option key={applicant.user.user_id} value={applicant.user.user_id}>{applicant.user.name}</option> 
-    ))}
-  </select>
-  <p style={{ marginTop: '280px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Tanggal Interview*</p>
-  <input
-    type="date"
-    style={{
-      borderRadius: '5px', border: '2px solid #CBD2E0', padding: '8px',
-      marginTop: '310px', marginLeft: '7%', fontSize: '14px', color: '#2A3E4B',
-      position: 'absolute', width: '56%',
-    }}
-    value={interviewData.datetime ? new Date(interviewData.datetime).toISOString().split('T')[0] : 'DD/MM/YYYY'}
-    onChange={(e) => {
-      const selectedDate = e.target.value;
-      const currentDate = new Date();
-      const currentDateString = currentDate.toISOString().split('T')[0];
+            <p style={{ marginTop: '80px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Posisi Pekerjaan*</p>
+            <select style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '110px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} id="job" value={selectedJob} onChange={handleJobChange}>
+              <option value="">Select Job</option>
+              {jobOptions.map(job => (
+                <option key={job.job.id} value={job.job.job_name}>{job.job.job_name}</option>
+              ))}
+            </select>
+            <p style={{ marginTop: '180px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Pelamar Tahap Interview*</p>
+            <select style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '210px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} id="applicant" value={interviewData.applicant} onChange={(e) => setInterviewData({ ...interviewData, applicant: e.target.value })}>
+              <option value="">Pilih Applicant</option>
+              {applicants && applicants.map(applicant => (
+                <option key={applicant.user.user_id} value={applicant.user.user_id}>{applicant.user.name}</option>
+              ))}
+            </select>
+            <p style={{ marginTop: '280px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Tanggal Interview*</p>
+            <input
+              type="date"
+              style={{
+                borderRadius: '5px',
+                border: '2px solid #CBD2E0',
+                padding: '8px',
+                marginTop: '310px',
+                marginLeft: '7%',
+                fontSize: '14px',
+                color: '#2A3E4B',
+                position: 'absolute',
+                width: '56%',
+              }}
+              value={interviewData.datetime ? interviewData.datetime : ''}
+              onChange={(e) => {
+                const selectedDate = e.target.value;
+                const currentDate = new Date();
+                const currentDateString = currentDate.toISOString().split('T')[0];
 
-      if (selectedDate < currentDateString) {
-        alert('Tanggal harus lebih besar dari atau sama dengan tanggal hari ini.');
-      } else {
-        setInterviewData({ datetime: selectedDate, time: '' });
-        if (selectedDate === currentDateString) {
-          const currentTimeString = currentDate.toTimeString().split(' ')[0];
-          if (interviewData.time < currentTimeString) {
-            alert('Waktu harus lebih besar dari waktu saat ini.');
-          }
-        }
-      }
-    }}
-    min={currentDateString}
-  />
-  <p style={{ marginTop: '380px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Waktu Mulai Interview*</p>
-  <input
-    type="time"
-    style={{
-      borderRadius: '5px', border: '2px solid #CBD2E0', padding: '8px',
-      marginTop: '410px', marginLeft: '7%', fontSize: '14px', color: '#2A3E4B',
-      position: 'absolute', width: '56%',
-    }}
-    value={interviewData.startTime ? interviewData.startTime : ''}
-    onChange={(e) => {
-      const selectedTime = e.target.value;
-      const formattedTime = selectedTime.substring(0, 5); 
+                if (selectedDate < currentDateString) {
+                  alert('Tanggal harus lebih besar dari atau sama dengan tanggal hari ini.');
+                } else {
+                  setInterviewData({ ...interviewData, datetime: selectedDate,});
+                }
+              }}
+              min={currentDateString}
+            />
+            <p style={{ marginTop: '380px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Waktu Mulai Interview*</p>
+            <input
+              type="time"
+              style={{
+                borderRadius: '5px',
+                border: '2px solid #CBD2E0',
+                padding: '8px',
+                marginTop: '410px',
+                marginLeft: '7%',
+                fontSize: '14px',
+                color: '#2A3E4B',
+                position: 'absolute',
+                width: '56%',
+              }}
+              value={interviewData.startTime ? interviewData.startTime : ''}
+              onChange={(e) => {
+                const selectedTime = e.target.value;
+                const formattedTime = selectedTime.slice(0, 5);
 
-      setInterviewData({ ...interviewData, startTime: formattedTime });
-    }}
-    min={currentTimeString}
-    max={(interviewData.datetime === currentDateString) ? currentTimeString : ''}
-    step="3600"
-  />
-  <p style={{ marginTop: '480px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Waktu Berakhir Interview*</p>
-  <input
-    type="time"
-    style={{
-      borderRadius: '5px', border: '2px solid #CBD2E0', padding: '8px',
-      marginTop: '510px', marginLeft: '7%', fontSize: '14px', color: '#2A3E4B',
-      position: 'absolute', width: '56%',
-    }}
-    value={interviewData.endTime ? interviewData.endTime : ''}
-    onChange={(e) => {
-      const selectedTime = e.target.value;
-      const formattedTime = selectedTime.substring(0, 5); 
+                setInterviewData({ ...interviewData, startTime: formattedTime });
+              }}
+              min={interviewData.datetime === currentDateString ? currentTimeString : '00:00'}
+              max={interviewData.datetime === currentDateString ? '23:59' : ''}
+            />
+            <p style={{ marginTop: '480px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Waktu Berakhir Interview*</p>
+            <input
+  type="time"
+  style={{
+    borderRadius: '5px',
+    border: '2px solid #CBD2E0',
+    padding: '8px',
+    marginTop: '510px',
+    marginLeft: '7%',
+    fontSize: '14px',
+    color: '#2A3E4B',
+    position: 'absolute',
+    width: '56%',
+  }}
+  value={interviewData.endTime ? interviewData.endTime : ''}
+  onChange={(e) => {
+    const selectedTime = e.target.value;
+    const formattedTime = selectedTime.slice(0, 5);
 
-      setInterviewData({ ...interviewData, endTime: formattedTime });
-    }}
-    min={currentTimeString}
-    max={(interviewData.datetime === currentDateString) ? currentTimeString : ''}
-    step="3600"
-  />
-  <p style={{ marginTop: '580px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Pewawancara*</p>
-  <select style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '610px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} id="applicant" value={interviewData.applicant} onChange={(e) => setInterviewData({ ...interviewData, applicant: e.target.value })}>
-    <option value="">Pilih Pewawancara</option>
-    
-  </select>
+    if (interviewData.startTime && formattedTime < interviewData.startTime) {
+      alert('End time cannot be earlier than start time.');
+      return; // Prevent updating state if end time is invalid
+    }
 
-  <button type='submit'
-    style={{
-      width: '420px', padding: '8px', fontSize: '16px', fontFamily: 'Inter, sans-serif', fontWeight: 'bold',
-      color: '#fff', background: '#2A3E4B', borderRadius: '6px', cursor: 'pointer',
-      marginTop: '680px', border: '2px solid #2A3E4B',
-      marginLeft: '24%', position: 'absolute',
-    }}
-  >
-    Submit
-  </button> 
-</form>
-      </div>
+    setInterviewData({ ...interviewData, endTime: formattedTime });
+  }}
+  min={interviewData.datetime === currentDateString ? currentTimeString : '00:00'}
+  max={interviewData.datetime === currentDateString ? '23:59' : ''}
+/>
+            <p style={{ marginTop: '580px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Pewawancara*</p>
+            <select style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '610px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} id="interviewer" value={interviewData.interviewer} onChange={handleInterviewerChange}> {/* Use interviewer and handleInterviewerChange */}
+              <option value="">Pilih Pewawancara*</option>
+              {interviewers && interviewers.map(interviewer => (
+                <option key={interviewer.user_id} value={interviewer.user_id}>
+                  {interviewer.name}
+                </option>
+              ))}
+            </select>
+
+            <button type='submit'
+              style={{
+                width: '420px', padding: '8px', fontSize: '16px', fontFamily: 'Inter, sans-serif', fontWeight: 'bold',
+                color: '#fff', background: '#2A3E4B', borderRadius: '6px', cursor: 'pointer',
+                marginTop: '680px', border: '2px solid #2A3E4B',
+                marginLeft: '24%', position: 'absolute',
+              }}
+            >
+              Submit
+            </button>
+          </form>
+          {successMessage && (
+        <p
+          style={{
+            color: 'green',
+            position: 'fixed',
+            top: '50%',
+            left: '55%',
+            transform: 'translate(-50%, -50%)',
+            background: 'white',
+            padding: '20px',
+            borderRadius: '10px',
+            boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
+          }}
+        >
+          {successMessage}
+        </p>
+      )}
+        </div>
       </div>
     </React.Fragment>
   );
