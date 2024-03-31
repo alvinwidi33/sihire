@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/sidebar';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 const AddInterview = () => {
+  const navigate = useNavigate();
   const { startTime, endTime, job_name } = useParams();
   const [successMessage, setSuccessMessage] = useState('');
   const [interviewers, setInterviewers] = useState([]);
@@ -110,13 +111,15 @@ const AddInterview = () => {
     }
     if (response.ok) {
         console.log('Job posted successfully!');
-        setSuccessMessage("Interview berhasil dibuat!")
+        setSuccessMessage("Interview berhasil dibuat!");
         setTimeout(() => {
-          setSuccessMessage('');
+            setSuccessMessage('');
+            navigate("/get-list-interview-ga");
         }, 5000);
-      } else {
+    } else {
         console.error('Failed to post interview', response.statusText);
       }
+
   } catch (error) {
     console.error('Error submitting interview schedule:', error);
     alert('Failed to submit interview schedule. Please try again later.');
@@ -126,6 +129,13 @@ const AddInterview = () => {
   return (
     <React.Fragment>
       <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>Wawancara</p>
+      <Link to ='/get-list-interview-ga'>
+        <p style={{marginLeft:'22%', position:'absolute', marginTop:"100px" }}>List Wawancara</p>
+        </Link>
+        <p style={{marginLeft:'30%', position:'absolute', marginTop:"100px" }}>{'>'}</p>
+        <Link to='/create-interview'>
+        <p style={{marginLeft:'31%', position:'absolute', marginTop:"100px"}}>Tambah Interview</p>
+        </Link>
       <Sidebar />
       <div className="create-interview" style={{ position: 'relative' }}>
         <div className="rectangle" style={rectangleStyle}>
@@ -218,7 +228,7 @@ const AddInterview = () => {
 
     if (interviewData.startTime && formattedTime < interviewData.startTime) {
       alert('End time cannot be earlier than start time.');
-      return; // Prevent updating state if end time is invalid
+      return; 
     }
 
     setInterviewData({ ...interviewData, endTime: formattedTime });
@@ -241,7 +251,7 @@ const AddInterview = () => {
                 width: '420px', padding: '8px', fontSize: '16px', fontFamily: 'Inter, sans-serif', fontWeight: 'bold',
                 color: '#fff', background: '#2A3E4B', borderRadius: '6px', cursor: 'pointer',
                 marginTop: '680px', border: '2px solid #2A3E4B',
-                marginLeft: '24%', position: 'absolute',
+                marginLeft: '20%', position: 'absolute',
               }}
             >
               Submit

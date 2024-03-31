@@ -39,7 +39,6 @@ function formatDateTime(datetimeString) {
     </React.Fragment>
   )}
 </div>
-
     <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", position: "absolute", }}>Job</p>
     <Sidebar />
     <div className="detail-job" style={{ position: "relative" }}>
