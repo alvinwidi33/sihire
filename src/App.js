@@ -31,6 +31,9 @@ import UpdateStatusPage from './pages/update-status-ga';
 import AddInterview from './pages/add-interview';
 import ProtectedRoute from './routing/ProtectedRoute';
 import EditRoleUser from './pages/edit-role-user';
+import GetListInterviewGA from './pages/get-list-interview-ga';
+import DetailInterviewGA from './pages/detail-interview-ga';
+import UpdateJadwalInteviewGA from './pages/update-jadwal-inteview-ga';
 
 function App() {
   return (
@@ -63,6 +66,9 @@ function App() {
           <Route path='/job-application-detail-ga/:id' element={<ProtectedRoute child={<JobApplicationDetailGA />} />} />
           <Route path='/job-application-detail-ga/:id/update-status' element={<ProtectedRoute child={<UpdateStatusPage />} />} />
           <Route path="/create-interview" element={<AddInterview/>}/>
+          <Route path="/get-list-interview-ga" element={<GetListInterviewGA/>}/>
+          <Route path="/get-list-interview-ga/:id" element={<DetailInterviewGA/>}/>
+          <Route path="/get-list-interview-ga/:id/update" element={<UpdateJadwalInteviewGA/>}/>
           <Route path="/edit-user-role/:id" element={<ProtectedRoute child={<EditRoleUser />} />} />
       </Routes>
     </Router>
