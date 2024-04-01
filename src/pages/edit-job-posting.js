@@ -161,7 +161,7 @@ function EditJobPosting() {
     }}
     value={jobData.datetime_closes ? new Date(jobData.datetime_closes).toISOString().split('T')[0] : ''}
     onChange={(e) => setJobData({ ...jobData, datetime_closes: e.target.value })}
-    min={new Date().toISOString().split('T')[0]} // Set min attribute to current date
+    min={new Date().toISOString().split('T')[0]} 
 />
               </React.Fragment>
             )}
