@@ -14,7 +14,7 @@ const AddInterview = () => {
 
   const currentDate = new Date();
   const currentDateString = currentDate.toISOString().split('T')[0];
-  const currentTimeString = currentDate.toTimeString().split(' ')[0];
+  const currentTimeString = currentDate.toTimeString().slice(0,5)[0];
   const rectangleStyle = {
     width: '70%',
     height: '760px',
@@ -157,56 +157,68 @@ const AddInterview = () => {
             </select>
             <p style={{ marginTop: '280px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Tanggal Interview*</p>
             <input
-              type="date"
-              style={{
-                borderRadius: '5px',
-                border: '2px solid #CBD2E0',
-                padding: '8px',
-                marginTop: '310px',
-                marginLeft: '7%',
-                fontSize: '14px',
-                color: '#2A3E4B',
-                position: 'absolute',
-                width: '56%',
-              }}
-              value={interviewData.datetime ? interviewData.datetime : ''}
-              onChange={(e) => {
-                const selectedDate = e.target.value;
-                const currentDate = new Date();
-                const currentDateString = currentDate.toISOString().split('T')[0];
+  type="date"
+  style={{
+    borderRadius: '5px',
+    border: '2px solid #CBD2E0',
+    padding: '8px',
+    marginTop: '310px',
+    marginLeft: '7%',
+    fontSize: '14px',
+    color: '#2A3E4B',
+    position: 'absolute',
+    width: '56%',
+  }}
+  value={interviewData.datetime ? interviewData.datetime : ''}
+  onChange={(e) => {
+    const selectedDate = e.target.value;
+    const currentDate = new Date();
+    const currentDateString = currentDate.toISOString().split('T')[0];
+    const currentTimeString = currentDate.toTimeString().slice(0, 5);
 
-                if (selectedDate < currentDateString) {
-                  alert('Tanggal harus lebih besar dari atau sama dengan tanggal hari ini.');
-                } else {
-                  setInterviewData({ ...interviewData, datetime: selectedDate,});
-                }
-              }}
-              min={currentDateString}
-            />
+    const startTime = new Date(`${selectedDate}T${interviewData.startTime}`);
+
+    if (selectedDate === currentDateString && startTime < currentDate) {
+      alert('Waktu mulai tidak boleh lebih kecil dari waktu saat ini.');
+    } else {
+      setInterviewData({ ...interviewData, datetime: selectedDate });
+    }
+  }}
+  min={currentDateString}
+/>
+
             <p style={{ marginTop: '380px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Waktu Mulai Interview*</p>
             <input
-              type="time"
-              style={{
-                borderRadius: '5px',
-                border: '2px solid #CBD2E0',
-                padding: '8px',
-                marginTop: '410px',
-                marginLeft: '7%',
-                fontSize: '14px',
-                color: '#2A3E4B',
-                position: 'absolute',
-                width: '56%',
-              }}
-              value={interviewData.startTime ? interviewData.startTime : ''}
-              onChange={(e) => {
-                const selectedTime = e.target.value;
-                const formattedTime = selectedTime.slice(0, 5);
+  type="time"
+  style={{
+    borderRadius: '5px',
+    border: '2px solid #CBD2E0',
+    padding: '8px',
+    marginTop: '410px',
+    marginLeft: '7%',
+    fontSize: '14px',
+    color: '#2A3E4B',
+    position: 'absolute',
+    width: '56%',
+  }}
+  value={interviewData.startTime ? interviewData.startTime : ''}
+  onChange={(e) => {
+    const selectedTime = e.target.value;
+    const formattedTime = selectedTime.slice(0, 5);
+    const startTime = new Date(`${interviewData.datetime}T${formattedTime}`);
+    const currentDate = new Date();
+    const currentDateString = currentDate.toISOString().split('T')[0];
 
-                setInterviewData({ ...interviewData, startTime: formattedTime });
-              }}
-              min={interviewData.datetime === currentDateString ? currentTimeString : '00:00'}
-              max={interviewData.datetime === currentDateString ? '23:59' : ''}
-            />
+    if (interviewData.datetime === currentDateString && startTime < currentDate) {
+      alert('Waktu mulai tidak boleh lebih kecil dari waktu saat ini.');
+    } else {
+      setInterviewData({ ...interviewData, startTime: formattedTime });
+    }
+  }}
+  min={interviewData.datetime === currentDateString ? currentTimeString : '00:00'}
+  max={interviewData.datetime === currentDateString ? '23:59' : ''}
+/>
+
             <p style={{ marginTop: '480px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Waktu Berakhir Interview*</p>
             <input
   type="time"
