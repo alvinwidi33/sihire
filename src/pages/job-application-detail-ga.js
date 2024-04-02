@@ -54,7 +54,7 @@ function JobApplicationDetailGA() {
         const { data, error } = await supabase.storage
           .from("sihire")
           .createSignedUrls(
-            [jobApplicationData.cv, jobApplicationData.coverLetter],
+            [jobApplicationData.cv, jobApplicationData.cover_letter],
             60
           );
 
@@ -63,7 +63,7 @@ function JobApplicationDetailGA() {
           job: jobApplicationData.job,
           applicant: jobApplicationData.applicant,
           cv: data[0].signedUrl,
-          coverLetter: data[0].signedUrl,
+          coverLetter: data[1].signedUrl,
           status: jobApplicationData.status,
         });
 
