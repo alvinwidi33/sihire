@@ -191,79 +191,87 @@ const deleteInterview = async (id) => {
                             }}
                             min={currentDateString}
                         />
-                                        <p style={{ marginTop: '380px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Waktu Mulai Interview*</p>
-                                        <input
-                                            type="time"
-                                            style={{
-                                                borderRadius: '5px',
-                                                border: '2px solid #CBD2E0',
-                                                padding: '8px',
-                                                marginTop: '410px',
-                                                marginLeft: '7%',
-                                                fontSize: '14px',
-                                                color: '#2A3E4B',
-                                                position: 'absolute',
-                                                width: '56%',
-                                            }}
-                                            value={interviewData.startTime || (interview && interview.datetime_start ? interview.datetime_start.slice(11, 16) : '')}
-                                            onChange={(e) => {
-                                                const selectedTime = e.target.value;
-                                                const formattedTime = selectedTime.slice(0, 5);
-                                                const startTime = new Date(`${interviewData.datetime_start}T${formattedTime}`);
-                                                const currentTime = new Date();
-                                                const currentDateString = currentTime.toISOString().split('T')[0];
-                                                const currentTimeString = currentTime.toTimeString().slice(0, 5);
+                        <p style={{ marginTop: '380px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Waktu Mulai Interview*</p>
+                        <input
+                            type="time"
+                            style={{
+                                borderRadius: '5px',
+                                border: '2px solid #CBD2E0',
+                                padding: '8px',
+                                marginTop: '410px',
+                                marginLeft: '7%',
+                                fontSize: '14px',
+                                color: '#2A3E4B',
+                                position: 'absolute',
+                                width: '56%',
+                            }}
+                            value={interviewData.startTime || (interview && interview.datetime_start ? interview.datetime_start.slice(11, 16) : '')}
+                            onChange={(e) => {
+                                const selectedTime = e.target.value;
+                                const formattedTime = selectedTime.slice(0, 5);
+                                const startTime = new Date(`${interviewData.datetime_start}T${formattedTime}`);
+                                const currentTime = new Date();
+                                const currentDateString = currentTime.toISOString().split('T')[0];
+                                const currentTimeString = currentTime.toTimeString().slice(0, 5);
 
-                                                if (interviewData.datetime_start === currentDateString && startTime < currentTime) {
-                                                    alert('Tanggal atau waktu mulai tidak valid. Pastikan tanggal dan waktu mulai sesuai.');
-                                                    return;
-                                                }
+                                if (interviewData.datetime_start === currentDateString && startTime < currentTime) {
+                                    alert('Tanggal atau waktu mulai tidak valid. Pastikan tanggal dan waktu mulai sesuai.');
+                                    return;
+                                }
 
-                                                setInterviewData({ ...interviewData, startTime: formattedTime });
-                                            }}
-                                            min={interviewData.datetime === currentDateString ? currentTimeString : '00:00'}
-                                            max={interviewData.datetime === currentDateString ? '23:59' : ''}
-                                        />
+                                setInterviewData({ ...interviewData, startTime: formattedTime });
+                            }}
+                            min={interviewData.datetime === currentDateString ? currentTimeString : '00:00'}
+                            max={interviewData.datetime === currentDateString ? '23:59' : ''}
+                        />
+                    <p style={{ marginTop: '480px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Waktu Berakhir Interview*</p>
+                    <input
+    type="time"
+    style={{
+        borderRadius: '5px',
+        border: '2px solid #CBD2E0',
+        padding: '8px',
+        marginTop: '510px',
+        marginLeft: '7%',
+        fontSize: '14px',
+        color: '#2A3E4B',
+        position: 'absolute',
+        width: '56%',
+    }}
+    value={interviewData.endTime || (interview && interview.datetime_end ? interview.datetime_end.slice(11, 16) : '')}
+    onChange={(e) => {
+        const selectedTime = e.target.value;
+        const prevEndTime = interview && interview.datetime_end ? interview.datetime_end.slice(11, 16) : '';
+        
+        if (interviewData.startTime && selectedTime < interviewData.startTime) {
+            alert('Waktu berakhir tidak boleh lebih awal dari waktu mulai.');
+            return;
+        }
 
-                                 <p style={{ marginTop: '480px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Waktu Berakhir Interview*</p>
-                                    <input
-                                        type="time"
-                                        style={{
-                                            borderRadius: '5px',
-                                            border: '2px solid #CBD2E0',
-                                            padding: '8px',
-                                            marginTop: '510px',
-                                            marginLeft: '7%',
-                                            fontSize: '14px',
-                                            color: '#2A3E4B',
-                                            position: 'absolute',
-                                            width: '56%',
-                                        }}
-                                        value={interviewData.endTime || (interview && interview.datetime_end ? interview.datetime_end.slice(11, 16) : '')}
-                                        onChange={(e) => {
-                                            const selectedTime = e.target.value;
-                                            if (interviewData.startTime && selectedTime < interviewData.startTime) {
-                                                alert('Waktu berakhir tidak boleh lebih awal dari waktu mulai.');
-                                                return;
-                                            }
-                                            setInterviewData({ ...interviewData, endTime: selectedTime });
-                                        }}
-                                        min={interviewData.datetime_end === currentDateString ? currentTimeString : '00:00'}
-                                        max={interviewData.datetime_end === currentDateString ? '23:59' : ''}
-                                    />
-                                <p style={{ marginTop: '580px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Pewawancara*</p>
-                                <select 
-                                style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '610px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} 
-                                id="interviewer" 
-                                value={interviewer} 
-                                onChange={handleInterviewerChange}
-                            >
-                                <option value="">{interview.interviewer_user_id.name}</option>
-                                {interviewers && interviewers.map(interviewer => (
-                                    <option key={interviewer.user_id} value={interviewer.user_id}>
-                                        {interviewer.name}
-                                    </option>
-                                ))}
+        if (prevEndTime && selectedTime < prevEndTime) {
+            alert('Waktu berakhir tidak boleh lebih awal dari waktu berakhir sebelumnya.');
+            return;
+        }
+
+        setInterviewData({ ...interviewData, endTime: selectedTime });
+    }}
+    min={interviewData.datetime_end === currentDateString ? currentTimeString : '00:00'}
+    max={interviewData.datetime_end === currentDateString ? '23:59' : ''}
+/>
+
+                <p style={{ marginTop: '580px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Pewawancara*</p>
+                <select 
+                style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '610px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} 
+                id="interviewer" 
+                value={interviewer} 
+                onChange={handleInterviewerChange}
+            >
+                <option value="">{interview.interviewer_user_id.name}</option>
+                {interviewers && interviewers.map(interviewer => (
+                    <option key={interviewer.user_id} value={interviewer.user_id}>
+                        {interviewer.name}
+                    </option>
+                ))}
                             </select>
                                 <button
                                     type='submit'
