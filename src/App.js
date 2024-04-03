@@ -35,6 +35,8 @@ import GetListInterviewGA from './pages/get-list-interview-ga';
 import DetailInterviewGA from './pages/detail-interview-ga';
 import UpdateJadwalInteviewGA from './pages/update-jadwal-inteview-ga';
 import JobApplicationDetailDP from './pages/job-application-detail-dp';
+import AddOnboarding from './pages/add-onboarding';
+import UpdateOnboarding from './pages/update-onboarding';
 
 function App() {
   return (
@@ -71,6 +73,8 @@ function App() {
           <Route path="/get-list-interview-ga/:id" element={<DetailInterviewGA/>}/>
           <Route path="/get-list-interview-ga/:id/update" element={<UpdateJadwalInteviewGA/>}/>
           <Route path="/edit-user-role/:id" element={<ProtectedRoute child={<EditRoleUser />} />} />
+          <Route path="/create-onboarding" element={<AddOnboarding/>}/>
+          <Route path="/get-list-onboarding-ga/:id/update" element={<UpdateOnboarding/>}/>
           <Route path='/job-application-detail-dp/:id' element={<ProtectedRoute child={<JobApplicationDetailDP />} />} />
       </Routes>
     </Router>
