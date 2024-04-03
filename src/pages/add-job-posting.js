@@ -101,6 +101,7 @@ function AddJobPosting() {
                 marginTop: '110px', marginLeft: '7%', fontSize: '14px', color: '#2A3E4B',
                 position: 'absolute', width: '58%',
               }}
+              required
               value={jobData.job_name}
               onChange={(e) => setJobData({ ...jobData, job_name: e.target.value })}
             />
@@ -111,6 +112,7 @@ function AddJobPosting() {
                 marginLeft: '7%', fontSize: '14px', color: '#2A3E4B', position: 'absolute',
                 width: '58%', height: '200px', resize: 'none',
               }}
+              required
               value={jobData.description}
               onChange={(e) => setJobData({ ...jobData, description: e.target.value })}
             />
@@ -122,6 +124,7 @@ function AddJobPosting() {
         marginTop: '470px', marginLeft: '7%', fontSize: '14px', color: '#2A3E4B',
         position: 'absolute', width: '58%',
     }}
+    required
     value={jobData.datetime_closes ? new Date(jobData.datetime_closes).toISOString().split('T')[0] : ''}
     onChange={(e) => setJobData({ ...jobData, datetime_closes: e.target.value })}
     min={new Date().toISOString().split('T')[0]}
