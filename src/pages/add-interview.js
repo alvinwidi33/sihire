@@ -142,14 +142,14 @@ const AddInterview = () => {
           <p style={{ marginTop: '20px', marginLeft: '23%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute' }}>Buat Jadwal Wawancara</p>
           <form onSubmit={handleSubmit}>
             <p style={{ marginTop: '80px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Posisi Pekerjaan*</p>
-            <select style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '110px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} id="job" value={selectedJob} onChange={handleJobChange}>
+            <select style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '110px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} required id="job" value={selectedJob} onChange={handleJobChange}>
               <option value="">Select Job</option>
               {jobOptions.map(job => (
                 <option key={job.job.id} value={job.job.job_name}>{job.job.job_name}</option>
               ))}
             </select>
             <p style={{ marginTop: '180px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Pelamar Tahap Interview*</p>
-            <select style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '210px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} id="applicant" value={interviewData.applicant} onChange={(e) => setInterviewData({ ...interviewData, applicant: e.target.value })}>
+            <select style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '210px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} required id="applicant" value={interviewData.applicant} onChange={(e) => setInterviewData({ ...interviewData, applicant: e.target.value })}>
               <option value="">Pilih Applicant</option>
               {applicants && applicants.map(applicant => (
                 <option key={applicant.user.user_id} value={applicant.user.user_id}>{applicant.user.name}</option>
@@ -157,97 +157,105 @@ const AddInterview = () => {
             </select>
             <p style={{ marginTop: '280px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Tanggal Interview*</p>
             <input
-  type="date"
-  style={{
-    borderRadius: '5px',
-    border: '2px solid #CBD2E0',
-    padding: '8px',
-    marginTop: '310px',
-    marginLeft: '7%',
-    fontSize: '14px',
-    color: '#2A3E4B',
-    position: 'absolute',
-    width: '56%',
-  }}
-  value={interviewData.datetime ? interviewData.datetime : ''}
-  onChange={(e) => {
-    const selectedDate = e.target.value;
-    const currentDate = new Date();
-    const currentDateString = currentDate.toISOString().split('T')[0];
-    const currentTimeString = currentDate.toTimeString().slice(0, 5);
+              type="date"
+              style={{
+                borderRadius: '5px',
+                border: '2px solid #CBD2E0',
+                padding: '8px',
+                marginTop: '310px',
+                marginLeft: '7%',
+                fontSize: '14px',
+                color: '#2A3E4B',
+                position: 'absolute',
+                width: '56%',
+              }}
+              required
+              value={interviewData.datetime ? interviewData.datetime : ''}
+              onChange={(e) => {
+                const selectedDate = e.target.value;
+                const currentDate = new Date();
+                const currentDateString = currentDate.toISOString().split('T')[0];
+                const currentTimeString = currentDate.toTimeString().slice(0, 5);
 
-    const startTime = new Date(`${selectedDate}T${interviewData.startTime}`);
+                const startTime = new Date(`${selectedDate}T${interviewData.startTime}`);
 
-    if (selectedDate === currentDateString && startTime < currentDate) {
-      alert('Waktu mulai tidak boleh lebih kecil dari waktu saat ini.');
-    } else {
-      setInterviewData({ ...interviewData, datetime: selectedDate });
-    }
-  }}
-  min={currentDateString}
-/>
-
+                if (selectedDate === currentDateString && startTime < currentDate) {
+                  alert('Waktu mulai tidak boleh lebih kecil dari waktu saat ini.');
+                } else {
+                  setInterviewData({ ...interviewData, datetime: selectedDate });
+                }
+              }}
+              min={currentDateString}
+            />
             <p style={{ marginTop: '380px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Waktu Mulai Interview*</p>
             <input
-  type="time"
-  style={{
-    borderRadius: '5px',
-    border: '2px solid #CBD2E0',
-    padding: '8px',
-    marginTop: '410px',
-    marginLeft: '7%',
-    fontSize: '14px',
-    color: '#2A3E4B',
-    position: 'absolute',
-    width: '56%',
-  }}
-  value={interviewData.startTime ? interviewData.startTime : ''}
-  onChange={(e) => {
-    const selectedTime = e.target.value;
-    const formattedTime = selectedTime.slice(0, 5);
-    const startTime = new Date(`${interviewData.datetime}T${formattedTime}`);
-    const currentDate = new Date();
-    const currentDateString = currentDate.toISOString().split('T')[0];
+              type="time"
+              style={{
+                borderRadius: '5px',
+                border: '2px solid #CBD2E0',
+                padding: '8px',
+                marginTop: '410px',
+                marginLeft: '7%',
+                fontSize: '14px',
+                color: '#2A3E4B',
+                position: 'absolute',
+                width: '56%',
+              }}
+              required
+              value={interviewData.startTime ? interviewData.startTime : ''}
+              onChange={(e) => {
+                const selectedTime = e.target.value;
+                const formattedTime = selectedTime.slice(0, 5);
+                const startTime = new Date(`${interviewData.datetime}T${formattedTime}`);
+                const currentDate = new Date();
+                const currentDateString = currentDate.toISOString().split('T')[0];
 
-    if (interviewData.datetime === currentDateString && startTime < currentDate) {
-      alert('Waktu mulai tidak boleh lebih kecil dari waktu saat ini.');
-    } else {
-      setInterviewData({ ...interviewData, startTime: formattedTime });
-    }
-  }}
-  min={interviewData.datetime === currentDateString ? currentTimeString : '00:00'}
-  max={interviewData.datetime === currentDateString ? '23:59' : ''}
-/>
+                if (interviewData.datetime === currentDateString && startTime < currentDate) {
+                  alert('Waktu mulai tidak boleh lebih kecil dari waktu saat ini.');
+                } else {
+                  setInterviewData({ ...interviewData, startTime: formattedTime });
+                }
+              }}
+              min={interviewData.datetime === currentDateString ? currentTimeString : '00:00'}
+              max={interviewData.datetime === currentDateString ? '23:59' : ''}
+            />
 
             <p style={{ marginTop: '480px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Waktu Berakhir Interview*</p>
             <input
-  type="time"
-  style={{
-    borderRadius: '5px',
-    border: '2px solid #CBD2E0',
-    padding: '8px',
-    marginTop: '510px',
-    marginLeft: '7%',
-    fontSize: '14px',
-    color: '#2A3E4B',
-    position: 'absolute',
-    width: '56%',
-  }}
-  value={interviewData.endTime ? interviewData.endTime : ''}
-  onChange={(e) => {
-    const selectedTime = e.target.value;
-    const formattedTime = selectedTime.slice(0, 5);
+              type="time"
+              style={{
+                borderRadius: '5px',
+                border: '2px solid #CBD2E0',
+                padding: '8px',
+                marginTop: '510px',
+                marginLeft: '7%',
+                fontSize: '14px',
+                color: '#2A3E4B',
+                position: 'absolute',
+                width: '56%',
+              }}
+              value={interviewData.endTime ? interviewData.endTime : ''}
+              onChange={(e) => {
+                const selectedTime = e.target.value;
+                const formattedTime = selectedTime.slice(0, 5);
+                const startTime = new Date(`${interviewData.datetime}T${interviewData.startTime}`);
+                const endTime = new Date(`${interviewData.datetime}T${formattedTime}`);
+                const currentDate = new Date();
+                const currentDateString = currentDate.toISOString().split('T')[0];
+                if (endTime < startTime) {
+                  alert('Waktu berakhir tidak boleh lebih awal dari waktu mulai.');
+                  return;
+                }
 
-    if (interviewData.startTime && formattedTime < interviewData.startTime) {
-      alert('End time cannot be earlier than start time.');
-      return; 
-    }
-
-    setInterviewData({ ...interviewData, endTime: formattedTime });
-  }}
-  min={interviewData.datetime === currentDateString ? currentTimeString : '00:00'}
-  max={interviewData.datetime === currentDateString ? '23:59' : ''}
-/>
+                if (interviewData.datetime === currentDateString && endTime < currentDate) {
+                  alert('Waktu berakhir tidak boleh lebih kecil dari waktu saat ini.');
+                  return;
+                }
+                setInterviewData({ ...interviewData, endTime: formattedTime });
+              }}
+              min={interviewData.datetime === currentDateString ? currentTimeString : '00:00'}
+              max={interviewData.datetime === currentDateString ? '23:59' : ''}
+            />
             <p style={{ marginTop: '580px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Pewawancara*</p>
             <select style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '610px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} id="interviewer" value={interviewData.interviewer} onChange={handleInterviewerChange}> {/* Use interviewer and handleInterviewerChange */}
               <option value="">Pilih Pewawancara*</option>
