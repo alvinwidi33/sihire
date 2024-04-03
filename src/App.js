@@ -34,6 +34,7 @@ import EditRoleUser from './pages/edit-role-user';
 import GetListInterviewGA from './pages/get-list-interview-ga';
 import DetailInterviewGA from './pages/detail-interview-ga';
 import UpdateJadwalInteviewGA from './pages/update-jadwal-inteview-ga';
+import JobApplicationDetailDP from './pages/job-application-detail-dp';
 
 function App() {
   return (
@@ -70,6 +71,7 @@ function App() {
           <Route path="/get-list-interview-ga/:id" element={<DetailInterviewGA/>}/>
           <Route path="/get-list-interview-ga/:id/update" element={<UpdateJadwalInteviewGA/>}/>
           <Route path="/edit-user-role/:id" element={<ProtectedRoute child={<EditRoleUser />} />} />
+          <Route path='/job-application-detail-dp/:id' element={<ProtectedRoute child={<JobApplicationDetailDP />} />} />
       </Routes>
     </Router>
   );

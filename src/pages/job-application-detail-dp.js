@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { createClient } from "@supabase/supabase-js";
 import { FileText } from 'lucide-react';
 
@@ -7,7 +7,8 @@ const supabase = createClient(
   "https://ldhohewyhcdwckzcjtzn.supabase.co",
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxkaG9oZXd5aGNkd2NremNqdHpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTAxNjY0MzksImV4cCI6MjAyNTc0MjQzOX0.73gDtZ0yUZmpXvIrga-Mw7amJNaPJu6av7wyr0OSCuo"
 );
-function JobApplicationDetailGA() {
+
+function JobApplicationDetailDP() {
   const stages = [
     { name: 'Applied', value: 0 },
     { name: 'In Review', value: 16 },
@@ -18,7 +19,9 @@ function JobApplicationDetailGA() {
     { name: 'Withdrawn', value: 100 },
   ];
 
+
   const { id } = useParams();
+
   const [formData, setFormData] = useState({
     applicant: '',
     job: '',
@@ -28,29 +31,24 @@ function JobApplicationDetailGA() {
     noTelepon: '',
     cv: '',
     coverLetter: '',
-    status: '',
+    status:'',
   });
-
-  const [selectedStatus, setSelectedStatus] = useState('');
-
-  const calculateProgress = (stageName) => {
-    const stage = stages.find((stage) => stage.name === stageName);
+    const calculateProgress = (stageName) => {
+    const stage = stages.find(stage => stage.name === stageName);
     return stage ? stage.value : 0;
   };
 
   const currentStage = formData.status;
   const progress = calculateProgress(currentStage);
-
+  console.log('apapappa',progress)
   useEffect(() => {
     const fetchJobApplicationData = async () => {
       try {
-        const response = await fetch(
-          'https://sihire-be.vercel.app/api/job-application/get-detail/' + id + '/',
-          {
-            method: 'GET',
-          }
-        );
+        const response = await fetch('https://sihire-be.vercel.app/api/job-application/get-detail/' + id + '/', {
+          method: 'GET',
+        });
         const jobApplicationData = await response.json();
+
         const { data, error } = await supabase.storage
           .from("sihire")
           .createSignedUrls(
@@ -64,57 +62,32 @@ function JobApplicationDetailGA() {
           applicant: jobApplicationData.applicant,
           cv: data[0].signedUrl,
           coverLetter: data[1].signedUrl,
-          status: jobApplicationData.status,
+          status:jobApplicationData.status,
         });
-
-        setSelectedStatus(jobApplicationData.status); 
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
     };
 
     fetchJobApplicationData();
+
+    console.log(formData);
   }, []); 
 
-  const handleStatusChange = (e) => {
-    setSelectedStatus(e.target.value);
-  };
-
-
+console.log('blablaaukauigus92002:',formData)
   return (
     <div className="bg-gray-100 min-h-screen flex">
-      <div className="container mx-auto mt-8 md:mt-16" style={{ marginTop: '7%' }}>
+      <div className="container mx-auto mt-8 md:mt-16" style={{ marginTop: "7%" }}>
         <h1 className="text-2xl font-bold text-left mb-4">Job Application</h1>
         <hr className="mb-4 border-solid border-black" />
         <div className="p-4 bg-white rounded-lg shadow-md flex flex-col">
           <h2 className="text-2xl font-bold mb-2">{formData.job.job_name}</h2>
-          <strong>Status:</strong>{' '}
-          <select
-            value={selectedStatus}
-            onChange={handleStatusChange}
-            className="ml-2"
-          >
-            {stages.map((stage, index) => (
-              <option key={index} value={stage.name}>
-                {stage.name}
-              </option>
-            ))}
-          </select>
+          <strong>Status:</strong> {}
           <div className="mt-4 relative flex justify-between">
             {stages.map((stage, index) => (
               <div key={index} className="flex items-center">
-                <span
-                  className={`w-2 h-2 rounded-full ${
-                    progress >= stage.value ? 'bg-green-500' : 'bg-gray-400'
-                  }`}
-                ></span>
-                <span
-                  className={`text-sm ml-1 ${
-                    progress >= stage.value ? 'text-green-500' : 'text-gray-400'
-                  }`}
-                >
-                  {stage.name}
-                </span>
+                <span className={`w-2 h-2 rounded-full ${progress >= stage.value ? 'bg-green-500' : 'bg-gray-400'}`}></span>
+                <span className={`text-sm ml-1 ${progress >= stage.value ? 'text-green-500' : 'text-gray-400'}`}>{stage.name}</span>
               </div>
             ))}
           </div>
@@ -124,7 +97,7 @@ function JobApplicationDetailGA() {
 
           <div className="mt-4 grid grid-cols-2 gap-4">
             <div>
-              <strong>Nama</strong>
+              <strong>Nama</strong> 
               <p>{formData.applicant.user?.name}</p>
               <br />
               <strong>Email</strong> {}
@@ -177,17 +150,10 @@ function JobApplicationDetailGA() {
               }
             </div>
           </div>
-          <Link to={`/job-application-detail-ga/${id}/update-status`}>
-          <button
-            className="bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded mr-2" style={{width:"720px"}}
-          >
-            Update Status
-          </button>
-          </Link>
         </div>
       </div>
     </div>
   );
 }
 
-export default JobApplicationDetailGA;
+export default JobApplicationDetailDP;
