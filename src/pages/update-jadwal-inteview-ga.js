@@ -226,38 +226,38 @@ const deleteInterview = async (id) => {
                         />
                     <p style={{ marginTop: '480px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Waktu Berakhir Interview*</p>
                     <input
-    type="time"
-    style={{
-        borderRadius: '5px',
-        border: '2px solid #CBD2E0',
-        padding: '8px',
-        marginTop: '510px',
-        marginLeft: '7%',
-        fontSize: '14px',
-        color: '#2A3E4B',
-        position: 'absolute',
-        width: '56%',
-    }}
-    value={interviewData.endTime || (interview && interview.datetime_end ? interview.datetime_end.slice(11, 16) : '')}
-    onChange={(e) => {
-        const selectedTime = e.target.value;
-        const prevEndTime = interview && interview.datetime_end ? interview.datetime_end.slice(11, 16) : '';
-        
-        if (interviewData.startTime && selectedTime < interviewData.startTime) {
-            alert('Waktu berakhir tidak boleh lebih awal dari waktu mulai.');
-            return;
-        }
+                    type="time"
+                    style={{
+                        borderRadius: '5px',
+                        border: '2px solid #CBD2E0',
+                        padding: '8px',
+                        marginTop: '510px',
+                        marginLeft: '7%',
+                        fontSize: '14px',
+                        color: '#2A3E4B',
+                        position: 'absolute',
+                        width: '56%',
+                    }}
+                    value={interviewData.endTime || (interview && interview.datetime_end ? interview.datetime_end.slice(11, 16) : '')}
+                    onChange={(e) => {
+                        const selectedTime = e.target.value;
+                        const prevEndTime = interview && interview.datetime_end ? interview.datetime_end.slice(11, 16) : '';
+                        
+                        if (interviewData.startTime && selectedTime < interviewData.startTime) {
+                            alert('Waktu berakhir tidak boleh lebih awal dari waktu mulai.');
+                            return;
+                        }
 
-        if (prevEndTime && selectedTime < prevEndTime) {
-            alert('Waktu berakhir tidak boleh lebih awal dari waktu berakhir sebelumnya.');
-            return;
-        }
+                        if (prevEndTime && selectedTime < prevEndTime) {
+                            alert('Waktu berakhir tidak boleh lebih awal dari waktu berakhir sebelumnya.');
+                            return;
+                        }
 
-        setInterviewData({ ...interviewData, endTime: selectedTime });
-    }}
-    min={interviewData.datetime_end === currentDateString ? currentTimeString : '00:00'}
-    max={interviewData.datetime_end === currentDateString ? '23:59' : ''}
-/>
+                        setInterviewData({ ...interviewData, endTime: selectedTime });
+                    }}
+                    min={interviewData.datetime_end === currentDateString ? currentTimeString : '00:00'}
+                    max={interviewData.datetime_end === currentDateString ? '23:59' : ''}
+                />
 
                 <p style={{ marginTop: '580px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Pewawancara*</p>
                 <select 
