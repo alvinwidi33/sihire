@@ -68,9 +68,24 @@ function UpdateOnboarding() {
     if (!isConfirmed) {
         return;
     }
-
-    const datetimeStart = onboardingData.datetime_start ? new Date(onboardingData.datetime_start + 'T' + onboardingData.startTime) : new Date(onboarding.datetime_start);
-    const datetimeEnd = onboardingData.datetime_end ? new Date(onboardingData.datetime_end + 'T' + onboardingData.endTime) : new Date(onboarding.datetime_end);
+    const datetimeStart = 
+        onboardingData.datetime_start && !onboardingData.startTime // hanya ganti tanggal
+        ? new Date(onboardingData.datetime_start + 'T' + onboarding.datetime_start.slice(11, 16)) 
+        : !onboardingData.datetime_start && onboardingData.startTime // hanya ganti jam mulai
+            ? new Date(onboarding.datetime_start.slice(0, 10) + 'T' + onboardingData.startTime) 
+            : onboardingData.datetime_start && onboardingData.startTime // ganti tanggal dan jam mulai
+                ? new Date(onboardingData.datetime_start + 'T' + onboardingData.startTime)
+                : new Date(onboarding.datetime_start); // tidak diganti
+    
+    const datetimeEnd = 
+        onboardingData.datetime_start && !onboardingData.endTime // hanya ganti tanggal
+        ? new Date(onboardingData.datetime_start + 'T' + onboarding.datetime_start.slice(11, 16)) 
+        : !onboardingData.datetime_start && onboardingData.endTime // hanya ganti jam selesai
+            ? new Date(onboarding.datetime_end.slice(0, 10) + 'T' + onboardingData.endTime) 
+            : onboardingData.datetime_start && onboardingData.endTime // ganti tanggal dan jam selesai
+                ? new Date(onboardingData.datetime_end + 'T' + onboardingData.endTime)
+                : new Date(onboarding.datetime_end); //
+    
     const formattedData = {
         datetime_start: datetimeStart.toISOString(),
         datetime_end: datetimeEnd.toISOString(),

@@ -6,11 +6,12 @@ const AddOnboarding = () => {
   const navigate = useNavigate();
   const { startTime, endTime, job_name } = useParams();
   const [successMessage, setSuccessMessage] = useState('');
-  const [pic_user_id, set_pic_user_id] = useState([]);
+  const [interviewers, setInterviewers] = useState([]);
   const [jobOptions, setJobOptions] = useState([]);
+  const [interviews, setInterviews] = useState([]);
   const [selectedJob, setSelectedJob] = useState('');
   const [applicants, setApplicants] = useState([]);
-  const [onboardingData, setOnboardingData] = useState('');
+  const [interviewData, setInterviewData] = useState('');
 
   const currentDate = new Date();
   const currentDateString = currentDate.toISOString().split('T')[0];
@@ -26,21 +27,21 @@ const AddOnboarding = () => {
   };
 
   useEffect(() => {
-    const getAvailablePIC = async () => {
+    const getAvailableInterviewers = async () => {
       try {
         const response = await fetch(`http://127.0.0.1:8000/api/onboarding/get-pic-user-id/`, {
           method: 'GET',
         });
         const data = await response.json();
-        set_pic_user_id(data); 
+        setInterviewers(data); 
       } catch (error) {
-        console.error('Error fetching pic:', error);
+        console.error('Error fetching interviewer:', error);
       }
     };
-    if (onboardingData.datetime && onboardingData.startTime && onboardingData.endTime && selectedJob) {
-      getAvailablePIC();
+    if (interviewData.datetime && interviewData.startTime && interviewData.endTime && selectedJob) {
+      getAvailableInterviewers();
     }
-  }, [onboardingData.datetime, onboardingData.startTime, onboardingData.endTime, selectedJob]); // Add dependencies to rerun effect when these values change
+  }, [interviewData.datetime, interviewData.startTime, interviewData.endTime, selectedJob]); // Add dependencies to rerun effect when these values change
 
   useEffect(() => {
     const getJobNames = async () => {
@@ -58,9 +59,24 @@ const AddOnboarding = () => {
   }, []);
 
   useEffect(() => {
-    const selectedJobApplicants = jobOptions.find(option => option.job.job_name === selectedJob)?.applicant;
+    const getInterviews = async () => {
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/api/onboarding/get-list-onboarding/`, {
+          method: 'GET',
+        });
+        const interviews = await response.json();
+        setInterviews(interviews);
+      } catch (error) {
+        console.error('Error fetching interviews:', error);
+      }
+    };
+    getInterviews();
+  }, []);
+
+  useEffect(() => {
+    const selectedJobApplicants = jobOptions.filter(option => option.job.job_name === selectedJob);
     if (selectedJobApplicants) {
-      setApplicants([selectedJobApplicants]);
+      setApplicants(selectedJobApplicants.map(job => job.applicant));
     } else {
       setApplicants([]);
     }
@@ -71,30 +87,30 @@ const AddOnboarding = () => {
   setSelectedJob(selectedJob); 
 };
 
-  const handlePICChange = (event) => { 
-    setOnboardingData({ ...onboardingData, pic_user_id: event.target.value });
+  const handleInterviewerChange = (event) => { // New handler to set the selected interviewer
+    setInterviewData({ ...interviewData, interviewer: event.target.value });
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
   try {
-    const selectedJobObject = jobOptions.find(option => option.job.job_name === selectedJob);
+    const selectedJobObject = jobOptions.find(option => option.job.job_name === selectedJob && option.applicant.user.user_id === interviewData.applicant);
     if (!selectedJobObject) {
       throw new Error('Selected job not found.');
     }
-    const isConfirmed = window.confirm('Apakah Anda yakin membuat On Boarding?');
+    const isConfirmed = window.confirm('Apakah Anda yakin membuat interview?');
 
     if (!isConfirmed) {
       return;
     }
 
-    const datetimeStart = new Date(onboardingData.datetime + 'T' + onboardingData.startTime);
-    const datetimeEnd = new Date(onboardingData.datetime + 'T' + onboardingData.endTime);
+    const datetimeStart = new Date(interviewData.datetime + 'T' + interviewData.startTime);
+    const datetimeEnd = new Date(interviewData.datetime + 'T' + interviewData.endTime);
     const formattedData = {
-      ...onboardingData,
+      ...interviewData,
       datetime_start: datetimeStart.toISOString(),
       datetime_end: datetimeEnd.toISOString(),
-      applicant: onboardingData.applicant,
-      pic_user_id: onboardingData.pic_user_id,
+      applicant: interviewData.applicant,
+      pic_user_id: interviewData.interviewer,
       job_application_id: selectedJobObject.id, 
     };
 
@@ -107,7 +123,7 @@ const AddOnboarding = () => {
     });
 
     if (!response.ok) {
-      throw new Error('Failed to submit onboarding schedule');
+      throw new Error('Failed to submit interview schedule');
     }
     if (response.ok) {
         console.log('Job posted successfully!');
@@ -117,45 +133,61 @@ const AddOnboarding = () => {
             navigate("/get-list-interview-ga");
         }, 5000);
     } else {
-        console.error('Failed to post on boarding', response.statusText);
+        console.error('Failed to post interview', response.statusText);
       }
 
   } catch (error) {
-    console.error('Error submitting on boarding schedule:', error);
-    alert('Failed to submit on boarding schedule. Please try again later.');
+    alert('On Boarding applicant sudah ada');
   }
 };
 
   return (
     <React.Fragment>
-      <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>On Boarding</p>
+      <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>Wawancara</p>
       <Link to ='/get-list-interview-ga'>
-        <p style={{marginLeft:'22%', position:'absolute', marginTop:"100px" }}>List On Boarding</p>
+        <p style={{marginLeft:'22%', position:'absolute', marginTop:"100px" }}>List Wawancara</p>
         </Link>
         <p style={{marginLeft:'30%', position:'absolute', marginTop:"100px" }}>{'>'}</p>
-        <Link to='/create-onboarding'>
-        <p style={{marginLeft:'31%', position:'absolute', marginTop:"100px"}}>Tambah On Boarding</p>
+        <Link to='/create-interview'>
+        <p style={{marginLeft:'31%', position:'absolute', marginTop:"100px"}}>Tambah Interview</p>
         </Link>
       <Sidebar />
-      <div className="create-onboarding" style={{ position: 'relative' }}>
+      <div className="create-interview" style={{ position: 'relative' }}>
         <div className="rectangle" style={rectangleStyle}>
-          <p style={{ marginTop: '20px', marginLeft: '23%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute' }}>Buat Jadwal On Boarding</p>
+          <p style={{ marginTop: '20px', marginLeft: '23%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute' }}>Buat Jadwal Wawancara</p>
           <form onSubmit={handleSubmit}>
             <p style={{ marginTop: '80px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Posisi Pekerjaan*</p>
             <select style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '110px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} required id="job" value={selectedJob} onChange={handleJobChange}>
               <option value="">Select Job</option>
-              {jobOptions.map(job => (
-                <option key={job.job.id} value={job.job.job_name}>{job.job.job_name}</option>
-              ))}
+              {
+                jobOptions
+                  .map(job => job.job)
+                  .filter((job, index, self) => self.findIndex(job2 => job2.id === job.id) === index)
+                  .map(job => (
+                    <option key={job.id} value={job.job_name}>
+                      {job.job_name}
+                    </option>
+                  ))
+              }
             </select>
-            <p style={{ marginTop: '180px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Pelamar Tahap On Boarding*</p>
-            <select style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '210px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} required id="applicant" value={onboardingData.applicant} onChange={(e) => setOnboardingData({ ...onboardingData, applicant: e.target.value })}>
+            <p style={{ marginTop: '180px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Pelamar Tahap Interview*</p>
+            <select style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '210px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} required id="applicant" value={interviewData.applicant} onChange={(e) => setInterviewData({ ...interviewData, applicant: e.target.value })}>
               <option value="">Pilih Applicant</option>
-              {applicants && applicants.map(applicant => (
-                <option key={applicant.user.user_id} value={applicant.user.user_id}>{applicant.user.name}</option>
-              ))}
+              {
+                applicants
+                  .filter(applicant =>
+                    interviews.length > 0 ? interviews.find(interview =>
+                      interview.job_application_id.applicant.applicant_id !== applicant.applicant_id
+                    ) : true
+                  )
+                  .map(applicant => (
+                    <option key={applicant.user.user_id} value={applicant.user.user_id}>
+                      {applicant.user.name}
+                    </option>
+                  ))
+              }
             </select>
-            <p style={{ marginTop: '280px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Tanggal On Boarding*</p>
+            <p style={{ marginTop: '280px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Tanggal Interview*</p>
             <input
               type="date"
               style={{
@@ -170,24 +202,24 @@ const AddOnboarding = () => {
                 width: '56%',
               }}
               required
-              value={onboardingData.datetime ? onboardingData.datetime : ''}
+              value={interviewData.datetime ? interviewData.datetime : ''}
               onChange={(e) => {
                 const selectedDate = e.target.value;
                 const currentDate = new Date();
                 const currentDateString = currentDate.toISOString().split('T')[0];
                 const currentTimeString = currentDate.toTimeString().slice(0, 5);
 
-                const startTime = new Date(`${selectedDate}T${onboardingData.startTime}`);
+                const startTime = new Date(`${selectedDate}T${interviewData.startTime}`);
 
                 if (selectedDate === currentDateString && startTime < currentDate) {
                   alert('Waktu mulai tidak boleh lebih kecil dari waktu saat ini.');
                 } else {
-                  setOnboardingData({ ...onboardingData, datetime: selectedDate });
+                  setInterviewData({ ...interviewData, datetime: selectedDate });
                 }
               }}
               min={currentDateString}
             />
-            <p style={{ marginTop: '380px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Waktu Mulai On Boarding*</p>
+            <p style={{ marginTop: '380px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Waktu Mulai Interview*</p>
             <input
               type="time"
               style={{
@@ -202,25 +234,25 @@ const AddOnboarding = () => {
                 width: '56%',
               }}
               required
-              value={onboardingData.startTime ? onboardingData.startTime : ''}
+              value={interviewData.startTime ? interviewData.startTime : ''}
               onChange={(e) => {
                 const selectedTime = e.target.value;
                 const formattedTime = selectedTime.slice(0, 5);
-                const startTime = new Date(`${onboardingData.datetime}T${formattedTime}`);
+                const startTime = new Date(`${interviewData.datetime}T${formattedTime}`);
                 const currentDate = new Date();
                 const currentDateString = currentDate.toISOString().split('T')[0];
 
-                if (onboardingData.datetime === currentDateString && startTime < currentDate) {
+                if (interviewData.datetime === currentDateString && startTime < currentDate) {
                   alert('Waktu mulai tidak boleh lebih kecil dari waktu saat ini.');
                 } else {
-                  setOnboardingData({ ...onboardingData, startTime: formattedTime });
+                  setInterviewData({ ...interviewData, startTime: formattedTime });
                 }
               }}
-              min={onboardingData.datetime === currentDateString ? currentTimeString : '00:00'}
-              max={onboardingData.datetime === currentDateString ? '23:59' : ''}
+              min={interviewData.datetime === currentDateString ? currentTimeString : '00:00'}
+              max={interviewData.datetime === currentDateString ? '23:59' : ''}
             />
 
-            <p style={{ marginTop: '480px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Waktu Berakhir On Boarding*</p>
+            <p style={{ marginTop: '480px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Waktu Berakhir Interview*</p>
             <input
               type="time"
               style={{
@@ -234,12 +266,12 @@ const AddOnboarding = () => {
                 position: 'absolute',
                 width: '56%',
               }}
-              value={onboardingData.endTime ? onboardingData.endTime : ''}
+              value={interviewData.endTime ? interviewData.endTime : ''}
               onChange={(e) => {
                 const selectedTime = e.target.value;
                 const formattedTime = selectedTime.slice(0, 5);
-                const startTime = new Date(`${onboardingData.datetime}T${onboardingData.startTime}`);
-                const endTime = new Date(`${onboardingData.datetime}T${formattedTime}`);
+                const startTime = new Date(`${interviewData.datetime}T${interviewData.startTime}`);
+                const endTime = new Date(`${interviewData.datetime}T${formattedTime}`);
                 const currentDate = new Date();
                 const currentDateString = currentDate.toISOString().split('T')[0];
                 if (endTime < startTime) {
@@ -247,24 +279,25 @@ const AddOnboarding = () => {
                   return;
                 }
 
-                if (onboardingData.datetime === currentDateString && endTime < currentDate) {
+                if (interviewData.datetime === currentDateString && endTime < currentDate) {
                   alert('Waktu berakhir tidak boleh lebih kecil dari waktu saat ini.');
                   return;
                 }
-                setOnboardingData({ ...onboardingData, endTime: formattedTime });
+                setInterviewData({ ...interviewData, endTime: formattedTime });
               }}
-              min={onboardingData.datetime === currentDateString ? currentTimeString : '00:00'}
-              max={onboardingData.datetime === currentDateString ? '23:59' : ''}
+              min={interviewData.datetime === currentDateString ? currentTimeString : '00:00'}
+              max={interviewData.datetime === currentDateString ? '23:59' : ''}
             />
-            <p style={{ marginTop: '580px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>PIC*</p>
-            <select style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '610px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} id="pic_user_id" value={onboardingData.pic_user_id} onChange={handlePICChange}> 
+            <p style={{ marginTop: '580px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Person In Charge*</p>
+            <select style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '610px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} id="pic_user_id" value={interviewData.pic_user_id} onChange={handleInterviewerChange}> 
               <option value="">Pilih Person In Charge*</option>
-              {pic_user_id && pic_user_id.map(pic => (
+              {interviewers && interviewers.map(pic => (
                 <option key={pic.user_id} value={pic.user_id}>
                   {pic.name}
                 </option>
               ))}
             </select>
+
 
             <button type='submit'
               style={{
