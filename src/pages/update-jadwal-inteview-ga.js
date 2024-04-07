@@ -8,6 +8,7 @@ function UpdateJadwalInteviewGA() {
     const [interviewers, setInterviewers] = useState([]);
     const [successMessage, setSuccessMessage] = useState('');
     const [interview, setInterview] = useState(null);
+    const [interviews, setInterviews] = useState([]);
     const [interviewData, setInterviewData] = useState({
         datetime_start:'',
         datetime_end:'',
@@ -29,6 +30,13 @@ function UpdateJadwalInteviewGA() {
         boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)',
         marginTop: '-14%',
     };
+
+    const isOverlapping = (aStart, aEnd, bStart, bEnd) => {
+        if (aStart <= bStart && bEnd <= aEnd) return false
+        if (aStart <= bStart && bStart < aEnd) return true
+        if (aStart < bEnd && bEnd <= aEnd) return true
+        return false;
+    }
 
     useEffect(() => {
         const getInterview = async () => {
@@ -56,6 +64,21 @@ function UpdateJadwalInteviewGA() {
         getAvailableInterviewers();
     }, [id]);
 
+    useEffect(() => {
+        const getInterviews = async () => {
+          try {
+            const response = await fetch(`http://127.0.0.1:8000/api/interview/get-list-interview/`, {
+              method: 'GET',
+            });
+            const interviews = await response.json();
+            setInterviews(interviews);
+          } catch (error) {
+            console.error('Error fetching interviews:', error);
+          }
+        };
+        getInterviews();
+      }, []);
+
     const handleInterviewerChange = (event) => {
         setInterviewer(event.target.value);
         setInterviewData({ ...interviewData, interviewer: event.target.value });
@@ -69,8 +92,24 @@ function UpdateJadwalInteviewGA() {
         return;
     }
 
-    const datetimeStart = interviewData.datetime_start ? new Date(interviewData.datetime_start + 'T' + interviewData.startTime) : new Date(interview.datetime_start);
-    const datetimeEnd = interviewData.datetime_end ? new Date(interviewData.datetime_end + 'T' + interviewData.endTime) : new Date(interview.datetime_end);
+    const datetimeStart = 
+        interviewData.datetime_start && !interviewData.startTime // hanya ganti tanggal
+        ? new Date(interviewData.datetime_start + 'T' + interview.datetime_start.slice(11, 16)) 
+        : !interviewData.datetime_start && interviewData.startTime // hanya ganti jam mulai
+            ? new Date(interview.datetime_start.slice(0, 10) + 'T' + interviewData.startTime) 
+            : interviewData.datetime_start && interviewData.startTime // ganti tanggal dan jam mulai
+                ? new Date(interviewData.datetime_start + 'T' + interviewData.startTime)
+                : new Date(interview.datetime_start); // tidak diganti
+    
+    const datetimeEnd = 
+        interviewData.datetime_start && !interviewData.endTime // hanya ganti tanggal
+        ? new Date(interviewData.datetime_start + 'T' + interview.datetime_start.slice(11, 16)) 
+        : !interviewData.datetime_start && interviewData.endTime // hanya ganti jam selesai
+            ? new Date(interview.datetime_end.slice(0, 10) + 'T' + interviewData.endTime) 
+            : interviewData.datetime_start && interviewData.endTime // ganti tanggal dan jam selesai
+                ? new Date(interviewData.datetime_end + 'T' + interviewData.endTime)
+                : new Date(interview.datetime_end); // tidak diganti
+    
     const formattedData = {
         datetime_start: datetimeStart.toISOString(),
         datetime_end: datetimeEnd.toISOString(),
@@ -78,7 +117,23 @@ function UpdateJadwalInteviewGA() {
         job_application_id: interview.job_application_id.id
     };
 
+    const isInterviewerScheduledInTheTimeRange = interviewers.find(interviewer => 
+        interviews.find(interview => 
+          interview.interviewer_user_id.user_id === interviewer.user_id &&
+          isOverlapping(
+            new Date(interview.datetime_start),
+            new Date(interview.datetime_end),
+            datetimeStart,
+            datetimeEnd
+          )
+        )
+      );
+      
     try {
+        if (isInterviewerScheduledInTheTimeRange) {
+            throw new Error('There is another interview in this time range for this interviewer');
+        }
+
         const response = await fetch(`http://127.0.0.1:8000/api/interview/edit-interview-perusahaan/${id}/`, {
             method: 'PUT',
             headers: {
@@ -102,6 +157,7 @@ function UpdateJadwalInteviewGA() {
         }
     } catch (error) {
         console.error('Error updating interview:', error);
+        alert(error)
     }
     
 };
@@ -245,11 +301,6 @@ const deleteInterview = async (id) => {
                         
                         if (interviewData.startTime && selectedTime < interviewData.startTime) {
                             alert('Waktu berakhir tidak boleh lebih awal dari waktu mulai.');
-                            return;
-                        }
-
-                        if (prevEndTime && selectedTime < prevEndTime) {
-                            alert('Waktu berakhir tidak boleh lebih awal dari waktu berakhir sebelumnya.');
                             return;
                         }
 
