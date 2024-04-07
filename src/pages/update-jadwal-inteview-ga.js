@@ -248,10 +248,7 @@ const deleteInterview = async (id) => {
                             return;
                         }
 
-                        if (prevEndTime && selectedTime < prevEndTime) {
-                            alert('Waktu berakhir tidak boleh lebih awal dari waktu berakhir sebelumnya.');
-                            return;
-                        }
+
 
                         setInterviewData({ ...interviewData, endTime: selectedTime });
                     }}
