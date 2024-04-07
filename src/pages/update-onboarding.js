@@ -249,18 +249,11 @@ const deleteOnboarding = async (id) => {
                             alert('Waktu berakhir tidak boleh lebih awal dari waktu mulai.');
                             return;
                         }
-
-                        if (prevEndTime && selectedTime < prevEndTime) {
-                            alert('Waktu berakhir tidak boleh lebih awal dari waktu berakhir sebelumnya.');
-                            return;
-                        }
-
                         setOnboardingData({ ...onboardingData, endTime: selectedTime });
                     }}
                     min={onboardingData.datetime_end === currentDateString ? currentTimeString : '00:00'}
                     max={onboardingData.datetime_end === currentDateString ? '23:59' : ''}
                 />
-
                 <p style={{ marginTop: '580px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Pewawancara*</p>
                 <select 
                 style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '610px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} 

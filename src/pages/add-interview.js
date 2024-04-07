@@ -8,6 +8,7 @@ const AddInterview = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [interviewers, setInterviewers] = useState([]);
   const [jobOptions, setJobOptions] = useState([]);
+  const [interviews, setInterviews] = useState([]);
   const [selectedJob, setSelectedJob] = useState('');
   const [applicants, setApplicants] = useState([]);
   const [interviewData, setInterviewData] = useState('');
@@ -24,6 +25,13 @@ const AddInterview = () => {
     boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)',
     marginTop: '-14%',
   };
+
+  const isOverlapping = (aStart, aEnd, bStart, bEnd) => {
+      if (aStart <= bStart && bStart < aEnd) return true;
+      if (aStart < bEnd && bEnd <= aEnd) return true; 
+      if (bStart < aStart && aEnd < bEnd) return true;
+      return false;
+  }
 
   useEffect(() => {
     const getAvailableInterviewers = async () => {
@@ -58,9 +66,24 @@ const AddInterview = () => {
   }, []);
 
   useEffect(() => {
-    const selectedJobApplicants = jobOptions.find(option => option.job.job_name === selectedJob)?.applicant;
+    const getInterviews = async () => {
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/api/interview/get-list-interview/`, {
+          method: 'GET',
+        });
+        const interviews = await response.json();
+        setInterviews(interviews);
+      } catch (error) {
+        console.error('Error fetching interviews:', error);
+      }
+    };
+    getInterviews();
+  }, []);
+
+  useEffect(() => {
+    const selectedJobApplicants = jobOptions.filter(option => option.job.job_name === selectedJob);
     if (selectedJobApplicants) {
-      setApplicants([selectedJobApplicants]);
+      setApplicants(selectedJobApplicants.map(job => job.applicant));
     } else {
       setApplicants([]);
     }
@@ -77,7 +100,7 @@ const AddInterview = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
   try {
-    const selectedJobObject = jobOptions.find(option => option.job.job_name === selectedJob);
+    const selectedJobObject = jobOptions.find(option => option.job.job_name === selectedJob && option.applicant.user.user_id === interviewData.applicant);
     if (!selectedJobObject) {
       throw new Error('Selected job not found.');
     }
@@ -144,16 +167,33 @@ const AddInterview = () => {
             <p style={{ marginTop: '80px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Posisi Pekerjaan*</p>
             <select style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '110px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} required id="job" value={selectedJob} onChange={handleJobChange}>
               <option value="">Select Job</option>
-              {jobOptions.map(job => (
-                <option key={job.job.id} value={job.job.job_name}>{job.job.job_name}</option>
-              ))}
+              {
+                jobOptions
+                  .map(job => job.job)
+                  .filter((job, index, self) => self.findIndex(job2 => job2.id === job.id) === index)
+                  .map(job => (
+                    <option key={job.id} value={job.job_name}>
+                      {job.job_name}
+                    </option>
+                  ))
+              }
             </select>
             <p style={{ marginTop: '180px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Pelamar Tahap Interview*</p>
             <select style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '210px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} required id="applicant" value={interviewData.applicant} onChange={(e) => setInterviewData({ ...interviewData, applicant: e.target.value })}>
               <option value="">Pilih Applicant</option>
-              {applicants && applicants.map(applicant => (
-                <option key={applicant.user.user_id} value={applicant.user.user_id}>{applicant.user.name}</option>
-              ))}
+              {
+                applicants
+                  .filter(applicant =>
+                    interviews.length > 0 ? interviews.find(interview =>
+                      interview.job_application_id.applicant.applicant_id !== applicant.applicant_id
+                    ) : true
+                  )
+                  .map(applicant => (
+                    <option key={applicant.user.user_id} value={applicant.user.user_id}>
+                      {applicant.user.name}
+                    </option>
+                  ))
+              }
             </select>
             <p style={{ marginTop: '280px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Tanggal Interview*</p>
             <input
@@ -259,11 +299,27 @@ const AddInterview = () => {
             <p style={{ marginTop: '580px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Pewawancara*</p>
             <select style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '610px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} id="interviewer" value={interviewData.interviewer} onChange={handleInterviewerChange}> {/* Use interviewer and handleInterviewerChange */}
               <option value="">Pilih Pewawancara*</option>
-              {interviewers && interviewers.map(interviewer => (
-                <option key={interviewer.user_id} value={interviewer.user_id}>
-                  {interviewer.name}
-                </option>
-              ))}
+              {
+                interviewers
+                  .filter(interviewer => 
+                    interviews.length > 0 
+                      ? interviews.find(interview => 
+                          !(interview.interviewer_user_id.user_id === interviewer.user_id &&
+                          isOverlapping(
+                            new Date(interview.datetime_start),
+                            new Date(interview.datetime_end),
+                            new Date(interviewData.datetime + 'T' + interviewData.startTime),
+                            new Date(interviewData.datetime + 'T' + interviewData.endTime)
+                          ))
+                        )
+                      : true
+                  )
+                  .map(interviewer => (
+                    <option key={interviewer.user_id} value={interviewer.user_id}>
+                      {interviewer.name}
+                    </option>
+                  ))
+              }
             </select>
 
             <button type='submit'
