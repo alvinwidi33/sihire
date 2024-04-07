@@ -145,7 +145,7 @@ const AddInterview = () => {
 
   } catch (error) {
     console.error('Error submitting interview schedule:', error);
-    alert('Failed to submit interview schedule. Please try again later.');
+    alert('Interview applicant sudah ada');
   }
 };
 
