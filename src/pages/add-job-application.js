@@ -140,12 +140,17 @@ function AddJobApplication() {
       const result = await response.json();
       if (response.ok) {
         console.log("Form submitted successfully:", result);
-        setSuccessMessage("Job berhasil dilamar!");
+        setSuccessMessage("Pekerjaan berhasil dilamar!");
         setTimeout(() => {
           setSuccessMessage("");
           navigate(`/my-job-application/${applicantData.applicant_id}`);
         }, 5000);
       }
+      if (result.non_field_errors && result.non_field_errors.length > 0 && result.non_field_errors[0] === "The fields job, applicant must make a unique set.") {
+          window.alert("Anda sudah melamar pekerjaan ini!");
+        } else {
+          window.alert("Terjadi kesalahan saat melamar pekerjaan.");
+        }
     } catch (error) {
       console.error('Error submitting form:', error);
     }

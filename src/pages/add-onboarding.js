@@ -126,7 +126,6 @@ const AddOnboarding = () => {
       throw new Error('Failed to submit interview schedule');
     }
     if (response.ok) {
-        console.log('Job posted successfully!');
         setSuccessMessage("On Boarding berhasil dibuat!");
         setTimeout(() => {
             setSuccessMessage('');
@@ -143,7 +142,7 @@ const AddOnboarding = () => {
 
   return (
     <React.Fragment>
-      <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>Wawancara</p>
+      <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>On Boarding</p>
       <Link to ='/get-list-interview-ga'>
         <p style={{marginLeft:'22%', position:'absolute', marginTop:"100px" }}>List Wawancara</p>
         </Link>
@@ -154,7 +153,7 @@ const AddOnboarding = () => {
       <Sidebar />
       <div className="create-interview" style={{ position: 'relative' }}>
         <div className="rectangle" style={rectangleStyle}>
-          <p style={{ marginTop: '20px', marginLeft: '23%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute' }}>Buat Jadwal Wawancara</p>
+          <p style={{ marginTop: '20px', marginLeft: '23%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute' }}>Buat Jadwal On Boarding</p>
           <form onSubmit={handleSubmit}>
             <p style={{ marginTop: '80px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }}>Posisi Pekerjaan*</p>
             <select style={{ borderRadius: '5px', border: '2px solid #ccc', height: "40px", width: "56%", marginTop: '110px', marginLeft: '7%', fontWeight: '600', fontSize: '14px', color: '#2A3E4B', position: 'absolute' }} required id="job" value={selectedJob} onChange={handleJobChange}>

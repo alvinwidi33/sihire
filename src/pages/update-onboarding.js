@@ -143,7 +143,7 @@ const deleteOnboarding = async (id) => {
 
     return (
         <React.Fragment>
-            <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>Onboarding</p>
+            <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>On Boarding</p>
             <Sidebar />
             <Link to='/get-list-interview-ga'>
                 <p style={{ marginLeft: '22%', position: 'absolute', marginTop: "-240px" }}>List Onboarding</p>
