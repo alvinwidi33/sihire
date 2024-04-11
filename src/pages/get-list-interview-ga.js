@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from '../components/sidebar'; // Make sure to import the Sidebar component properly
+import Sidebar from '../components/sidebar'; // Pastikan untuk mengimpor komponen Sidebar dengan benar
 import { Link } from 'react-router-dom';
 
 function GetListInterviewGA() {
@@ -54,6 +54,12 @@ function GetListInterviewGA() {
         }
     }
 
+    const isDatePassed = (datetimeString) => {
+        const interviewDate = new Date(datetimeString);
+        const currentDate = new Date();
+        return interviewDate < currentDate;
+    };
+
     return (
         <React.Fragment>
             <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>Wawancara</p>
@@ -85,11 +91,7 @@ function GetListInterviewGA() {
                         </thead>
                         <tbody>
                             {interviews.map(interview => (
-                                <tr key={interview.id} style={{ backgroundColor: 
-                                interview.job_application_id.status === "Withdrawn" ? "#FFC0CB" :
-                                interview.job_application_id.status === "Interview" ? "#FFFFFF" : 
-                                "#D3D3D3"
-                            }}>
+                                <tr key={interview.id} style={{ backgroundColor: (interview.job_application_id.status === "Withdrawn" ? "#FFC0CB" : (isDatePassed(interview.datetime_end) ? "#D3D3D3" : (interview.job_application_id.status === "Interview" ? "#FFFFFF" : "#D3D3D3"))) }}>
                                     <td style={{ border: "2px solid #2A3E4B", padding: "8px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', fontSize: "20px", color: "#2A3E4B", textAlign:"center" }}>{interview.job_application_id.job.job_name}</td>
                                     <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign:"center" }}>{interview.job_application_id.applicant.user.name}</td>
                                     <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center" }}>{interview.datetime_start && formatDateTime(interview.datetime_start)}</td>
