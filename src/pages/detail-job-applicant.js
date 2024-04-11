@@ -77,7 +77,6 @@ function formatDateTime(datetimeString) {
     </div>
   </React.Fragment>
 );
-
 }
 
 export default DetailJobApplicant;
