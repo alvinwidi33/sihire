@@ -36,7 +36,7 @@ const AddInterview = () => {
   useEffect(() => {
     const getAvailableInterviewers = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/interview/get-interviewer/`, {
+        const response = await fetch(`https://sihire-be.vercel.app/api/interview/get-interviewer/`, {
           method: 'GET',
         });
         const data = await response.json();
@@ -53,7 +53,7 @@ const AddInterview = () => {
   useEffect(() => {
     const getJobNames = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/interview/get-job-name-applicants/`, {
+        const response = await fetch(`https://sihire-be.vercel.app/api/interview/get-job-name-applicants/`, {
           method: 'GET',
         });
         const jobNames = await response.json();
@@ -68,7 +68,7 @@ const AddInterview = () => {
   useEffect(() => {
     const getInterviews = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/interview/get-list-interview/`, {
+        const response = await fetch(`https://sihire-be.vercel.app/api/interview/get-list-interview/`, {
           method: 'GET',
         });
         const interviews = await response.json();
@@ -121,7 +121,7 @@ const AddInterview = () => {
       job_application_id: selectedJobObject.id, 
     };
 
-    const response = await fetch('http://127.0.0.1:8000/api/interview/add-interview/', {
+    const response = await fetch('https://sihire-be.vercel.app/api/interview/add-interview/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -152,13 +152,15 @@ const AddInterview = () => {
   return (
     <React.Fragment>
       <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>Wawancara</p>
-      <Link to ='/get-list-interview-ga'>
+      <div className="navigation" style={{position:'relative'}}>
+        <Link to ='/get-list-interview-ga'>
         <p style={{marginLeft:'22%', position:'absolute', marginTop:"100px" }}>List Wawancara</p>
         </Link>
         <p style={{marginLeft:'30%', position:'absolute', marginTop:"100px" }}>{'>'}</p>
         <Link to='/create-interview'>
         <p style={{marginLeft:'31%', position:'absolute', marginTop:"100px"}}>Tambah Interview</p>
         </Link>
+      </div>
       <Sidebar />
       <div className="create-interview" style={{ position: 'relative' }}>
         <div className="rectangle" style={rectangleStyle}>

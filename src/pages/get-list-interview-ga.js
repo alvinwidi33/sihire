@@ -22,7 +22,7 @@ function GetListInterviewGA() {
     useEffect(() => {
         const getInterviews = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/interview/get-list-interview/', {
+                const response = await fetch('https://sihire-be.vercel.app/api/interview/get-list-interview/', {
                     method: "GET",
                 });
                 const data = await response.json();
@@ -36,7 +36,7 @@ function GetListInterviewGA() {
 
     const deleteInterview = async (id) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/interview/delete-interview/${id}/`, {
+            const response = await fetch(`https://sihire-be.vercel.app/api/interview/delete-interview/${id}/`, {
                 method: "DELETE",
             });
             const isConfirmed = window.confirm('Apakah Anda yakin ingin menghapus wawancara?');
@@ -77,31 +77,35 @@ function GetListInterviewGA() {
                                 <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Pelamar</th>
                                 <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Tanggal</th>
                                 <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Waktu</th>
+                                <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Pewawancara</th>
                                 <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Konfirmasi</th>
-                                <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Action</th>
+                                <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold", width: "180px" }}>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {interviews.map(interview => (
                                 <tr key={interview.id}>
-                                    <td style={{ border: "2px solid #2A3E4B", padding: "8px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', fontSize: "24px", color: "#2A3E4B" }}>{interview.job_application_id.job.job_name}</td>
-                                    <td style={{ border: "2px solid #2A3E4B", padding: "8px" }}>{interview.job_application_id.applicant.user.name}</td>
+                                    <td style={{ border: "2px solid #2A3E4B", padding: "8px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', fontSize: "20px", color: "#2A3E4B", textAlign:"center" }}>{interview.job_application_id.job.job_name}</td>
+                                    <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign:"center" }}>{interview.job_application_id.applicant.user.name}</td>
                                     <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center" }}>{interview.datetime_start && formatDateTime(interview.datetime_start)}</td>
                                     <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center" }}>
-                                        {interview.datetime_start && formatTime(interview.datetime_start)}
+                                        {interview.datetime_start && formatTime(interview.datetime_start)} - {interview.datetime_end && formatTime(interview.datetime_end)}
+                                    </td>
+                                    <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center" }}>
+                                        {interview.interviewer_user_id?.name}
                                     </td>
                                     <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center" }}>
                                         <div style={{ color: "#fff", background: "#2A3E4B", fontSize: "12px", width: "90px", height: "32px", border: "2px solid #fff", borderRadius: "90px", display: "flex", justifyContent: "center", alignItems: "center", margin: "auto" }}>
                                             {interview.confirm}
                                         </div>
                                     </td>
-                                    <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center" }}>
+                                    <td style={{ border: "2px solid #2A3E4B", textAlign: "center" }}>
                                         <Link to={`/get-list-interview-ga/${interview.id}`}>
-                                            <button style={{ width: "90px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#2A3E4B", borderRadius: "6px", cursor: "pointer", border: "2px solid #2A3E4B", marginRight: "4px" }}>
+                                            <button style={{ width: "80px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#2A3E4B", borderRadius: "6px", cursor: "pointer", border: "2px solid #2A3E4B", marginRight: "4px" }}>
                                                 Detail
                                             </button>
                                         </Link>
-                                        <button onClick={() => deleteInterview(interview.id)} style={{ background: "#2A3E4B", width: "90px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#fff", borderRadius: "6px", cursor: "pointer", border: "2px solid #2A3E4B", }}>
+                                        <button onClick={() => deleteInterview(interview.id)} style={{ background: "#2A3E4B", width: "80px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#fff", borderRadius: "6px", cursor: "pointer", border: "2px solid #2A3E4B", }}>
                                             Hapus
                                         </button>
                                     </td>
