@@ -33,7 +33,7 @@ function UpdateOnboarding() {
     useEffect(() => {
         const getOnboarding = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/api/onboarding/get-onboarding/${id}/`);
+                const response = await fetch(`https://sihire-be.vercel.app/api/onboarding/get-onboarding/${id}/`);
                 const data = await response.json();
                 setOnboarding(data);
                 setInterviewer(data?.pic_user_id || '');
@@ -43,7 +43,7 @@ function UpdateOnboarding() {
         };
         const getAvailableInterviewers = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/api/onboarding/get-pic-user-id/`, {
+                const response = await fetch(`https://sihire-be.vercel.app/api/onboarding/get-pic-user-id/`, {
                     method: 'GET',
                 });
                 const data = await response.json();
@@ -94,7 +94,7 @@ function UpdateOnboarding() {
     };
 
     try {
-        const response = await fetch(`http://127.0.0.1:8000/api/onboarding/edit-onboarding-perusahaan/${id}/`, {
+        const response = await fetch(`https://sihire-be.vercel.app/api/onboarding/edit-onboarding-perusahaan/${id}/`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

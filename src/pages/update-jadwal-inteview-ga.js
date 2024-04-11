@@ -41,7 +41,7 @@ function UpdateJadwalInteviewGA() {
     useEffect(() => {
         const getInterview = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/api/interview/get-interview/${id}/`);
+                const response = await fetch(`https://sihire-be.vercel.app/api/interview/get-interview/${id}/`);
                 const data = await response.json();
                 setInterview(data);
                 setInterviewer(data?.interviewer_user_id || '');
@@ -51,7 +51,7 @@ function UpdateJadwalInteviewGA() {
         };
         const getAvailableInterviewers = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/api/interview/get-interviewer/`, {
+                const response = await fetch(`https://sihire-be.vercel.app/api/interview/get-interviewer/`, {
                     method: 'GET',
                 });
                 const data = await response.json();
@@ -67,7 +67,7 @@ function UpdateJadwalInteviewGA() {
     useEffect(() => {
         const getInterviews = async () => {
           try {
-            const response = await fetch(`http://127.0.0.1:8000/api/interview/get-list-interview/`, {
+            const response = await fetch(`https://sihire-be.vercel.app/api/interview/get-list-interview/`, {
               method: 'GET',
             });
             const interviews = await response.json();
@@ -134,7 +134,7 @@ function UpdateJadwalInteviewGA() {
             throw new Error('There is another interview in this time range for this interviewer');
         }
 
-        const response = await fetch(`http://127.0.0.1:8000/api/interview/edit-interview-perusahaan/${id}/`, {
+        const response = await fetch(`https://sihire-be.vercel.app/api/interview/edit-interview-perusahaan/${id}/`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
