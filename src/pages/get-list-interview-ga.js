@@ -78,13 +78,18 @@ function GetListInterviewGA() {
                                 <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Tanggal</th>
                                 <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Waktu</th>
                                 <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Pewawancara</th>
+                                <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Status</th>
                                 <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Konfirmasi</th>
                                 <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold", width: "180px" }}>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {interviews.map(interview => (
-                                <tr key={interview.id}>
+                                <tr key={interview.id} style={{ backgroundColor: 
+                                interview.job_application_id.status === "Withdrawn" ? "#FFC0CB" :
+                                interview.job_application_id.status === "Interview" ? "#FFFFFF" : 
+                                "#D3D3D3"
+                            }}>
                                     <td style={{ border: "2px solid #2A3E4B", padding: "8px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', fontSize: "20px", color: "#2A3E4B", textAlign:"center" }}>{interview.job_application_id.job.job_name}</td>
                                     <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign:"center" }}>{interview.job_application_id.applicant.user.name}</td>
                                     <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center" }}>{interview.datetime_start && formatDateTime(interview.datetime_start)}</td>
@@ -93,6 +98,9 @@ function GetListInterviewGA() {
                                     </td>
                                     <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center" }}>
                                         {interview.interviewer_user_id?.name}
+                                    </td>
+                                    <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center" }}>
+                                        {interview.job_application_id.status}
                                     </td>
                                     <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center" }}>
                                         <div style={{ color: "#fff", background: "#2A3E4B", fontSize: "12px", width: "90px", height: "32px", border: "2px solid #fff", borderRadius: "90px", display: "flex", justifyContent: "center", alignItems: "center", margin: "auto" }}>
