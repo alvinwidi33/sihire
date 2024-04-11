@@ -34,9 +34,11 @@ import EditRoleUser from './pages/edit-role-user';
 import GetListInterviewGA from './pages/get-list-interview-ga';
 import DetailInterviewGA from './pages/detail-interview-ga';
 import UpdateJadwalInteviewGA from './pages/update-jadwal-inteview-ga';
+import OnboardingDeclined from './pages/onboarding-declined';
 import JobApplicationDetailDP from './pages/job-application-detail-dp';
 import AddOnboarding from './pages/add-onboarding';
 import UpdateOnboarding from './pages/update-onboarding';
+import AddDataDiri from './pages/add-data-diri';
 
 function App() {
   return (
@@ -73,9 +75,11 @@ function App() {
           <Route path="/get-list-interview-ga/:id" element={<DetailInterviewGA/>}/>
           <Route path="/get-list-interview-ga/:id/update" element={<UpdateJadwalInteviewGA/>}/>
           <Route path="/edit-user-role/:id" element={<ProtectedRoute child={<EditRoleUser />} />} />
+          <Route path="/onboarding-declined" element={<OnboardingDeclined/>}/>
           <Route path="/create-onboarding" element={<AddOnboarding/>}/>
           <Route path="/get-list-onboarding-ga/:id/update" element={<UpdateOnboarding/>}/>
           <Route path='/job-application-detail-dp/:id' element={<ProtectedRoute child={<JobApplicationDetailDP />} />} />
+          <Route path="/create-datadiri/:id" element={<AddDataDiri/>}/>
       </Routes>
     </Router>
   );
