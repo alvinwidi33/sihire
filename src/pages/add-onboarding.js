@@ -29,7 +29,7 @@ const AddOnboarding = () => {
   useEffect(() => {
     const getAvailableInterviewers = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/onboarding/get-pic-user-id/`, {
+        const response = await fetch(`https://sihire-be.vercel.app/api/onboarding/get-pic-user-id/`, {
           method: 'GET',
         });
         const data = await response.json();
@@ -46,7 +46,7 @@ const AddOnboarding = () => {
   useEffect(() => {
     const getJobNames = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/onboarding/get-job-name-applicants/`, {
+        const response = await fetch(`https://sihire-be.vercel.app/api/onboarding/get-job-name-applicants/`, {
           method: 'GET',
         });
         const jobNames = await response.json();
@@ -61,7 +61,7 @@ const AddOnboarding = () => {
   useEffect(() => {
     const getInterviews = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/onboarding/get-list-onboarding/`, {
+        const response = await fetch(`https://sihire-be.vercel.app/api/onboarding/get-list-onboarding/`, {
           method: 'GET',
         });
         const interviews = await response.json();
@@ -114,7 +114,7 @@ const AddOnboarding = () => {
       job_application_id: selectedJobObject.id, 
     };
 
-    const response = await fetch('http://127.0.0.1:8000/api/onboarding/add-onboarding/', {
+    const response = await fetch('https://sihire-be.vercel.app/api/onboarding/add-onboarding/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

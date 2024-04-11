@@ -28,7 +28,7 @@ function DetailInterviewGA() {
   useEffect(() => {
     const getInterview = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/interview/get-interview/${id}/`);
+        const response = await fetch(`https://sihire-be.vercel.app/api/interview/get-interview/${id}/`);
         const data = await response.json();
         setInterview(data);
       } catch (error) {
@@ -65,8 +65,11 @@ function DetailInterviewGA() {
                             <p style={{ marginTop: '270px', marginLeft: '5%', fontSize: '16px', color: '#2A3E4B', position: 'absolute' }}>
                                 Waktu : {interview.datetime_start && formatTime(interview.datetime_start)} - {interview.datetime_end && formatTime(interview.datetime_end)}
                             </p>
-                            <p style={{ marginTop: '310px', marginLeft: '5%', fontWeight: 'bold', fontSize: '24px', color: '#2A3E4B', position: 'absolute' }}>Alasan</p>
-                            <p style={{ marginTop: '350px', marginLeft: '5%', fontSize: '16px', color: '#2A3E4B', position: 'absolute' }}>
+                            <p style={{ marginTop: '300px', marginLeft: '5%', fontSize: '16px', color: '#2A3E4B', position: 'absolute' }}>
+                                Pewawancara : {interview.interviewer_user_id?.name}
+                            </p>
+                            <p style={{ marginTop: '350px', marginLeft: '5%', fontWeight: 'bold', fontSize: '24px', color: '#2A3E4B', position: 'absolute' }}>Alasan</p>
+                            <p style={{ marginTop: '390px', marginLeft: '5%', fontSize: '16px', color: '#2A3E4B', position: 'absolute' }}>
                                 {interview.reschedule_comment}
                             </p>
                             <Link to={`/get-list-interview-ga/${id}/update`}>
