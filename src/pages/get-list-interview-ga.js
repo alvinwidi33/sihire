@@ -311,7 +311,6 @@ function GetListInterviewGA() {
                         fontSize: "12px",
                         width: "90px",
                         height: "32px",
-                        border: "2px solid #fff",
                         borderRadius: "90px",
                         display: "flex",
                         justifyContent: "center",

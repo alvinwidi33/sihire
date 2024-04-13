@@ -151,7 +151,7 @@ function UpdateOnboarding() {
   const deleteOnboarding = async (id) => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/onboarding/delete-onboarding/${id}/`,
+        `https://sihire-be.vercel.app/api/onboarding/delete-onboarding/${id}/`,
         {
           method: "DELETE",
         }
