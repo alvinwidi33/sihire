@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import styled from "styled-components";
+import Sidebar from "../components/sidebar-applicant";
 
 const MyJobApplication = () => {
   const { applicant } = useParams();
   const [jobApplications, setJobApplications] = useState(null);
-  const [activeTab, setActiveTab] = useState('applications');
+  const [activeTab, setActiveTab] = useState("applications");
 
   useEffect(() => {
     const getJobApplications = async () => {
@@ -15,25 +16,13 @@ const MyJobApplication = () => {
         );
         const data = await response.json();
         setJobApplications(data);
-        console.log('data', data);
+        console.log("data", data);
       } catch (error) {
-        console.error('Error fetching job:', error);
+        console.error("Error fetching job:", error);
       }
     };
     getJobApplications();
   }, [applicant]);
-
-  const PageContainer = styled.div`
-    padding: 20px;
-  `;
-
-  const Title = styled.h1`
-    font-weight: bold;
-    font-size: 32px;
-    color: #2a3e4b;
-    border-bottom: 2px solid #2a3e4b;
-    margin-bottom: 20px;
-  `;
 
   const TabContainer = styled.div`
     display: flex;
@@ -42,10 +31,11 @@ const MyJobApplication = () => {
 
   const TabButton = styled.button`
     padding: 10px 20px;
-    background-color: ${(props) => (props.active ? '#2D3648' : '#FFF')};
-    color: ${(props) => (props.active ? '#FFF' : '#2D3648')};
+    background-color: ${(props) => (props.active ? "#2D3648" : "#FFF")};
+    color: ${(props) => (props.active ? "#FFF" : "#2D3648")};
     border: none;
-    border-bottom: 2px solid ${(props) => (props.active ? '#FFF' : 'transparent')};
+    border-bottom: 2px solid
+      ${(props) => (props.active ? "#FFF" : "transparent")};
     border-radius: 5px 5px 0 0;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -56,7 +46,7 @@ const MyJobApplication = () => {
   `;
 
   const ContentContainer = styled.div`
-    display: ${(props) => (props.active ? 'block' : 'none')};
+    display: ${(props) => (props.active ? "block" : "none")};
   `;
 
   const SubTitle = styled.h2`
@@ -89,75 +79,100 @@ const MyJobApplication = () => {
     font-size: 16px;
     font-family: Inter, sans-serif;
     font-weight: bold;
-    color: ${(props) => (props.primary ? '#fff' : '#2a3e4b')};
-    background-color: ${(props) => (props.primary ? '#2a3e4b' : 'transparent')};
+    color: ${(props) => (props.primary ? "#fff" : "#2a3e4b")};
+    background-color: ${(props) => (props.primary ? "#2a3e4b" : "transparent")};
     border: 2px solid #2a3e4b;
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s ease;
     &:hover {
-      background-color: ${(props) => (props.primary ? '#193047' : '#2a3e4b')};
+      background-color: ${(props) => (props.primary ? "#193047" : "#2a3e4b")};
       color: #fff;
     }
   `;
 
   return (
-    <PageContainer>
-      <Title>Job Application</Title>
+    <React.Fragment>
+      <p
+        style={{
+          marginLeft: "22%",
+          fontWeight: "bold",
+          fontSize: "32px",
+          color: "#2A3E4B",
+          position: "absolute",
+        }}
+      >
+        Job Applications
+      </p>
+      <Sidebar />
 
-      <TabContainer>
-        <TabButton active={activeTab === 'applications'} onClick={() => setActiveTab('applications')}>
-          My Applications
-        </TabButton>
-        <TabButton active={activeTab === 'interviews'} onClick={() => setActiveTab('interviews')}>
-          My Interviews
-        </TabButton>
-        <TabButton active={activeTab === 'onboarding'} onClick={() => setActiveTab('onboarding')}>
-          My Onboarding
-        </TabButton>
-      </TabContainer>
+      <div
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-80px" }}
+        className="w-9/12"
+      >
+        <TabContainer>
+          <TabButton
+            active={activeTab === "applications"}
+            onClick={() => setActiveTab("applications")}
+          >
+            My Applications
+          </TabButton>
+          <TabButton
+            active={activeTab === "interviews"}
+            onClick={() => setActiveTab("interviews")}
+          >
+            My Interviews
+          </TabButton>
+          <TabButton
+            active={activeTab === "onboarding"}
+            onClick={() => setActiveTab("onboarding")}
+          >
+            My Onboarding
+          </TabButton>
+        </TabContainer>
 
-      <ContentContainer active={activeTab === 'applications'}>
-        <SubTitle>My Applications</SubTitle>
-        <Table>
-          <thead>
-            <tr>
-              <Th>Pekerjaan</Th>
-              <Th>Status</Th>
-              <Th>Detail</Th>
-              <Th>Withdraw</Th>
-            </tr>
-          </thead>
-          <tbody style={{backgroundColor: "#D2D2D2"}}>
-            {jobApplications &&
-              jobApplications.map((jobApplication) => (
-                <tr key={jobApplication.id}>
-                  <Td>{jobApplication.job.job_name}</Td>
-                  <Td>{jobApplication.status}</Td>
-                  <Td>
-                    <Link to={`/job-application-detail/${jobApplication.id}`}>
-                      <Button>Detail</Button>
-                    </Link>
-                  </Td>
-                  <Td>
-                    <Button primary>Withdraw</Button>
-                  </Td>
-                </tr>
-              ))}
-          </tbody>
-        </Table>
-      </ContentContainer>
+        <ContentContainer active={activeTab === "applications"}>
+          <SubTitle>My Applications</SubTitle>
+          <Table>
+            <thead>
+              <tr>
+                <Th>Pekerjaan</Th>
+                <Th>Status</Th>
+                <Th>Detail</Th>
+                <Th>Withdraw</Th>
+              </tr>
+            </thead>
+            <tbody style={{ backgroundColor: "#D2D2D2" }}>
+              {jobApplications &&
+                jobApplications.map((jobApplication) => (
+                  <tr key={jobApplication.id}>
+                    <Td>{jobApplication.job.job_name}</Td>
+                    <Td>{jobApplication.status}</Td>
+                    <Td>
+                      <Link to={`/job-application-detail/${jobApplication.id}`}>
+                        <Button>Detail</Button>
+                      </Link>
+                    </Td>
+                    <Td>
+                      <Button primary>Withdraw</Button>
+                    </Td>
+                  </tr>
+                ))}
+            </tbody>
+          </Table>
+        </ContentContainer>
 
-      <ContentContainer active={activeTab === 'interviews'}>
-        <SubTitle>My Interviews</SubTitle>
-        {/* Content for My Interviews */}
-      </ContentContainer>
+        <ContentContainer active={activeTab === "interviews"}>
+          <SubTitle>My Interviews</SubTitle>
+          {/* Content for My Interviews */}
+        </ContentContainer>
 
-      <ContentContainer active={activeTab === 'onboarding'}>
-        <SubTitle>My Onboarding</SubTitle>
-        {/* Content for My Onboarding */}
-      </ContentContainer>
-    </PageContainer>
+        <ContentContainer active={activeTab === "onboarding"}>
+          <SubTitle>My Onboarding</SubTitle>
+          {/* Content for My Onboarding */}
+        </ContentContainer>
+      </div>
+    </React.Fragment>
   );
 };
 
