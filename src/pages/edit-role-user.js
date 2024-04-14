@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function EditRoleUser(props) {
     const { id } = useParams();
@@ -47,6 +47,8 @@ function EditRoleUser(props) {
             .catch(error => console.error('Error fetching user data:', error));
     }, [id]);
 
+    const navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -58,7 +60,14 @@ function EditRoleUser(props) {
             },
             body: JSON.stringify({ role: formData.role }),
         })
-        .then(response => response.json())
+        .then(response => {
+            if (response.ok) {
+                // Navigate back to manage-user route on success
+                navigate('/manage-user');
+            } else {
+                throw new Error('Failed to update role');
+            }
+        })
         .then(data => {
             // Handle success response
             console.log('Role updated successfully:', data);
@@ -76,6 +85,7 @@ function EditRoleUser(props) {
             })
             .then(response => {
                 if (response.ok) {
+                    navigate('/manage-user');
                     console.log('User deleted successfully');
                     // Redirect or handle deletion success
                 } else {
