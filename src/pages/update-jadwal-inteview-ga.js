@@ -202,7 +202,7 @@ function UpdateJadwalInteviewGA() {
   const deleteInterview = async (id) => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/interview/delete-interview/${id}/`,
+        `https://sihire-be.vercel.app/api/interview/delete-interview/${id}/`,
         {
           method: "DELETE",
         }
