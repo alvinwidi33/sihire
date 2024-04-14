@@ -120,23 +120,23 @@ function UpdateJadwalInteviewGA() {
         : new Date(interview.datetime_start); // tidak diganti
 
     const datetimeEnd =
-      interviewData.datetime_start && !interviewData.endTime // hanya ganti tanggal
-        ? new Date(
-            interviewData.datetime_start +
-              "T" +
-              interview.datetime_start.slice(11, 16)
-          )
-        : !interviewData.datetime_start && interviewData.endTime // hanya ganti jam selesai
-        ? new Date(
-            interview.datetime_end.slice(0, 10) + "T" + interviewData.endTime
-          )
-        : interviewData.datetime_start && interviewData.endTime // ganti tanggal dan jam selesai
-        ? new Date(interviewData.datetime_end + "T" + interviewData.endTime)
-        : new Date(interview.datetime_end); // tidak diganti
+  interviewData.datetime_start && !interviewData.endTime // hanya ganti tanggal
+    ? new Date(
+        interviewData.datetime_start +
+          "T" +
+          interview.datetime_end.slice(11, 16)
+      )
+    : !interviewData.datetime_start && interviewData.endTime // hanya ganti jam selesai
+    ? new Date(
+        interview.datetime_end.slice(0, 10) + "T" + interviewData.endTime
+      )
+    : interviewData.datetime_start && interviewData.endTime // ganti tanggal dan jam selesai
+    ? new Date(interviewData.datetime_start + "T" + interviewData.endTime)
+    : new Date(interview.datetime_end); // tidak diganti
 
     const formattedData = {
       datetime_start: datetimeStart.toISOString(),
-      datetime_end: datetimeEnd.toISOString(),
+      datetime_end: datetimeEnd.toISOString(), //baris 139
       interviewer_user_id: interviewData.interviewer
         ? interviewData.interviewer
         : interview.interviewer_user_id.user_id,
@@ -388,38 +388,30 @@ function UpdateJadwalInteviewGA() {
                       : "")
                   }
                   onChange={(e) => {
-                    const selectedDate = e.target.value;
-                    const currentTime = new Date();
-                    const currentDateString = currentTime
-                      .toISOString()
-                      .split("T")[0];
-                    const currentTimeString = currentTime
-                      .toTimeString()
-                      .slice(0, 5);
+    const selectedDate = e.target.value;
+    const currentTime = new Date();
+    const currentDateString = currentTime.toISOString().split("T")[0];
+    const currentTimeString = currentTime.toTimeString().slice(0, 5);
 
-                    const startTime = new Date(
-                      `${selectedDate}T${interview.datetime_start.slice(
-                        11,
-                        16
-                      )}`
-                    );
+    if (selectedDate === currentDateString) {
+        const startTime = new Date(
+            `${currentDateString}T${interviewData.startTime || "00:00"}`
+        );
 
-                    if (
-                      selectedDate === currentDateString &&
-                      startTime < currentTime
-                    ) {
-                      alert(
-                        "Tanggal atau waktu mulai tidak valid. Pastikan tanggal dan waktu mulai sesuai."
-                      );
-                      return;
-                    }
+        if (startTime <= currentTime) {
+            alert(
+                "Waktu mulai harus setelah waktu saat ini. Harap pilih waktu yang valid."
+            );
+            return;
+        }
+    }
 
-                    setInterviewData((prevState) => ({
-                      ...prevState,
-                      datetime_start: selectedDate,
-                    }));
-                  }}
-                  min={currentDateString}
+    setInterviewData((prevState) => ({
+        ...prevState,
+        datetime_start: selectedDate,
+    }));
+}}
+min={currentDateString}
                 />
                 <p
                   style={{
@@ -452,39 +444,42 @@ function UpdateJadwalInteviewGA() {
                       ? interview.datetime_start.slice(11, 16)
                       : "")
                   }
-                  onChange={(e) => {
-                    const selectedTime = e.target.value;
-                    const formattedTime = selectedTime.slice(0, 5);
-                    const startTime = new Date(
-                      `${interviewData.datetime_start}T${formattedTime}`
-                    );
-                    const currentTime = new Date();
-                    const currentDateString = currentTime
-                      .toISOString()
-                      .split("T")[0];
-                    const currentTimeString = currentTime
-                      .toTimeString()
-                      .slice(0, 5);
+onChange={(e) => {
+  const selectedTime = e.target.value;
+  const formattedTime = selectedTime.slice(0, 5);
+  const startTime = new Date(
+    `${interviewData.datetime_start}T${formattedTime}`
+  );
+  const currentTime = new Date();
+  const currentDateString = currentTime.toISOString().split("T")[0];
+  const currentTimeString = currentTime.toTimeString().slice(0, 5);
 
-                    if (selectedTime > interviewData.endTime) {
-                      alert("Waktu mulai tidak boleh setelah waktu selesai");
-                    }
+  // Check if start time is in the past for the same date
+  if (
+    interviewData.datetime_start === currentDateString &&
+    startTime < currentTime
+  ) {
+    alert(
+      "Tanggal atau waktu mulai tidak valid. Pastikan tanggal dan waktu mulai sesuai."
+    );
+    return;
+  }
 
-                    if (
-                      interviewData.datetime_start === currentDateString &&
-                      startTime < currentTime
-                    ) {
-                      alert(
-                        "Tanggal atau waktu mulai tidak valid. Pastikan tanggal dan waktu mulai sesuai."
-                      );
-                      return;
-                    }
+  // Check if end time is set and if start time is after end time
+  if (
+    interviewData.endTime &&
+    selectedTime > interviewData.endTime
+  ) {
+    alert("Waktu mulai tidak boleh lebih melewati waktu akhir.");
+    return;
+  }
 
-                    setInterviewData({
-                      ...interviewData,
-                      startTime: formattedTime,
-                    });
-                  }}
+  // Update state with the new start time
+  setInterviewData({
+    ...interviewData,
+    startTime: formattedTime,
+  });
+}}
                   min={
                     interviewData.datetime === currentDateString
                       ? currentTimeString
@@ -527,27 +522,17 @@ function UpdateJadwalInteviewGA() {
                   }
                   onChange={(e) => {
                     const selectedTime = e.target.value;
-                    const formattedTime = selectedTime.slice(0, 5);
-                    const startTime = new Date(
-                      `${interviewData.datetime_start}T${formattedTime}`
-                    );
-                    const currentTime = new Date();
                     const prevEndTime =
                       interview && interview.datetime_end
                         ? interview.datetime_end.slice(11, 16)
                         : "";
 
-                    if (selectedTime < interviewData.startTime) {
-                      alert("Waktu mulai tidak boleh sebelum waktu selesai");
-                      return;
-                    }
-
                     if (
-                      interviewData.datetime_start === currentDateString &&
-                      startTime < currentTime
+                      interviewData.startTime &&
+                      selectedTime < interviewData.startTime
                     ) {
                       alert(
-                        "Tanggal atau waktu mulai tidak valid. Pastikan tanggal dan waktu mulai sesuai."
+                        "Waktu berakhir tidak boleh lebih awal dari waktu mulai."
                       );
                       return;
                     }
@@ -557,16 +542,6 @@ function UpdateJadwalInteviewGA() {
                       endTime: selectedTime,
                     });
                   }}
-                  min={
-                    interviewData.datetime_end === currentDateString
-                      ? currentTimeString
-                      : "00:00"
-                  }
-                  max={
-                    interviewData.datetime_end === currentDateString
-                      ? "23:59"
-                      : ""
-                  }
                 />
 
                 <p
