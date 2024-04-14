@@ -101,7 +101,14 @@ function UpdateJadwalInteviewGA() {
     if (!isConfirmed) {
       return;
     }
-
+    if (interviewData.startTime > interviewData.endTime) {
+    alert("Waktu mulai tidak boleh lebih melewati waktu akhir.");
+    return;
+  }
+  if (interviewData.startTime < interviewData.endTime) {
+    alert("Waktu berakhir tidak boleh lebih melewati waktu akhir.");
+    return;
+  }
     const datetimeStart =
       interviewData.datetime_start && !interviewData.startTime // hanya ganti tanggal
         ? new Date(
