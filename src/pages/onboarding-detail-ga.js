@@ -40,7 +40,7 @@ function OnboardingDetailGA() {
 
     return (
         <React.Fragment>
-            <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>Onboarding</p>
+            <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>On Boarding</p>
             <Sidebar />
             <Link to='/get-list-onboarding-internal'>
                 <p style={{ marginLeft: '22%', position: 'absolute', marginTop: "-240px" }}>List Onboarding</p>
@@ -71,7 +71,7 @@ function OnboardingDetailGA() {
                                 {onboarding.reschedule_comment}
                             </p>
                             <Link to={`/get-list-onboarding-ga/${id}/update`}>
-                                <button style={{ marginLeft: "800px", marginTop: "480px", backgroundColor: "#2A3E4B", width: "130px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#fff", borderRadius: "6px", cursor: "pointer", border: "2px solid #2A3E4B", marginRight: "4px" }}>
+                                <button style={{ marginLeft: "700px", marginTop: "480px", backgroundColor: "#2A3E4B", width: "130px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#fff", borderRadius: "6px", cursor: "pointer", border: "2px solid #2A3E4B", marginRight: "80px" }}>
                                     Ubah Jadwal
                                 </button>
                             </Link>

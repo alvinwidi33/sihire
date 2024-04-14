@@ -47,7 +47,7 @@ function DetailJobApplicant() {
             cursor: "pointer",
           }}
         >
-          <p style={{ display: "inline", marginLeft: "4px" }}>List Job</p>
+          <p style={{ display: "inline", marginLeft: "4px" }}>List Pekerjaan</p>
         </Link>
         <span style={{ display: "inline", marginLeft: "10px" }}>{">"}</span>
         {job && (
@@ -61,7 +61,7 @@ function DetailJobApplicant() {
               }}
             >
               <p style={{ display: "inline", marginLeft: "10px" }}>
-                Job Details
+                Detail
               </p>
             </Link>
           </React.Fragment>
@@ -76,15 +76,17 @@ function DetailJobApplicant() {
           position: "absolute",
         }}
       >
-        Job
+        Pekerjaan
       </p>
       <Sidebar />
-      <div className="detail-job" style={{ position: "relative" }}>
+      <div
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "40px" }}
+        className="w-9/12"
+      >
         {job && (
           <React.Fragment key={job.id}>
             <p
               style={{
-                marginLeft: "22%",
                 fontWeight: "bold",
                 fontSize: "32px",
                 color: "#2A3E4B",
@@ -96,7 +98,6 @@ function DetailJobApplicant() {
             </p>
             <p
               style={{
-                marginLeft: "22%",
                 fontWeight: "bold",
                 fontSize: "24px",
                 color: "#2A3E4B",
@@ -108,7 +109,6 @@ function DetailJobApplicant() {
             </p>
             <p
               style={{
-                marginLeft: "22%",
                 fontSize: "16px",
                 color: "#2A3E4B",
                 marginBottom: "20px",
@@ -119,7 +119,6 @@ function DetailJobApplicant() {
             </p>
             <p
               style={{
-                marginLeft: "22%",
                 fontWeight: "bold",
                 fontSize: "24px",
                 color: "#2A3E4B",
@@ -131,7 +130,6 @@ function DetailJobApplicant() {
             <p
               style={{
                 position: "absolute",
-                marginLeft: "22%",
                 fontSize: "16px",
                 color: "#2A3E4B",
                 marginBottom: "12px",
@@ -142,7 +140,7 @@ function DetailJobApplicant() {
             <Link to={`/add-job-application/${job.id}`}>
               <button
                 style={{
-                  width: "420px",
+                  width: "520px",
                   padding: "8px",
                   fontSize: "16px",
                   fontFamily: "Inter, sans-serif",
@@ -151,10 +149,10 @@ function DetailJobApplicant() {
                   background: "#2A3E4B",
                   borderRadius: "6px",
                   cursor: "pointer",
-                  marginTop: "4%",
+                  marginTop: "6%",
                   marginBottom: "12px",
                   border: "2px solid #2A3E4B",
-                  marginLeft: "44%",
+                  marginLeft: "22%",
                   position: "absolute",
                 }}
               >

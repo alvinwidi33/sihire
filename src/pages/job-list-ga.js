@@ -88,18 +88,19 @@ function JobListGA() {
           position: "absolute",
         }}
       >
-        Job
+        Pekerjaan
       </p>
       <Sidebar />
-      <div className="job-posting" style={{ position: "relative" }}>
+      <div
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-280px" }}
+        className="w-9/12"
+      >
         <p
           style={{
-            marginLeft: "22%",
             fontWeight: "bold",
             fontSize: "32px",
             color: "#2A3E4B",
-            marginTop: "-220px",
-            marginBottom: "32px",
+            marginBottom:"10px"
           }}
         >
           Lowongan Pekerjaan
@@ -116,8 +117,8 @@ function JobListGA() {
               background: "#2A3E4B",
               borderRadius: "6px",
               cursor: "pointer",
-              marginTop: "-72px",
-              marginBottom: "32px",
+              marginTop: "-60px",
+              marginBottom: "0px",
               marginLeft: "80%",
               position: "absolute",
               border: "2px solid #2A3E4B",
@@ -129,9 +130,8 @@ function JobListGA() {
         {jobs && (
           <table
             style={{
-              marginLeft: "22%",
               borderCollapse: "collapse",
-              width: "70%",
+              width: "100%",
             }}
           >
             <thead>
@@ -142,6 +142,8 @@ function JobListGA() {
                     padding: "4px",
                     textAlign: "center",
                     fontWeight: "bold",
+                    background:"#2A3E4B",
+                    color:"white"
                   }}
                 >
                   Pekerjaan
@@ -152,6 +154,8 @@ function JobListGA() {
                     padding: "4px",
                     textAlign: "center",
                     fontWeight: "bold",
+                    background:"#2A3E4B",
+                    color:"white"
                   }}
                 >
                   Tanggal Tutup
@@ -162,6 +166,8 @@ function JobListGA() {
                     padding: "4px",
                     textAlign: "center",
                     fontWeight: "bold",
+                    background:"#2A3E4B",
+                    color:"white"
                   }}
                 >
                   Tutup
@@ -172,6 +178,8 @@ function JobListGA() {
                     padding: "4px",
                     textAlign: "center",
                     fontWeight: "bold",
+                    background:"#2A3E4B",
+                    color:"white"
                   }}
                 >
                   Detail

@@ -91,14 +91,17 @@ function GetListInterviewGA() {
         Wawancara
       </p>
       <Sidebar />
-      <div className="list-interview" style={{ position: "relative" }}>
+      <div
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "20px" }}
+        className="w-9/12"
+      >
         <p
           style={{
-            marginLeft: "22%",
+            marginLeft: "0",
             fontWeight: "bold",
             fontSize: "32px",
             color: "#2A3E4B",
-            marginTop: "-220px",
+            marginTop: "-300px",
             marginBottom: "32px",
           }}
         >
@@ -118,7 +121,7 @@ function GetListInterviewGA() {
               cursor: "pointer",
               marginTop: "-72px",
               marginBottom: "32px",
-              marginLeft: "80%",
+              marginLeft: "70%",
               position: "absolute",
               border: "2px solid #2A3E4B",
             }}
@@ -129,9 +132,10 @@ function GetListInterviewGA() {
         {interviews && (
           <table
             style={{
-              marginLeft: "22%",
+              marginLeft: "0%",
               borderCollapse: "collapse",
-              width: "70%",
+              width: "88%",
+              padding:"12px"
             }}
           >
             <thead>
@@ -142,6 +146,8 @@ function GetListInterviewGA() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
+                    background:"#2A3E4B",
+                    color:"white"
                   }}
                 >
                   Posisi
@@ -152,6 +158,8 @@ function GetListInterviewGA() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
+                    background:"#2A3E4B",
+                    color:"white"
                   }}
                 >
                   Pelamar
@@ -162,6 +170,8 @@ function GetListInterviewGA() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
+                    background:"#2A3E4B",
+                    color:"white"
                   }}
                 >
                   Tanggal
@@ -172,6 +182,8 @@ function GetListInterviewGA() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
+                    background:"#2A3E4B",
+                    color:"white"
                   }}
                 >
                   Waktu
@@ -182,6 +194,8 @@ function GetListInterviewGA() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
+                    background:"#2A3E4B",
+                    color:"white"
                   }}
                 >
                   Pewawancara
@@ -192,6 +206,8 @@ function GetListInterviewGA() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
+                    background:"#2A3E4B",
+                    color:"white"
                   }}
                 >
                   Status
@@ -202,6 +218,8 @@ function GetListInterviewGA() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
+                    background:"#2A3E4B",
+                    color:"white"
                   }}
                 >
                   Konfirmasi
@@ -213,6 +231,8 @@ function GetListInterviewGA() {
                     textAlign: "center",
                     fontWeight: "bold",
                     width: "180px",
+                    background:"#2A3E4B",
+                    color:"white"
                   }}
                 >
                   Action
