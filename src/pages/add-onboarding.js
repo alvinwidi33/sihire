@@ -196,23 +196,23 @@ const AddOnboarding = () => {
             marginTop: "100px",
           }}
         >
-          List Wawancara
+          List Onboarding
         </p>
       </Link>
       <p
-        style={{ marginLeft: "30%", position: "absolute", marginTop: "100px" }}
+        style={{ marginLeft: "31%", position: "absolute", marginTop: "100px" }}
       >
         {">"}
       </p>
-      <Link to="/create-interview">
+      <Link to="/create-onboarding">
         <p
           style={{
-            marginLeft: "31%",
+            marginLeft: "32%",
             position: "absolute",
             marginTop: "100px",
           }}
         >
-          Tambah Interview
+          Tambah Onboarding
         </p>
       </Link>
       <Sidebar />
@@ -284,7 +284,7 @@ const AddOnboarding = () => {
                 position: "absolute",
               }}
             >
-              Pelamar Tahap Interview*
+              Pelamar Tahap Onboarding*
             </p>
             <select
               style={{
@@ -339,7 +339,7 @@ const AddOnboarding = () => {
                 position: "absolute",
               }}
             >
-              Tanggal Interview*
+              Tanggal Onboarding*
             </p>
             <input
               type="date"
@@ -396,7 +396,7 @@ const AddOnboarding = () => {
                 position: "absolute",
               }}
             >
-              Waktu Mulai Interview*
+              Waktu Mulai Onboarding*
             </p>
             <input
               type="time"
@@ -456,7 +456,7 @@ const AddOnboarding = () => {
                 position: "absolute",
               }}
             >
-              Waktu Berakhir Interview*
+              Waktu Berakhir Onboarding*
             </p>
             <input
               type="time"
