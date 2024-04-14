@@ -57,7 +57,7 @@ function UpdateStatusPage() {
     const fd = new FormData();
     fd.append("job", formData.job.id);
     fd.append("applicant", formData.applicant.applicant_id);
-    fd.append("status", selectedStatus); // Use selectedStatus instead
+    fd.append("status", selectedStatus); 
 
     try {
       const response = await fetch('https://sihire-be.vercel.app/api/job-application/put/' + id + '/edit-status/', {
@@ -71,8 +71,6 @@ function UpdateStatusPage() {
       const result = await response.json();
       console.log('Form submitted successfully:', result);
 
-      // Redirect or perform any other action after successful submission
-      // For example, redirect to the job application detail page
       history(`/job-application-detail-ga/${id}`);
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -92,7 +90,7 @@ function UpdateStatusPage() {
             <option value="Interview">Interview</option>
             <option value="Accepted">Accepted</option>
             <option value="Declined">Declined</option>
-            <option value="Onboard">Onboard</option>
+            <option value="On Boarding">On Boarding</option>
           </select>
         </div>
         <button onClick={handleSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Update</button>
