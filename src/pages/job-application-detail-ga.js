@@ -14,7 +14,7 @@ function JobApplicationDetailGA() {
     { name: 'Interview', value: 32 },
     { name: 'Accepted', value: 48 },
     { name: 'Declined', value: 64 },
-    { name: 'Onboard', value: 80 },
+    { name: 'On Boarding', value: 80 },
     { name: 'Withdrawn', value: 100 },
   ];
 
