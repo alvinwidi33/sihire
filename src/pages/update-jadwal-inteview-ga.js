@@ -22,13 +22,12 @@ function UpdateJadwalInteviewGA() {
   const [interviewer, setInterviewer] = useState("");
 
   const rectangleStyle = {
-    width: "70%",
-    height: "850px",
+    width: "90%",
+    height: "800px",
     backgroundColor: "#fff",
     borderRadius: "10px",
-    marginLeft: "22%",
     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.4)",
-    marginTop: "-14%",
+    marginTop:"-60px"
   };
 
   const isOverlapping = (aStart, aEnd, bStart, bEnd) => {
@@ -244,14 +243,14 @@ function UpdateJadwalInteviewGA() {
           style={{
             marginLeft: "22%",
             position: "absolute",
-            marginTop: "-240px",
+            marginTop: "-280px",
           }}
         >
           List Wawancara
         </p>
       </Link>
       <p
-        style={{ marginLeft: "30%", position: "absolute", marginTop: "-240px" }}
+        style={{ marginLeft: "30%", position: "absolute", marginTop: "-280px" }}
       >
         {">"}
       </p>
@@ -262,7 +261,7 @@ function UpdateJadwalInteviewGA() {
               style={{
                 marginLeft: "31%",
                 position: "absolute",
-                marginTop: "-240px",
+                marginTop: "-280px",
               }}
             >
               {interview.job_application_id.job.job_name}
@@ -272,7 +271,7 @@ function UpdateJadwalInteviewGA() {
             style={{
               marginLeft: "39%",
               position: "absolute",
-              marginTop: "-240px",
+              marginTop: "-280px",
             }}
           >
             {">"}
@@ -282,18 +281,21 @@ function UpdateJadwalInteviewGA() {
               style={{
                 marginLeft: "40%",
                 position: "absolute",
-                marginTop: "-240px",
+                marginTop: "-280px",
               }}
             >
               Update
             </p>
           </Link>
-          <div className="update-interview">
+          <div
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-180px" }}
+        className="w-9/12"
+      >
             <div className="rectangle-style" style={rectangleStyle}>
               <p
                 style={{
                   marginTop: "20px",
-                  marginLeft: "23%",
+                  marginLeft: "27%",
                   fontWeight: "bold",
                   fontSize: "32px",
                   color: "#2A3E4B",
@@ -322,7 +324,7 @@ function UpdateJadwalInteviewGA() {
                     borderRadius: "5px",
                     border: "2px solid #ccc",
                     height: "40px",
-                    width: "56%",
+                    width: "76%",
                     marginTop: "110px",
                     marginLeft: "7%",
                     fontWeight: "600",
@@ -352,7 +354,7 @@ function UpdateJadwalInteviewGA() {
                     borderRadius: "5px",
                     border: "2px solid #ccc",
                     height: "40px",
-                    width: "56%",
+                    width: "76%",
                     marginTop: "210px",
                     marginLeft: "7%",
                     fontWeight: "600",
@@ -373,7 +375,7 @@ function UpdateJadwalInteviewGA() {
                     position: "absolute",
                   }}
                 >
-                  Tanggal Interview*
+                  Tanggal Interview
                 </p>
                 <input
                   type="date"
@@ -386,7 +388,7 @@ function UpdateJadwalInteviewGA() {
                     fontSize: "14px",
                     color: "#2A3E4B",
                     position: "absolute",
-                    width: "56%",
+                    width: "76%",
                   }}
                   value={
                     interviewData.datetime_start ||
@@ -430,7 +432,7 @@ min={currentDateString}
                     position: "absolute",
                   }}
                 >
-                  Waktu Mulai Interview*
+                  Waktu Mulai Interview
                 </p>
                 <input
                   type="time"
@@ -443,7 +445,7 @@ min={currentDateString}
                     fontSize: "14px",
                     color: "#2A3E4B",
                     position: "absolute",
-                    width: "56%",
+                    width: "76%",
                   }}
                   value={
                     interviewData.startTime ||
@@ -506,7 +508,7 @@ onChange={(e) => {
                     position: "absolute",
                   }}
                 >
-                  Waktu Berakhir Interview*
+                  Waktu Berakhir Interview
                 </p>
                 <input
                   type="time"
@@ -519,7 +521,7 @@ onChange={(e) => {
                     fontSize: "14px",
                     color: "#2A3E4B",
                     position: "absolute",
-                    width: "56%",
+                    width: "76%",
                   }}
                   value={
                     interviewData.endTime ||
@@ -561,14 +563,14 @@ onChange={(e) => {
                     position: "absolute",
                   }}
                 >
-                  Pewawancara*
+                  Pewawancara
                 </p>
                 <select
                   style={{
                     borderRadius: "5px",
                     border: "2px solid #ccc",
                     height: "40px",
-                    width: "56%",
+                    width: "76%",
                     marginTop: "610px",
                     marginLeft: "7%",
                     fontWeight: "600",
@@ -605,7 +607,7 @@ onChange={(e) => {
                     cursor: "pointer",
                     marginTop: "680px",
                     border: "2px solid #2A3E4B",
-                    marginLeft: "17%",
+                    marginLeft: "20%",
                     position: "absolute",
                   }}
                 >
@@ -642,7 +644,7 @@ onChange={(e) => {
                   cursor: "pointer",
                   marginTop: "730px",
                   border: "2px solid #2A3E4B",
-                  marginLeft: "17%",
+                  marginLeft: "20%",
                   position: "absolute",
                 }}
               >

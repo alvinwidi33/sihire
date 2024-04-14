@@ -41,17 +41,20 @@ function JobListInternal() {
           position: "absolute",
         }}
       >
-        Job
+        Pekerjaan
       </p>
       <Sidebar />
-      <div className="job-posting" style={{ position: "relative" }}>
+      <div
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-70px" }}
+        className="w-9/12"
+      >
         <p
           style={{
-            marginLeft: "22%",
+            marginLeft: "0",
             fontWeight: "bold",
             fontSize: "32px",
             color: "#2A3E4B",
-            marginTop: "-220px",
+            marginTop: "-200px",
             marginBottom: "12px",
           }}
         >
@@ -60,9 +63,9 @@ function JobListInternal() {
         {jobs && (
           <table
             style={{
-              marginLeft: "22%",
+              marginLeft: "0",
               borderCollapse: "collapse",
-              width: "70%",
+              width: "90%",
             }}
           >
             <thead style={{}}>
@@ -73,6 +76,8 @@ function JobListInternal() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
+                    background:"#2A3E4B",
+                    color:"white"
                   }}
                 >
                   Pekerjaan
@@ -83,6 +88,8 @@ function JobListInternal() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
+                    background:"#2A3E4B",
+                    color:"white"
                   }}
                 >
                   Tanggal Tutup
@@ -93,6 +100,8 @@ function JobListInternal() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
+                    background:"#2A3E4B",
+                    color:"white"
                   }}
                 >
                   Detail

@@ -214,6 +214,7 @@ function DetailInterviewGA() {
               <Link to={`/get-list-interview-ga/${id}/update`}>
                 <button
                   style={{
+                    position:"relative",
                     marginLeft: "800px",
                     marginTop: "480px",
                     backgroundColor: "#2A3E4B",

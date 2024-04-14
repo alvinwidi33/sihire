@@ -34,18 +34,19 @@ function JobListApplicant() {
           position: "absolute",
         }}
       >
-        Job
+        Pekerjaan
       </p>
       <Sidebar />
-      <div className="job-posting" style={{ position: "relative" }}>
+      <div
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-180px" }}
+        className="w-9/12"
+      >
         <p
           style={{
-            marginLeft: "22%",
             fontWeight: "bold",
             fontSize: "32px",
             color: "#2A3E4B",
-            marginTop: "-220px",
-            marginBottom: "12px",
+            marginBottom:"10px"
           }}
         >
           Lowongan Pekerjaan
@@ -53,9 +54,8 @@ function JobListApplicant() {
         {jobs && (
           <table
             style={{
-              marginLeft: "22%",
               borderCollapse: "collapse",
-              width: "70%",
+              width: "100%",
             }}
           >
             <thead>
@@ -68,7 +68,7 @@ function JobListApplicant() {
                     fontWeight: "bold",
                   }}
                 >
-                  Job Name
+                  Nama 
                 </th>
                 <th
                   style={{

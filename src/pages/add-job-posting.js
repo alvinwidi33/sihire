@@ -12,11 +12,11 @@ function AddJobPosting() {
   });
 
   const rectangleStyle = {
-    width: "70%",
+    width: "90%",
     height: "640px",
     backgroundColor: "#fff",
     borderRadius: "10px",
-    marginLeft: "22%",
+    marginLeft: "0%",
     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.4)",
     marginTop: "-14%",
   };
@@ -102,34 +102,37 @@ function AddJobPosting() {
           style={{
             marginLeft: "22%",
             position: "absolute",
-            marginTop: "-240px",
+            marginTop: "-280px",
           }}
         >
-          List Job
+          List Pekerjaan
         </p>
       </Link>
       <p
-        style={{ marginLeft: "26%", position: "absolute", marginTop: "-240px" }}
+        style={{ marginLeft: "29%", position: "absolute", marginTop: "-280px", }}
       >
         {">"}
       </p>
       <Link to="/add-job-posting">
         <p
           style={{
-            marginLeft: "28%",
+            marginLeft: "30%",
             position: "absolute",
-            marginTop: "-240px",
+            marginTop: "-280px",
           }}
         >
-          Add Job
+          Tambah Pekerjaan
         </p>
       </Link>
-      <div className="add-job-posting" style={{ position: "relative" }}>
+      <div
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-80px" }}
+        className="w-9/12"
+      >
         <div className="rectangle" style={rectangleStyle}>
           <p
             style={{
               marginTop: "20px",
-              marginLeft: "29%",
+              marginLeft: "34%",
               fontWeight: "bold",
               fontSize: "32px",
               color: "#2A3E4B",
@@ -149,7 +152,8 @@ function AddJobPosting() {
                 position: "absolute",
               }}
             >
-              Judul Pekerjaan*
+              Judul Pekerjaan
+              <span style={{ color: "red" }}>*</span>
             </p>
             <input
               type="text"
@@ -162,7 +166,7 @@ function AddJobPosting() {
                 fontSize: "14px",
                 color: "#2A3E4B",
                 position: "absolute",
-                width: "58%",
+                width: "76%",
               }}
               required
               value={jobData.job_name}
@@ -180,7 +184,8 @@ function AddJobPosting() {
                 position: "absolute",
               }}
             >
-              Deskripsi*
+              Deskripsi
+              <span style={{ color: "red" }}>*</span>
             </p>
             <textarea
               style={{
@@ -192,7 +197,7 @@ function AddJobPosting() {
                 fontSize: "14px",
                 color: "#2A3E4B",
                 position: "absolute",
-                width: "58%",
+                width: "76%",
                 height: "200px",
                 resize: "none",
               }}
@@ -212,7 +217,8 @@ function AddJobPosting() {
                 position: "absolute",
               }}
             >
-              Tanggal Tutup*
+              Tanggal Tutup
+              <span style={{ color: "red" }}>*</span>
             </p>
             <input
               type="date"
@@ -225,7 +231,7 @@ function AddJobPosting() {
                 fontSize: "14px",
                 color: "#2A3E4B",
                 position: "absolute",
-                width: "58%",
+                width: "76%",
               }}
               required
               value={
@@ -256,7 +262,7 @@ function AddJobPosting() {
             <button
               type="submit"
               style={{
-                width: "420px",
+                width: "520px",
                 padding: "8px",
                 fontSize: "16px",
                 fontFamily: "Inter, sans-serif",
@@ -265,7 +271,7 @@ function AddJobPosting() {
                 background: "#2A3E4B",
                 borderRadius: "6px",
                 cursor: "pointer",
-                marginTop: "40%",
+                marginTop: "52%",
                 marginBottom: "12px",
                 border: "2px solid #2A3E4B",
                 marginLeft: "20%",

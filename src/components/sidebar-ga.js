@@ -22,10 +22,13 @@ function Sidebar() {
     setActivePage("Feedback");
     navigate("/");
   };
-
+  const handleClickInterview = () => {
+    setActivePage("Interview");
+    navigate("/get-list-interview-ga");
+  };
   const handleClickOnBoarding = () => {
     setActivePage("On Boarding");
-    navigate("/");
+    navigate("/get-list-onboarding-internal");
   };
 
   const handleLogout = async (event) => {
@@ -103,7 +106,6 @@ function Sidebar() {
                   display: "block",
                   marginBottom: "16px",
                   border: "none",
-                  background: activePage === "Job Posting" ? "#E2E7F0" : "#fff",
                   height: "32px",
                   width: "18%",
                   textAlign: "left",
@@ -122,7 +124,6 @@ function Sidebar() {
                   display: "block",
                   marginBottom: "16px",
                   border: "none",
-                  background: activePage === "Applicants" ? "#E2E7F0" : "#fff",
                   height: "32px",
                   width: "18%",
                   textAlign: "left",
@@ -130,7 +131,7 @@ function Sidebar() {
                 }}
                 onClick={() => handleClickApplication()}
               >
-                Application
+                Applicants
               </button>
             </li>
             <li>
@@ -141,7 +142,6 @@ function Sidebar() {
                   display: "block",
                   marginBottom: "16px",
                   border: "none",
-                  background: activePage === "Feedback" ? "#E2E7F0" : "#fff",
                   height: "32px",
                   width: "18%",
                   textAlign: "left",
@@ -160,7 +160,24 @@ function Sidebar() {
                   display: "block",
                   marginBottom: "16px",
                   border: "none",
-                  background: activePage === "On Boarding" ? "#E2E7F0" : "#fff",
+                  height: "32px",
+                  width: "18%",
+                  textAlign: "left",
+                  paddingLeft: "2%",
+                }}
+                onClick={() => handleClickInterview()}
+              >
+                Interview
+              </button>
+            </li>
+            <li>
+              <button
+                style={{
+                  fontFamily: "Inter, sans-serif",
+                  fontWeight: "medium",
+                  display: "block",
+                  marginBottom: "16px",
+                  border: "none",
                   height: "32px",
                   width: "18%",
                   textAlign: "left",
@@ -197,3 +214,4 @@ function Sidebar() {
 }
 
 export default Sidebar;
+

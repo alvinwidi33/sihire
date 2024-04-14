@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../components/sidebar-other";
+import Sidebar from "../components/sidebar-applicant";
 import { useParams, Link } from "react-router-dom";
 
-function DetailJobInternal() {
+function DetailJobApplicant() {
   const { id } = useParams();
   const [job, setJob] = useState(null);
   function formatDateTime(datetimeString) {
@@ -36,7 +36,7 @@ function DetailJobInternal() {
           marginLeft: "22%",
           position: "absolute",
           marginBottom: "40px",
-          marginTop: "80px",
+          marginTop: "100px",
         }}
       >
         <Link
@@ -47,7 +47,7 @@ function DetailJobInternal() {
             cursor: "pointer",
           }}
         >
-          <p style={{ display: "inline", marginLeft: "4px" }}>List Job</p>
+          <p style={{ display: "inline", marginLeft: "4px" }}>List Pekerjaan</p>
         </Link>
         <span style={{ display: "inline", marginLeft: "10px" }}>{">"}</span>
         {job && (
@@ -61,7 +61,7 @@ function DetailJobInternal() {
               }}
             >
               <p style={{ display: "inline", marginLeft: "10px" }}>
-                Job Details
+                Detail
               </p>
             </Link>
           </React.Fragment>
@@ -76,22 +76,21 @@ function DetailJobInternal() {
           position: "absolute",
         }}
       >
-        Job
+        Pekerjaan
       </p>
       <Sidebar />
       <div
-        className="detail-job"
-        style={{ position: "relative", marginTop: "40px" }}
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "40px" }}
+        className="w-9/12"
       >
         {job && (
           <React.Fragment key={job.id}>
             <p
               style={{
-                marginLeft: "22%",
                 fontWeight: "bold",
                 fontSize: "32px",
                 color: "#2A3E4B",
-                marginTop: "-190px",
+                marginTop: "-200px",
                 marginBottom: "12px",
               }}
             >
@@ -99,7 +98,6 @@ function DetailJobInternal() {
             </p>
             <p
               style={{
-                marginLeft: "22%",
                 fontWeight: "bold",
                 fontSize: "24px",
                 color: "#2A3E4B",
@@ -107,14 +105,13 @@ function DetailJobInternal() {
                 marginBottom: "4px",
               }}
             >
-              Job Description
+              Deskripsi
             </p>
             <p
               style={{
-                marginLeft: "22%",
                 fontSize: "16px",
                 color: "#2A3E4B",
-                marginBottom: "12px",
+                marginBottom: "20px",
                 whiteSpace: "pre-line",
               }}
             >
@@ -122,20 +119,17 @@ function DetailJobInternal() {
             </p>
             <p
               style={{
-                marginTop: "4%",
-                marginLeft: "22%",
                 fontWeight: "bold",
                 fontSize: "24px",
                 color: "#2A3E4B",
                 marginBottom: "4px",
               }}
             >
-              Closed Date
+              Tanggal Tutup
             </p>
             <p
               style={{
                 position: "absolute",
-                marginLeft: "22%",
                 fontSize: "16px",
                 color: "#2A3E4B",
                 marginBottom: "12px",
@@ -143,10 +137,12 @@ function DetailJobInternal() {
             >
               {job.datetime_closes && formatDateTime(job.datetime_closes)}
             </p>
+          
           </React.Fragment>
         )}
       </div>
     </React.Fragment>
   );
 }
-export default DetailJobInternal;
+
+export default DetailJobApplicant;
