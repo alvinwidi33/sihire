@@ -91,14 +91,15 @@ function JobListGA() {
         Job
       </p>
       <Sidebar />
-      <div className="job-posting" style={{ position: "relative" }}>
+      <div
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-240px" }}
+        className="w-9/12"
+      >
         <p
           style={{
-            marginLeft: "22%",
             fontWeight: "bold",
             fontSize: "32px",
             color: "#2A3E4B",
-            marginTop: "-220px",
             marginBottom: "32px",
           }}
         >
@@ -129,9 +130,8 @@ function JobListGA() {
         {jobs && (
           <table
             style={{
-              marginLeft: "22%",
               borderCollapse: "collapse",
-              width: "70%",
+              width: "100%",
             }}
           >
             <thead>
