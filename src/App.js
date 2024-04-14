@@ -39,6 +39,7 @@ import JobApplicationDetailDP from './pages/job-application-detail-dp';
 import AddOnboarding from './pages/add-onboarding';
 import UpdateOnboarding from './pages/update-onboarding';
 import AddDataDiri from './pages/add-data-diri';
+import ApplicantDetail from './pages/applicant-detail';
 
 function App() {
   return (
@@ -80,6 +81,7 @@ function App() {
           <Route path="/get-list-onboarding-ga/:id/update" element={<UpdateOnboarding/>}/>
           <Route path='/job-application-detail-dp/:id' element={<ProtectedRoute child={<JobApplicationDetailDP />} />} />
           <Route path="/create-datadiri/:id" element={<AddDataDiri/>}/>
+          <Route path='/applicant-detail/:applicant' element={<ProtectedRoute child={<ApplicantDetail />} />} />
       </Routes>
     </Router>
   );
