@@ -66,6 +66,8 @@ function JobListApplicant() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
+                    background:"#2A3E4B",
+                    color:"white"
                   }}
                 >
                   Nama 
