@@ -27,6 +27,10 @@ function Applicants() {
       });
   };
 
+  const detailApplicant = (id) => {
+    navigate(`/applicant-detail/${id}`);
+  };
+
   const detailJobApplication = (id) => {
     navigate(`/job-application-detail/${id}`);
   };
@@ -125,7 +129,9 @@ function Applicants() {
                     <td scope="col" className="px-6 py-3">
                       {application.job.job_name}
                     </td>
-                    <td>{application.applicant.user.name}</td>
+                    <td>
+                      <a onClick={() => detailApplicant(application.applicant.applicant_id)}>{application.applicant.user.name}</a>
+                    </td>
                     <td>{application.status}</td>
                     <td>
                       <button
