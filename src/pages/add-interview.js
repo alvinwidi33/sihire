@@ -572,8 +572,6 @@ const AddInterview = () => {
               value={interviewData.interviewer}
               onChange={handleInterviewerChange}
             >
-              {" "}
-              {/* Use interviewer and handleInterviewerChange */}
               <option value="">Pilih Pewawancara*</option>
               {interviewers
                 .filter((interviewer) =>

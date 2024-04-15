@@ -54,7 +54,7 @@ const AddOnboarding = () => {
     interviewData.startTime,
     interviewData.endTime,
     selectedJob,
-  ]); // Add dependencies to rerun effect when these values change
+  ]); 
 
   useEffect(() => {
     const getJobNames = async () => {
@@ -109,7 +109,6 @@ const AddOnboarding = () => {
   };
 
   const handleInterviewerChange = (event) => {
-    // New handler to set the selected interviewer
     setInterviewData({ ...interviewData, interviewer: event.target.value });
   };
   const handleSubmit = async (event) => {
@@ -419,11 +418,19 @@ const AddOnboarding = () => {
                 const startTime = new Date(
                   `${interviewData.datetime}T${formattedTime}`
                 );
+                const endTime = new Date(
+                  `${interviewData.datetime}T${interviewData.endTime}`
+                );
                 const currentDate = new Date();
                 const currentDateString = currentDate
                   .toISOString()
                   .split("T")[0];
-
+                if (startTime > endTime) {
+                  alert(
+                    "Waktu mulai tidak boleh lebih dari waktu akhir."
+                  );
+                  return;
+                }
                 if (
                   interviewData.datetime === currentDateString &&
                   startTime < currentDate
