@@ -440,11 +440,19 @@ const AddInterview = () => {
                 const startTime = new Date(
                   `${interviewData.datetime}T${formattedTime}`
                 );
+                const endTime = new Date(
+                  `${interviewData.datetime}T${interviewData.endTime}`
+                );
                 const currentDate = new Date();
                 const currentDateString = currentDate
                   .toISOString()
                   .split("T")[0];
-
+                if (startTime > endTime) {
+                  alert(
+                    "Waktu mulai tidak boleh lebih dari waktu akhir."
+                  );
+                  return;
+                }
                 if (
                   interviewData.datetime === currentDateString &&
                   startTime < currentDate
@@ -452,7 +460,9 @@ const AddInterview = () => {
                   alert(
                     "Waktu mulai tidak boleh lebih kecil dari waktu saat ini."
                   );
-                } else {
+                  return;
+                }
+                 else {
                   setInterviewData({
                     ...interviewData,
                     startTime: formattedTime,

@@ -100,14 +100,6 @@ function UpdateJadwalInteviewGA() {
     if (!isConfirmed) {
       return;
     }
-    if (interviewData.startTime > interviewData.endTime) {
-    alert("Waktu mulai tidak boleh lebih melewati waktu akhir.");
-    return;
-  }
-  if (interviewData.startTime < interviewData.endTime) {
-    alert("Waktu berakhir tidak boleh lebih melewati waktu akhir.");
-    return;
-  }
     const datetimeStart =
       interviewData.datetime_start && !interviewData.startTime // hanya ganti tanggal
         ? new Date(
@@ -138,8 +130,19 @@ function UpdateJadwalInteviewGA() {
       )
     : interviewData.datetime_start && interviewData.endTime // ganti tanggal dan jam selesai
     ? new Date(interviewData.datetime_start + "T" + interviewData.endTime)
-    : new Date(interview.datetime_end); // tidak diganti
-
+    : new Date(interview.datetime_end); 
+      if((datetimeStart < currentDate) || (datetimeEnd < currentDate)){
+        alert("Waktu tidak boleh kurang dari sekarang")
+        return;
+      }
+      if(datetimeStart > datetimeEnd){
+        alert("Waktu mulai tidak boleh melewati waktu akhir")
+        return;
+      }
+      if(datetimeEnd < datetimeStart){
+        alert("Waktu akhir tidak boleh kurang dari waktu mulai")
+        return;
+      }
     const formattedData = {
       datetime_start: datetimeStart.toISOString(),
       datetime_end: datetimeEnd.toISOString(), //baris 139
@@ -463,7 +466,6 @@ onChange={(e) => {
   const currentDateString = currentTime.toISOString().split("T")[0];
   const currentTimeString = currentTime.toTimeString().slice(0, 5);
 
-  // Check if start time is in the past for the same date
   if (
     interviewData.datetime_start === currentDateString &&
     startTime < currentTime
@@ -473,8 +475,6 @@ onChange={(e) => {
     );
     return;
   }
-
-  // Check if end time is set and if start time is after end time
   if (
     interviewData.endTime &&
     selectedTime > interviewData.endTime
@@ -483,7 +483,6 @@ onChange={(e) => {
     return;
   }
 
-  // Update state with the new start time
   setInterviewData({
     ...interviewData,
     startTime: formattedTime,
