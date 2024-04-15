@@ -17,13 +17,12 @@ const AddInterview = () => {
   const currentDateString = currentDate.toISOString().split("T")[0];
   const currentTimeString = currentDate.toTimeString().slice(0, 5)[0];
   const rectangleStyle = {
-    width: "70%",
+    width: "90%",
     height: "760px",
     backgroundColor: "#fff",
     borderRadius: "10px",
-    marginLeft: "22%",
     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.4)",
-    marginTop: "-14%",
+    marginTop:"-70px"
   };
 
   const isOverlapping = (aStart, aEnd, bStart, bEnd) => {
@@ -231,12 +230,15 @@ const AddInterview = () => {
         </Link>
       </div>
       <Sidebar />
-      <div className="create-interview" style={{ position: "relative" }}>
+      <div
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-180px" }}
+        className="w-9/12"
+      >
         <div className="rectangle" style={rectangleStyle}>
           <p
             style={{
               marginTop: "20px",
-              marginLeft: "23%",
+              marginLeft: "27%",
               fontWeight: "bold",
               fontSize: "32px",
               color: "#2A3E4B",
@@ -256,14 +258,15 @@ const AddInterview = () => {
                 position: "absolute",
               }}
             >
-              Posisi Pekerjaan*
+              Posisi Pekerjaan
+              <span style={{ color: "red" }}>*</span>
             </p>
             <select
               style={{
                 borderRadius: "5px",
                 border: "2px solid #ccc",
                 height: "40px",
-                width: "56%",
+                width: "76%",
                 marginTop: "110px",
                 marginLeft: "7%",
                 fontWeight: "600",
@@ -299,14 +302,15 @@ const AddInterview = () => {
                 position: "absolute",
               }}
             >
-              Pelamar Tahap Interview*
+              Pelamar Tahap Interview
+              <span style={{ color: "red" }}>*</span>
             </p>
             <select
               style={{
                 borderRadius: "5px",
                 border: "2px solid #ccc",
                 height: "40px",
-                width: "56%",
+                width: "76%",
                 marginTop: "210px",
                 marginLeft: "7%",
                 fontWeight: "600",
@@ -354,7 +358,8 @@ const AddInterview = () => {
                 position: "absolute",
               }}
             >
-              Tanggal Interview*
+              Tanggal Interview
+              <span style={{ color: "red" }}>*</span>
             </p>
             <input
               type="date"
@@ -367,7 +372,7 @@ const AddInterview = () => {
                 fontSize: "14px",
                 color: "#2A3E4B",
                 position: "absolute",
-                width: "56%",
+                width: "76%",
               }}
               required
               value={interviewData.datetime ? interviewData.datetime : ""}
@@ -411,7 +416,8 @@ const AddInterview = () => {
                 position: "absolute",
               }}
             >
-              Waktu Mulai Interview*
+              Waktu Mulai Interview
+              <span style={{ color: "red" }}>*</span>
             </p>
             <input
               type="time"
@@ -424,7 +430,7 @@ const AddInterview = () => {
                 fontSize: "14px",
                 color: "#2A3E4B",
                 position: "absolute",
-                width: "56%",
+                width: "76%",
               }}
               required
               value={interviewData.startTime ? interviewData.startTime : ""}
@@ -434,11 +440,19 @@ const AddInterview = () => {
                 const startTime = new Date(
                   `${interviewData.datetime}T${formattedTime}`
                 );
+                const endTime = new Date(
+                  `${interviewData.datetime}T${interviewData.endTime}`
+                );
                 const currentDate = new Date();
                 const currentDateString = currentDate
                   .toISOString()
                   .split("T")[0];
-
+                if (startTime > endTime) {
+                  alert(
+                    "Waktu mulai tidak boleh lebih dari waktu akhir."
+                  );
+                  return;
+                }
                 if (
                   interviewData.datetime === currentDateString &&
                   startTime < currentDate
@@ -446,7 +460,9 @@ const AddInterview = () => {
                   alert(
                     "Waktu mulai tidak boleh lebih kecil dari waktu saat ini."
                   );
-                } else {
+                  return;
+                }
+                 else {
                   setInterviewData({
                     ...interviewData,
                     startTime: formattedTime,
@@ -471,7 +487,8 @@ const AddInterview = () => {
                 position: "absolute",
               }}
             >
-              Waktu Berakhir Interview*
+              Waktu Berakhir Interview
+              <span style={{ color: "red" }}>*</span>
             </p>
             <input
               type="time"
@@ -484,7 +501,7 @@ const AddInterview = () => {
                 fontSize: "14px",
                 color: "#2A3E4B",
                 position: "absolute",
-                width: "56%",
+                width: "76%",
               }}
               value={interviewData.endTime ? interviewData.endTime : ""}
               onChange={(e) => {
@@ -535,14 +552,15 @@ const AddInterview = () => {
                 position: "absolute",
               }}
             >
-              Pewawancara*
+              Pewawancara
+              <span style={{ color: "red" }}>*</span>
             </p>
             <select
               style={{
                 borderRadius: "5px",
                 border: "2px solid #ccc",
                 height: "40px",
-                width: "56%",
+                width: "76%",
                 marginTop: "610px",
                 marginLeft: "7%",
                 fontWeight: "600",
@@ -593,7 +611,7 @@ const AddInterview = () => {
             <button
               type="submit"
               style={{
-                width: "420px",
+                width: "520px",
                 padding: "8px",
                 fontSize: "16px",
                 fontFamily: "Inter, sans-serif",

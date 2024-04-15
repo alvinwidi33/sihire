@@ -22,13 +22,12 @@ function UpdateJadwalInteviewGA() {
   const [interviewer, setInterviewer] = useState("");
 
   const rectangleStyle = {
-    width: "70%",
-    height: "850px",
+    width: "90%",
+    height: "800px",
     backgroundColor: "#fff",
     borderRadius: "10px",
-    marginLeft: "22%",
     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.4)",
-    marginTop: "-14%",
+    marginTop:"-60px"
   };
 
   const isOverlapping = (aStart, aEnd, bStart, bEnd) => {
@@ -101,7 +100,6 @@ function UpdateJadwalInteviewGA() {
     if (!isConfirmed) {
       return;
     }
-
     const datetimeStart =
       interviewData.datetime_start && !interviewData.startTime // hanya ganti tanggal
         ? new Date(
@@ -120,23 +118,34 @@ function UpdateJadwalInteviewGA() {
         : new Date(interview.datetime_start); // tidak diganti
 
     const datetimeEnd =
-      interviewData.datetime_start && !interviewData.endTime // hanya ganti tanggal
-        ? new Date(
-            interviewData.datetime_start +
-              "T" +
-              interview.datetime_start.slice(11, 16)
-          )
-        : !interviewData.datetime_start && interviewData.endTime // hanya ganti jam selesai
-        ? new Date(
-            interview.datetime_end.slice(0, 10) + "T" + interviewData.endTime
-          )
-        : interviewData.datetime_start && interviewData.endTime // ganti tanggal dan jam selesai
-        ? new Date(interviewData.datetime_end + "T" + interviewData.endTime)
-        : new Date(interview.datetime_end); // tidak diganti
-
+  interviewData.datetime_start && !interviewData.endTime // hanya ganti tanggal
+    ? new Date(
+        interviewData.datetime_start +
+          "T" +
+          interview.datetime_end.slice(11, 16)
+      )
+    : !interviewData.datetime_start && interviewData.endTime // hanya ganti jam selesai
+    ? new Date(
+        interview.datetime_end.slice(0, 10) + "T" + interviewData.endTime
+      )
+    : interviewData.datetime_start && interviewData.endTime // ganti tanggal dan jam selesai
+    ? new Date(interviewData.datetime_start + "T" + interviewData.endTime)
+    : new Date(interview.datetime_end); 
+      if((datetimeStart < currentDate) || (datetimeEnd < currentDate)){
+        alert("Waktu tidak boleh kurang dari sekarang")
+        return;
+      }
+      if(datetimeStart > datetimeEnd){
+        alert("Waktu mulai tidak boleh melewati waktu akhir")
+        return;
+      }
+      if(datetimeEnd < datetimeStart){
+        alert("Waktu akhir tidak boleh kurang dari waktu mulai")
+        return;
+      }
     const formattedData = {
       datetime_start: datetimeStart.toISOString(),
-      datetime_end: datetimeEnd.toISOString(),
+      datetime_end: datetimeEnd.toISOString(), //baris 139
       interviewer_user_id: interviewData.interviewer
         ? interviewData.interviewer
         : interview.interviewer_user_id.user_id,
@@ -196,7 +205,7 @@ function UpdateJadwalInteviewGA() {
   const deleteInterview = async (id) => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/interview/delete-interview/${id}/`,
+        `https://sihire-be.vercel.app/api/interview/delete-interview/${id}/`,
         {
           method: "DELETE",
         }
@@ -237,14 +246,14 @@ function UpdateJadwalInteviewGA() {
           style={{
             marginLeft: "22%",
             position: "absolute",
-            marginTop: "-240px",
+            marginTop: "-280px",
           }}
         >
           List Wawancara
         </p>
       </Link>
       <p
-        style={{ marginLeft: "30%", position: "absolute", marginTop: "-240px" }}
+        style={{ marginLeft: "30%", position: "absolute", marginTop: "-280px" }}
       >
         {">"}
       </p>
@@ -255,7 +264,7 @@ function UpdateJadwalInteviewGA() {
               style={{
                 marginLeft: "31%",
                 position: "absolute",
-                marginTop: "-240px",
+                marginTop: "-280px",
               }}
             >
               {interview.job_application_id.job.job_name}
@@ -265,7 +274,7 @@ function UpdateJadwalInteviewGA() {
             style={{
               marginLeft: "39%",
               position: "absolute",
-              marginTop: "-240px",
+              marginTop: "-280px",
             }}
           >
             {">"}
@@ -275,18 +284,21 @@ function UpdateJadwalInteviewGA() {
               style={{
                 marginLeft: "40%",
                 position: "absolute",
-                marginTop: "-240px",
+                marginTop: "-280px",
               }}
             >
               Update
             </p>
           </Link>
-          <div className="update-interview">
+          <div
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-180px" }}
+        className="w-9/12"
+      >
             <div className="rectangle-style" style={rectangleStyle}>
               <p
                 style={{
                   marginTop: "20px",
-                  marginLeft: "23%",
+                  marginLeft: "27%",
                   fontWeight: "bold",
                   fontSize: "32px",
                   color: "#2A3E4B",
@@ -315,7 +327,7 @@ function UpdateJadwalInteviewGA() {
                     borderRadius: "5px",
                     border: "2px solid #ccc",
                     height: "40px",
-                    width: "56%",
+                    width: "76%",
                     marginTop: "110px",
                     marginLeft: "7%",
                     fontWeight: "600",
@@ -345,7 +357,7 @@ function UpdateJadwalInteviewGA() {
                     borderRadius: "5px",
                     border: "2px solid #ccc",
                     height: "40px",
-                    width: "56%",
+                    width: "76%",
                     marginTop: "210px",
                     marginLeft: "7%",
                     fontWeight: "600",
@@ -366,7 +378,7 @@ function UpdateJadwalInteviewGA() {
                     position: "absolute",
                   }}
                 >
-                  Tanggal Interview*
+                  Tanggal Interview
                 </p>
                 <input
                   type="date"
@@ -379,7 +391,7 @@ function UpdateJadwalInteviewGA() {
                     fontSize: "14px",
                     color: "#2A3E4B",
                     position: "absolute",
-                    width: "56%",
+                    width: "76%",
                   }}
                   value={
                     interviewData.datetime_start ||
@@ -388,38 +400,30 @@ function UpdateJadwalInteviewGA() {
                       : "")
                   }
                   onChange={(e) => {
-                    const selectedDate = e.target.value;
-                    const currentTime = new Date();
-                    const currentDateString = currentTime
-                      .toISOString()
-                      .split("T")[0];
-                    const currentTimeString = currentTime
-                      .toTimeString()
-                      .slice(0, 5);
+    const selectedDate = e.target.value;
+    const currentTime = new Date();
+    const currentDateString = currentTime.toISOString().split("T")[0];
+    const currentTimeString = currentTime.toTimeString().slice(0, 5);
 
-                    const startTime = new Date(
-                      `${selectedDate}T${interview.datetime_start.slice(
-                        11,
-                        16
-                      )}`
-                    );
+    if (selectedDate === currentDateString) {
+        const startTime = new Date(
+            `${currentDateString}T${interviewData.startTime || "00:00"}`
+        );
 
-                    if (
-                      selectedDate === currentDateString &&
-                      startTime < currentTime
-                    ) {
-                      alert(
-                        "Tanggal atau waktu mulai tidak valid. Pastikan tanggal dan waktu mulai sesuai."
-                      );
-                      return;
-                    }
+        if (startTime <= currentTime) {
+            alert(
+                "Waktu mulai harus setelah waktu saat ini. Harap pilih waktu yang valid."
+            );
+            return;
+        }
+    }
 
-                    setInterviewData((prevState) => ({
-                      ...prevState,
-                      datetime_start: selectedDate,
-                    }));
-                  }}
-                  min={currentDateString}
+    setInterviewData((prevState) => ({
+        ...prevState,
+        datetime_start: selectedDate,
+    }));
+}}
+min={currentDateString}
                 />
                 <p
                   style={{
@@ -431,7 +435,7 @@ function UpdateJadwalInteviewGA() {
                     position: "absolute",
                   }}
                 >
-                  Waktu Mulai Interview*
+                  Waktu Mulai Interview
                 </p>
                 <input
                   type="time"
@@ -444,7 +448,7 @@ function UpdateJadwalInteviewGA() {
                     fontSize: "14px",
                     color: "#2A3E4B",
                     position: "absolute",
-                    width: "56%",
+                    width: "76%",
                   }}
                   value={
                     interviewData.startTime ||
@@ -452,35 +456,38 @@ function UpdateJadwalInteviewGA() {
                       ? interview.datetime_start.slice(11, 16)
                       : "")
                   }
-                  onChange={(e) => {
-                    const selectedTime = e.target.value;
-                    const formattedTime = selectedTime.slice(0, 5);
-                    const startTime = new Date(
-                      `${interviewData.datetime_start}T${formattedTime}`
-                    );
-                    const currentTime = new Date();
-                    const currentDateString = currentTime
-                      .toISOString()
-                      .split("T")[0];
-                    const currentTimeString = currentTime
-                      .toTimeString()
-                      .slice(0, 5);
+onChange={(e) => {
+  const selectedTime = e.target.value;
+  const formattedTime = selectedTime.slice(0, 5);
+  const startTime = new Date(
+    `${interviewData.datetime_start}T${formattedTime}`
+  );
+  const currentTime = new Date();
+  const currentDateString = currentTime.toISOString().split("T")[0];
+  const currentTimeString = currentTime.toTimeString().slice(0, 5);
 
-                    if (
-                      interviewData.datetime_start === currentDateString &&
-                      startTime < currentTime
-                    ) {
-                      alert(
-                        "Tanggal atau waktu mulai tidak valid. Pastikan tanggal dan waktu mulai sesuai."
-                      );
-                      return;
-                    }
+  if (
+    interviewData.datetime_start === currentDateString &&
+    startTime < currentTime
+  ) {
+    alert(
+      "Tanggal atau waktu mulai tidak valid. Pastikan tanggal dan waktu mulai sesuai."
+    );
+    return;
+  }
+  if (
+    interviewData.endTime &&
+    selectedTime > interviewData.endTime
+  ) {
+    alert("Waktu mulai tidak boleh lebih melewati waktu akhir.");
+    return;
+  }
 
-                    setInterviewData({
-                      ...interviewData,
-                      startTime: formattedTime,
-                    });
-                  }}
+  setInterviewData({
+    ...interviewData,
+    startTime: formattedTime,
+  });
+}}
                   min={
                     interviewData.datetime === currentDateString
                       ? currentTimeString
@@ -500,7 +507,7 @@ function UpdateJadwalInteviewGA() {
                     position: "absolute",
                   }}
                 >
-                  Waktu Berakhir Interview*
+                  Waktu Berakhir Interview
                 </p>
                 <input
                   type="time"
@@ -513,7 +520,7 @@ function UpdateJadwalInteviewGA() {
                     fontSize: "14px",
                     color: "#2A3E4B",
                     position: "absolute",
-                    width: "56%",
+                    width: "76%",
                   }}
                   value={
                     interviewData.endTime ||
@@ -543,16 +550,6 @@ function UpdateJadwalInteviewGA() {
                       endTime: selectedTime,
                     });
                   }}
-                  min={
-                    interviewData.datetime_end === currentDateString
-                      ? currentTimeString
-                      : "00:00"
-                  }
-                  max={
-                    interviewData.datetime_end === currentDateString
-                      ? "23:59"
-                      : ""
-                  }
                 />
 
                 <p
@@ -565,14 +562,14 @@ function UpdateJadwalInteviewGA() {
                     position: "absolute",
                   }}
                 >
-                  Pewawancara*
+                  Pewawancara
                 </p>
                 <select
                   style={{
                     borderRadius: "5px",
                     border: "2px solid #ccc",
                     height: "40px",
-                    width: "56%",
+                    width: "76%",
                     marginTop: "610px",
                     marginLeft: "7%",
                     fontWeight: "600",
@@ -609,7 +606,7 @@ function UpdateJadwalInteviewGA() {
                     cursor: "pointer",
                     marginTop: "680px",
                     border: "2px solid #2A3E4B",
-                    marginLeft: "17%",
+                    marginLeft: "20%",
                     position: "absolute",
                   }}
                 >
@@ -646,7 +643,7 @@ function UpdateJadwalInteviewGA() {
                   cursor: "pointer",
                   marginTop: "730px",
                   border: "2px solid #2A3E4B",
-                  marginLeft: "17%",
+                  marginLeft: "20%",
                   position: "absolute",
                 }}
               >

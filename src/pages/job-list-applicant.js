@@ -34,7 +34,7 @@ function JobListApplicant() {
           position: "absolute",
         }}
       >
-        Job
+        Pekerjaan
       </p>
       <Sidebar />
       <div
@@ -46,6 +46,7 @@ function JobListApplicant() {
             fontWeight: "bold",
             fontSize: "32px",
             color: "#2A3E4B",
+            marginBottom:"10px"
           }}
         >
           Lowongan Pekerjaan
@@ -65,9 +66,11 @@ function JobListApplicant() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
+                    background:"#2A3E4B",
+                    color:"white"
                   }}
                 >
-                  Job Name
+                  Nama 
                 </th>
                 <th
                   style={{
@@ -75,9 +78,11 @@ function JobListApplicant() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
+                    background:"#2A3E4B",
+                    color:"white"
                   }}
                 >
-                  Close Date
+                  Tanggal Tutup
                 </th>
                 <th
                   style={{
@@ -85,6 +90,8 @@ function JobListApplicant() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
+                    background:"#2A3E4B",
+                    color:"white"
                   }}
                 >
                   Lamar
@@ -95,6 +102,8 @@ function JobListApplicant() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
+                    background:"#2A3E4B",
+                    color:"white"
                   }}
                 >
                   Detail
