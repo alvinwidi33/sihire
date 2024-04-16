@@ -59,13 +59,6 @@ function MyProfile() {
         fontFamily: 'Inter, sans-serif',
     };
 
-    const dividerStyle = {
-        borderTop: '1px solid #2D3648',
-        borderBottom: '2px solid #2D3648',
-        marginTop: '5px',
-        marginBottom: '5px',
-    };
-
     const profilePictureStyle = {
         width: '200px',
         height: '200px',

@@ -31,7 +31,7 @@ function DetailInterviewGA() {
     borderRadius: "10px",
     marginLeft: "22%",
     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.4)",
-    marginTop: "-14%",
+    marginTop: "-19%",
   };
   useEffect(() => {
     const getInterview = async () => {
@@ -68,14 +68,14 @@ function DetailInterviewGA() {
           style={{
             marginLeft: "22%",
             position: "absolute",
-            marginTop: "-240px",
+            marginTop: "-320px",
           }}
         >
           List Wawancara
         </p>
       </Link>
       <p
-        style={{ marginLeft: "30%", position: "absolute", marginTop: "-240px" }}
+        style={{ marginLeft: "30%", position: "absolute", marginTop: "-320px" }}
       >
         {">"}
       </p>
@@ -86,7 +86,7 @@ function DetailInterviewGA() {
               style={{
                 marginLeft: "31%",
                 position: "absolute",
-                marginTop: "-240px",
+                marginTop: "-320px",
               }}
             >
               {interview.job_application_id.job.job_name}
