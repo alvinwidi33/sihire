@@ -22,7 +22,7 @@ const AddInterview = () => {
     backgroundColor: "#fff",
     borderRadius: "10px",
     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.4)",
-    marginTop:"-70px"
+    marginTop:"-110px"
   };
 
   const isOverlapping = (aStart, aEnd, bStart, bEnd) => {

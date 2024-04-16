@@ -92,7 +92,7 @@ function JobListGA() {
       </p>
       <SidebarGA />
       <div
-        style={{ marginLeft: "22%", position: "absolute", marginTop: "-300px" }}
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-330px" }}
         className="w-9/12"
       >
         <p
