@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import SidebarAdmin from '../components/sidebar-admin';
+import NotificationPopup from '../components/popupNotification';
 
 function EditRoleUser(props) {
     const { id } = useParams();
+    const [deleteConfirmationVisible, setDeleteConfirmationVisible] = useState(false);
+    const [deleteSuccessVisible, setDeleteSuccessVisible] = useState(false);
+    const [editSuccessVisible, setEditSuccessVisible] = useState(false);
 
     const darkBlueText = {
         color: 'var(--WF-Base-800, #2D3648)',
         fontFamily: 'Inter, sans-serif',
-    };
-
-    const dividerStyle = {
-        borderTop: '1px solid #2D3648',
-        borderBottom: '2px solid #2D3648',
-        marginTop: '5px',
-        marginBottom: '5px',
     };
 
     const [formData, setFormData] = useState({
@@ -59,8 +56,8 @@ function EditRoleUser(props) {
         })
         .then(response => {
             if (response.ok) {
-                // Navigate back to manage-user route on success
-                navigate('/manage-user');
+                setEditSuccessVisible(true);
+                navigate("/manage-user");
             } else {
                 throw new Error('Failed to update role');
             }
@@ -73,25 +70,29 @@ function EditRoleUser(props) {
     };
 
     const handleDeleteUser = () => {
-        if (window.confirm('Are you sure you want to delete this user?')) {
-            fetch(`https://sihire-be.vercel.app/api/users/delete-user/${id}/`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': 'Token ' + window.localStorage.getItem("token")
-                },
-            })
-            .then(response => {
-                if (response.ok) {
-                    navigate('/manage-user');
-                    console.log('User deleted successfully');
-                    // Redirect or handle deletion success
-                } else {
-                    console.error('Failed to delete user');
-                    // Handle deletion failure
-                }
-            })
-            .catch(error => console.error('Error deleting user:', error));
-        }
+        setDeleteConfirmationVisible(true);
+    };
+
+    const handleConfirmDelete = () => {
+        fetch(`https://sihire-be.vercel.app/api/users/delete-user/${id}/`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': 'Token ' + window.localStorage.getItem("token")
+            },
+        })
+        .then(response => {
+            if (response.ok) {
+                setDeleteSuccessVisible(true);
+                console.log('User deleted successfully');
+            } else {
+                console.error('Failed to delete user');
+            }
+        })
+        .catch(error => console.error('Error deleting user:', error));
+    };
+
+    const handleCancelDelete = () => {
+        setDeleteConfirmationVisible(false);
     };
 
     const handleChange = (e) => {
@@ -206,6 +207,38 @@ function EditRoleUser(props) {
             </div>
         </div>
         </div>
+        {/* Confirmation popup for delete action */}
+        <NotificationPopup
+                isVisible={deleteConfirmationVisible}
+                onAccept={handleConfirmDelete}
+                onClose={handleCancelDelete}
+                popupText="Apakah Anda yakin ingin menghapus user ini?"
+                needsConfirmation
+                acceptText="Ya"
+                declineText="Tidak"
+        />
+        {/* Success popup
+        <NotificationPopup
+            isVisible={editSuccessVisible}
+            successIcon
+            onClose={() => {
+                setEditSuccessVisible(false);
+                navigate('/manage-user');
+            }}
+            popupText='Role berhasil diupdate'
+            needsConfirmation={false}
+        />
+        <NotificationPopup
+            isVisible={deleteSuccessVisible}
+            successIcon
+            onClose={() => {
+                setDeleteSuccessVisible(false);
+                setDeleteConfirmationVisible(false);
+                navigate('/manage-user');
+            }}
+            popupText='User berhasil dihapus'
+            needsConfirmation={false}
+        /> */}
     </React.Fragment>
     );
 }
