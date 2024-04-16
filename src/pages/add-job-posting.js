@@ -102,14 +102,14 @@ function AddJobPosting() {
           style={{
             marginLeft: "22%",
             position: "absolute",
-            marginTop: "-280px",
+            marginTop: "-320px",
           }}
         >
           List Pekerjaan
         </p>
       </Link>
       <p
-        style={{ marginLeft: "29%", position: "absolute", marginTop: "-280px", }}
+        style={{ marginLeft: "29%", position: "absolute", marginTop: "-320px", }}
       >
         {">"}
       </p>
@@ -118,14 +118,14 @@ function AddJobPosting() {
           style={{
             marginLeft: "30%",
             position: "absolute",
-            marginTop: "-280px",
+            marginTop: "-320px",
           }}
         >
           Tambah Pekerjaan
         </p>
       </Link>
       <div
-        style={{ marginLeft: "22%", position: "absolute", marginTop: "-80px" }}
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-120px" }}
         className="w-9/12"
       >
         <div className="rectangle" style={rectangleStyle}>

@@ -38,7 +38,7 @@ function JobListApplicant() {
       </p>
       <SidebarApplicant />
       <div
-        style={{ marginLeft: "22%", position: "absolute", marginTop: "-250px" }}
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-180px" }}
         className="w-9/12"
       >
         <p
