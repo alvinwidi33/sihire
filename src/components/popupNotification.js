@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import successIconImage from '../images/success-icon.png';
+import errorIconImage from '../images/fail-icon.png';
 
 const Backdrop = styled.div`
   position: fixed;
@@ -57,22 +58,40 @@ transition: all 0.3s ease;
 }
 `;
 
-const InterviewPopup = ({ isVisible, onAccept, id, onClose }) => {
+const SuccessIcon = styled.img`
+  width: 50px;
+  height: 50px;
+  margin: 10px auto;
+  display: block;
+`;
+
+const ErrorIcon = styled.img`
+  width: 50px;
+  height: 50px;
+  margin: 10px auto;
+  display: block;
+`;
+
+const NotificationPopup = ({ isVisible, onAccept, onClose, popupText, successIcon=false, errorIcon=false, needsConfirmation=false, acceptText='', declineText='' }) => {
   return (
     isVisible && (
       <>
         <Backdrop onClick={onClose} />
         <PopupContainer>
-          <CloseButton onClick={onClose}>X</CloseButton> {/* Close button */}
-          <p>Apakah Anda ingin menerima atau Ajukan waktu lain?</p>
-          <BlueButton onClick={onAccept}>Terima</BlueButton>
-          <Link to={`/decline-interview/${id}`}>
-            <BlueButton>Ajukan waktu lain</BlueButton>
-          </Link>
+          <CloseButton onClick={onClose}>X</CloseButton>
+          {successIcon && <SuccessIcon src={successIconImage} alt="Success Icon" />}
+          {errorIcon && <ErrorIcon src={errorIconImage} alt="Error Icon" />}
+          <p>{popupText}</p>
+          {needsConfirmation && (
+            <>
+              <BlueButton onClick={onAccept}>{acceptText}</BlueButton>
+              <BlueButton onClick={onClose}>{declineText}</BlueButton>
+            </>
+          )}
         </PopupContainer>
       </>
     )
   );
 };
 
-export default InterviewPopup;
+export default NotificationPopup;
