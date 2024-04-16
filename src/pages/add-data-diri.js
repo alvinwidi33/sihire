@@ -163,7 +163,7 @@ function AddDataDiri() {
       
         <h1 className="text-2xl font-bold text-center mb-4">Data Personal</h1>
         <div className="mb-2">
-          <label htmlFor="ktp" className="block text-gray-600 font-semibold mb-2">KTP</label>
+          <label htmlFor="ktp" className="block text-gray-600 font-semibold mb-2">KTP<span style={{ color: "red" }}>*</span></label>
           <input
             type="file"
             id="ktp"
@@ -174,7 +174,7 @@ function AddDataDiri() {
           />
         </div>
         <div className="mb-2">
-          <label htmlFor="bank" className="block text-gray-600 font-semibold mb-2">Rekening Bank</label>
+          <label htmlFor="bank" className="block text-gray-600 font-semibold mb-2">Rekening Bank<span style={{ color: "red" }}>*</span></label>
           <input
             type="file"
             id="bank"
@@ -185,7 +185,7 @@ function AddDataDiri() {
           />
         </div>
         <div className="mb-2">
-          <label htmlFor="bpjs" className="block text-gray-600 font-semibold mb-2">BPJS</label>
+          <label htmlFor="bpjs" className="block text-gray-600 font-semibold mb-2">BPJS<span style={{ color: "red" }}>*</span></label>
           <input
             type="file"
             id="bpjs"
@@ -196,7 +196,7 @@ function AddDataDiri() {
           />
         </div>
         <div className="mb-2">
-          <label htmlFor="npwp" className="block text-gray-600 font-semibold mb-2">NPWP</label>
+          <label htmlFor="npwp" className="block text-gray-600 font-semibold mb-2">NPWP<span style={{ color: "red" }}>*</span></label>
           <input
             type="file"
             id="npwp"
@@ -207,7 +207,7 @@ function AddDataDiri() {
           />
         </div>
         <div className="mb-2">
-          <label htmlFor="fotodiri" className="block text-gray-600 font-semibold mb-2">Foto Diri</label>
+          <label htmlFor="fotodiri" className="block text-gray-600 font-semibold mb-2">Foto Diri<span style={{ color: "red" }}>*</span></label>
           <input
             type="file"
             id="fotodiri"
