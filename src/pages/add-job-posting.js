@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import Sidebar from "../components/sidebar-ga";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import SidebarGA from "../components/sidebar-ga";
 
 function AddJobPosting() {
   const [error, setError] = useState("");
@@ -96,7 +96,7 @@ function AddJobPosting() {
       >
         Job
       </p>
-      <Sidebar />
+      <SidebarGA />
       <Link to="/job-list-ga">
         <p
           style={{

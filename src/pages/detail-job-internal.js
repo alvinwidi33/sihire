@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../components/sidebar-applicant";
-import { useParams, Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import SidebarApplicant from "../components/sidebar-applicant";
 
 function DetailJobApplicant() {
   const { id } = useParams();
@@ -78,7 +78,7 @@ function DetailJobApplicant() {
       >
         Pekerjaan
       </p>
-      <Sidebar />
+      <SidebarApplicant />
       <div
         style={{ marginLeft: "22%", position: "absolute", marginTop: "40px" }}
         className="w-9/12"

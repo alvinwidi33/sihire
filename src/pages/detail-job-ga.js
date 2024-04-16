@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../components/sidebar-ga";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import SidebarGA from "../components/sidebar-ga";
 
 function DetailJobGA() {
   const [successMessage, setSuccessMessage] = useState("");
@@ -95,7 +95,7 @@ function DetailJobGA() {
           </React.Fragment>
         )}
       </div>
-      <Sidebar />
+      <SidebarGA />
       <div
         style={{ marginLeft: "22%", position: "absolute", marginTop: "-60px" }}
         className="w-9/12"

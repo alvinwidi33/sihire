@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import Sidebar from "../components/sidebar-ga"; // Make sure to import the Sidebar component properly
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import SidebarGA from "../components/sidebar-ga"; // Make sure to import the Sidebar component properly
 
 function JobListGA() {
   const navigate = useNavigate();
@@ -90,7 +90,7 @@ function JobListGA() {
       >
         Pekerjaan
       </p>
-      <Sidebar />
+      <SidebarGA />
       <div
         style={{ marginLeft: "22%", position: "absolute", marginTop: "-280px" }}
         className="w-9/12"

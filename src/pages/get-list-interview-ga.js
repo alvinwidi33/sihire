@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import Sidebar from "../components/sidebar-ga"; // Pastikan untuk mengimpor komponen Sidebar dengan benar
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import SidebarGA from "../components/sidebar-ga"; // Pastikan untuk mengimpor komponen Sidebar dengan benar
 
 function GetListInterviewGA() {
   const [interviews, setInterviews] = useState([]);
@@ -90,7 +90,7 @@ function GetListInterviewGA() {
       >
         Wawancara
       </p>
-      <Sidebar />
+      <SidebarGA />
       <div
         style={{ marginLeft: "22%", position: "absolute", marginTop: "20px" }}
         className="w-9/12"
