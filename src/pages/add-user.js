@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import NotificationPopup from '../components/popupNotification';
+import SidebarAdmin from '../components/sidebar-admin';
 
 function AddUser() {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         email: '',
         username: '',
@@ -10,6 +15,10 @@ function AddUser() {
     });
 
     const [errors, setErrors] = useState({});
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [showError, setShowError] = useState(false);
     
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -41,6 +50,7 @@ function AddUser() {
             fetch('https://sihire-be.vercel.app/api/users/add-user/', {
                 method: 'POST',
                 headers: {
+                    'Authorization': "Token " + window.localStorage.getItem("token"),
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(formData),
@@ -50,10 +60,12 @@ function AddUser() {
                 if (data && data.error) {
                     const errorMessage = data.error;
                     // Show error message
-                    showError(errorMessage);
+                    setErrorMessage(errorMessage);
+                    setShowError(true);
                 } else {
                     // Show success message
-                    showSuccess('Berhasil menambahkan user');
+                    setSuccessMessage('Berhasil menambahkan user');
+                    setShowSuccess(true);
                     // Reset form data
                     setFormData({
                         email: '',
@@ -68,97 +80,52 @@ function AddUser() {
                 console.error('Error adding user:', error);
                 const errorMessage = 'Failed to add user. Please try again later.';
                 // Show error message
-                showError(errorMessage);
+                setErrorMessage(errorMessage);
+                setShowError(true);
             });
         }
     };
-    
-    const showError = (errorMessage) => {
-        const errorDiv = document.createElement('div');
-        errorDiv.classList.add('font-regular', 'relative', 'block', 'w-full', 'rounded-lg', 'bg-red-500', 'p-4', 'text-base', 'leading-5', 'text-white', 'opacity-100', 'fixed', 'top-0', 'left-0', 'z-50', 'mt-4');
-        errorDiv.setAttribute('data-dismissible', 'alert');
-        errorDiv.innerHTML = `
-            <div class="mr-12">${errorMessage}</div>
-            <div class="absolute top-2.5 right-3 w-max rounded-lg transition-all hover:bg-white hover:bg-opacity-20" data-dismissible-target="alert">
-                <button role="button" class="w-max rounded-lg p-1" data-alert-dimissible="true">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            </div>
-        `;
-        document.body.insertBefore(errorDiv, document.body.firstChild);
-    
-        window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        // Set timeout to remove error message after 8 seconds
-        setTimeout(() => {
-            errorDiv.remove();
-        }, 3500);
-    
-        // Event listener to remove error message if clicked anywhere on the screen
-        document.addEventListener('click', () => {
-            errorDiv.remove();
-        });
-    };
-    
-    const showSuccess = (successMessage) => {
-        // Show success message in green popup
-        const successDiv = document.createElement('div');
-        successDiv.classList.add('font-regular', 'relative', 'block', 'w-full', 'rounded-lg', 'bg-green-500', 'p-4', 'text-base', 'leading-5', 'text-white', 'opacity-100', 'fixed', 'top-0', 'left-0', 'z-50', 'mt-4');
-        successDiv.setAttribute('data-dismissible', 'alert');
-        successDiv.innerHTML = `
-            <div class="mr-12">${successMessage}</div>
-            <div class="absolute top-2.5 right-3 w-max rounded-lg transition-all hover:bg-white hover:bg-opacity-20" data-dismissible-target="alert">
-                <button role="button" class="w-max rounded-lg p-1" data-alert-dimissible="true">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            </div>
-        `;
-        document.body.insertBefore(successDiv, document.body.firstChild);
-
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-
-        // Set timeout to remove success message after 8 seconds
-        setTimeout(() => {
-            successDiv.remove();
-            window.location.href = 'https://sihire.vercel.app/manage-user';
-        }, 3500);
-
-        // Event listener to remove success message if clicked anywhere on the screen
-        document.addEventListener('click', () => {
-            successDiv.remove();
-            window.location.href = 'https://sihire.vercel.app/manage-user';
-        });
-    };
-    
+    useEffect(() => {
+        if (showSuccess) {
+            const timer = setTimeout(() => {
+                setShowSuccess(false);
+                navigate('/manage-user');
+            }, 5000); // 5 seconds
+            return () => clearTimeout(timer);
+        }
+    }, [showSuccess, navigate]);
 
     const darkBlueText = {
         color: 'var(--WF-Base-800, #2D3648)',
         fontFamily: 'Inter, sans-serif',
     };
 
-    const containerStyle = {
-        backgroundColor: "#F2F2F2"
-    };
-
-    const dividerStyle = {
-        borderTop: '1px solid #2D3648',
-        borderBottom: '2px solid #2D3648',
-        marginTop: '5px',
-        marginBottom: '5px',
-    };
-
     return (
-        <div className="container mx-auto" style={containerStyle}>
-            <div className="px-5" style={{paddingTop: '20px', paddingBottom: '15px'}}>
-                <h1 className="text-3xl font-bold" style={darkBlueText}>Manage User</h1>
-            </div>
-            <hr className="divider" style={dividerStyle}></hr>
+        <React.Fragment>
+        <p
+            style={{
+            marginLeft: "22%",
+            fontWeight: "bold",
+            fontSize: "32px",
+            color: "#2A3E4B",
+            position: "absolute",
+            }}
+        >
+            Manage User
+        </p>
+        <SidebarAdmin />
+
+        <div
+            style={{ marginLeft: "22%", position: "absolute", marginTop: "-160px" }}
+            className="w-9/12"
+        >
+        <div className="container mx-auto">
             <div className="min-h-screen py-8">
-                <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+                <div
+                    className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md"
+                    style={{ boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)'}}
+                >
                     <h2 className="text-lg font-semibold mb-4 text-center" style={darkBlueText}>Add User</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4">
@@ -244,6 +211,21 @@ function AddUser() {
                 </div>
             </div>
         </div>
+        </div>
+        <NotificationPopup
+                isVisible={showSuccess || showError}
+                onClose={() => {
+                    setShowSuccess(false);
+                    setShowError(false);
+                    if (showSuccess) {
+                        navigate('/manage-user');                    }
+                }}
+                popupText={showSuccess ? successMessage : errorMessage}
+                successIcon={showSuccess}
+                errorIcon={showError}
+                needsConfirmation={false}
+        />
+        </React.Fragment>
     );
 }
 
