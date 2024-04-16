@@ -46,7 +46,7 @@ const DeclineInterview = () => {
             if (response.ok) {
                 console.log('Interview updated successfully');
                 console.log('Berhasil Mengajukan Perpindahan Jadwal Wawancara');
-                navigate('/job-list-applicant'); // TODO: ubah ke my job applications
+                navigate('/my-job-application');
             } else {
                 console.error('Failed to update interview');
                 console.log('Gagal Mengajukan Perpindahan Jadwal Wawancara');
