@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../components/sidebar-ga";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import SidebarGA from "../components/sidebar-ga";
 
 const AddOnboarding = () => {
   const navigate = useNavigate();
@@ -214,7 +214,7 @@ const AddOnboarding = () => {
           Tambah Onboarding
         </p>
       </Link>
-      <Sidebar />
+      <SidebarGA />
       <div className="create-interview" style={{ position: "relative" }}>
         <div className="rectangle" style={rectangleStyle}>
           <p

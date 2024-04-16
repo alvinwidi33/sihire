@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../components/sidebar-ga";
-import { useParams, Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import SidebarGA from "../components/sidebar-ga";
 
 function DetailInterviewGA() {
   const [interview, setInterview] = useState(null);
@@ -62,7 +62,7 @@ function DetailInterviewGA() {
       >
         Wawancara
       </p>
-      <Sidebar />
+      <SidebarGA />
       <Link to="/get-list-interview-ga">
         <p
           style={{

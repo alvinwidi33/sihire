@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../components/sidebar-applicant";
 import { Link } from "react-router-dom";
+import SidebarApplicant from "../components/sidebar-applicant";
 
 function JobListApplicant() {
   const [jobs, setJobs] = useState(null);
@@ -36,7 +36,7 @@ function JobListApplicant() {
       >
         Pekerjaan
       </p>
-      <Sidebar />
+      <SidebarApplicant />
       <div
         style={{ marginLeft: "22%", position: "absolute", marginTop: "-180px" }}
         className="w-9/12"

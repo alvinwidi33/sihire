@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../components/sidebar-ga";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import SidebarGA from "../components/sidebar-ga";
 
 const AddInterview = () => {
   const navigate = useNavigate();
@@ -229,7 +229,7 @@ const AddInterview = () => {
           </p>
         </Link>
       </div>
-      <Sidebar />
+      <SidebarGA />
       <div
         style={{ marginLeft: "22%", position: "absolute", marginTop: "-180px" }}
         className="w-9/12"

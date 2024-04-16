@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import Sidebar from "../components/sidebar-ga";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import SidebarGA from "../components/sidebar-ga";
 
 function JobListInternal() {
   const [jobs, setJobs] = useState(null);
@@ -43,7 +43,7 @@ function JobListInternal() {
       >
         Pekerjaan
       </p>
-      <Sidebar />
+      <SidebarGA />
       <div
         style={{ marginLeft: "22%", position: "absolute", marginTop: "-70px" }}
         className="w-9/12"

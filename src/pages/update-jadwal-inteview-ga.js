@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import Sidebar from "../components/sidebar-ga";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import SidebarGA from "../components/sidebar-ga";
 
 function UpdateJadwalInteviewGA() {
   const { id } = useParams();
@@ -240,7 +240,7 @@ function UpdateJadwalInteviewGA() {
       >
         Wawancara
       </p>
-      <Sidebar />
+      <SidebarGA />
       <Link to="/get-list-interview-ga">
         <p
           style={{

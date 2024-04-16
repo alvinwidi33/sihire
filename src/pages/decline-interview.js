@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from "react-router-dom";
-import Sidebar from "../components/sidebar-applicant";
+import React, { useState } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
+import SidebarApplicant from "../components/sidebar-applicant";
 
 
 const DeclineInterview = () => {
@@ -78,7 +78,7 @@ const DeclineInterview = () => {
             >
                 Interview
             </p>
-            <Sidebar />
+            <SidebarApplicant />
             <div className="container mx-auto" style={containerStyle}>
 
                 <div className="min-h-screen py-8">

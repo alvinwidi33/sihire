@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Popup from '../components/popup';
 import InterviewPopup from '../components/popupInterview';
-import Sidebar from "../components/sidebar-applicant";
-import OnboardingDeclined from './onboarding-declined';
+import SidebarApplicant from "../components/sidebar-applicant";
 
 const MyJobApplication = () => {
   const { applicant } = useParams();
@@ -309,7 +308,7 @@ function formatDateTime(datetimeString) {
       >
         Job Applications
       </p>
-      <Sidebar />
+      <SidebarApplicant />
 
       <div
         style={{ marginLeft: "22%", position: "absolute", marginTop: "-180px" }}

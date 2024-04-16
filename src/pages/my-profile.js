@@ -55,10 +55,6 @@ function MyProfile() {
         fontFamily: 'Inter, sans-serif',
     };
 
-    const containerStyle = {
-        backgroundColor: "#F2F2F2"
-    };
-
     const dividerStyle = {
         borderTop: '1px solid #2D3648',
         borderBottom: '2px solid #2D3648',
@@ -70,7 +66,7 @@ function MyProfile() {
         width: '200px',
         height: '200px',
         borderRadius: '50%',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#F2F2F2',
         margin: '0 auto',
         backgroundImage: profileData?.foto ? `url(${profileData.foto})` : 'url(https://cdn-icons-png.flaticon.com/512/709/709699.png)',
         backgroundSize: 'cover',
@@ -82,7 +78,7 @@ function MyProfile() {
     };
 
     return (
-        <div className="container mx-auto" style={containerStyle}>
+        <div className="container mx-auto">
             <div className="px-5" style={{paddingTop: '20px', paddingBottom: '15px'}}>
                 <h1 className="text-3xl font-bold" style={darkBlueText}>Profile</h1>
             </div>
