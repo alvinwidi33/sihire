@@ -333,7 +333,7 @@ function UpdateOnboarding() {
                     position: "absolute",
                   }}
                 >
-                  Tanggal Onboarding*
+                  Tanggal Onboarding
                 </p>
                 <input
                   type="date"
@@ -395,7 +395,7 @@ function UpdateOnboarding() {
                     position: "absolute",
                   }}
                 >
-                  Waktu Mulai Onboarding*
+                  Waktu Mulai Onboarding
                 </p>
                 <input
                   type="time"
@@ -464,7 +464,7 @@ function UpdateOnboarding() {
                     position: "absolute",
                   }}
                 >
-                  Waktu Berakhir Onboarding*
+                  Waktu Berakhir Onboarding
                 </p>
                 <input
                   type="time"
@@ -527,7 +527,7 @@ function UpdateOnboarding() {
                     position: "absolute",
                   }}
                 >
-                  Pewawancara*
+                  Person In Charge (PIC)
                 </p>
                 <select
                   style={{

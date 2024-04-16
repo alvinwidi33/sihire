@@ -447,53 +447,44 @@ const MyJobApplication = () => {
           </Table>
         </ContentContainer>
 
-        <ContentContainer active={activeTab === "onboarding"}>
-          <SubTitle>My Onboarding</SubTitle>
-          <Table>
-            <thead style={{ backgroundColor: "#D2D2D2" }}>
-              <tr>
-                <Th>Job Title</Th>
-                <Th>Tanggal</Th>
-                <Th>Waktu</Th>
-                <Th>Status</Th>
-                <Th>Konfirmasi</Th>
-              </tr>
-            </thead>
-            <tbody>
-              {onboardingData &&
-                onboardingData.map((onboarding) => (
-                  <tr key={onboarding.id}>
-                    <Td>{onboarding.job_application_id.job.job_name}</Td>
-                    <Td>
-                      {onboarding.datetime_start &&
-                        formatDateTime(onboarding.datetime_start)}
-                    </Td>
-                    <Td>
-                      {onboarding.datetime_start &&
-                        formatTime(onboarding.datetime_start)}{" "}
-                      -{" "}
-                      {onboarding.datetime_end &&
-                        formatTime(onboarding.datetime_end)}
-                    </Td>
-                    <Td>{onboarding.confirm}</Td>
-                    <Td>
-                      {/* Konfirmasi button */}
-                      <Button
-                        primary
-                        onClick={() => handleConfirmation(onboarding.id)}
-                      >
-                        Konfirmasi
-                      </Button>
-                      {/* Tolak button */}
-                      <Button onClick={() => handleReject(onboarding.id)}>
-                        Tolak
-                      </Button>
-                    </Td>
-                  </tr>
-                ))}
-            </tbody>
-          </Table>
-        </ContentContainer>
+        <ContentContainer active={activeTab === 'onboarding'}>
+        <SubTitle>My Onboarding</SubTitle>
+        <Table>
+          <thead style={{ backgroundColor: "#D2D2D2" }}>
+            <tr>
+              <Th>Pekerjaan</Th>
+              <Th>Tanggal</Th>
+              <Th>Waktu</Th>
+              <Th>Status</Th>
+              <Th>Konfirmasi</Th>
+              <Th>Add Data Diri</Th> {/* New column header */}
+            </tr>
+          </thead>
+          <tbody>
+            {onboardingData &&
+              onboardingData.map((onboarding) => (
+                <tr key={onboarding.id}>
+                  <Td>{onboarding.job_application_id.job.job_name}</Td>
+                  <Td>{onboarding.datetime_start && formatDateTime(onboarding.datetime_start)}</Td>
+                  <Td>{onboarding.datetime_start && formatTime(onboarding.datetime_start)} - {onboarding.datetime_end && formatTime(onboarding.datetime_end)}</Td>
+                  <Td>{onboarding.confirm}</Td>
+                  <Td>
+                    {/* Konfirmasi button */}
+                    <Button primary style={{ marginRight: '8px' }} onClick={() => handleConfirmation(onboarding.id)}>Konfirmasi</Button>
+                    {/* Tolak button */}
+                    <Button onClick={() => handleReject(onboarding.id)}>Tolak</Button>
+                  </Td>
+                  <Td>
+                    {/* Add Data Diri button */}
+                    <Link to={`/create-datadiri/${onboarding.id}`}>
+                      <Button primary>Add Data Diri</Button>
+                    </Link>
+                  </Td>
+                </tr>
+              ))}
+          </tbody>
+        </Table>
+      </ContentContainer>
 
         {/* Render the Popup component */}
         <InterviewPopup

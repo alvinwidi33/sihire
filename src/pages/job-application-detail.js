@@ -11,14 +11,12 @@ const supabase = createClient(
 function JobApplicationDetail() {
   const stages = [
     { name: 'Applied', value: 0 },
-    { name: 'In Review', value: 16 },
-    { name: 'Interview', value: 32 },
-    { name: 'Accepted', value: 48 },
-    { name: 'Declined', value: 64 },
-    { name: 'On Boarding', value: 80 },
-    { name: 'Withdrawn', value: 100 },
+    { name: 'In Review', value: 25 },
+    { name: 'Interview', value: 50 },
+    { name: 'Accepted', value: 75 },
+    { name: 'Declined', value: 100 },
+    { name: 'On Boarding', value: 100 },
   ];
-
 
   const { id } = useParams();
 
@@ -31,7 +29,7 @@ function JobApplicationDetail() {
     noTelepon: '',
     cv: '',
     coverLetter: '',
-    status:'',
+    status: '',
   });
      const calculateProgress = (stageName) => {
     const stage = stages.find((stage) => stage.name === stageName);
@@ -39,8 +37,8 @@ function JobApplicationDetail() {
   };
 
   const currentStage = formData.status;
-  const progress = calculateProgress(currentStage);
-  console.log('apapappa',progress)
+  const progress = currentStage === 'Withdrawn' ? 100 : calculateProgress(currentStage);
+
   useEffect(() => {
     const fetchJobApplicationData = async () => {
       try {
@@ -62,7 +60,7 @@ function JobApplicationDetail() {
           applicant: jobApplicationData.applicant,
           cv: data[0].signedUrl,
           coverLetter: data[1].signedUrl,
-          status:jobApplicationData.status,
+          status: jobApplicationData.status,
         });
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -72,7 +70,7 @@ function JobApplicationDetail() {
     fetchJobApplicationData();
 
     console.log(formData);
-  }, []); 
+  }, []);
 
   const handleSubmit = async (e) => {
     const fd = new FormData();
@@ -84,7 +82,7 @@ function JobApplicationDetail() {
       const response = await fetch('https://sihire-be.vercel.app/api/job-application/put/' + id + '/edit-status/', {
         method: 'PUT',
         headers: {
-          
+
         },
         body: fd
       });
@@ -95,8 +93,8 @@ function JobApplicationDetail() {
       console.error('Error submitting form:', error);
     }
   };
-console.log('blablaaukauigus92002:',formData)
-  return (
+
+ return (
     <div className="bg-gray-100 min-h-screen flex">
       <div className="container mx-auto mt-8 md:mt-16" style={{ marginTop: "7%" }}>
         <h1 className="text-2xl font-bold text-left mb-4">Job Application</h1>
@@ -105,7 +103,7 @@ console.log('blablaaukauigus92002:',formData)
           <h2 className="text-2xl font-bold mb-2">{formData.job.job_name}</h2>
           <strong>Status:</strong> {}
           <div className="mt-4 relative flex justify-between">
-            {stages.map((stage, index) => (
+            {stages.filter(stage => stage.name !== 'Withdrawn').map((stage, index) => (
               <div key={index} className="flex items-center">
                 <span
                 className={`w-2 h-2 rounded-full ${
@@ -139,7 +137,7 @@ console.log('blablaaukauigus92002:',formData)
 </div>
           <div className="mt-4 grid grid-cols-2 gap-4">
             <div>
-              <strong>Nama</strong> 
+              <strong>Nama</strong>
               <p>{formData.applicant.user?.name}</p>
               <br />
               <strong>Email</strong> {}
@@ -149,58 +147,58 @@ console.log('blablaaukauigus92002:',formData)
               <p>{formData.applicant.user?.phone}</p>
             </div>
             <div>
-            <strong>CV</strong>
+              <strong>CV</strong>
               {
-                formData.cv ? 
-                <a
-                  href={formData.cv}
-                  target='__blank'
-                  rel='noopener noreferrer'
-                  className='mt-2'
-                >
-                  <FileText color='#bc3434' />
-                </a> : 
-                <a
-                  href={formData.cv}
-                  target='__blank'
-                  rel='noopener noreferrer'
-                  className='mt-2 cursor-not-allowed'
-                >
-                  <FileText color="#707070" />
-                </a>
+                formData.cv ?
+                  <a
+                    href={formData.cv}
+                    target='__blank'
+                    rel='noopener noreferrer'
+                    className='mt-2'
+                  >
+                    <FileText color='#bc3434' />
+                  </a> :
+                  <a
+                    href={formData.cv}
+                    target='__blank'
+                    rel='noopener noreferrer'
+                    className='mt-2 cursor-not-allowed'
+                  >
+                    <FileText color="#707070" />
+                  </a>
               }
               <br />
               <strong>Cover Letter</strong>
               {
-                formData.coverLetter ? 
-                <a
-                  href={formData.coverLetter}
-                  target='__blank'
-                  rel='noopener noreferrer'
-                  className='mt-2'
-                >
-                  <FileText color='#bc3434' />
-                </a> : 
-                <a
-                  href={formData.coverLetter}
-                  target='__blank'
-                  rel='noopener noreferrer'
-                  className='mt-2 cursor-not-allowed'
-                >
-                  <FileText color="#707070" />
-                </a>
+                formData.coverLetter ?
+                  <a
+                    href={formData.coverLetter}
+                    target='__blank'
+                    rel='noopener noreferrer'
+                    className='mt-2'
+                  >
+                    <FileText color='#bc3434' />
+                  </a> :
+                  <a
+                    href={formData.coverLetter}
+                    target='__blank'
+                    rel='noopener noreferrer'
+                    className='mt-2 cursor-not-allowed'
+                  >
+                    <FileText color="#707070" />
+                  </a>
               }
             </div>
           </div>
           <div className="flex justify-end mt-4">
             <button className="bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded mr-2">Beri Ulasan</button>
-           <button 
-            onClick={handleSubmit} 
-            className={`py-2 px-4 rounded border ${formData.status === 'Withdrawn' ? 'bg-gray-300 text-gray-600 cursor-not-allowed' : 'bg-white border-black hover:bg-gray-200 hover:text-black'}`}
-            disabled={formData.status === 'Withdrawn'}
-          >
-            Withdraw
-          </button>
+            <button
+              onClick={handleSubmit}
+              className={`py-2 px-4 rounded border bg-white border-black hover:bg-gray-200 hover:text-black`}
+              disabled={formData.status === 'Withdrawn'}
+            >
+              Withdraw
+            </button>
           </div>
         </div>
       </div>
