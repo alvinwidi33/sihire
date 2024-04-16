@@ -145,12 +145,14 @@ function AddJobApplication() {
           setSuccessMessage("");
           navigate(`/my-job-application/${applicantData.applicant_id}`);
         }, 5000);
-      }
-      if (result.non_field_errors && result.non_field_errors.length > 0 && result.non_field_errors[0] === "The fields job, applicant must make a unique set.") {
+      } else {
+        if (result.non_field_errors && result.non_field_errors.length > 0 && result.non_field_errors[0] === "The fields job, applicant must make a unique set.") {
           window.alert("Anda sudah melamar pekerjaan ini!");
+          navigate(`/job-list-applicant/`);
         } else {
           window.alert("Terjadi kesalahan saat melamar pekerjaan.");
         }
+      }
     } catch (error) {
       console.error('Error submitting form:', error);
     }
