@@ -68,7 +68,7 @@ function Applicants() {
       </p>
       <SidebarGA />
       <div
-        style={{ marginLeft: "22%", position: "absolute", marginTop: "-240px" }}
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-340px" }}
         className="w-9/12"
       >
         <h1 className="text-2xl font-bold">All Applicants</h1>
@@ -113,27 +113,46 @@ function Applicants() {
               </div>
             </div>
           </div>
-          <table className="w-full">
-            <thead>
+          <table className="w-full mt-10">
+            <thead className="">
               <tr>
-                <th>Posisi</th>
-                <th>Nama</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th className="text-white bg-gray-900 text-center font-bold py-2">
+                  Posisi
+                </th>
+                <th className="text-white bg-gray-900 text-center font-bold py-2">
+                  Nama
+                </th>
+                <th className="text-white bg-gray-900 text-center font-bold py-2">
+                  Status
+                </th>
+                <th className="text-white bg-gray-900 text-center font-bold py-2">
+                  Action
+                </th>
               </tr>
             </thead>
             <tbody>
               {applications &&
                 applications.map((application) => (
                   <tr key={application.id}>
-                    <td scope="col" className="px-6 py-3">
+                    <td
+                      scope="col"
+                      className="border-2 border-solid border-blue-900 p-3 text-center"
+                    >
                       {application.job.job_name}
                     </td>
-                    <td>
-                      <a onClick={() => detailApplicant(application.applicant.applicant_id)}>{application.applicant.user.name}</a>
+                    <td className="border-2 border-solid border-blue-900 p-3 text-center">
+                      <a
+                        onClick={() =>
+                          detailApplicant(application.applicant.applicant_id)
+                        }
+                      >
+                        {application.applicant.user.name}
+                      </a>
                     </td>
-                    <td>{application.status}</td>
-                    <td>
+                    <td className="border-2 border-solid border-blue-900 p-3 text-center">
+                      {application.status}
+                    </td>
+                    <td className="border-2 border-solid border-blue-900 p-3 text-center">
                       <button
                         onClick={() => detailJobApplication(application.id)}
                         className="ml-10"
