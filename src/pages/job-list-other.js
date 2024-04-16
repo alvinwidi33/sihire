@@ -45,7 +45,7 @@ function JobListInternal() {
       </p>
       <SidebarGA />
       <div
-        style={{ marginLeft: "22%", position: "absolute", marginTop: "-70px" }}
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-300px" }}
         className="w-9/12"
       >
         <p
@@ -54,7 +54,6 @@ function JobListInternal() {
             fontWeight: "bold",
             fontSize: "32px",
             color: "#2A3E4B",
-            marginTop: "-200px",
             marginBottom: "12px",
           }}
         >
