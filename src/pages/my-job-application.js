@@ -354,7 +354,7 @@ function formatDateTime(datetimeString) {
           </Table>
         </ContentContainer>
 
-      <ContentContainer active={activeTab === 'onboarding'}>
+        <ContentContainer active={activeTab === 'onboarding'}>
         <SubTitle>My Onboarding</SubTitle>
         <Table>
           <thead>
@@ -364,6 +364,7 @@ function formatDateTime(datetimeString) {
               <Th>Waktu</Th>
               <Th>Status</Th>
               <Th>Konfirmasi</Th>
+              <Th>Add Data Diri</Th> {/* New column header */}
             </tr>
           </thead>
           <tbody>
@@ -375,11 +376,17 @@ function formatDateTime(datetimeString) {
                   <Td>{onboarding.datetime_start && formatTime(onboarding.datetime_start)} - {onboarding.datetime_end && formatTime(onboarding.datetime_end)}</Td>
                   <Td>{onboarding.confirm}</Td>
                   <Td>
-                  {/* Konfirmasi button */}
-                  <Button primary onClick={() => handleConfirmation(onboarding.id)}>Konfirmasi</Button>
-                  {/* Tolak button */}
-                  <Button onClick={() => handleReject(onboarding.id)}>Tolak</Button>
-                </Td>
+                    {/* Konfirmasi button */}
+                    <Button primary onClick={() => handleConfirmation(onboarding.id)}>Konfirmasi</Button>
+                    {/* Tolak button */}
+                    <Button onClick={() => handleReject(onboarding.id)}>Tolak</Button>
+                  </Td>
+                  <Td>
+                    {/* Add Data Diri button */}
+                    <Link to={`/create-datadiri/${onboarding.id}`}>
+                      <Button primary>Add Data Diri</Button>
+                    </Link>
+                  </Td>
                 </tr>
               ))}
           </tbody>
