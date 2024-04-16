@@ -10,7 +10,7 @@ function SidebarApplicant() {
 
   const handleClickApplication = () => {
     setActivePage("Application");
-    navigate(`/my-job-application/${activeUser.applicant_id}`);
+    navigate("/my-job-application/");
   };
 
   const handleClickJobPosting = () => {
