@@ -74,10 +74,10 @@ function App() {
           <Route path='/change-password' element={<ProtectedRoute child={<ChangePassword />} />} />
           <Route path='/job-application-detail-ga/:id' element={<ProtectedRoute child={<JobApplicationDetailGA />} />} />
           <Route path='/job-application-detail-ga/:id/update-status' element={<ProtectedRoute child={<UpdateStatusPage />} />} />
-          <Route path="/create-interview" element={<AddInterview/>}/>
-          <Route path="/get-list-interview-ga" element={<GetListInterviewGA/>}/>
-          <Route path="/get-list-interview-ga/:id" element={<DetailInterviewGA/>}/>
-          <Route path="/get-list-interview-ga/:id/update" element={<UpdateJadwalInteviewGA/>}/>
+          <Route path="/create-interview" element={<ProtectedRoute child={<AddInterview/>}/>}/>
+          <Route path="/get-list-interview-ga" element={<ProtectedRoute child={<GetListInterviewGA/>}/>}/>
+          <Route path="/get-list-interview-ga/:id" element={<ProtectedRoute child={<DetailInterviewGA/>}/>}/>
+          <Route path="/get-list-interview-ga/:id/update" element={<ProtectedRoute child={<UpdateJadwalInteviewGA/>}/>}/>
           <Route path="/edit-user-role/:id" element={<ProtectedRoute child={<EditRoleUser />} />} />
           <Route path="/onboarding-declined/:applicant" element={<ProtectedRoute child={<OnboardingDeclined />} />} />
           <Route path="/create-onboarding" element={<AddOnboarding/>}/>
