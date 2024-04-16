@@ -139,7 +139,7 @@ function EditJobPosting() {
       </p>
       <SidebarGA />
       <div
-        style={{ marginLeft: "22%", position: "absolute", marginTop: "-180px" }}
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-240px" }}
         className="w-9/12"
       >
         <div className="rectangle" style={rectangleStyle}>

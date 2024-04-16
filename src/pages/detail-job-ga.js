@@ -97,7 +97,7 @@ function DetailJobGA() {
       </div>
       <SidebarGA />
       <div
-        style={{ marginLeft: "22%", position: "absolute", marginTop: "-60px" }}
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-110px" }}
         className="w-9/12"
       >
         {job && (
@@ -105,6 +105,7 @@ function DetailJobGA() {
             <Link to={`/job-list-ga/${job.id}/edit`}>
               <button
                 style={{
+                  display:"inline",
                   width: "90px",
                   padding: "8px",
                   fontSize: "16px",
@@ -114,7 +115,7 @@ function DetailJobGA() {
                   background: "#2A3E4B",
                   borderRadius: "6px",
                   cursor: "pointer",
-                  marginTop:"-20%",
+                  marginTop:"-19%",
                   marginLeft: "82%",
                   position: "absolute",
                   border: "2px solid #2A3E4B",
@@ -126,6 +127,7 @@ function DetailJobGA() {
             <button
               onClick={handleClose}
               style={{
+                display:"inline",
                 width: "90px",
                 padding: "8px",
                 fontSize: "16px",
@@ -137,7 +139,7 @@ function DetailJobGA() {
                 cursor: "pointer",
                 marginLeft: "72%",
                 position: "absolute",
-                marginTop:"-20%",
+                marginTop:"-19%",
                 border: "2px solid #2A3E4B",
               }}
             >
