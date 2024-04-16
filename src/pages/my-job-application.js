@@ -357,9 +357,9 @@ function formatDateTime(datetimeString) {
         <ContentContainer active={activeTab === 'onboarding'}>
         <SubTitle>My Onboarding</SubTitle>
         <Table>
-          <thead>
+          <thead style={{ backgroundColor: "#D2D2D2" }}>
             <tr>
-              <Th>Job Title</Th>
+              <Th>Pekerjaan</Th>
               <Th>Tanggal</Th>
               <Th>Waktu</Th>
               <Th>Status</Th>
@@ -377,7 +377,7 @@ function formatDateTime(datetimeString) {
                   <Td>{onboarding.confirm}</Td>
                   <Td>
                     {/* Konfirmasi button */}
-                    <Button primary onClick={() => handleConfirmation(onboarding.id)}>Konfirmasi</Button>
+                    <Button primary style={{ marginRight: '8px' }} onClick={() => handleConfirmation(onboarding.id)}>Konfirmasi</Button>
                     {/* Tolak button */}
                     <Button onClick={() => handleReject(onboarding.id)}>Tolak</Button>
                   </Td>
