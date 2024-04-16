@@ -223,7 +223,7 @@ function AddJobApplication() {
           />
         </div>
         <div className="mb-2">
-          <label htmlFor="cv" className="block text-gray-600 font-semibold mb-2">CV</label>
+          <label htmlFor="cv" className="block text-gray-600 font-semibold mb-2">CV<span style={{ color: "red" }}>*</span></label>
           <input
             type="file"
             id="cv"
@@ -234,7 +234,7 @@ function AddJobApplication() {
           />
         </div>
         <div className="mb-2">
-          <label htmlFor="coverLetter" className="block text-gray-600 font-semibold mb-2">Cover Letter</label>
+          <label htmlFor="coverLetter" className="block text-gray-600 font-semibold mb-2">Cover Letter<span style={{ color: "red" }}>*</span></label>
           <input
             type="file"
             id="coverLetter"
