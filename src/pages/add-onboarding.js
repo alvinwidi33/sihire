@@ -187,7 +187,7 @@ const AddOnboarding = () => {
       >
         On Boarding
       </p>
-      <Link to="/get-list-interview-ga">
+      <Link to="/get-list-onboarding-internal">
         <p
           style={{
             marginLeft: "22%",
