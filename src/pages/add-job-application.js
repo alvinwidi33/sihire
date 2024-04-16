@@ -143,7 +143,7 @@ function AddJobApplication() {
         setSuccessMessage("Pekerjaan berhasil dilamar!");
         setTimeout(() => {
           setSuccessMessage("");
-          navigate(`/my-job-application/${applicantData.applicant_id}`);
+          navigate(`/my-job-application/`);
         }, 5000);
       } else {
         if (result.non_field_errors && result.non_field_errors.length > 0 && result.non_field_errors[0] === "The fields job, applicant must make a unique set.") {
