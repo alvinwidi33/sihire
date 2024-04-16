@@ -371,7 +371,7 @@ const MyJobApplication = () => {
         <ContentContainer active={activeTab === "applications"}>
           <SubTitle>My Applications</SubTitle>
           <Table>
-            <thead>
+            <thead style={{ backgroundColor: "#D2D2D2" }}>
               <tr>
                 <Th>Pekerjaan</Th>
                 <Th>Status</Th>
@@ -379,7 +379,7 @@ const MyJobApplication = () => {
                 <Th>Withdraw</Th>
               </tr>
             </thead>
-            <tbody style={{ backgroundColor: "#D2D2D2" }}>
+            <tbody>
               {jobApplications &&
                 jobApplications.map((jobApplication) => (
                   <tr key={jobApplication.id}>
@@ -450,7 +450,7 @@ const MyJobApplication = () => {
         <ContentContainer active={activeTab === "onboarding"}>
           <SubTitle>My Onboarding</SubTitle>
           <Table>
-            <thead>
+            <thead style={{ backgroundColor: "#D2D2D2" }}>
               <tr>
                 <Th>Job Title</Th>
                 <Th>Tanggal</Th>
