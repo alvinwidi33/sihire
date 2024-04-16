@@ -81,7 +81,7 @@
 
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Sidebar from "../components/sidebar-applicant";
+import SidebarApplicant from "../components/sidebar-applicant";
 
 function OnboardingDeclined(props) {
   const path = useLocation(); // Get the applicant from URL parameters
@@ -144,7 +144,7 @@ function OnboardingDeclined(props) {
           color: "#2A3E4B",
           position: "absolute",
           marginTop: "12px", }}>Onboarding</p>
-      <Sidebar /> {/* Place Sidebar component here */}
+      <SidebarApplicant /> {/* Place Sidebar component here */}
 
       {/* <div style={{ textAlign: 'center', margin: '20px 0' }}>
         <h2 style={{ fontSize: '32px', color: '#2A3E4B', fontWeight: 'bold' }}>Onboarding</h2>

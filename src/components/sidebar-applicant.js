@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Logo from "../images/logo.png";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import Logo from "../images/logo.png";
 
-function Sidebar() {
+function SidebarApplicant() {
   const [activePage, setActivePage] = useState("Job Posting");
   const [activeUser, setActiveUser] = useState({});
   const token = window.localStorage.getItem("token");
@@ -11,7 +10,7 @@ function Sidebar() {
 
   const handleClickApplication = () => {
     setActivePage("Application");
-    navigate(`/my-job-application/${activeUser.applicant_id}`);
+    navigate("/my-job-application/");
   };
 
   const handleClickJobPosting = () => {
@@ -22,6 +21,11 @@ function Sidebar() {
   const handleClickOnBoarding = () => {
     setActivePage("On Boarding");
     navigate("/");
+  };
+
+  const handleClickMyProfile = () => {
+    setActivePage("My Profile");
+    navigate("/my-profile");
   };
 
   const getUser = async () => {
@@ -163,6 +167,24 @@ function Sidebar() {
                 On Boarding
               </button>
             </li>
+            <li>
+              <button
+                style={{
+                  fontFamily: "Inter, sans-serif",
+                  fontWeight: "medium",
+                  display: "block",
+                  marginBottom: "16px",
+                  border: "none",
+                  height: "32px",
+                  width: "18%",
+                  textAlign: "left",
+                  paddingLeft: "2%",
+                }}
+                onClick={() => handleClickMyProfile()}
+              >
+                My Profile
+              </button>
+            </li>
           </ul>
         </div>
 
@@ -188,4 +210,4 @@ function Sidebar() {
   );
 }
 
-export default Sidebar;
+export default SidebarApplicant;

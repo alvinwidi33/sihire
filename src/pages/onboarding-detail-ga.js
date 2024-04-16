@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Sidebar from '../components/sidebar-ga';
-import { useParams, Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import SidebarGA from '../components/sidebar-ga';
 
 function OnboardingDetailGA() {
     const [onboarding, setOnboarding] = useState(null);
@@ -41,7 +41,7 @@ function OnboardingDetailGA() {
     return (
         <React.Fragment>
             <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>On Boarding</p>
-            <Sidebar />
+            <SidebarGA />
             <Link to='/get-list-onboarding-internal'>
                 <p style={{ marginLeft: '22%', position: 'absolute', marginTop: "-240px" }}>List Onboarding</p>
             </Link>

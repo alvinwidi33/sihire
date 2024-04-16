@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../components/sidebar-ga";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import SidebarGA from "../components/sidebar-ga";
 
 const AddOnboarding = () => {
   const navigate = useNavigate();
@@ -123,7 +123,7 @@ const AddOnboarding = () => {
         throw new Error("Selected job not found.");
       }
       const isConfirmed = window.confirm(
-        "Apakah Anda yakin membuat interview?"
+        "Apakah Anda yakin membuat On Boarding?"
       );
 
       if (!isConfirmed) {
@@ -157,16 +157,16 @@ const AddOnboarding = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to submit interview schedule");
+        throw new Error("Failed to submit On Boarding schedule");
       }
       if (response.ok) {
         setSuccessMessage("On Boarding berhasil dibuat!");
         setTimeout(() => {
           setSuccessMessage("");
-          navigate("/get-list-interview-ga");
+          navigate("/get-list-onboarding-internal");
         }, 5000);
       } else {
-        console.error("Failed to post interview", response.statusText);
+        console.error("Failed to post On Boarding", response.statusText);
       }
     } catch (error) {
       alert("On Boarding applicant sudah ada");
@@ -214,7 +214,7 @@ const AddOnboarding = () => {
           Tambah Onboarding
         </p>
       </Link>
-      <Sidebar />
+      <SidebarGA />
       <div className="create-interview" style={{ position: "relative" }}>
         <div className="rectangle" style={rectangleStyle}>
           <p
@@ -240,7 +240,8 @@ const AddOnboarding = () => {
                 position: "absolute",
               }}
             >
-              Posisi Pekerjaan*
+              Posisi Pekerjaan
+              <span style={{ color: "red" }}>*</span>
             </p>
             <select
               style={{
@@ -283,7 +284,8 @@ const AddOnboarding = () => {
                 position: "absolute",
               }}
             >
-              Pelamar Tahap Onboarding*
+              Pelamar Tahap Onboarding
+              <span style={{ color: "red" }}>*</span>
             </p>
             <select
               style={{
@@ -338,7 +340,8 @@ const AddOnboarding = () => {
                 position: "absolute",
               }}
             >
-              Tanggal Onboarding*
+              Tanggal Onboarding
+              <span style={{ color: "red" }}>*</span>
             </p>
             <input
               type="date"
@@ -395,7 +398,8 @@ const AddOnboarding = () => {
                 position: "absolute",
               }}
             >
-              Waktu Mulai Onboarding*
+              Waktu Mulai Onboarding
+              <span style={{ color: "red" }}>*</span>
             </p>
             <input
               type="time"
@@ -463,7 +467,8 @@ const AddOnboarding = () => {
                 position: "absolute",
               }}
             >
-              Waktu Berakhir Onboarding*
+              Waktu Berakhir Onboarding
+              <span style={{ color: "red" }}>*</span>
             </p>
             <input
               type="time"
@@ -527,7 +532,8 @@ const AddOnboarding = () => {
                 position: "absolute",
               }}
             >
-              Person In Charge*
+              Person In Charge
+              <span style={{ color: "red" }}>*</span>
             </p>
             <select
               style={{
@@ -546,7 +552,7 @@ const AddOnboarding = () => {
               value={interviewData.pic_user_id}
               onChange={handleInterviewerChange}
             >
-              <option value="">Pilih Person In Charge*</option>
+              <option value="">Pilih Person In Charge</option>
               {interviewers &&
                 interviewers.map((pic) => (
                   <option key={pic.user_id} value={pic.user_id}>

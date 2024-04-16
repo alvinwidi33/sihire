@@ -1,38 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../images/logo.png";
 
-function SidebarGA() {
+function SidebarAdmin() {
   const [activePage, setActivePage] = useState("Job Posting");
+  const [activeUser, setActiveUser] = useState({});
   const token = window.localStorage.getItem("token");
   const navigate = useNavigate();
 
-  const handleClickApplication = () => {
-    setActivePage("Applicants");
-    navigate("/applicants");
-  };
-
-  const handleClickJobPosting = () => {
-    setActivePage("Job Posting");
-    navigate("/job-list-ga");
-  };
-
-  const handleClickFeedback = () => {
-    setActivePage("Feedback");
-    navigate("/");
-  };
-  const handleClickInterview = () => {
-    setActivePage("Interview");
-    navigate("/get-list-interview-ga");
-  };
-  const handleClickOnBoarding = () => {
-    setActivePage("On Boarding");
-    navigate("/get-list-onboarding-internal");
+  const handleClickManageUsers = () => {
+    setActivePage("Manage Users");
+    navigate("/manage-user");
   };
 
   const handleClickMyProfile = () => {
     setActivePage("My Profile");
     navigate("/my-profile");
+  };
+
+  const getUser = async () => {
+    const response = await fetch(
+      `https://sihire-be.vercel.app/api/users/get-user-by-token/${token}/`,
+      {
+        method: "GET",
+      }
+    );
+
+    if (response.ok) {
+      var json_response = await response.json();
+      setActiveUser(json_response);
+    }
   };
 
   const handleLogout = async (event) => {
@@ -61,6 +58,10 @@ function SidebarGA() {
       console.error("Error during logout:", error);
     }
   };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <React.Fragment>
@@ -115,81 +116,9 @@ function SidebarGA() {
                   textAlign: "left",
                   paddingLeft: "2%",
                 }}
-                onClick={() => handleClickJobPosting()}
+                onClick={() => handleClickManageUsers()}
               >
-                Job Posting
-              </button>
-            </li>
-            <li>
-              <button
-                style={{
-                  fontFamily: "Inter, sans-serif",
-                  fontWeight: "medium",
-                  display: "block",
-                  marginBottom: "16px",
-                  border: "none",
-                  height: "32px",
-                  width: "18%",
-                  textAlign: "left",
-                  paddingLeft: "2%",
-                }}
-                onClick={() => handleClickApplication()}
-              >
-                Applicants
-              </button>
-            </li>
-            <li>
-              <button
-                style={{
-                  fontFamily: "Inter, sans-serif",
-                  fontWeight: "medium",
-                  display: "block",
-                  marginBottom: "16px",
-                  border: "none",
-                  height: "32px",
-                  width: "18%",
-                  textAlign: "left",
-                  paddingLeft: "2%",
-                }}
-                onClick={() => handleClickFeedback()}
-              >
-                Feedback
-              </button>
-            </li>
-            <li>
-              <button
-                style={{
-                  fontFamily: "Inter, sans-serif",
-                  fontWeight: "medium",
-                  display: "block",
-                  marginBottom: "16px",
-                  border: "none",
-                  height: "32px",
-                  width: "18%",
-                  textAlign: "left",
-                  paddingLeft: "2%",
-                }}
-                onClick={() => handleClickInterview()}
-              >
-                Interview
-              </button>
-            </li>
-            <li>
-              <button
-                style={{
-                  fontFamily: "Inter, sans-serif",
-                  fontWeight: "medium",
-                  display: "block",
-                  marginBottom: "16px",
-                  border: "none",
-                  height: "32px",
-                  width: "18%",
-                  textAlign: "left",
-                  paddingLeft: "2%",
-                }}
-                onClick={() => handleClickOnBoarding()}
-              >
-                On Boarding
+                Manage Users
               </button>
             </li>
             <li>
@@ -235,5 +164,4 @@ function SidebarGA() {
   );
 }
 
-export default SidebarGA;
-
+export default SidebarAdmin;

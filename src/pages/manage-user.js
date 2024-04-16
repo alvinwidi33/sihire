@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import SidebarAdmin from "../components/sidebar-admin";
 
 function ManageUser() {
-  const containerStyle = {
-    backgroundColor: "#F2F2F2",
-  };
 
   const contentContainerStyle = {
     padding: "32px 5%",
@@ -39,11 +37,12 @@ function ManageUser() {
     borderBottom: "1px solid #ddd",
   };
 
-  const handleEditUser = (userId) => {
-    // Implement your navigation logic here
-    console.log(`Edit user with ID: ${userId}`);
-    // You can replace the console.log with your navigation logic
-  };
+  const navigate = useNavigate();
+
+    const handleEditUser = (userId) => {
+        console.log(`Edit user with ID: ${userId}`);
+        navigate(`/edit-user-role/${userId}`);
+    };
 
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -91,16 +90,25 @@ function ManageUser() {
   // }
 
   return (
-    <div className="container mx-auto" style={containerStyle}>
-      <div
-        className="px-5"
-        style={{ paddingTop: "20px", paddingBottom: "15px" }}
+    <React.Fragment>
+      <p
+        style={{
+          marginLeft: "22%",
+          fontWeight: "bold",
+          fontSize: "32px",
+          color: "#2A3E4B",
+          position: "absolute",
+        }}
       >
-        <h1 className="text-3xl font-bold" style={darkBlueText}>
-          Manage User
-        </h1>
-      </div>
-      <hr className="divider" style={dividerStyle}></hr>
+        Manage User
+      </p>
+      <SidebarAdmin />
+
+      <div
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-160px" }}
+        className="w-9/12"
+      >
+    <div className="container mx-auto">
       <div className="px-5">
         <div className="flex items-center mt-4">
           <h2 className="text-3xl font-bold" style={darkBlueText}>
@@ -201,6 +209,8 @@ function ManageUser() {
         </button>
       </div>
     </div>
+    </div>
+    </React.Fragment>
   );
 }
 

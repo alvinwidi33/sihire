@@ -70,7 +70,7 @@ function App() {
           <Route path='/job-list-other/:id' element={<ProtectedRoute child={<DetailJobInternal />} />} />
           <Route path='/add-job-posting' element={<ProtectedRoute child={<AddJobPosting />} />} />
           <Route path='/job-list-ga/:id/edit' element={<ProtectedRoute child={<EditJobPosting />} />} />
-          <Route path='/my-job-application/:applicant' element={<ProtectedRoute child={<MyJobApplication />} />} />
+          <Route path='/my-job-application/' element={<ProtectedRoute child={<MyJobApplication />} />} />
           <Route path='/change-password' element={<ProtectedRoute child={<ChangePassword />} />} />
           <Route path='/job-application-detail-ga/:id' element={<ProtectedRoute child={<JobApplicationDetailGA />} />} />
           <Route path='/job-application-detail-ga/:id/update-status' element={<ProtectedRoute child={<UpdateStatusPage />} />} />

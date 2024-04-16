@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../components/sidebar-ga";
 import { useNavigate } from "react-router-dom";
+import SidebarGA from "../components/sidebar-ga";
 
 function Applicants() {
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ function Applicants() {
       >
         Applicants
       </p>
-      <Sidebar />
+      <SidebarGA />
       <div
         style={{ marginLeft: "22%", position: "absolute", marginTop: "-240px" }}
         className="w-9/12"
