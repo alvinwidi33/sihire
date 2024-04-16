@@ -447,7 +447,6 @@ const MyJobApplication = () => {
           </Table>
         </ContentContainer>
 
-<<<<<<< HEAD
         <ContentContainer active={activeTab === 'onboarding'}>
         <SubTitle>My Onboarding</SubTitle>
         <Table>
@@ -486,55 +485,6 @@ const MyJobApplication = () => {
           </tbody>
         </Table>
       </ContentContainer>
-=======
-        <ContentContainer active={activeTab === "onboarding"}>
-          <SubTitle>My Onboarding</SubTitle>
-          <Table>
-            <thead>
-              <tr>
-                <Th>Job Title</Th>
-                <Th>Tanggal</Th>
-                <Th>Waktu</Th>
-                <Th>Status</Th>
-                <Th>Konfirmasi</Th>
-              </tr>
-            </thead>
-            <tbody>
-              {onboardingData &&
-                onboardingData.map((onboarding) => (
-                  <tr key={onboarding.id}>
-                    <Td>{onboarding.job_application_id.job.job_name}</Td>
-                    <Td>
-                      {onboarding.datetime_start &&
-                        formatDateTime(onboarding.datetime_start)}
-                    </Td>
-                    <Td>
-                      {onboarding.datetime_start &&
-                        formatTime(onboarding.datetime_start)}{" "}
-                      -{" "}
-                      {onboarding.datetime_end &&
-                        formatTime(onboarding.datetime_end)}
-                    </Td>
-                    <Td>{onboarding.confirm}</Td>
-                    <Td>
-                      {/* Konfirmasi button */}
-                      <Button
-                        primary
-                        onClick={() => handleConfirmation(onboarding.id)}
-                      >
-                        Konfirmasi
-                      </Button>
-                      {/* Tolak button */}
-                      <Button onClick={() => handleReject(onboarding.id)}>
-                        Tolak
-                      </Button>
-                    </Td>
-                  </tr>
-                ))}
-            </tbody>
-          </Table>
-        </ContentContainer>
->>>>>>> 668cadcd5e2c3d4e4ac432cb8a56698ac00eab80
 
         {/* Render the Popup component */}
         <InterviewPopup

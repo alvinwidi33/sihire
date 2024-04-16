@@ -273,7 +273,6 @@ function JobApplicationDetailGA() {
     fetchJobApplicationData();
   }, []); 
 
-<<<<<<< HEAD
   const handleStatusChange = (e) => {
     setSelectedStatus(e.target.value);
   };
@@ -307,8 +306,6 @@ function JobApplicationDetailGA() {
     }
   };
 
-=======
->>>>>>> 668cadcd5e2c3d4e4ac432cb8a56698ac00eab80
   return (
     <div className="bg-gray-100 min-h-screen flex">
       <div className="container mx-auto mt-8 md:mt-16" style={{ marginTop: '7%' }}>
