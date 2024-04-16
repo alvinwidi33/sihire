@@ -92,7 +92,7 @@ function GetListInterviewGA() {
       </p>
       <SidebarGA />
       <div
-        style={{ marginLeft: "22%", position: "absolute", marginTop: "20px" }}
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-40px" }}
         className="w-9/12"
       >
         <p
