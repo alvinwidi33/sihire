@@ -108,7 +108,18 @@ function UpdateOnboarding() {
         : onboardingData.datetime_start && onboardingData.endTime // ganti tanggal dan jam selesai
         ? new Date(onboardingData.datetime_end + "T" + onboardingData.endTime)
         : new Date(onboarding.datetime_end); //
-
+    if((datetimeStart < currentDate) || (datetimeEnd < currentDate)){
+        alert("Waktu tidak boleh kurang dari sekarang")
+        return;
+      }
+      if(datetimeStart > datetimeEnd){
+        alert("Waktu mulai tidak boleh melewati waktu akhir")
+        return;
+      }
+      if(datetimeEnd < datetimeStart){
+        alert("Waktu akhir tidak boleh kurang dari waktu mulai")
+        return;
+      }
     const formattedData = {
       datetime_start: datetimeStart.toISOString(),
       datetime_end: datetimeEnd.toISOString(),
@@ -354,11 +365,8 @@ function UpdateOnboarding() {
                       .slice(0, 5);
 
                     const startTime = new Date(
-                      `${selectedDate}T${onboarding.datetime_start.slice(
-                        11,
-                        16
-                      )}`
-                    );
+                    `${selectedDate}T${onboardingData.startTime}`
+                  );
 
                     if (
                       selectedDate === currentDateString &&

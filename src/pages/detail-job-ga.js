@@ -79,17 +79,17 @@ function DetailJobGA() {
             marginBottom: "40px",
           }}
         >
-          Job
+          Pekerjaan
         </p>
         <Link to="/job-list-ga">
-          <p style={{ display: "inline", marginLeft: "4px" }}>List Job</p>
+          <p style={{ display: "inline", marginLeft: "4px", marginTop:"20%" }}>List Pekerjaan</p>
         </Link>
         <span style={{ display: "inline", marginLeft: "10px" }}>{">"}</span>
         {job && (
           <React.Fragment key={job.id}>
             <Link to={`/job-list-ga/${job.id}`}>
               <p style={{ display: "inline", marginLeft: "10px" }}>
-                Job Details
+                Detail
               </p>
             </Link>
           </React.Fragment>
@@ -97,8 +97,8 @@ function DetailJobGA() {
       </div>
       <Sidebar />
       <div
-        className="detail-job"
-        style={{ position: "relative", marginTop: "-20px" }}
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-60px" }}
+        className="w-9/12"
       >
         {job && (
           <React.Fragment key={job.id}>
@@ -114,7 +114,7 @@ function DetailJobGA() {
                   background: "#2A3E4B",
                   borderRadius: "6px",
                   cursor: "pointer",
-                  marginBottom: "12px",
+                  marginTop:"-20%",
                   marginLeft: "82%",
                   position: "absolute",
                   border: "2px solid #2A3E4B",
@@ -135,8 +135,9 @@ function DetailJobGA() {
                 background: "#fff",
                 borderRadius: "6px",
                 cursor: "pointer",
-                marginLeft: "74%",
+                marginLeft: "72%",
                 position: "absolute",
+                marginTop:"-20%",
                 border: "2px solid #2A3E4B",
               }}
             >
@@ -144,7 +145,6 @@ function DetailJobGA() {
             </button>
             <p
               style={{
-                marginLeft: "22%",
                 fontWeight: "bold",
                 fontSize: "32px",
                 color: "#2A3E4B",
@@ -156,7 +156,6 @@ function DetailJobGA() {
             </p>
             <p
               style={{
-                marginLeft: "22%",
                 fontWeight: "bold",
                 fontSize: "24px",
                 color: "#2A3E4B",
@@ -168,7 +167,6 @@ function DetailJobGA() {
             </p>
             <p
               style={{
-                marginLeft: "22%",
                 fontSize: "16px",
                 color: "#2A3E4B",
                 marginBottom: "32px",
@@ -180,7 +178,6 @@ function DetailJobGA() {
 
             <p
               style={{
-                marginLeft: "22%",
                 fontWeight: "bold",
                 fontSize: "24px",
                 color: "#2A3E4B",
@@ -192,7 +189,6 @@ function DetailJobGA() {
             <p
               style={{
                 position: "absolute",
-                marginLeft: "22%",
                 fontSize: "16px",
                 color: "#2A3E4B",
                 marginBottom: "12px",

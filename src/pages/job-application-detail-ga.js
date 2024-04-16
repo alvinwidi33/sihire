@@ -7,6 +7,7 @@ const supabase = createClient(
   "https://ldhohewyhcdwckzcjtzn.supabase.co",
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxkaG9oZXd5aGNkd2NremNqdHpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTAxNjY0MzksImV4cCI6MjAyNTc0MjQzOX0.73gDtZ0yUZmpXvIrga-Mw7amJNaPJu6av7wyr0OSCuo"
 );
+
 function JobApplicationDetailGA() {
   const stages = [
     { name: 'Applied', value: 0 },

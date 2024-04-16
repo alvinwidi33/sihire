@@ -54,7 +54,7 @@ const AddOnboarding = () => {
     interviewData.startTime,
     interviewData.endTime,
     selectedJob,
-  ]); // Add dependencies to rerun effect when these values change
+  ]); 
 
   useEffect(() => {
     const getJobNames = async () => {
@@ -109,7 +109,6 @@ const AddOnboarding = () => {
   };
 
   const handleInterviewerChange = (event) => {
-    // New handler to set the selected interviewer
     setInterviewData({ ...interviewData, interviewer: event.target.value });
   };
   const handleSubmit = async (event) => {
@@ -196,23 +195,23 @@ const AddOnboarding = () => {
             marginTop: "100px",
           }}
         >
-          List Wawancara
+          List Onboarding
         </p>
       </Link>
       <p
-        style={{ marginLeft: "30%", position: "absolute", marginTop: "100px" }}
+        style={{ marginLeft: "31%", position: "absolute", marginTop: "100px" }}
       >
         {">"}
       </p>
-      <Link to="/create-interview">
+      <Link to="/create-onboarding">
         <p
           style={{
-            marginLeft: "31%",
+            marginLeft: "32%",
             position: "absolute",
             marginTop: "100px",
           }}
         >
-          Tambah Interview
+          Tambah Onboarding
         </p>
       </Link>
       <Sidebar />
@@ -284,7 +283,7 @@ const AddOnboarding = () => {
                 position: "absolute",
               }}
             >
-              Pelamar Tahap Interview*
+              Pelamar Tahap Onboarding*
             </p>
             <select
               style={{
@@ -339,7 +338,7 @@ const AddOnboarding = () => {
                 position: "absolute",
               }}
             >
-              Tanggal Interview*
+              Tanggal Onboarding*
             </p>
             <input
               type="date"
@@ -396,7 +395,7 @@ const AddOnboarding = () => {
                 position: "absolute",
               }}
             >
-              Waktu Mulai Interview*
+              Waktu Mulai Onboarding*
             </p>
             <input
               type="time"
@@ -419,11 +418,19 @@ const AddOnboarding = () => {
                 const startTime = new Date(
                   `${interviewData.datetime}T${formattedTime}`
                 );
+                const endTime = new Date(
+                  `${interviewData.datetime}T${interviewData.endTime}`
+                );
                 const currentDate = new Date();
                 const currentDateString = currentDate
                   .toISOString()
                   .split("T")[0];
-
+                if (startTime > endTime) {
+                  alert(
+                    "Waktu mulai tidak boleh lebih dari waktu akhir."
+                  );
+                  return;
+                }
                 if (
                   interviewData.datetime === currentDateString &&
                   startTime < currentDate
@@ -456,7 +463,7 @@ const AddOnboarding = () => {
                 position: "absolute",
               }}
             >
-              Waktu Berakhir Interview*
+              Waktu Berakhir Onboarding*
             </p>
             <input
               type="time"

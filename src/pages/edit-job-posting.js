@@ -56,13 +56,12 @@ function EditJobPosting() {
   }, [id]);
 
   const rectangleStyle = {
-    width: "70%",
+    width: "90%",
     height: "650px",
     backgroundColor: "#fff",
     borderRadius: "10px",
-    marginLeft: "22%",
     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.4)",
-    marginTop: "-15%",
+    marginTop: "-5%",
   };
 
   const handleSubmit = async (e) => {
@@ -108,26 +107,16 @@ function EditJobPosting() {
 
   return (
     <React.Fragment>
-      <div style={{ marginLeft: "22%", position: "absolute" }}>
-        <p
-          style={{
-            fontWeight: "bold",
-            fontSize: "32px",
-            color: "#2A3E4B",
-            marginBottom: "40px",
-          }}
-        >
-          Job
-        </p>
+      <div style={{ marginLeft: "22%", position: "absolute", marginTop:"100px" }}>
         <Link to="/job-list-ga">
-          <p style={{ display: "inline", marginLeft: "4px" }}>List Job</p>
+          <p style={{ display: "inline", marginLeft: "4px" }}>List Pekerjaan</p>
         </Link>
         <span style={{ display: "inline", marginLeft: "10px" }}>{">"}</span>
         {job && (
           <React.Fragment key={job.id}>
             <Link to={`/job-list-ga/${job.id}`}>
               <p style={{ display: "inline", marginLeft: "10px" }}>
-                Job Details
+                Detail
               </p>
             </Link>
             <span style={{ display: "inline", marginLeft: "10px" }}>{">"}</span>
@@ -146,22 +135,25 @@ function EditJobPosting() {
           position: "absolute",
         }}
       >
-        Job
+        Pekerjaan
       </p>
       <Sidebar />
-      <div className="add-job-posting" style={{ position: "relative" }}>
+      <div
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-180px" }}
+        className="w-9/12"
+      >
         <div className="rectangle" style={rectangleStyle}>
           <p
             style={{
               marginTop: "12px",
-              marginLeft: "30%",
+              marginLeft: "32%",
               fontWeight: "bold",
-              fontSize: "32px",
+              fontSize: "36px",
               color: "#2A3E4B",
               position: "absolute",
             }}
           >
-            Edit Job
+          Ubah Pekerjaan
           </p>
           <form onSubmit={handleSubmit}>
             <p
@@ -174,7 +166,7 @@ function EditJobPosting() {
                 position: "absolute",
               }}
             >
-              Job Title
+              Judul Pekerjaan
             </p>
             {job && (
               <React.Fragment key={job.id}>
@@ -189,7 +181,7 @@ function EditJobPosting() {
                     fontSize: "14px",
                     color: "#2A3E4B",
                     position: "absolute",
-                    width: "58%",
+                    width: "76%",
                   }}
                   value={jobData.job_name}
                   disabled
@@ -205,7 +197,7 @@ function EditJobPosting() {
                     position: "absolute",
                   }}
                 >
-                  Job Description
+                  Deskripsi
                 </p>
                 <textarea
                   value={jobData.description}
@@ -218,7 +210,7 @@ function EditJobPosting() {
                     fontSize: "14px",
                     color: "#2A3E4B",
                     position: "absolute",
-                    width: "58%",
+                    width: "76%",
                     height: "200px",
                     resize: "none",
                   }}
@@ -240,7 +232,7 @@ function EditJobPosting() {
                     position: "absolute",
                   }}
                 >
-                  Closed Date
+                  Tanggal Tutup
                 </p>
                 <input
                   type="date"
@@ -253,7 +245,7 @@ function EditJobPosting() {
                     fontSize: "14px",
                     color: "#2A3E4B",
                     position: "absolute",
-                    width: "58%",
+                    width: "76%",
                   }}
                   value={
                     jobData.datetime_closes
@@ -271,7 +263,7 @@ function EditJobPosting() {
             )}
             <button
               style={{
-                width: "420px",
+                width: "520px",
                 padding: "8px",
                 fontSize: "16px",
                 fontFamily: "Inter, sans-serif",
@@ -280,7 +272,7 @@ function EditJobPosting() {
                 background: "#2A3E4B",
                 borderRadius: "6px",
                 cursor: "pointer",
-                marginTop: "40%",
+                marginTop: "53%",
                 marginBottom: "8px",
                 border: "2px solid #2A3E4B",
                 marginLeft: "20%",

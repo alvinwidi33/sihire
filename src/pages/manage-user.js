@@ -84,6 +84,12 @@ function ManageUser() {
 
   const totalPages = Math.ceil(totalUsers / 10);
 
+  // const token = JSON.parse(localStorage.getItem('token'));
+
+  // if (!token) {
+  //     return <Navigate to="/login" />;
+  // }
+
   return (
     <div className="container mx-auto" style={containerStyle}>
       <div

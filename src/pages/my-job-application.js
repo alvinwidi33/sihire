@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Popup from '../components/popup';
+import Sidebar from "../components/sidebar-applicant";
 import OnboardingDeclined from './onboarding-declined';
 
 const MyJobApplication = () => {
@@ -25,6 +26,18 @@ function formatDateTime(datetimeString) {
     const formattedDate = new Date(datetimeString).toLocaleDateString('id-ID', options);
     return formattedDate;
 }
+
+  const getJobApplications = async () => {
+    try {
+      const response = await fetch(
+        `https://sihire-be.vercel.app/api/job-application/get/${applicant}/`
+      );
+      const data = await response.json();
+      setJobApplications(data);
+    } catch (error) {
+      console.error("Error fetching job:", error);
+    }
+  };
 
   useEffect(() => {
     if (applicant) {
@@ -50,7 +63,7 @@ function formatDateTime(datetimeString) {
 
       const getInterviewData = async () => {
         try {
-          const response = await fetch(`https://sihire-be.vercel.app/api/interview/get-interview/${applicant}/`);
+          const response = await fetch(`https://sihire-be.vercel.app/api/interview/get-list-interview/${applicant}/`);
           const data = await response.json();
           setInterviewData(data);
         } catch (error) {
@@ -85,6 +98,35 @@ function formatDateTime(datetimeString) {
 
   const handleClosePopup = () => {
     setPopupVisibility(false); // Update the state to hide the popup
+  };
+
+  const handleWithdraw = async (id) => {
+    try {
+      const response = await fetch(`https://sihire-be.vercel.app/api/job-application/put/${id}/edit-status/`, {
+        method: 'PATCH', // Assuming PATCH method is used for withdrawal
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          status: 'Withdrawn', // Update the status to 'Withdrawn'
+        }),
+      });
+
+      if (response.ok) {
+        // If the withdrawal is successful, update the local state to reflect the changed status
+        const updatedJobApplications = jobApplications.map((application) => {
+          if (application.id === id) {
+            return { ...application, status: 'Withdrawn' };
+          }
+          return application;
+        });
+        setJobApplications(updatedJobApplications);
+      } else {
+        console.error('Failed to withdraw application');
+      }
+    } catch (error) {
+      console.error('Error withdrawing application:', error);
+    }
   };
 
   const handleReject = async (id) => {
@@ -216,8 +258,24 @@ function formatDateTime(datetimeString) {
   `;
 
   return (
-    <PageContainer>
-      <Title>Job Application</Title>
+    <React.Fragment>
+      <p
+        style={{
+          marginLeft: "22%",
+          fontWeight: "bold",
+          fontSize: "32px",
+          color: "#2A3E4B",
+          position: "absolute",
+        }}
+      >
+        Job Applications
+      </p>
+      <Sidebar />
+
+      <div
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-180px" }}
+        className="w-9/12"
+      >
 
       <TabContainer>
         <TabButton active={activeTab === 'applications'} onClick={() => setActiveTab('applications')}>
@@ -254,7 +312,7 @@ function formatDateTime(datetimeString) {
                     </Link>
                   </Td>
                   <Td>
-                    <Button primary>Withdraw</Button>
+                  <Button primary onClick={() => handleWithdraw(jobApplication.id)}>Withdraw</Button>
                   </Td>
                 </tr>
               ))}
@@ -262,10 +320,39 @@ function formatDateTime(datetimeString) {
         </Table>
       </ContentContainer>
 
-      <ContentContainer active={activeTab === 'interviews'}>
-        <SubTitle>My Interviews</SubTitle>
-        {/* Content for My Interviews */}
-      </ContentContainer>
+      <ContentContainer active={activeTab === "interviews"}>
+          <SubTitle>My Interviews</SubTitle>
+          <Table>
+            <thead style={{ backgroundColor: "#D2D2D2" }}>
+              <tr>
+                <Th>Pekerjaan</Th>
+                <Th>Tanggal</Th>
+                <Th>Waktu</Th>
+                <Th>Status</Th>
+                <Th>Action</Th>
+              </tr>
+            </thead>
+            <tbody>
+              {interviewData &&
+                interviewData.map((interview) => (
+                  <tr key={interview.id}>
+                    <Td>{interview.job_application_id.job.job_name}</Td>
+                    <Td>{interview.datetime_start.split("T")[0]}</Td>
+                    <Td>{interview.datetime_start.slice(11, 16)}</Td>
+                    <Td>{interview.confirm}</Td>
+                    {interview.confirm === "Confirm" && (
+                      <Button primary>Batalkan</Button>
+                    )}
+                    {interview.confirm === "Not Confirm" && (
+                      <Td>
+                        <Button primary>Konfirmasi</Button>
+                      </Td>
+                    )}
+                  </tr>
+                ))}
+            </tbody>
+          </Table>
+        </ContentContainer>
 
       <ContentContainer active={activeTab === 'onboarding'}>
         <SubTitle>My Onboarding</SubTitle>
@@ -306,7 +393,8 @@ function formatDateTime(datetimeString) {
         onAccept={handleAccept}
         onClose={handleClosePopup}
       />
-    </PageContainer>
+      </div>
+    </React.Fragment>
   );
 };
 
