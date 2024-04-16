@@ -18,11 +18,6 @@ function SidebarApplicant() {
     navigate("/job-list-applicant");
   };
 
-  const handleClickOnBoarding = () => {
-    setActivePage("On Boarding");
-    navigate("/");
-  };
-
   const handleClickMyProfile = () => {
     setActivePage("My Profile");
     navigate("/my-profile");
@@ -147,24 +142,6 @@ function SidebarApplicant() {
                 onClick={() => handleClickApplication()}
               >
                 Application
-              </button>
-            </li>
-            <li>
-              <button
-                style={{
-                  fontFamily: "Inter, sans-serif",
-                  fontWeight: "medium",
-                  display: "block",
-                  marginBottom: "16px",
-                  border: "none",
-                  height: "32px",
-                  width: "18%",
-                  textAlign: "left",
-                  paddingLeft: "2%",
-                }}
-                onClick={() => handleClickOnBoarding()}
-              >
-                On Boarding
               </button>
             </li>
             <li>
