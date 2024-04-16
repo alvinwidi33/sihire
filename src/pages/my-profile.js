@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SidebarGA from "../components/sidebar-ga";
 import SidebarApplicant from '../components/sidebar-applicant';
 import SidebarOther from '../components/sidebar-other';
+import SidebarAdmin from '../components/sidebar-admin';
 
 function MyProfile() {
     const [profileData, setProfileData] = useState(null);
@@ -86,6 +87,8 @@ function MyProfile() {
         marginTop = "-280px";
     } else if (profileData?.role === "Applicant") {
         marginTop = "-180px";
+    } else if (profileData?.role === "Admin") {
+        marginTop = "-100px";
     } else {
         marginTop = "-220px";
     }
@@ -107,7 +110,8 @@ function MyProfile() {
                 <>
                     {profileData.role === "General Affairs" && <SidebarGA />}
                     {profileData.role === "Applicant" && <SidebarApplicant />}
-                    {profileData.role !== "General Affairs" && profileData.role !== "Applicant" && <SidebarOther />}
+                    {profileData.role === "Admin" && <SidebarAdmin />}
+                    {profileData.role !== "General Affairs" && profileData.role !== "Applicant" && profileData.role !== "Admin" && <SidebarOther />}
                 </>
             )}
 
