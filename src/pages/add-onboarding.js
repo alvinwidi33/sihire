@@ -123,7 +123,7 @@ const AddOnboarding = () => {
         throw new Error("Selected job not found.");
       }
       const isConfirmed = window.confirm(
-        "Apakah Anda yakin membuat interview?"
+        "Apakah Anda yakin membuat On Boarding?"
       );
 
       if (!isConfirmed) {
@@ -157,16 +157,16 @@ const AddOnboarding = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to submit interview schedule");
+        throw new Error("Failed to submit On Boarding schedule");
       }
       if (response.ok) {
         setSuccessMessage("On Boarding berhasil dibuat!");
         setTimeout(() => {
           setSuccessMessage("");
-          navigate("/get-list-interview-ga");
+          navigate("/get-list-onboarding-internal");
         }, 5000);
       } else {
-        console.error("Failed to post interview", response.statusText);
+        console.error("Failed to post On Boarding", response.statusText);
       }
     } catch (error) {
       alert("On Boarding applicant sudah ada");
