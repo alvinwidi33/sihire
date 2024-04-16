@@ -33,8 +33,8 @@ function JobApplicationDetail() {
     coverLetter: '',
     status:'',
   });
-    const calculateProgress = (stageName) => {
-    const stage = stages.find(stage => stage.name === stageName);
+     const calculateProgress = (stageName) => {
+    const stage = stages.find((stage) => stage.name === stageName);
     return stage ? stage.value : 0;
   };
 
@@ -107,15 +107,36 @@ console.log('blablaaukauigus92002:',formData)
           <div className="mt-4 relative flex justify-between">
             {stages.map((stage, index) => (
               <div key={index} className="flex items-center">
-                <span className={`w-2 h-2 rounded-full ${progress >= stage.value ? 'bg-green-500' : 'bg-gray-400'}`}></span>
-                <span className={`text-sm ml-1 ${progress >= stage.value ? 'text-green-500' : 'text-gray-400'}`}>{stage.name}</span>
-              </div>
-            ))}
-          </div>
-          <div className="mb-2">
-            <progress className="w-full bg-gray-200" value={progress} max="100"></progress>
-          </div>
-
+                <span
+                className={`w-2 h-2 rounded-full ${
+                  formData.status === 'Withdrawn' ? 'bg-red-500' : progress >= stage.value ? 'bg-green-500' : 'bg-gray-400'
+                }`}
+              ></span>
+              <span
+                className={`text-sm ml-1 ${
+                  formData.status === 'Withdrawn' ? 'text-red-500' : progress >= stage.value ? 'text-green-500' : 'text-gray-400'
+                }`}
+              >
+                {stage.name}
+              </span>
+            </div>
+          ))}
+        </div>
+        <div className="mb-2">
+  <progress
+    className="w-full bg-gray-200"
+    value={formData.status === 'Withdrawn' ? 100 : progress}
+    max="100"
+  ></progress>
+  <style jsx global>{`
+    progress::-webkit-progress-bar {
+      background-color: #f5f5f5;
+    }
+    progress::-webkit-progress-value {
+      background-color: ${formData.status === 'Withdrawn' ? 'red' : 'green'};
+    }
+  `}</style>
+</div>
           <div className="mt-4 grid grid-cols-2 gap-4">
             <div>
               <strong>Nama</strong> 
