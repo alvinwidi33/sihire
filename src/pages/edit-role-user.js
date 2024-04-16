@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import SidebarAdmin from '../components/sidebar-admin';
 
 function EditRoleUser(props) {
     const { id } = useParams();
@@ -7,10 +8,6 @@ function EditRoleUser(props) {
     const darkBlueText = {
         color: 'var(--WF-Base-800, #2D3648)',
         fontFamily: 'Inter, sans-serif',
-    };
-
-    const containerStyle = {
-        backgroundColor: "#F2F2F2"
     };
 
     const dividerStyle = {
@@ -103,13 +100,29 @@ function EditRoleUser(props) {
     };
 
     return (
-        <div className="container mx-auto" style={containerStyle}>
-            <div className="px-5" style={{ paddingTop: '20px', paddingBottom: '15px' }}>
-                <h1 className="text-3xl font-bold" style={darkBlueText}>Manage User</h1>
-            </div>
-            <hr className="divider" style={dividerStyle}></hr>
+        <React.Fragment>
+        <p
+            style={{
+                marginLeft: "22%",
+                fontWeight: "bold",
+                fontSize: "32px",
+                color: "#2A3E4B",
+                position: "absolute",
+            }}
+        >
+            Manage User
+        </p>
+        <SidebarAdmin />
+        <div
+            style={{ marginLeft: "22%", position: "absolute", marginTop: "-160px" }}
+            className="w-9/12"
+        >
+        <div className="container mx-auto">
             <div className="min-h-screen py-8">
-                <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+                <div
+                    className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md"
+                    style={{ boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)' }}
+                >
                     <h2 className="text-lg font-semibold mb-4 text-center" style={darkBlueText}>Edit User</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4">
@@ -192,6 +205,8 @@ function EditRoleUser(props) {
                 </div>
             </div>
         </div>
+        </div>
+    </React.Fragment>
     );
 }
 
