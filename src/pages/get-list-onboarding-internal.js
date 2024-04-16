@@ -19,18 +19,38 @@ function GetListOnboardingInternal() {
         return formattedDate;
     }
 
-    useEffect(() => {
-        const getOnboarding = async () => {
-            try {
-                const response = await fetch('https://sihire-be.vercel.app/api/onboarding/get-list-onboarding/', {
-                    method: "GET",
-                });
-                const data = await response.json();
-                setOnboarding(data);
-            } catch (error) {
-                console.error('Error fetching onboarding data:', error);
+    const deleteOnboarding = async (id) => {
+        try {
+            const response = await fetch(`https://sihire-be.vercel.app/api/onboarding/delete-onboarding/${id}/`, {
+                method: "DELETE",
+            });
+            if (response.ok) {
+                // Onboarding deleted successfully, update UI
+                setSuccessMessage('Onboarding deleted successfully.');
+                // Fetch updated onboarding data after deletion
+                window.location.reload();
+                getOnboarding();
+            } else {
+                console.error('Failed to delete onboarding');
             }
-        };
+        } catch (error) {
+            console.error('Error deleting onboarding:', error);
+        }
+    };
+
+    const getOnboarding = async () => {
+        try {
+            const response = await fetch('https://sihire-be.vercel.app/api/onboarding/get-list-onboarding/', {
+                method: "GET",
+            });
+            const data = await response.json();
+            setOnboarding(data);
+        } catch (error) {
+            console.error('Error fetching onboarding data:', error);
+        }
+    };
+
+    useEffect(() => {
         getOnboarding();
     }, []);
 
@@ -44,19 +64,22 @@ function GetListOnboardingInternal() {
         <React.Fragment>
             <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>On Boarding</p>
             <SidebarGA />
-            <div className="list-onboarding" style={{ position: 'relative' }}>
-                <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-220px", marginBottom: "32px" }}>List Onboarding</p>
+            <div
+        style={{ marginLeft: "10%", position: "absolute", marginTop: "-20px" }}
+        className="w-9/12"
+      >
+                <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-300px", marginBottom: "32px" }}>List Onboarding</p>
                 <Link to="/create-onboarding">
                     <button style={{
                         width: "180px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#fff", background: "#2A3E4B",
                         borderRadius: "6px", cursor: "pointer",
-                        marginTop: "-72px", marginBottom: "32px", marginLeft: "80%", position: "absolute", border: "2px solid #2A3E4B",
+                        marginTop: "-72px", marginBottom: "32px", marginLeft: "90%", position: "absolute", border: "2px solid #2A3E4B",
                     }}>
                         Tambah Onboarding
                     </button>
                 </Link>
                 {onboarding && (
-                    <table style={{ marginLeft: "22%", borderCollapse: "collapse", width: "70%" }}>
+                    <table style={{ marginLeft: "22%", borderCollapse: "collapse", width: "90%" }}>
                         <thead>
                             <tr>
                                 <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Posisi</th>
@@ -64,36 +87,37 @@ function GetListOnboardingInternal() {
                                 <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Tanggal</th>
                                 <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Waktu</th>
                                 <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Konfirmasi</th>
-                                <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Reschedule Comment</th>
                                 <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold", width: "180px" }}>Action</th>
                             </tr>
                         </thead>
-                        
-<tbody>
-    {onboarding.map(onboarding => (
-        <tr key={onboarding.id} style={{ backgroundColor: (onboarding.job_application_id.status === "Withdrawn" ? "#FFC0CB" : (isDatePassed(onboarding.datetime_end) ? "#D3D3D3" : (onboarding.job_application_id.status === "On Boarding" ? "#FFFFFF" : "#D3D3D3"))) }}>
-            <td style={{ border: "2px solid #2A3E4B", padding: "8px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', fontSize: "20px", color: "#2A3E4B", textAlign:"center" }}>{onboarding.job_application_id.job.job_name}</td>
-            <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign:"center" }}>{onboarding.job_application_id.applicant.user.name}</td>
-            <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center" }}>{onboarding.datetime_start && formatDateTime(onboarding.datetime_start)}</td>
-            <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center" }}>
-                {onboarding.datetime_start && formatTime(onboarding.datetime_start)} - {onboarding.datetime_end && formatTime(onboarding.datetime_end)}
-            </td>
-            <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center" }}>
-                {onboarding.confirm}
-            </td>
-            <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center" }}>
-                {onboarding.reschedule_comment ? onboarding.reschedule_comment : 'None'}
-            </td>
-            <td style={{ border: "2px solid #2A3E4B", textAlign: "center" }}>
-                <Link to={`/onboarding-detail-ga/${onboarding.id}`}>
-                    <button style={{ width: "80px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#2A3E4B", borderRadius: "6px", cursor: "pointer", border: "2px solid #2A3E4B", marginRight: "4px" }}>
-                        Detail
-                    </button>
-                </Link>
-            </td>
-        </tr>
-    ))}
-</tbody>
+                        <tbody>
+                            {onboarding.map(onboarding => (
+                                <tr key={onboarding.id} style={{ backgroundColor: (onboarding.job_application_id.status === "Withdrawn" ? "#FFC0CB" : (isDatePassed(onboarding.datetime_end) ? "#D3D3D3" : (onboarding.job_application_id.status === "On Boarding" ? "#FFFFFF" : "#D3D3D3"))) }}>
+                                    <td style={{ border: "2px solid #2A3E4B", padding: "8px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', fontSize: "20px", color: "#2A3E4B", textAlign:"center" }}>{onboarding.job_application_id.job.job_name}</td>
+                                    <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign:"center" }}>{onboarding.job_application_id.applicant.user.name}</td>
+                                    <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center" }}>{onboarding.datetime_start && formatDateTime(onboarding.datetime_start)}</td>
+                                    <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center" }}>
+                                        {onboarding.datetime_start && formatTime(onboarding.datetime_start)} - {onboarding.datetime_end && formatTime(onboarding.datetime_end)}
+                                    </td>
+                                    <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center" }}>
+                                        {onboarding.confirm}
+                                    </td>
+                                    <td style={{ border: "2px solid #2A3E4B", textAlign: "center" }}>
+                                        <Link to={`/onboarding-detail-ga/${onboarding.id}`}>
+                                            <button style={{ width: "80px", padding: "8px", fontSize: "16px", marginTop:'8px', marginBottom:'8px', marginRight:'10px', fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#2A3E4B", borderRadius: "6px", cursor: "pointer", border: "2px solid #2A3E4B", marginRight: "4px" }}>
+                                                Detail
+                                            </button>
+                                        </Link>
+                                        <button style={{ width: "80px", padding: "8px", fontSize: "16px", 
+                                        fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#2A3E4B", 
+                                        borderRadius: "6px", cursor: "pointer", border: "2px solid #2A3E4B", marginRight: "4px" }}
+                                        onClick={() => deleteOnboarding(onboarding.id)}>
+                                                Hapus
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
 
 
                     </table>
