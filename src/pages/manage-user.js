@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function ManageUser() {
   const containerStyle = {
@@ -39,11 +39,12 @@ function ManageUser() {
     borderBottom: "1px solid #ddd",
   };
 
-  const handleEditUser = (userId) => {
-    // Implement your navigation logic here
-    console.log(`Edit user with ID: ${userId}`);
-    // You can replace the console.log with your navigation logic
-  };
+  const navigate = useNavigate();
+
+    const handleEditUser = (userId) => {
+        console.log(`Edit user with ID: ${userId}`);
+        navigate(`/edit-user-role/${userId}`);
+    };
 
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);

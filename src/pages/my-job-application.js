@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Popup from '../components/popup';
+import InterviewPopup from '../components/popupInterview';
 import Sidebar from "../components/sidebar-applicant";
 import OnboardingDeclined from './onboarding-declined';
 
@@ -13,6 +14,8 @@ const MyJobApplication = () => {
   const [activeTab, setActiveTab] = useState('applications');
   const [isPopupVisible, setPopupVisibility] = useState(false);
   const [confirmationId, setConfirmationId] = useState(null);
+  const [isInterviewPopupVisible, setInterviewPopupVisibility] = useState(false);
+  const [interviewConfirmationId, setInterviewConfirmationId] = useState(null);
 
   function formatTime(datetimeString) {
     const dateTime = new Date(datetimeString);
@@ -83,6 +86,11 @@ function formatDateTime(datetimeString) {
     setPopupVisibility(true);
   };
 
+  const handleInterviewConfirmation = (id) => {
+    setInterviewConfirmationId(id);
+    setInterviewPopupVisibility(true);
+  };
+
   // const handleAccept = () => {
   //   console.log(`Accepted onboarding with ID ${confirmationId}`);
   //   setPopupVisibility(false);
@@ -98,6 +106,10 @@ function formatDateTime(datetimeString) {
 
   const handleClosePopup = () => {
     setPopupVisibility(false); // Update the state to hide the popup
+  };
+
+  const handleCloseInterviewPopup = () => {
+    setInterviewPopupVisibility(false);
   };
 
   const handleWithdraw = async (id) => {
@@ -144,6 +156,33 @@ function formatDateTime(datetimeString) {
   
       if (response.ok) {
         // Reload the page after successful update
+        window.location.reload();
+      } else {
+        console.error('Failed to update confirmation status');
+      }
+    } catch (error) {
+      console.error('Error updating confirmation status:', error);
+    }
+  };
+
+  const handleAcceptInterview = async (e) => {
+    e.preventDefault();
+
+    const url = `https://sihire-be.vercel.app/api/interview/edit-interview-applicant/${interviewConfirmationId}/`;
+
+    try {
+        const response = await fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              confirm: 'Yes', 
+            }),
+        });
+  
+      if (response.ok) {
+        console.log('Confirmation status updated successfully');
         window.location.reload();
       } else {
         console.error('Failed to update confirmation status');
@@ -343,11 +382,13 @@ function formatDateTime(datetimeString) {
                     {interview.confirm === "Confirm" && (
                       <Button primary>Batalkan</Button>
                     )}
-                    {interview.confirm === "Not Confirm" && (
-                      <Td>
-                        <Button primary>Konfirmasi</Button>
-                      </Td>
-                    )}
+                    <Td>
+                      {interview.confirm === "Not Confirm" ? (
+                          <Button primary onClick={() => handleInterviewConfirmation(interview.id)}>Konfirmasi</Button>
+                      ) : (
+                        <p>-</p>
+                      )}
+                    </Td>
                   </tr>
                 ))}
             </tbody>
@@ -387,6 +428,12 @@ function formatDateTime(datetimeString) {
       </ContentContainer>
 
       {/* Render the Popup component */}
+      <InterviewPopup
+        isVisible={isInterviewPopupVisible}
+        id = {interviewConfirmationId}
+        onAccept={handleAcceptInterview}
+        onClose={handleCloseInterviewPopup}
+      />
       <Popup
         isVisible={isPopupVisible}
         id = {confirmationId}
