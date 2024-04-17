@@ -144,7 +144,7 @@ const DetailButton = {
           fontSize: "32px",
           color: "#2A3E4B",
           position: "absolute",
-          marginTop: "-30%"
+          marginTop: "-28%"
         }}
       >
         Applicants
