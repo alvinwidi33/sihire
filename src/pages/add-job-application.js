@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate, Navigate } from 'react-router-dom';
 import { createClient } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
+import SidebarGA from '../components/sidebar-applicant';
+import SidebarApplicant from '../components/sidebar-applicant';
 
 const supabase = createClient(
   "https://ldhohewyhcdwckzcjtzn.supabase.co",
@@ -160,11 +162,25 @@ function AddJobApplication() {
 };
 
   return (
+    <React.Fragment>
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
-    <div className="container mx-auto mt-8" style={{ marginTop: "3%" }}>
-      <h1 className="text-2xl font-bold text-left mb-4">Job Application</h1>
-
-      <div style={{ marginLeft: '-1%', position: 'absolute', marginBottom: '40px' }}>
+    <div className="container mx-auto mt-8" >
+    <SidebarApplicant />
+    {/* <div style={{marginTop:'-100px'}}>
+       */}
+    <p
+        style={{
+          marginLeft: "22%",
+          fontWeight: "bold",
+          fontSize: "32px",
+          color: "#2A3E4B",
+          position: "absolute",
+          marginTop: "-288px"
+        }}
+      >
+        Job Applications
+      </p>
+      <div style={{ marginLeft: '20%', position: 'absolute', marginBottom: '40px', marginTop: '-200px' }}>
         <Link to='/job-list-applicant'>
           <p style={{ display: 'inline', marginLeft: '4px' }}>List Job</p>
         </Link>
@@ -181,8 +197,8 @@ function AddJobApplication() {
           </React.Fragment>
         )}
       </div>
-    <hr className="mb-4 border-solid border-black" /> 
-      <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded shadow-md" style={{marginTop:'40px'}} encType="multipart/form-data">
+    {/* <hr className="mb-4 border-solid border-black" />  */}
+      <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded shadow-md" style={{marginTop: '-140px', marginLeft:'38%'}} encType="multipart/form-data">
       {job && (
         <React.Fragment key={job.id}>
           <h1 className="text-2xl font-bold text-center mb-4">{job.job_name}</h1>
@@ -266,8 +282,10 @@ function AddJobApplication() {
         >
           {successMessage}</p>
       )}
+      </div>
     </div>
-    </div>
+    {/* </div> */}
+    </React.Fragment>
   );
 }
 
