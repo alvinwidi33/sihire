@@ -144,16 +144,14 @@ const DetailButton = {
           fontSize: "32px",
           color: "#2A3E4B",
           position: "absolute",
-          marginTop: "-288px"
+          marginTop: "-30%"
         }}
       >
         Applicants
       </p>
     {/* <div style={PageContainer}> */}
-      {/* <div className="bg-gray-100 min-h-screen flex">
-      <div className="container mx-auto mt-8 md:mt-16" style={{ marginTop: "3%" }}> */}
-        {/* <h1 className="text-2xl font-bold text-left mb-4">Applicants</h1>
-        <hr className="mb-4 border-solid border-black" /> */}
+      <div className="min-h-screen flex">
+      <div className="container mx-auto mt-8 md:mt-16" style={{ marginLeft:"22%", marginRight:"3%", marginTop:"-23%" }}>
         <h2 style={SubTitle}><strong>Nama</strong></h2>
         <div>
         {userApplicant && (
@@ -205,9 +203,9 @@ const DetailButton = {
 
 </div>
 
+    </div>
+    </div>
     {/* </div> */}
-    {/* </div>
-    </div> */}
     </React.Fragment>
   );
 };
