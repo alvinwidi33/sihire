@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function SidebarOther() {
   const [activePage, setActivePage] = useState("Job Posting");
+  const [activeUser, setActiveUser] = useState(null);
   const token = window.localStorage.getItem("token");
   const navigate = useNavigate();
 
@@ -33,6 +34,20 @@ function SidebarOther() {
     navigate("/my-profile");
   };
 
+  const getUser = async () => {
+    const response = await fetch(
+      `https://sihire-be.vercel.app/api/users/get-user-by-token/${token}/`,
+      {
+        method: "GET",
+      }
+    );
+
+    if (response.ok) {
+      var json_response = await response.json();
+      setActiveUser(json_response);
+    }
+  };
+
   const handleLogout = async (event) => {
     event.preventDefault();
 
@@ -59,6 +74,10 @@ function SidebarOther() {
       console.error("Error during logout:", error);
     }
   };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <React.Fragment>
@@ -172,26 +191,36 @@ function SidebarOther() {
                 On Boarding
               </button>
             </li>
-            <li>
-              <button
-                style={{
-                  fontFamily: "Inter, sans-serif",
-                  fontWeight: "medium",
-                  display: "block",
-                  marginBottom: "16px",
-                  border: "none",
-                  height: "32px",
-                  width: "18%",
-                  textAlign: "left",
-                  paddingLeft: "2%",
-                }}
-                onClick={() => handleClickMyProfile()}
-              >
-                My Profile
-              </button>
-            </li>
           </ul>
         </div>
+
+        {activeUser && (
+          <a
+            href="/my-profile"
+            style={{
+              fontFamily: "Inter, sans-serif",
+              fontWeight: "medium",
+              margin: "16px 0px 16px 0px",
+              border: "none",
+              height: "32px",
+              width: "18%",
+              textAlign: "left",
+              paddingLeft: "2%",
+            }}
+            className="flex gap-4 items-center"
+          >
+            <div
+              style={{
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
+                border: "2px solid grey",
+              }}
+            ></div>
+
+            <p>{activeUser.name}</p>
+          </a>
+        )}
 
         <button
           onClick={handleLogout}
