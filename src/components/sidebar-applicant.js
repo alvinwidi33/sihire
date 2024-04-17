@@ -4,7 +4,7 @@ import Logo from "../images/logo.png";
 
 function SidebarApplicant() {
   const [activePage, setActivePage] = useState("Job Posting");
-  const [activeUser, setActiveUser] = useState({});
+  const [activeUser, setActiveUser] = useState(null);
   const token = window.localStorage.getItem("token");
   const navigate = useNavigate();
 
@@ -16,11 +16,6 @@ function SidebarApplicant() {
   const handleClickJobPosting = () => {
     setActivePage("Job Posting");
     navigate("/job-list-applicant");
-  };
-
-  const handleClickMyProfile = () => {
-    setActivePage("My Profile");
-    navigate("/my-profile");
   };
 
   const getUser = async () => {
@@ -144,30 +139,40 @@ function SidebarApplicant() {
                 Application
               </button>
             </li>
-            <li>
-              <button
-                style={{
-                  fontFamily: "Inter, sans-serif",
-                  fontWeight: "medium",
-                  display: "block",
-                  marginBottom: "16px",
-                  border: "none",
-                  height: "32px",
-                  width: "18%",
-                  textAlign: "left",
-                  paddingLeft: "2%",
-                }}
-                onClick={() => handleClickMyProfile()}
-              >
-                My Profile
-              </button>
-            </li>
           </ul>
         </div>
 
+        {activeUser && (
+          <a
+            href="/my-profile"
+            style={{
+              fontFamily: "Inter, sans-serif",
+              fontWeight: "medium",
+              margin: "16px 0px 16px 0px",
+              border: "none",
+              height: "32px",
+              width: "18%",
+              textAlign: "left",
+              paddingLeft: "2%",
+            }}
+            className="flex gap-4 items-center"
+          >
+            <div
+              style={{
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
+                border: "2px solid grey",
+              }}
+            ></div>
+
+            <p>{activeUser.user.name}</p>
+          </a>
+        )}
+
         <button
           onClick={handleLogout}
-          className="ml-10"
+          className="ml-6"
           style={{
             width: "90px",
             padding: "8px",

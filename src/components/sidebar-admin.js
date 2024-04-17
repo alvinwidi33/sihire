@@ -121,26 +121,36 @@ function SidebarAdmin() {
                 Manage Users
               </button>
             </li>
-            <li>
-              <button
-                style={{
-                  fontFamily: "Inter, sans-serif",
-                  fontWeight: "medium",
-                  display: "block",
-                  marginBottom: "16px",
-                  border: "none",
-                  height: "32px",
-                  width: "18%",
-                  textAlign: "left",
-                  paddingLeft: "2%",
-                }}
-                onClick={() => handleClickMyProfile()}
-              >
-                My Profile
-              </button>
-            </li>
           </ul>
         </div>
+
+        {activeUser && (
+          <a
+            href="/my-profile"
+            style={{
+              fontFamily: "Inter, sans-serif",
+              fontWeight: "medium",
+              margin: "16px 0px 16px 0px",
+              border: "none",
+              height: "32px",
+              width: "18%",
+              textAlign: "left",
+              paddingLeft: "2%",
+            }}
+            className="flex gap-4 items-center"
+          >
+            <div
+              style={{
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
+                border: "2px solid grey",
+              }}
+            ></div>
+
+            <p>{activeUser.name}</p>
+          </a>
+        )}
 
         <button
           onClick={handleLogout}

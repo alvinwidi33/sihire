@@ -136,6 +136,13 @@ function MyProfile() {
                     )}
                     <div className="flex justify-end mt-4 mr-10">
                         <div className="mr-4">
+                            <a href="/change-password">
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md" style={{ background: 'var(--WF-Base-800, #2D3648)', fontSize: '1rem' }}>
+                                Change Password
+                            </button>
+                            </a>
+                        </div>
+                        <div className="mr-4">
                             <button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md" style={{ background: 'var(--WF-Base-800, #2D3648)', fontSize: '1rem' }}>
                                 Edit Profile
                             </button>
