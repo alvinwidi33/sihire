@@ -163,8 +163,8 @@ function AddJobApplication() {
 
   return (
     <React.Fragment>
-    <div className="bg-gray-100 min-h-screen flex justify-center items-center">
-    <div className="container mx-auto mt-8" >
+    {/* <div className="bg-white-100 min-h-screen flex justify-center items-center">
+    <div className="container mx-auto mt-8" > */}
     <SidebarApplicant />
     {/* <div style={{marginTop:'-100px'}}>
        */}
@@ -282,8 +282,8 @@ function AddJobApplication() {
         >
           {successMessage}</p>
       )}
-      </div>
-    </div>
+      {/* </div>
+    </div> */}
     {/* </div> */}
     </React.Fragment>
   );
