@@ -289,11 +289,11 @@ const supabase = createClient(
 function JobApplicationDetailGA() {
   const stages = [
     { name: 'Applied', value: 0 },
-    { name: 'In Review', value: 16 },
-    { name: 'Interview', value: 32 },
-    { name: 'Accepted', value: 48 },
-    { name: 'Declined', value: 64 },
+    { name: 'In Review', value: 25 },
+    { name: 'Interview', value: 50 },
+    { name: 'Accepted', value: 75 },
     { name: 'On Boarding', value: 100 },
+    { name: 'Declined', value: 64 },
   ];
 
   const { id } = useParams();
@@ -396,40 +396,42 @@ function JobApplicationDetailGA() {
         <hr className="mb-4 border-solid border-black" />
         <div className="p-4 bg-white rounded-lg shadow-md flex flex-col">
           <h2 className="text-2xl font-bold mb-2">{formData.job.job_name}</h2>
-          <strong>Status:</strong>
+          <strong>Status: {formData.status}</strong>
           <div className="mt-4 relative flex justify-between">
             {stages.map((stage, index) => (
-              <div key={index} className="flex items-center">
-                <span
-                className={`w-2 h-2 rounded-full ${
-                  formData.status === 'Withdrawn' ? 'bg-red-500' : progress >= stage.value ? 'bg-green-500' : 'bg-gray-400'
-                }`}
-              ></span>
-              <span
-                className={`text-sm ml-1 ${
-                  formData.status === 'Withdrawn' ? 'text-red-500' : progress >= stage.value ? 'text-green-500' : 'text-gray-400'
-                }`}
-              >
-                {stage.name}
-              </span>
-            </div>
-          ))}
-        </div>
-        <div className="mb-2">
-  <progress
-    className="w-full bg-gray-200"
-    value={formData.status === 'Withdrawn' ? 100 : progress}
-    max="100"
-  ></progress>
-  <style jsx global>{`
-    progress::-webkit-progress-bar {
-      background-color: #f5f5f5;
-    }
-    progress::-webkit-progress-value {
-      background-color: ${formData.status === 'Withdrawn' ? 'red' : 'green'};
-    }
-  `}</style>
-</div>
+              stage.name !== 'Declined' && (
+                <div key={index} className="flex items-center">
+                  <span
+                    className={`w-2 h-2 rounded-full ${
+                      (formData.status === 'Withdrawn' || formData.status === 'Declined') ? 'bg-red-500' : progress >= stage.value ? 'bg-green-500' : 'bg-gray-400'
+                    }`}
+                  ></span>
+                  <span
+                    className={`text-sm ml-1 ${
+                      (formData.status === 'Withdrawn' || formData.status === 'Declined') ? 'text-red-500' : progress >= stage.value ? 'text-green-500' : 'text-gray-400'
+                    }`}
+                  >
+                    {stage.name}
+                  </span>
+                </div>
+              )
+            ))}
+          </div>
+          <div className="mb-2">
+            <progress
+              className="w-full bg-gray-200"
+              value={(formData.status === 'Withdrawn' || formData.status === 'Declined') ? 100 : progress}
+              max="100"
+            ></progress>
+            <style jsx global>{`
+              progress::-webkit-progress-bar {
+                background-color: #f5f5f5;
+              }
+              progress::-webkit-progress-value {
+                background-color: ${(formData.status === 'Withdrawn' || formData.status === 'Declined') ? 'red' : 'green'};
+              }
+            `}</style>
+          </div>
           <div className="mt-4 grid grid-cols-2 gap-4">
             <div>
               <strong>Nama</strong>
@@ -501,23 +503,23 @@ function JobApplicationDetailGA() {
                   &#8203;
                   <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <div className="flex justify-between items-center mb-4">
-    <h2 className="text-xl font-bold">Update Status</h2>
-    <button
-      onClick={() => setShowModal(false)}
-      className="text-gray-600 hover:text-gray-800 focus:outline-none"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </button>
-  </div>
+                      <div className="flex justify-between items-center mb-4">
+                        <h2 className="text-xl font-bold">Update Status</h2>
+                        <button
+                          onClick={() => setShowModal(false)}
+                          className="text-gray-600 hover:text-gray-800 focus:outline-none"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </div>
                       <div className="mb-4">
                         <label htmlFor="status" className="block font-bold">Select Status:</label>
                         <select
