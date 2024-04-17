@@ -314,10 +314,10 @@ const AddOnboarding = () => {
               {applicants
                 .filter((applicant) =>
                   interviews.length > 0
-                    ? interviews.find(
+                    ? !interviews.some(
                         (interview) =>
-                          interview.job_application_id.applicant
-                            .applicant_id !== applicant.applicant_id
+                          interview.job_application_id.applicant.applicant_id === applicant.applicant_id &&
+                          interview.job_application_id.job.job_name === selectedJob
                       )
                     : true
                 )
