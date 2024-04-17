@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate, Navigate } from 'react-router-dom';
 import { createClient } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
+import SidebarApplicant from '../components/sidebar-applicant';
 
 const supabase = createClient(
   "https://ldhohewyhcdwckzcjtzn.supabase.co",
@@ -155,12 +156,25 @@ function AddDataDiri() {
 };
 
   return (
-    <div className="bg-gray-100 min-h-screen flex justify-center items-center">
-    <div className="container mx-auto mt-8" style={{ marginTop: "3%" }}>
-      <h1 className="text-2xl font-bold text-left mb-4">Onboarding</h1>
+    <React.Fragment>
+    <SidebarApplicant />
+    {/* <div className="bg-gray-100 min-h-screen flex justify-center items-center">
+    <div className="container mx-auto mt-8" style={{ marginTop: "3%" }}> */}
+      <p
+        style={{
+          marginLeft: "22%",
+          fontWeight: "bold",
+          fontSize: "32px",
+          color: "#2A3E4B",
+          position: "absolute",
+          marginTop: "-288px"
+        }}
+      >
+        On Boarding
+      </p>
 
-    <hr className="mb-4 border-solid border-black" /> 
-      <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded shadow-md" style={{marginTop:'40px'}} encType="multipart/form-data">
+    {/* <hr className="mb-4 border-solid border-black" />  */}
+      <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded shadow-md" style={{marginTop:'-160px'}} encType="multipart/form-data">
       
         <h1 className="text-2xl font-bold text-center mb-4">Data Personal</h1>
         <div className="mb-2">
@@ -238,8 +252,9 @@ function AddDataDiri() {
         >
           {successMessage}</p>
       )}
-    </div>
-    </div>
+    {/* </div>
+    </div> */}
+    </React.Fragment>
   );
 }
 
