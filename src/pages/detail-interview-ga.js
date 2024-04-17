@@ -214,20 +214,19 @@ function DetailInterviewGA() {
               <Link to={`/get-list-interview-ga/${id}/update`}>
                 <button
                   style={{
-                    position:"relative",
-                    marginLeft: "800px",
-                    marginTop: "480px",
-                    backgroundColor: "#2A3E4B",
-                    width: "130px",
-                    padding: "8px",
-                    fontSize: "16px",
-                    fontFamily: "Inter, sans-serif",
-                    fontWeight: "bold",
-                    color: "#fff",
-                    borderRadius: "6px",
-                    cursor: "pointer",
-                    border: "2px solid #2A3E4B",
-                    marginRight: "4px",
+                    width: "10%",
+                padding: "8px",
+                fontSize: "16px",
+                fontFamily: "Inter, sans-serif",
+                fontWeight: "bold",
+                color: "#fff",
+                background: "#2A3E4B",
+                borderRadius: "6px",
+                cursor: "pointer",
+                marginTop: "480px",
+                border: "2px solid #2A3E4B",
+                marginLeft: "57%",
+                position: "absolute",
                   }}
                 >
                   Ubah Jadwal

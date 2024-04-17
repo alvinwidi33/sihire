@@ -27,7 +27,7 @@ function UpdateJadwalInteviewGA() {
     backgroundColor: "#fff",
     borderRadius: "10px",
     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.4)",
-    marginTop:"-100px"
+    marginTop:"-120px"
   };
 
   const isOverlapping = (aStart, aEnd, bStart, bEnd) => {
@@ -246,14 +246,14 @@ function UpdateJadwalInteviewGA() {
           style={{
             marginLeft: "22%",
             position: "absolute",
-            marginTop: "-320px",
+            marginTop: "-340px",
           }}
         >
           List Wawancara
         </p>
       </Link>
       <p
-        style={{ marginLeft: "30%", position: "absolute", marginTop: "-320px" }}
+        style={{ marginLeft: "30%", position: "absolute", marginTop: "-340px" }}
       >
         {">"}
       </p>
@@ -264,7 +264,7 @@ function UpdateJadwalInteviewGA() {
               style={{
                 marginLeft: "31%",
                 position: "absolute",
-                marginTop: "-320px",
+                marginTop: "-340px",
               }}
             >
               {interview.job_application_id.job.job_name}
@@ -274,7 +274,7 @@ function UpdateJadwalInteviewGA() {
             style={{
               marginLeft: "39%",
               position: "absolute",
-              marginTop: "-320px",
+              marginTop: "-340px",
             }}
           >
             {">"}
@@ -284,7 +284,7 @@ function UpdateJadwalInteviewGA() {
               style={{
                 marginLeft: "40%",
                 position: "absolute",
-                marginTop: "-320px",
+                marginTop: "-340px",
               }}
             >
               Update

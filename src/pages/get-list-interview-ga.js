@@ -110,7 +110,7 @@ function GetListInterviewGA() {
         <Link to="/create-interview">
           <button
             style={{
-              width: "180px",
+              width: "18%",
               padding: "8px",
               fontSize: "16px",
               fontFamily: "Inter, sans-serif",
@@ -347,7 +347,7 @@ function GetListInterviewGA() {
                     <Link to={`/get-list-interview-ga/${interview.id}`}>
                       <button
                         style={{
-                          width: "80px",
+                          width: "42%",
                           padding: "8px",
                           fontSize: "16px",
                           fontFamily: "Inter, sans-serif",
@@ -366,7 +366,7 @@ function GetListInterviewGA() {
                       onClick={() => deleteInterview(interview.id)}
                       style={{
                         background: "#2A3E4B",
-                        width: "80px",
+                        width: "42%",
                         padding: "8px",
                         fontSize: "16px",
                         fontFamily: "Inter, sans-serif",
