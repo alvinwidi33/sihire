@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
+import SidebarGA from '../components/sidebar-ga';
+import SidebarOther from '../components/sidebar-other';
 
 const ApplicantDetail = () => {
     const {applicant} = useParams()
@@ -74,10 +76,10 @@ const DetailButton = {
     outline: 'none',
 };
 
-  const PageContainer = {
-    backgroundColor: '#f2f2f2',
-    padding: '20px',
-  };
+//   const PageContainer = {
+//     backgroundColor: '#f2f2f2',
+//     padding: '20px',
+//   };
 
   const Title = {
     color: 'var(--Seal, #2A3E4B)',
@@ -123,11 +125,35 @@ const DetailButton = {
   `;
 
   return (
-    <div style={PageContainer}>
-      <div className="bg-gray-100 min-h-screen flex">
-      <div className="container mx-auto mt-8 md:mt-16" style={{ marginTop: "3%" }}>
-        <h1 className="text-2xl font-bold text-left mb-4">Applicants</h1>
-        <hr className="mb-4 border-solid border-black" />
+    <React.Fragment>
+    
+    {user && (
+    <>
+        {user.role === "General Affairs" ? (
+            <SidebarGA />
+        ) : (
+            <SidebarOther />
+        )}
+    </>
+    )}
+
+    <p
+        style={{
+          marginLeft: "22%",
+          fontWeight: "bold",
+          fontSize: "32px",
+          color: "#2A3E4B",
+          position: "absolute",
+          marginTop: "-288px"
+        }}
+      >
+        Applicants
+      </p>
+    {/* <div style={PageContainer}> */}
+      {/* <div className="bg-gray-100 min-h-screen flex">
+      <div className="container mx-auto mt-8 md:mt-16" style={{ marginTop: "3%" }}> */}
+        {/* <h1 className="text-2xl font-bold text-left mb-4">Applicants</h1>
+        <hr className="mb-4 border-solid border-black" /> */}
         <h2 style={SubTitle}><strong>Nama</strong></h2>
         <div>
         {userApplicant && (
@@ -179,9 +205,10 @@ const DetailButton = {
 
 </div>
 
-    </div>
-    </div>
-    </div>
+    {/* </div> */}
+    {/* </div>
+    </div> */}
+    </React.Fragment>
   );
 };
 
