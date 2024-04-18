@@ -23,7 +23,7 @@ const AddOnboarding = () => {
     borderRadius: "10px",
     marginLeft: "22%",
     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.4)",
-    marginTop: "-14%",
+    marginTop: "-20%",
   };
 
   useEffect(() => {

@@ -27,7 +27,7 @@ function UpdateOnboarding() {
     borderRadius: "10px",
     marginLeft: "22%",
     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.4)",
-    marginTop: "-14%",
+    marginTop: "-20%",
   };
 
   useEffect(() => {
@@ -204,14 +204,14 @@ function UpdateOnboarding() {
           style={{
             marginLeft: "22%",
             position: "absolute",
-            marginTop: "-240px",
+            marginTop: "-340px",
           }}
         >
           List Onboarding
         </p>
       </Link>
       <p
-        style={{ marginLeft: "30%", position: "absolute", marginTop: "-240px" }}
+        style={{ marginLeft: "30%", position: "absolute", marginTop: "-340px" }}
       >
         {">"}
       </p>
@@ -222,7 +222,7 @@ function UpdateOnboarding() {
               style={{
                 marginLeft: "31%",
                 position: "absolute",
-                marginTop: "-240px",
+                marginTop: "-340px",
               }}
             >
               {onboarding.job_application_id.job.job_name}
@@ -230,9 +230,9 @@ function UpdateOnboarding() {
           </Link>
           <p
             style={{
-              marginLeft: "39%",
+              marginLeft: "36%",
               position: "absolute",
-              marginTop: "-240px",
+              marginTop: "-340px",
             }}
           >
             {">"}
@@ -240,9 +240,9 @@ function UpdateOnboarding() {
           <Link to={`/get-list-interview-ga/${id}/update/`}>
             <p
               style={{
-                marginLeft: "40%",
+                marginLeft: "37%",
                 position: "absolute",
-                marginTop: "-240px",
+                marginTop: "-340px",
               }}
             >
               Update
