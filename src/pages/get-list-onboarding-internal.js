@@ -5,6 +5,25 @@ import SidebarGA from '../components/sidebar-ga';
 function GetListOnboardingInternal() {
     const [onboarding, setOnboarding] = useState([]);
     const [successMessage, setSuccessMessage] = useState('');
+    const [user, setUser] = useState(null);
+    useEffect(() => {
+        const getUser = async () => {
+            try {
+                const response = await fetch('https://sihire-be.vercel.app/api/users/logged-in/', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Token ' + window.localStorage.getItem("token")
+                    },
+                  });
+                const data = await response.json();
+                setUser(data);
+                console.log("data",data)
+            } catch (error) {
+                console.error('Error fetching user:', error);
+            }
+        }
+        getUser();
+    })
 
     function formatTime(datetimeString) {
         const dateTime = new Date(datetimeString);
@@ -69,15 +88,23 @@ function GetListOnboardingInternal() {
         className="w-9/12"
       >
                 <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-300px", marginBottom: "32px" }}>List Onboarding</p>
-                <Link to="/create-onboarding">
-                    <button style={{
-                        width: "180px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#fff", background: "#2A3E4B",
-                        borderRadius: "6px", cursor: "pointer",
-                        marginTop: "-72px", marginBottom: "32px", marginLeft: "90%", position: "absolute", border: "2px solid #2A3E4B",
-                    }}>
-                        Tambah Onboarding
-                    </button>
-                </Link>
+                {user && (
+                <>
+                    {user.role === "General Affairs" && (
+                        <Link to="/create-onboarding">
+                            <button style={{
+                                width: "180px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#fff", background: "#2A3E4B",
+                                borderRadius: "6px", cursor: "pointer",
+                                marginTop: "-72px", marginBottom: "32px", marginLeft: "90%", position: "absolute", border: "2px solid #2A3E4B",
+                            }}>
+                                Tambah Onboarding
+                            </button>
+                        </Link>
+                    )}
+                </>
+                )}
+
+                
                 {onboarding && (
                     <table style={{ marginLeft: "22%", borderCollapse: "collapse", width: "90%" }}>
                         <thead>
