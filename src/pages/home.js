@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Contractor from '../images/contractor.png';
 import styled from 'styled-components';
 import Navbar from '../components/navbar';
 
 function Home() {
+    const [currentCardIndex, setCurrentCardIndex] = useState(0);
+
+    const navigateToPreviousCard = () => {
+        setCurrentCardIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+    };
+
+    const navigateToNextCard = () => {
+        setCurrentCardIndex((prevIndex) => Math.min(prevIndex + 1, dataProject.length - 1));
+    };
     const containerStyle = {
         position: 'relative',
         width: '100%',
@@ -106,16 +115,24 @@ function Home() {
             transform: translateY(-24px);
         }
     `;
-    const cardProject={
-        marginTop:"120px",
-        marginLeft:"15%",
-        width: '70%',
-        height: '500px',
-        backgroundColor: '#fff',
-        borderRadius: '10px',
-        boxShadow: '0px 2px 4px rgba(0, 0, 0, 3)'
-    }
+    const CardProject = styled.div`
+    margin-top: 4px;
+    margin-left: 20%;
+    width: 60%;
+    height: px;
+    background-color: white; 
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    position:absolute
+`;
+
     const dataProject =[
+        { title:"Office 38", location:"Jl. Raden Saleh, Karang Tengah \n Tangerang – Indonesia",
+            type:"Architectural Interior", land:"486m",building:"800m"
+        },
+        { title:"Office 38", location:"Jl. Raden Saleh, Karang Tengah \n Tangerang – Indonesia",
+            type:"Architectural Interior", land:"486m",building:"800m"
+        },
         { title:"Office 38", location:"Jl. Raden Saleh, Karang Tengah \n Tangerang – Indonesia",
             type:"Architectural Interior", land:"486m",building:"800m"
         }
@@ -189,21 +206,32 @@ function Home() {
     </div>
     </div>
     <div style={frameProject}>
-        <p style={textProject}>Our Projects</p>
-        <div style={cardProject}>
-            <div style={cardProjectContainer}>
-                {dataProject.map((item, index) => (
-            <cardProject key={index}>
-                <h1>{item.title}</h1>
-                <p>{item.location}</p>
-                <p>{item.type}</p>
-                <p>{item.land}</p>
-                <p>{item.building}</p>
-            </cardProject>
+    <p style={textProject}>Our Projects</p>
+    <div style={{ position: 'relative' }}>
+        {currentCardIndex > 0 && (
+            <button onClick={navigateToPreviousCard} style={{ position: 'absolute', top: '70%', left: '200px', transform: 'translate(-50%, -50%)', zIndex: '1' }}>
+                &lt;
+            </button>
+        )}
+        {currentCardIndex < dataProject.length - 1 && (
+            <button onClick={navigateToNextCard} style={{ position: 'absolute', top: '70%', right: '200px', transform: 'translate(50%, -50%)', zIndex: '1' }}>
+                &gt;
+            </button>
+        )}
+        <div style={cardProjectContainer}>
+            {dataProject.map((item, index) => (
+                <CardProject key={index} style={{ display: index === currentCardIndex ? 'block' : 'none' }}>
+                    <h1>{item.title}</h1>
+                    <p>{item.location}</p>
+                    <p>{item.type}</p>
+                    <p>{item.land}</p>
+                    <p>{item.building}</p>
+                </CardProject>
             ))}
-            </div>
         </div>
     </div>
+</div>
+
         </React.Fragment>
     );
 }
