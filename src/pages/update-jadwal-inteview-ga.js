@@ -145,7 +145,7 @@ function UpdateJadwalInteviewGA() {
       }
     const formattedData = {
       datetime_start: datetimeStart.toISOString(),
-      datetime_end: datetimeEnd.toISOString(), //baris 139
+      datetime_end: datetimeEnd.toISOString(), 
       interviewer_user_id: interviewData.interviewer
         ? interviewData.interviewer
         : interview.interviewer_user_id.user_id,

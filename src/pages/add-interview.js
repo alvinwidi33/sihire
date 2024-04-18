@@ -548,36 +548,22 @@ const AddInterview = () => {
             >
               <option value="">Pilih Pewawancara*</option>
               {interviewers
-                .filter((interviewer) =>
-                  interviews.length > 0
-                    ? interviews.find(
-                        (interview) =>
-                          !(
-                            interview.interviewer_user_id.user_id ===
-                              interviewer.user_id &&
-                            isOverlapping(
-                              new Date(interview.datetime_start),
-                              new Date(interview.datetime_end),
-                              new Date(
-                                interviewData.datetime +
-                                  "T" +
-                                  interviewData.startTime
-                              ),
-                              new Date(
-                                interviewData.datetime +
-                                  "T" +
-                                  interviewData.endTime
-                              )
-                            )
-                          )
-                      )
-                    : true
-                )
-                .map((interviewer) => (
-                  <option key={interviewer.user_id} value={interviewer.user_id}>
-                    {interviewer.name}
-                  </option>
-                ))}
+  .filter(interviewer =>
+    !interviews.some(interview =>
+      interview.interviewer_user_id.user_id === interviewer.user_id &&
+      isOverlapping(
+        new Date(interview.datetime_start),
+        new Date(interview.datetime_end),
+        new Date(interviewData.datetime + "T" + interviewData.startTime),
+        new Date(interviewData.datetime + "T" + interviewData.endTime)
+      )
+    )
+  )
+  .map(interviewer => (
+    <option key={interviewer.user_id} value={interviewer.user_id}>
+      {interviewer.name}
+    </option>
+  ))}
             </select>
 
             <button
