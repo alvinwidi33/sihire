@@ -28,7 +28,7 @@ function Navbar() {
         fontWeight: 'bold',
         textDecoration: 'none',
         position: 'relative',
-        marginRight: '20px', 
+        marginRight: '32px', 
     };
 
     const activeLinkStyle = {
