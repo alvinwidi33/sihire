@@ -97,7 +97,7 @@ function JobApplicationDetail() {
     <React.Fragment>
       <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>Job Application</p>
       <SidebarApplicant />
-    <div className="min-h-screen flex" style={{ marginLeft:"18%", marginTop:"-18%"}}>
+    <div className="min-h-screen flex" style={{ marginLeft:"18%", marginTop:"-15%"}}>
       <div className="container mx-auto mt-8 md:mt-16 w-11/12">
         <div className="p-4 bg-white rounded-lg shadow-md flex flex-col" style={{boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)'}}>
           <h2 className="text-2xl font-bold mb-2">{formData.job.job_name}</h2>

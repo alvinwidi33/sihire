@@ -116,7 +116,7 @@ function JobApplicationDetailGA() {
     <React.Fragment>
       <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>Job Application</p>
       <SidebarGA />
-    <div className="min-h-screen flex" style={{ marginLeft:"18%", marginTop:"-30%"}}>
+    <div className="min-h-screen flex" style={{ marginLeft:"18%", marginTop:"-26%"}}>
       <div className="container mx-auto mt-8 md:mt-16 w-11/12">
         <div className="p-4 bg-white rounded-lg shadow-md flex flex-col" style={{boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)'}}>
           <h2 className="text-2xl font-bold mb-2">{formData.job.job_name}</h2>
