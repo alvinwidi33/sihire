@@ -20,7 +20,7 @@ function SidebarGA() {
 
   const handleClickFeedback = () => {
     setActivePage("Feedback");
-    navigate("/");
+    navigate("/get-list-feedback-ga");
   };
   const handleClickInterview = () => {
     setActivePage("Interview");

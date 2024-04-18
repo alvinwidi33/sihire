@@ -21,7 +21,7 @@ function SidebarOther() {
 
   const handleClickFeedback = () => {
     setActivePage("Feedback");
-    navigate("/");
+    navigate("/get-list-feedback-other");
   };
 
   const handleClickOnBoarding = () => {
