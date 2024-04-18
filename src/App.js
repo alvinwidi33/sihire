@@ -44,6 +44,9 @@ import DeclineInterview from './pages/decline-interview';
 import ApplicantDetail from './pages/applicant-detail';
 import GetListFeedbackGA from './pages/get-list-feedback-ga';
 import GetListFeedbackOther from './pages/get-list-feedback-other';
+import GetListInterviewOther from './pages/get-list-interview-other';
+import DetailInterviewOther from './pages/detail-interview-other';
+import AddFeedback from './pages/add-feedback';
 
 function App() {
   return (
@@ -89,6 +92,9 @@ function App() {
           <Route path="/onboarding-detail-ga/:id" element={<ProtectedRoute child={<OnboardingDetailGA />} />} />
           <Route path="/decline-interview/:id" element={<ProtectedRoute child={<DeclineInterview />} />} />
           <Route path='/applicant-detail/:applicant' element={<ProtectedRoute child={<ApplicantDetail />} />} />
+          <Route path="/get-list-interview-other" element={<ProtectedRoute child={<GetListInterviewOther/>}/>}/>
+          <Route path="/get-list-interview-other/:id" element={<ProtectedRoute child={<DetailInterviewOther/>}/>}/>
+          <Route path="/create-feedback" element={<AddFeedback/>}/>
           <Route path="/get-list-feedback-ga" element={<GetListFeedbackGA/>}/>
           <Route path="/get-list-feedback-other" element={<GetListFeedbackOther/>}/>
       </Routes>

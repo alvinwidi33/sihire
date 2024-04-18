@@ -28,7 +28,10 @@ function SidebarOther() {
     setActivePage("On Boarding");
     navigate("/");
   };
-
+  const handleClickInterview = () => {
+    setActivePage("Interview");
+    navigate("/get-list-interview-other");
+  };
   const handleClickMyProfile = () => {
     setActivePage("My Profile");
     navigate("/my-profile");
@@ -171,6 +174,24 @@ function SidebarOther() {
                 onClick={() => handleClickFeedback()}
               >
                 Feedback
+              </button>
+            </li>
+            <li>
+              <button
+                style={{
+                  fontFamily: "Inter, sans-serif",
+                  fontWeight: "medium",
+                  display: "block",
+                  marginBottom: "16px",
+                  border: "none",
+                  height: "32px",
+                  width: "18%",
+                  textAlign: "left",
+                  paddingLeft: "2%",
+                }}
+                onClick={() => handleClickInterview()}
+              >
+                Interview
               </button>
             </li>
             <li>
