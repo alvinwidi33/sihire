@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { createClient } from "@supabase/supabase-js";
 import { FileText } from 'lucide-react';
+import SidebarOther from '../components/sidebar-other';
 
 const supabase = createClient(
   "https://ldhohewyhcdwckzcjtzn.supabase.co",
@@ -11,9 +12,9 @@ const supabase = createClient(
 function JobApplicationDetailDP() {
   const stages = [
     { name: 'Applied', value: 0 },
-    { name: 'In Review', value: 16 },
-    { name: 'Interview', value: 32 },
-    { name: 'Accepted', value: 48 },
+    { name: 'In Review', value: 25 },
+    { name: 'Interview', value: 50 },
+    { name: 'Accepted', value: 75 },
     { name: 'On Boarding', value: 100 },
     { name: 'Declined', value: 64 },
   ];
@@ -111,11 +112,12 @@ function JobApplicationDetailDP() {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen flex">
-      <div className="container mx-auto mt-8 md:mt-16" style={{ marginTop: '7%' }}>
-        <h1 className="text-2xl font-bold text-left mb-4">Job Application</h1>
-        <hr className="mb-4 border-solid border-black" />
-        <div className="p-4 bg-white rounded-lg shadow-md flex flex-col">
+    <React.Fragment>
+      <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>Job Application</p>
+      <SidebarOther />
+    <div className="min-h-screen flex" style={{ marginLeft:"18%", marginTop:"-26%"}}>
+      <div className="container mx-auto mt-8 md:mt-16 w-11/12">
+        <div className="p-4 bg-white rounded-lg shadow-md flex flex-col" style={{boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)'}}>
           <h2 className="text-2xl font-bold mb-2">{formData.job.job_name}</h2>
           <strong>Status: {formData.status}</strong>
           <div className="mt-4 relative flex justify-between">
@@ -211,6 +213,7 @@ function JobApplicationDetailDP() {
         </div>
       </div>
     </div>
+    </React.Fragment>
   );
 }
 
