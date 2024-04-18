@@ -260,26 +260,27 @@ function AddJobPosting() {
               </p>
             )}
             <button
-              type="submit"
-              style={{
-                width: "520px",
-                padding: "8px",
-                fontSize: "16px",
-                fontFamily: "Inter, sans-serif",
-                fontWeight: "bold",
-                color: "#fff",
-                background: "#2A3E4B",
-                borderRadius: "6px",
-                cursor: "pointer",
-                marginTop: "52%",
-                marginBottom: "12px",
-                border: "2px solid #2A3E4B",
-                marginLeft: "20%",
-                position: "absolute",
-              }}
-            >
-              Submit
-            </button>
+            type="submit"
+            style={{
+              width: "50%",
+              padding: "8px",
+              fontSize: "16px",
+              fontFamily: "Inter, sans-serif",
+              fontWeight: "bold",
+              color: "#fff",
+              background: "#2A3E4B",
+              borderRadius: "6px",
+              cursor: "pointer",
+              marginTop: "560px", 
+              marginBottom: "12px",
+              border: "2px solid #2A3E4B",
+              marginLeft: "calc(50% - 200px)", 
+              position: "relative", 
+              transform: "translateY(-50%)", 
+            }}
+          >
+            Submit
+          </button>
           </form>
           {successMessage && (
             <p

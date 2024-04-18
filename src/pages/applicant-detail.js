@@ -130,25 +130,36 @@ const DetailButton = {
     {user && (
     <>
         {user.role === "General Affairs" ? (
-            <SidebarGA />
+            <><SidebarGA /><p
+            style={{
+                marginLeft: "22%",
+                fontWeight: "bold",
+                fontSize: "32px",
+                color: "#2A3E4B",
+                position: "absolute",
+                marginTop: "-32%"
+            }}
+        >
+            Applicants
+        </p></>
         ) : (
-            <SidebarOther />
+            <><SidebarOther /><p
+                              style={{
+                                  marginLeft: "22%",
+                                  fontWeight: "bold",
+                                  fontSize: "32px",
+                                  color: "#2A3E4B",
+                                  position: "absolute",
+                                  marginTop: "-28%"
+                              }}
+                          >
+                              Applicants
+                          </p></>
         )}
     </>
     )}
 
-    <p
-        style={{
-          marginLeft: "22%",
-          fontWeight: "bold",
-          fontSize: "32px",
-          color: "#2A3E4B",
-          position: "absolute",
-          marginTop: "-30%"
-        }}
-      >
-        Applicants
-      </p>
+
     {/* <div style={PageContainer}> */}
       <div className="min-h-screen flex">
       <div className="container mx-auto mt-8 md:mt-16" style={{ marginLeft:"22%", marginRight:"3%", marginTop:"-23%" }}>

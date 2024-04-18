@@ -184,49 +184,23 @@ const AddInterview = () => {
 
   return (
     <React.Fragment>
-      <p
-        style={{
-          marginLeft: "22%",
-          fontWeight: "bold",
-          fontSize: "32px",
-          color: "#2A3E4B",
-          position: "absolute",
-          marginTop: "12px",
-        }}
-      >
-        Wawancara
-      </p>
-      <div className="navigation" style={{ position: "relative" }}>
-        <Link to="/get-list-interview-ga">
-          <p
-            style={{
-              marginLeft: "22%",
-              position: "absolute",
-              marginTop: "100px",
-            }}
-          >
-            List Wawancara
-          </p>
-        </Link>
+      <div style={{ marginLeft: "22%", position: "absolute" }}>
         <p
           style={{
-            marginLeft: "30%",
-            position: "absolute",
-            marginTop: "100px",
+            fontWeight: "bold",
+            fontSize: "32px",
+            color: "#2A3E4B",
+            marginBottom: "45px",
           }}
         >
-          {">"}
+          Wawancara
         </p>
+        <Link to="/get-list-interview-ga">
+          <p style={{ display: "inline", marginLeft: "4px", marginTop:"21%" }}>List Wawancara</p>
+        </Link>
+        <span style={{ display: "inline", marginLeft: "10px" }}>{">"}</span>
         <Link to="/create-interview">
-          <p
-            style={{
-              marginLeft: "31%",
-              position: "absolute",
-              marginTop: "100px",
-            }}
-          >
-            Tambah Interview
-          </p>
+          <p style={{ display: "inline", marginLeft: "4px", marginTop:"21%" }}>Tambah Wawancara</p>
         </Link>
       </div>
       <SidebarGA />
@@ -332,11 +306,11 @@ const AddInterview = () => {
               {applicants
                 .filter((applicant) =>
                   interviews.length > 0
-                    ? interviews.find(
+                    ? !interviews.some(
                         (interview) =>
-                          interview.job_application_id.applicant
-                            .applicant_id !== applicant.applicant_id
-                      )
+                           interview.job_application_id.applicant.applicant_id === applicant.applicant_id &&
+                          interview.job_application_id.job.job_name === selectedJob
+                                      )
                     : true
                 )
                 .map((applicant) => (
@@ -609,7 +583,7 @@ const AddInterview = () => {
             <button
               type="submit"
               style={{
-                width: "520px",
+                width: "50%",
                 padding: "8px",
                 fontSize: "16px",
                 fontFamily: "Inter, sans-serif",

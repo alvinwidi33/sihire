@@ -106,7 +106,7 @@ function DetailJobGA() {
               <button
                 style={{
                   display:"inline",
-                  width: "90px",
+                  width: "9%",
                   padding: "8px",
                   fontSize: "16px",
                   fontFamily: "Inter, sans-serif",
@@ -115,7 +115,7 @@ function DetailJobGA() {
                   background: "#2A3E4B",
                   borderRadius: "6px",
                   cursor: "pointer",
-                  marginTop:"-19%",
+                  marginTop:"-200px",
                   marginLeft: "82%",
                   position: "absolute",
                   border: "2px solid #2A3E4B",
@@ -128,7 +128,7 @@ function DetailJobGA() {
               onClick={handleClose}
               style={{
                 display:"inline",
-                width: "90px",
+                width: "9%",
                 padding: "8px",
                 fontSize: "16px",
                 fontFamily: "Inter, sans-serif",
@@ -139,7 +139,7 @@ function DetailJobGA() {
                 cursor: "pointer",
                 marginLeft: "72%",
                 position: "absolute",
-                marginTop:"-19%",
+                marginTop:"-200px",
                 border: "2px solid #2A3E4B",
               }}
             >
