@@ -1,6 +1,7 @@
 import React from 'react';
 import Contractor from '../images/contractor.png';
 import styled from 'styled-components';
+import Navbar from '../components/navbar';
 
 function Home() {
     const containerStyle = {
@@ -63,6 +64,17 @@ function Home() {
         fontWeight:'bold',
         fontFamily:'Inter, sans-serif',
     };
+    const textProject = {
+        position: 'absolute',
+        top: '75px',
+        left: '50%', 
+        transform: 'translate(-50%, -50%)',
+        color: '#2A3E4B',
+        fontSize: '36px',
+        textAlign: 'center',
+        fontWeight:'bold',
+        fontFamily:'Inter, sans-serif',
+    };
     const cardContainer = {
         marginTop:'150px',
         marginLeft:'1%',
@@ -72,8 +84,17 @@ function Home() {
         gridGap: '20px',
         top:'50%',
         };
+    const cardProjectContainer = {
+        marginTop:'150px',
+        marginLeft:'1%',
+        marginRight:'1%',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+        gridGap: '20px',
+        top:'50%',
+        };
     const Card = styled.div`
-        width: 290px;
+        width: 100%;
         height: 220px;
         background-color: #fff;
         border-radius: 10px;
@@ -85,7 +106,20 @@ function Home() {
             transform: translateY(-24px);
         }
     `;
-
+    const cardProject={
+        marginTop:"120px",
+        marginLeft:"15%",
+        width: '70%',
+        height: '500px',
+        backgroundColor: '#fff',
+        borderRadius: '10px',
+        boxShadow: '0px 2px 4px rgba(0, 0, 0, 3)'
+    }
+    const dataProject =[
+        { title:"Office 38", location:"Jl. Raden Saleh, Karang Tengah \n Tangerang – Indonesia",
+            type:"Architectural Interior", land:"486m",building:"800m"
+        }
+    ]
     const data = [
         { title: 'Social Security and Healthcare Security', 
         text: 'Jaminan Kesehatan dan Keselamatan Ketenagakerjaan of BPJS for each our project',
@@ -107,6 +141,15 @@ function Home() {
         marginRight:'8px',
         marginBottom:'12px',
     };
+    const frameProject = {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '694px',
+        backgroundColor: '#F2F2F2', 
+        marginTop:'994px'
+    };
     const cardTitle={
         marginBottom:'4px',
         marginTop: '4px',
@@ -119,6 +162,7 @@ function Home() {
     };
     return (
         <React.Fragment>
+        <Navbar/>
         <div style={containerStyle}>
             <img src={Contractor} alt="Logo" style={imageStyle} />
             <div style={overlayStyle}></div>
@@ -143,6 +187,22 @@ function Home() {
             </Card>
         ))}
     </div>
+    </div>
+    <div style={frameProject}>
+        <p style={textProject}>Our Projects</p>
+        <div style={cardProject}>
+            <div style={cardProjectContainer}>
+                {dataProject.map((item, index) => (
+            <cardProject key={index}>
+                <h1>{item.title}</h1>
+                <p>{item.location}</p>
+                <p>{item.type}</p>
+                <p>{item.land}</p>
+                <p>{item.building}</p>
+            </cardProject>
+            ))}
+            </div>
+        </div>
     </div>
         </React.Fragment>
     );
