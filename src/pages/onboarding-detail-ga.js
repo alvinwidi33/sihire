@@ -23,7 +23,7 @@ function OnboardingDetailGA() {
     borderRadius: '10px',
     marginLeft: '22%',
     boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)',
-    marginTop: '-14%',
+    marginTop: '-22%',
   };
   useEffect(() => {
     const getOnboarding = async () => {
@@ -43,13 +43,13 @@ function OnboardingDetailGA() {
             <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>On Boarding</p>
             <SidebarGA />
             <Link to='/get-list-onboarding-internal'>
-                <p style={{ marginLeft: '22%', position: 'absolute', marginTop: "-240px" }}>List Onboarding</p>
+                <p style={{ marginLeft: '22%', position: 'absolute', marginTop: "-340px" }}>List Onboarding</p>
             </Link>
-            <p style={{ marginLeft: '30%', position: 'absolute', marginTop: "-240px" }}>{'>'}</p>
+            <p style={{ marginLeft: '30%', position: 'absolute', marginTop: "-340px" }}>{'>'}</p>
             {onboarding && (
                 <React.Fragment key={onboarding.id}>
                     <Link to={`/get-list-onboarding-internal/${id}`}>
-                        <p style={{ marginLeft: '31%', position: 'absolute', marginTop: "-240px" }}>{onboarding.job_application_id.job.job_name}</p>
+                        <p style={{ marginLeft: '31%', position: 'absolute', marginTop: "-340px" }}>{onboarding.job_application_id.job.job_name}</p>
                     </Link>
                     <div className="detail-onboarding-ga">
                         <div className="rectangle-style" style={rectangleStyle}>
