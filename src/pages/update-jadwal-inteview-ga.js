@@ -30,12 +30,28 @@ function UpdateJadwalInteviewGA() {
     marginTop:"-120px"
   };
 
-  const isOverlapping = (aStart, aEnd, bStart, bEnd) => {
-    if (aStart <= bStart && bEnd <= aEnd) return false;
-    if (aStart <= bStart && bStart < aEnd) return true;
-    if (aStart < bEnd && bEnd <= aEnd) return true;
-    return false;
-  };
+const isOverlapping = (aStart, aEnd, bStart, bEnd, idA, idB) => {
+  console.log("aStart:", aStart);
+  console.log("aEnd:", aEnd);
+  console.log("bStart:", bStart);
+  console.log("bEnd:", bEnd);
+  console.log("idA:", idA);
+  console.log("idB:", idB);
+  idB = parseInt(idB);
+  if (idA === idB) {
+    console.log("IDs are the same, no overlap");
+    return false; 
+  }
+  
+  if (aEnd <= bStart || bEnd <= aStart) {
+    console.log("No overlap");
+    return false; 
+  }
+  console.log(idA, idB)
+  console.log("Overlap detected");
+  return true; 
+};
+
 
   useEffect(() => {
     const getInterview = async () => {
@@ -152,22 +168,33 @@ function UpdateJadwalInteviewGA() {
       job_application_id: interview.job_application_id.id,
     };
 
-    const isInterviewerScheduledInTheTimeRange = interviewers.find(
-      (interviewer) =>
-        interviews.find(
-          (interview) =>
-            interview.interviewer_user_id.user_id === interviewer.user_id &&
-            isOverlapping(
-              new Date(interview.datetime_start),
-              new Date(interview.datetime_end),
-              datetimeStart,
-              datetimeEnd
-            )
-        )
+   const isInterviewerScheduledInTheTimeRange = interviews
+  .filter(existingInterview => existingInterview.id !== id)
+  .find(existingInterview => {
+    const isOverlap = isOverlapping(
+      new Date(existingInterview.datetime_start),
+      new Date(existingInterview.datetime_end),
+      datetimeStart,
+      datetimeEnd,
+      existingInterview.id,
+      id
     );
+    console.log("existingInterview.id:", existingInterview.id);
+    console.log("id:", id);
+    console.log("Is overlap:", isOverlap);
+    console.log("datetimestart",datetimeStart)
+    console.log("datetimeend",datetimeEnd)
+    console.log("new date start",new Date(existingInterview.datetime_start))
+    console.log("new date end",new Date(existingInterview.datetime_end))
+    return (
+      existingInterview.interviewer_user_id.user_id === formattedData.interviewer_user_id &&
+      isOverlap
+    );
+  });
 
     try {
       if (isInterviewerScheduledInTheTimeRange) {
+      console.log("Existing Interview ID:", isInterviewerScheduledInTheTimeRange.id);
         throw new Error(
           "There is another interview in this time range for this interviewer"
         );
