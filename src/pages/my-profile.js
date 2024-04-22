@@ -123,12 +123,32 @@ function MyProfile() {
                                 <div className="flex flex-col justify-center">
                                     <h6 className="font-bold text-2xl" style={darkBlueText}>{profileData.username}</h6>
                                     <div style={profileInfoStyle}>
-                                        <p className="font-bold" style={darkBlueText}>Nama</p>
-                                        <p>{profileData.name}</p>
-                                        <p className="font-bold" style={darkBlueText}>Email</p>
-                                        <p>{profileData.email}</p>
-                                        <p className="font-bold" style={darkBlueText}>No Telpon</p>
-                                        <p>{profileData.phone}</p>
+                                        <div className="flex flex-col">
+                                            <div className="flex mb-4">
+                                                <div className="w-20">
+                                                    <p className="font-bold">Nama</p>
+                                                </div>
+                                                <div className='ml-2'>
+                                                    <p>{profileData.name}</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex mb-4">
+                                                <div className="w-20">
+                                                    <p className="font-bold">Email</p>
+                                                </div>
+                                                <div className='ml-2'>
+                                                    <p>{profileData.email}</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex">
+                                                <div className="w-20">
+                                                    <p className="font-bold">No Telpon</p>
+                                                </div>
+                                                <div className='ml-2'>
+                                                    <p>{profileData.phone}</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
