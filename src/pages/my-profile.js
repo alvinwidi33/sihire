@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import SidebarGA from "../components/sidebar-ga";
 import SidebarApplicant from '../components/sidebar-applicant';
 import SidebarOther from '../components/sidebar-other';
@@ -6,6 +7,8 @@ import SidebarAdmin from '../components/sidebar-admin';
 
 function MyProfile() {
     const [profileData, setProfileData] = useState(null);
+
+    const navigate = useNavigate();
 
     const handleLogout = async (event) => {
         event.preventDefault();
@@ -76,11 +79,11 @@ function MyProfile() {
 
     let marginTop = "-180px";
 
-    if (profileData?.role === "General Affairs") {
+    if (window.localStorage.getItem("role") === "General Affairs") {
         marginTop = "-280px";
-    } else if (profileData?.role === "Applicant") {
+    } else if (window.localStorage.getItem("role") === "Applicant") {
         marginTop = "-180px";
-    } else if (profileData?.role === "Admin") {
+    } else if (window.localStorage.getItem("role") === "Admin") {
         marginTop = "-100px";
     } else {
         marginTop = "-220px";
@@ -155,15 +158,19 @@ function MyProfile() {
                         </div>
                     )}
                     <div className="flex justify-end mt-4 mr-10">
-                        <div className="mr-4">
+                        {/* <div className="mr-4">
                             <a href="/change-password">
                             <button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md" style={{ background: 'var(--WF-Base-800, #2D3648)', fontSize: '1rem' }}>
                                 Change Password
                             </button>
                             </a>
-                        </div>
+                        </div> */}
                         <div className="mr-4">
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md" style={{ background: 'var(--WF-Base-800, #2D3648)', fontSize: '1rem' }}>
+                            <button
+                                className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md"
+                                style={{ background: 'var(--WF-Base-800, #2D3648)', fontSize: '1rem' }}
+                                onClick={() => {navigate("/edit-my-profile");}}
+                            >
                                 Edit Profile
                             </button>
                         </div>

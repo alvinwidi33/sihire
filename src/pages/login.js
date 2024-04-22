@@ -20,6 +20,8 @@ const Login = () => {
             if (response.ok) {
                 var json_response = await response.json();
                 window.localStorage.setItem("token", json_response.token);
+                window.localStorage.setItem("username", json_response.username);
+                window.localStorage.setItem("role", json_response.role);
                 console.log('Login successful');
                 console.log("ayamayam",json_response)
                 if(json_response.role ==="Applicant"){
