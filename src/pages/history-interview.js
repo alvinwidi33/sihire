@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import SidebarGA from "../components/sidebar-ga"; // Pastikan untuk mengimpor komponen Sidebar dengan benar
+import SidebarOther from "../components/sidebar-other"; 
 
-function GetListInterviewGA() {
-  const [interviews, setInterviews] = useState([]);
-  const [successMessage, setSuccessMessage] = useState("");
+function GetHistoryInterview() {
+    const [interviews, setInterviews] = useState([]);
 
   function formatTime(datetimeString) {
     const dateTime = new Date(datetimeString);
@@ -31,7 +30,7 @@ function GetListInterviewGA() {
     const getInterviews = async () => {
       try {
         const response = await fetch(
-          "https://sihire-be.vercel.app/api/interview/get-list-interview/",
+          "https://sihire-be.vercel.app/api/interview/get-list-history/",
           {
             method: "GET",
           }
@@ -44,31 +43,6 @@ function GetListInterviewGA() {
     };
     getInterviews();
   }, []);
-
-  const deleteInterview = async (id) => {
-    try {
-      const response = await fetch(
-        `https://sihire-be.vercel.app/api/interview/delete-interview/${id}/`,
-        {
-          method: "DELETE",
-        }
-      );
-      const isConfirmed = window.confirm(
-        "Apakah Anda yakin ingin menghapus wawancara?"
-      );
-
-      if (isConfirmed) {
-        setInterviews(interviews.filter((interview) => interview.id !== id));
-        setSuccessMessage("Wawancara berhasil dihapus.");
-        setTimeout(() => {
-          setSuccessMessage("");
-        }, 5000);
-      }
-    } catch (error) {
-      console.error("Error deleting interview:", error);
-      setSuccessMessage("Terjadi kesalahan saat menghapus wawancara.");
-    }
-  };
 
   const isDatePassed = (datetimeString) => {
     const interviewDate = new Date(datetimeString);
@@ -90,7 +64,7 @@ function GetListInterviewGA() {
       >
         Wawancara
       </p>
-      <SidebarGA />
+      <SidebarOther />
       <div
         style={{ marginLeft: "22%", position: "absolute", marginTop: "-40px" }}
         className="w-9/12"
@@ -105,51 +79,14 @@ function GetListInterviewGA() {
             marginBottom: "32px",
           }}
         >
-          List Wawancara
+          List History Wawancara
         </p>
-        <Link to="/create-interview">
-          <button
-            style={{
-              width: "18%",
-              padding: "8px",
-              fontSize: "16px",
-              fontFamily: "Inter, sans-serif",
-              fontWeight: "bold",
-              color: "#fff",
-              background: "#2A3E4B",
-              borderRadius: "6px",
-              cursor: "pointer",
-              marginTop: "-72px",
-              marginBottom: "32px",
-              marginLeft: "70%",
-              position: "absolute",
-              border: "2px solid #2A3E4B",
-            }}
-          >
-            Tambah Wawancara
-          </button>
+        <Link to="/get-list-interview-ga">
+          <p style={{ display: "inline", marginLeft: "4px", marginTop:"21%" }}>List Wawancara</p>
         </Link>
+        <span style={{ display: "inline", marginLeft: "10px" }}>{">"}</span>
         <Link to="/get-list-history-interview">
-          <button
-            style={{
-              width: "18%",
-              padding: "8px",
-              fontSize: "16px",
-              fontFamily: "Inter, sans-serif",
-              fontWeight: "bold",
-              color: "#2A3E4B",
-              background: "#fff",
-              borderRadius: "6px",
-              cursor: "pointer",
-              marginTop: "-72px",
-              marginBottom: "32px",
-              marginLeft: "50%",
-              position: "absolute",
-              border: "2px solid #2A3E4B",
-            }}
-          >
-            History Wawancara
-          </button>
+          <p style={{ display: "inline", marginLeft: "4px", marginTop:"21%" }}>History Wawancara</p>
         </Link>
         {interviews && (
           <table
@@ -157,7 +94,8 @@ function GetListInterviewGA() {
               marginLeft: "0%",
               borderCollapse: "collapse",
               width: "88%",
-              padding:"12px"
+              padding:"12px",
+              marginTop:"20px"
             }}
           >
             <thead>
@@ -264,14 +202,14 @@ function GetListInterviewGA() {
             <tbody>
               {interviews.map((interview) => (
                 <tr
-                  key={interview.id}
+                  key={interview.interview.id}
                   style={{
                     backgroundColor:
-                      interview.job_application_id.status === "Withdrawn"
+                      interview.interview.job_application_id.status === "Withdrawn"
                         ? "#FFC0CB"
-                        : isDatePassed(interview.datetime_end)
+                        : isDatePassed(interview.interview.datetime_end)
                         ? "#D3D3D3"
-                        : interview.job_application_id.status === "Interview"
+                        : interview.interview.job_application_id.status === "Interview"
                         ? "#FFFFFF"
                         : "#D3D3D3",
                   }}
@@ -287,7 +225,7 @@ function GetListInterviewGA() {
                       textAlign: "center",
                     }}
                   >
-                    {interview.job_application_id.job.job_name}
+                    {interview.interview.job_application_id.job.job_name}
                   </td>
                   <td
                     style={{
@@ -296,7 +234,7 @@ function GetListInterviewGA() {
                       textAlign: "center",
                     }}
                   >
-                    {interview.job_application_id.applicant.user.name}
+                    {interview.interview.job_application_id.applicant.user.name}
                   </td>
                   <td
                     style={{
@@ -305,8 +243,8 @@ function GetListInterviewGA() {
                       textAlign: "center",
                     }}
                   >
-                    {interview.datetime_start &&
-                      formatDateTime(interview.datetime_start)}
+                    {interview.interview.datetime_start &&
+                      formatDateTime(interview.interview.datetime_start)}
                   </td>
                   <td
                     style={{
@@ -315,11 +253,11 @@ function GetListInterviewGA() {
                       textAlign: "center",
                     }}
                   >
-                    {interview.datetime_start &&
-                      formatTime(interview.datetime_start)}{" "}
+                    {interview.interview.datetime_start &&
+                      formatTime(interview.interview.datetime_start)}{" "}
                     -{" "}
-                    {interview.datetime_end &&
-                      formatTime(interview.datetime_end)}
+                    {interview.interview.datetime_end &&
+                      formatTime(interview.interview.datetime_end)}
                   </td>
                   <td
                     style={{
@@ -328,7 +266,7 @@ function GetListInterviewGA() {
                       textAlign: "center",
                     }}
                   >
-                    {interview.interviewer_user_id?.name}
+                    {interview.interview.interviewer_user_id?.name}
                   </td>
                   <td
                     style={{
@@ -337,7 +275,7 @@ function GetListInterviewGA() {
                       textAlign: "center",
                     }}
                   >
-                    {interview.job_application_id.status}
+                    {interview.interview.job_application_id.status}
                   </td>
                   <td
                     style={{
@@ -360,13 +298,13 @@ function GetListInterviewGA() {
                         margin: "auto",
                       }}
                     >
-                      {interview.confirm}
+                      {interview.interview.confirm}
                     </div>
                   </td>
                   <td
                     style={{ border: "2px solid #2A3E4B", textAlign: "center" }}
                   >
-                    <Link to={`/get-list-interview-ga/${interview.id}`}>
+                    <Link to={`/get-list-interview-other/${interview.id}`}>
                       <button
                         style={{
                           width: "42%",
@@ -384,49 +322,15 @@ function GetListInterviewGA() {
                         Detail
                       </button>
                     </Link>
-                    <button
-                      onClick={() => deleteInterview(interview.id)}
-                      style={{
-                        background: "#2A3E4B",
-                        width: "42%",
-                        padding: "8px",
-                        fontSize: "16px",
-                        fontFamily: "Inter, sans-serif",
-                        fontWeight: "bold",
-                        color: "#fff",
-                        borderRadius: "6px",
-                        cursor: "pointer",
-                        border: "2px solid #2A3E4B",
-                      }}
-                    >
-                      Hapus
-                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         )}
-        {successMessage && (
-          <p
-            style={{
-              color: "green",
-              position: "fixed",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              background: "white",
-              padding: "20px",
-              borderRadius: "10px",
-              boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-            }}
-          >
-            {successMessage}
-          </p>
-        )}
       </div>
     </React.Fragment>
   );
 }
 
-export default GetListInterviewGA;
+export default GetHistoryInterview;
