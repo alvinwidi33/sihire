@@ -50,17 +50,17 @@ function ManageUser() {
   // Add a state variable to hold the selected role filter
   const [selectedRole, setSelectedRole] = useState("");
   const [selectedName, setSelectedName] = useState("");
-  const [isActive, setIsActive] = useState(true);
+  const [showDeleted, setShowDeleted] = useState(false);
 
   // Modify the useEffect hook to fetch data based on the selected role filter
   useEffect(() => {
     // Fetch data from the API with pagination and role filter
     const fetchData = async () => {
       let active = ""
-      if (isActive) {
-        active = "True"
-      } else {
+      if (showDeleted) {
         active = ""
+      } else {
+        active = "True"
       }
       try {
         const response = await fetch(
@@ -86,7 +86,7 @@ function ManageUser() {
     };
 
     fetchData();
-  }, [currentPage, selectedRole, selectedName, isActive]);
+  }, [currentPage, selectedRole, selectedName, showDeleted]);
 
   const totalPages = Math.ceil(totalUsers / 10);
 
@@ -162,14 +162,13 @@ function ManageUser() {
             </p>
           </div>
           <div className="flex">
-            {/* put checkbox here with default checked also add if checked set isActive to "True* and if unchecked set isActive to "False" */}
             <input
               type="checkbox"
-              checked={isActive}
-              onChange={(e) => setIsActive(e.target.checked)}
+              checked={showDeleted}
+              onChange={(e) => setShowDeleted(e.target.checked)}
               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-700 dark:focus:ring-blue-700 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-1 mt-1"
             />
-            <p>Tampilkan hanya user aktif</p>
+            <p>Tampilkan deleted user</p>
           </div>
         </div>
 
