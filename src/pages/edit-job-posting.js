@@ -30,7 +30,7 @@ function EditJobPosting() {
         const data = await response.json();
         setJob(data);
 
-        // Mengurangi 1 hari dari tanggal yang diterima untuk menyesuaikan zona waktu
+        //Mengurangi 1 hari dari tanggal yang diterima untuk menyesuaikan zona waktu
         const adjustedDate = new Date(data.datetime_closes);
         adjustedDate.setDate(adjustedDate.getDate() + 1);
 
@@ -254,6 +254,7 @@ function EditJobPosting() {
                           .split("T")[0]
                       : ""
                   }
+
                   onChange={(e) =>
                     setJobData({ ...jobData, datetime_closes: e.target.value })
                   }

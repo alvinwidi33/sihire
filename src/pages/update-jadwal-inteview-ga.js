@@ -176,7 +176,7 @@ const isOverlapping = (aStart, aEnd, bStart, bEnd, idA, idB) => {
     try {
       if (isInterviewerScheduledInTheTimeRange) {
       console.log("Existing Interview ID:", isInterviewerScheduledInTheTimeRange.id);
-        throw new alert(
+        throw new Error(
           "Pewawancara sudah memiliki jadwal wawancara di jam ini"
         );
       }

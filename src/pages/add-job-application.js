@@ -66,10 +66,8 @@ function AddJobApplication() {
         const applicant_response = await fetch(`https://sihire-be.vercel.app/api/users/get-applicant/${userId}/`, {
           method: 'GET',
         });
-        console.log('ayam',applicant_response)
         const applicantData = await applicant_response.json();
         setApplicantData(applicantData);
-        console.log('kambing',applicantData)
         return applicantData.applicant_id
       } catch (error) {
         console.error('Error fetching user data:', error);

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { createClient } from "@supabase/supabase-js";
 import { FileText } from 'lucide-react';
 import SidebarApplicant from '../components/sidebar-applicant';
 
 const supabase = createClient(
-  "https://ldhohewyhcdwckzcjtzn.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxkaG9oZXd5aGNkd2NremNqdHpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTAxNjY0MzksImV4cCI6MjAyNTc0MjQzOX0.73gDtZ0yUZmpXvIrga-Mw7amJNaPJu6av7wyr0OSCuo"
+  "https://lwchpknnmkmpfbkwcrjs.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3Y2hwa25ubWttcGZia3djcmpzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTM4Njc3MTQsImV4cCI6MjAyOTQ0MzcxNH0.J7OHUVBFnaRF5b_cpX3LEYfD3uFSrzz6_DnCK3pfPHU"
 );
 
 function JobApplicationDetail() {
@@ -19,17 +19,19 @@ function JobApplicationDetail() {
   ];
 
   const { id } = useParams();
-
+  
   const [formData, setFormData] = useState({
     applicant: '',
     job: '',
     jobName: '',
     nama: '',
     email: '',
-    noTelepon: '',
+    phone_number: '',
     cv: '',
     coverLetter: '',
     status: '',
+    rating:'',
+    feedbacks:''
   });
 
   const calculateProgress = (stageName) => {
@@ -61,7 +63,10 @@ function JobApplicationDetail() {
           applicant: jobApplicationData.applicant,
           cv: data[0].signedUrl,
           coverLetter: data[1].signedUrl,
+          phone_number:jobApplicationData.phone_number,
           status: jobApplicationData.status,
+          rating:jobApplicationData.rating,
+          feedbacks:jobApplicationData.feedbacks
         });
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -71,27 +76,34 @@ function JobApplicationDetail() {
     fetchJobApplicationData();
   }, []);
 
-  const handleSubmit = async (e) => {
-    const fd = new FormData();
-    fd.append("job", formData.job.id);
-    fd.append("applicant", formData.applicant.applicant_id);
-    fd.append("status", "Withdrawn");
+const handleSubmit = async (e) => {
+  e.preventDefault(); // Menghentikan perilaku default form submission
+  const fd = new FormData();
+  fd.append("job", formData.job.id);
+  fd.append("applicant", formData.applicant.applicant_id);
+  fd.append("status", "Withdrawn");
 
-    try {
-      const response = await fetch('https://sihire-be.vercel.app/api/job-application/put/' + id + '/edit-status/', {
-        method: 'PUT',
-        headers: {
+  try {
+    const response = await fetch('https://sihire-be.vercel.app/api/job-application/put/' + id + '/edit-status/', {
+      method: 'PUT',
+      headers: {
 
-        },
-        body: fd
-      });
+      },
+      body: fd
+    });
 
-      const result = await response.json();
-      console.log('Form submitted successfully:', result);
-    } catch (error) {
-      console.error('Error submitting form:', error);
-    }
-  };
+    const result = await response.json();
+    console.log('Form submitted successfully:', result);
+
+    setFormData({
+      ...formData,
+      status: 'Withdrawn'
+    });
+  } catch (error) {
+    console.error('Error submitting form:', error);
+  }
+};
+
 
   return (
     <React.Fragment>
@@ -191,15 +203,32 @@ function JobApplicationDetail() {
             </div>
           </div>
           <div className="flex justify-end mt-4">
-            <button className="bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded mr-2">Beri Ulasan</button>
+          <Link to={`/job-application-detail/${id}/feedback`}>
+  <button
+    className={`bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded mr-2 ${
+      !(formData.status === "Withdrawn" || formData.status === "On Boarding" || formData.status === "Declined") || (formData.rating !== null || formData.feedbacks !== null) ? 'disabled' : ''
+    }`}
+    disabled={!(formData.status === "Withdrawn" || formData.status === "On Boarding" || formData.status === "Declined") || (formData.rating !== null || formData.feedbacks !== null)}
+  >
+    Beri Ulasan
+  </button>
+</Link>
             <button
-              onClick={handleSubmit}
-              className={`py-2 px-4 rounded border bg-white border-black hover:bg-gray-200 hover:text-black`}
-              disabled={formData.status === 'Withdrawn'}
-            >
-              Withdraw
-            </button>
+  onClick={handleSubmit}
+  className={`py-2 px-4 rounded border bg-white border-black hover:bg-gray-200 hover:text-black ${formData.status === "Withdrawn" || formData.status === "Declined" ? 'disabled' : ''}`}
+  disabled={formData.status === 'Withdrawn' || formData.status === 'Declined'}
+>
+  Withdraw
+</button>
           </div>
+         <style>
+  {`
+    .disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  `}
+</style>
         </div>
       </div>
     </div>
