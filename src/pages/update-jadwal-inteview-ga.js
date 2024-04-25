@@ -638,25 +638,6 @@ onChange={(e) => {
                   {successMessage}
                 </p>
               )}
-              <button
-                onClick={() => deleteInterview(interview.id)}
-                style={{
-                  width: "500px",
-                  padding: "8px",
-                  fontSize: "16px",
-                  fontFamily: "Inter, sans-serif",
-                  fontWeight: "bold",
-                  color: "#2A3E4B",
-                  borderRadius: "6px",
-                  cursor: "pointer",
-                  marginTop: "730px",
-                  border: "2px solid #2A3E4B",
-                  marginLeft: "20%",
-                  position: "absolute",
-                }}
-              >
-                Hapus
-              </button>
             </div>
           </div>
         </React.Fragment>

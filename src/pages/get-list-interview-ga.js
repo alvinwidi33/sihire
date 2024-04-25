@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import SidebarGA from "../components/sidebar-ga"; // Pastikan untuk mengimpor komponen Sidebar dengan benar
 
 function GetListInterviewGA() {
   const [interviews, setInterviews] = useState([]);
   const [successMessage, setSuccessMessage] = useState("");
-
+  const { id } = useParams();
   function formatTime(datetimeString) {
     const dateTime = new Date(datetimeString);
     const hours = dateTime.getHours().toString().padStart(2, "0");
@@ -351,8 +351,8 @@ function GetListInterviewGA() {
                         color: "#fff",
                         background: "#2A3E4B",
                         fontSize: "12px",
-                        width: "90px",
-                        height: "32px",
+                        width: "100px",
+                        height: "36px",
                         borderRadius: "90px",
                         display: "flex",
                         justifyContent: "center",
@@ -384,8 +384,8 @@ function GetListInterviewGA() {
                         Detail
                       </button>
                     </Link>
+                    <Link to={`/get-list-interview-ga/${interview.id}/update`}>
                     <button
-                      onClick={() => deleteInterview(interview.id)}
                       style={{
                         background: "#2A3E4B",
                         width: "42%",
@@ -399,8 +399,9 @@ function GetListInterviewGA() {
                         border: "2px solid #2A3E4B",
                       }}
                     >
-                      Hapus
+                      Ubah
                     </button>
+                    </Link>
                   </td>
                 </tr>
               ))}
