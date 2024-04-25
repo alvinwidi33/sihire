@@ -96,7 +96,7 @@ function App() {
           <Route path='/applicant-detail/:applicant' element={<ProtectedRoute child={<ApplicantDetail />} />} />
           <Route path="/get-list-interview-other" element={<ProtectedRoute child={<GetListInterviewOther/>}/>}/>
           <Route path="/get-list-interview-other/:id" element={<ProtectedRoute child={<DetailInterviewOther/>}/>}/>
-          <Route path="/create-feedback" element={<AddFeedback/>}/>
+          <Route path="/job-application-detail/:id/feedback" element={<AddFeedback/>}/>
           <Route path="/get-list-history-interview" element={<GetHistoryInterview/>}/>
           <Route path="/get-list-feedback-ga" element={<GetListFeedbackGA/>}/>
           <Route path="/get-list-feedback-other" element={<GetListFeedbackOther/>}/>

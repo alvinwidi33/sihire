@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SidebarApplicant from "../components/sidebar-applicant";
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 function Star({ selected, onSelect }) {
   return (
@@ -11,7 +11,14 @@ function Star({ selected, onSelect }) {
 }
 
 function AddFeedback() {
+  const [successMessage, setSuccessMessage] = useState("");
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [reviewDescription, setReviewDescription] = useState('');
   const [rating, setRating] = useState(0);
+  const handleReviewDescriptionChange = (event) => {
+    setReviewDescription(event.target.value);
+  };
 
   const handleStarClick = (starValue) => {
     setRating(starValue);
@@ -25,6 +32,47 @@ function AddFeedback() {
     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.4)",
     marginTop: "100px",
     position: "relative", 
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (rating === 0 || reviewDescription.trim() === '') {
+      alert("Mohon isi deskripsi ulasan dan beri peringkat sebelum mengirim umpan balik.");
+      return;
+    }
+    const isConfirmed = window.confirm("Apakah Anda yakin ingin mengirim umpan balik?");
+
+    if (isConfirmed) {
+      const formattedData = {
+        rating: rating,
+        feedbacks: reviewDescription
+      };
+
+      try {
+        const response = await fetch(
+          `https://sihire-be.vercel.app/api/job-application/give-feedback/${id}/`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formattedData),
+          }
+        );
+
+        if (response.ok) {
+          setSuccessMessage("Feedback berhasil dikirim!");
+        setTimeout(() => {
+          setSuccessMessage("");
+          navigate(`/job-application-detail/${id}`);
+        }, 5000);
+        } else {
+          console.error("Gagal mengirim ulasan");
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
   };
 
   return (
@@ -63,38 +111,41 @@ function AddFeedback() {
           >
             Feedback
           </p>
-          <p
-            style={{
-              marginLeft: "45%",
-              fontSize: "16px",
-              color: "#2A3E4B",
-              position: "absolute",
-              bottom: "450px", 
-            }}
-          >
-            Beri Bintang
-          </p>
-          <div style={{ marginLeft: "36%", position: "absolute", bottom: "380px", left: "0", right: "0" }}>
-            {[...Array(5)].map((star, index) => (
-              <Star
-                key={index}
-                selected={index < rating}
-                onSelect={() => handleStarClick(index + 1)}
-              />
-            ))}
-          </div>
-          <p
-            style={{
-              marginLeft: "44%",
-              fontSize: "16px",
-              color: "#2A3E4B",
-              position: "absolute",
-              bottom: "350px", 
-            }}
-          >
-            Deskripsi Ulasan
-          </p>
-          <textarea
+          <form onSubmit={handleSubmit}>
+            <p
+              style={{
+                marginLeft: "45%",
+                fontSize: "16px",
+                color: "#2A3E4B",
+                position: "absolute",
+                bottom: "450px", 
+              }}
+            >
+              Beri Bintang
+            </p>
+            <div style={{ marginLeft: "36%", position: "absolute", bottom: "380px", left: "0", right: "0" }}>
+              {[...Array(5)].map((star, index) => (
+                <Star
+                  key={index}
+                  selected={index < rating}
+                  onSelect={() => handleStarClick(index + 1)}
+                />
+              ))}
+            </div>
+            <p
+              style={{
+                marginLeft: "44%",
+                fontSize: "16px",
+                color: "#2A3E4B",
+                position: "absolute",
+                bottom: "350px", 
+              }}
+            >
+              Deskripsi Ulasan
+            </p>
+            <textarea
+              value={reviewDescription}
+              onChange={handleReviewDescriptionChange}
               style={{
                 borderRadius: "5px",
                 border: "2px solid #CBD2E0",
@@ -109,7 +160,8 @@ function AddFeedback() {
                 resize: "none",
               }}
             />
-              <button
+
+            <button
               type="submit"
               style={{
                 width: "60%",
@@ -129,6 +181,24 @@ function AddFeedback() {
             >
               Submit
             </button>
+          </form>
+          {successMessage && (
+            <p
+              style={{
+                color: "green",
+                position: "fixed",
+                top: "50%",
+                left: "55%",
+                transform: "translate(-50%, -50%)",
+                background: "white",
+                padding: "20px",
+                borderRadius: "10px",
+                boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+              }}
+            >
+              {successMessage}
+            </p>
+          )}
         </div>
       </div>
     </React.Fragment>

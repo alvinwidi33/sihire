@@ -30,7 +30,7 @@ function GetHistoryInterview() {
     const getInterviews = async () => {
       try {
         const response = await fetch(
-          "https://sihire-be.vercel.app/api/interview/get-list-history/",
+          "",
           {
             method: "GET",
           }
