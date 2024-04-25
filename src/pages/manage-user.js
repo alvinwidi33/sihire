@@ -50,14 +50,21 @@ function ManageUser() {
   // Add a state variable to hold the selected role filter
   const [selectedRole, setSelectedRole] = useState("");
   const [selectedName, setSelectedName] = useState("");
+  const [showDeleted, setShowDeleted] = useState(false);
 
   // Modify the useEffect hook to fetch data based on the selected role filter
   useEffect(() => {
     // Fetch data from the API with pagination and role filter
     const fetchData = async () => {
+      let active = ""
+      if (showDeleted) {
+        active = ""
+      } else {
+        active = "True"
+      }
       try {
         const response = await fetch(
-          `https://sihire-be.vercel.app/api/users/get-all-users/?page=${currentPage}&name=${selectedName}&role=${selectedRole}`,
+          `https://sihire-be.vercel.app/api/users/get-all-users/?page=${currentPage}&name=${selectedName}&role=${selectedRole}&active=${active}`,
           {
             method: "GET",
             headers: {
@@ -79,7 +86,7 @@ function ManageUser() {
     };
 
     fetchData();
-  }, [currentPage, selectedRole, selectedName]);
+  }, [currentPage, selectedRole, selectedName, showDeleted]);
 
   const totalPages = Math.ceil(totalUsers / 10);
 
@@ -146,10 +153,25 @@ function ManageUser() {
         </div>
       </div>
       <div style={contentContainerStyle}>
-        <p>Total users: {totalUsers}</p>
-        <p>
-          Page {currentPage} of {totalPages}
-        </p>
+
+        <div className="flex justify-between">
+          <div>
+            <p>Total users: {totalUsers}</p>
+            <p>
+              Page {currentPage} of {totalPages}
+            </p>
+          </div>
+          <div className="flex">
+            <input
+              type="checkbox"
+              checked={showDeleted}
+              onChange={(e) => setShowDeleted(e.target.checked)}
+              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-700 dark:focus:ring-blue-700 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-1 mt-1"
+            />
+            <p>Tampilkan deleted user</p>
+          </div>
+        </div>
+
         <table style={tableStyle}>
           <thead>
             <tr>
@@ -164,20 +186,24 @@ function ManageUser() {
           <tbody>
             {users &&
               users.map((user) => (
-                <tr key={user.user_id}>
+                <tr key={user.user_id} className={user.is_active ? "" : "bg-red-100"}>
                   <td style={tdStyle}>{user.email}</td>
                   <td style={tdStyle}>{user.username}</td>
                   <td style={tdStyle}>{user.name}</td>
                   <td style={tdStyle}>{user.phone}</td>
                   <td style={tdStyle}>{user.role}</td>
                   <td style={tdStyle}>
-                    <button
-                      onClick={() => handleEditUser(user.user_id)}
-                      className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md"
-                      style={{ background: "var(--WF-Base-800, #2D3648)" }}
-                    >
-                      Edit
-                    </button>
+                    {user.is_active ?
+                      <button
+                        onClick={() => handleEditUser(user.user_id)}
+                        className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md"
+                        style={{ background: "var(--WF-Base-800, #2D3648)" }}
+                      >
+                        Edit
+                      </button>
+                      :
+                      ""
+                    }
                   </td>
                 </tr>
               ))}
