@@ -49,6 +49,7 @@ import DetailInterviewOther from './pages/detail-interview-other';
 import AddFeedback from './pages/add-feedback';
 import EditMyProfile from './pages/edit-my-profile';
 import GetHistoryInterview from './pages/history-interview';
+import Dashboard from './pages/dashboard';
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
           <Route path="/careers" element={<Careers />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/manage-user" element={<ProtectedRoute child={<ManageUser />} />} />
           <Route path="/add-user" element={<ProtectedRoute child={<AddUser />} />} />
           <Route path="/my-profile" element={<ProtectedRoute child={<MyProfile />} />} />
