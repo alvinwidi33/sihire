@@ -25,7 +25,7 @@ const Dashboard = () => {
 
   const getStatus = async () => {
     const response = await fetch(
-      `http://127.0.0.1:8000/api/job-application/get-status?month=${month}&year=${year}`,
+      `https://sihire-be.vercel.app/api/job-application/get-status?month=${month}&year=${year}`,
       {
         method: "GET",
       }
@@ -39,7 +39,7 @@ const Dashboard = () => {
 
   const getPosisi = async () => {
     const response = await fetch(
-      `http://127.0.0.1:8000/api/job-application/get-posisi?month=${month}&year=${year}`,
+      `https://sihire-be.vercel.app/api/job-application/get-posisi?month=${month}&year=${year}`,
       {
         method: "GET",
       }
