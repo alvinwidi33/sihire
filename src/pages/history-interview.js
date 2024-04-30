@@ -75,8 +75,8 @@ function GetHistoryInterview() {
             fontWeight: "bold",
             fontSize: "32px",
             color: "#2A3E4B",
-            marginTop: "-300px",
-            marginBottom: "32px",
+            marginTop: "-320px",
+           
           }}
         >
           List History Wawancara
@@ -195,6 +195,19 @@ function GetHistoryInterview() {
                     color:"white"
                   }}
                 >
+                  Last Updated
+                </th>
+                <th
+                  style={{
+                    border: "2px solid #2A3E4B",
+                    padding: "8px",
+                    textAlign: "center",
+                    fontWeight: "bold",
+                    width: "180px",
+                    background:"#2A3E4B",
+                    color:"white"
+                  }}
+                >
                   Action
                 </th>
               </tr>
@@ -300,6 +313,16 @@ function GetHistoryInterview() {
                     >
                       {interview.confirm}
                     </div>
+                  </td>
+                  <td
+                    style={{
+                      border: "2px solid #2A3E4B",
+                      padding: "8px",
+                      textAlign: "center",
+                    }}
+                  >
+                    {interview.created_at &&
+                      formatDateTime(interview.created_at)}
                   </td>
                   <td
                     style={{ border: "2px solid #2A3E4B", textAlign: "center" }}
