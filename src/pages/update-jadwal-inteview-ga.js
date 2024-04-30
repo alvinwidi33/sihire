@@ -154,6 +154,7 @@ const isOverlapping = (aStart, aEnd, bStart, bEnd, idA, idB) => {
         ? interviewData.interviewer
         : interview.interviewer_user_id.user_id,
       job_application_id: interview.job_application_id.id,
+      confirm:"Belum Dikonfirmasi"
     };
 
    const isInterviewerScheduledInTheTimeRange = interviews
