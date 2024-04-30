@@ -210,30 +210,6 @@ const isOverlapping = (aStart, aEnd, bStart, bEnd, idA, idB) => {
       alert(error);
     }
   };
-  const deleteInterview = async (id) => {
-    try {
-      const response = await fetch(
-        `https://sihire-be.vercel.app/api/interview/delete-interview/${id}/`,
-        {
-          method: "DELETE",
-        }
-      );
-      const isConfirmed = window.confirm(
-        "Apakah Anda yakin ingin menghapus wawancara?"
-      );
-
-      if (isConfirmed && response.ok) {
-        setSuccessMessage("Wawancara berhasil dihapus.");
-        await new Promise((resolve) => setTimeout(resolve, 5000));
-        setSuccessMessage("");
-        navigate("/get-list-interview-ga");
-        setInterview(null);
-      }
-    } catch (error) {
-      console.error("Error deleting interview:", error);
-      setSuccessMessage("Terjadi kesalahan saat menghapus wawancara.");
-    }
-  };
   return (
     <React.Fragment>
       <p
