@@ -30,7 +30,7 @@ function GetHistoryInterview() {
     const getInterviews = async () => {
       try {
         const response = await fetch(
-          "",
+          "https://sihire-be.vercel.app/api/interview/get-list-interview-history/",
           {
             method: "GET",
           }
@@ -202,14 +202,14 @@ function GetHistoryInterview() {
             <tbody>
               {interviews.map((interview) => (
                 <tr
-                  key={interview.interview.id}
+                  key={interview.id}
                   style={{
                     backgroundColor:
-                      interview.interview.job_application_id.status === "Withdrawn"
+                      interview.job_application_id.status === "Withdrawn"
                         ? "#FFC0CB"
-                        : isDatePassed(interview.interview.datetime_end)
+                        : isDatePassed(interview.datetime_end)
                         ? "#D3D3D3"
-                        : interview.interview.job_application_id.status === "Interview"
+                        : interview.job_application_id.status === "Interview"
                         ? "#FFFFFF"
                         : "#D3D3D3",
                   }}
@@ -225,7 +225,7 @@ function GetHistoryInterview() {
                       textAlign: "center",
                     }}
                   >
-                    {interview.interview.job_application_id.job.job_name}
+                    {interview.job_application_id.job.job_name}
                   </td>
                   <td
                     style={{
@@ -234,7 +234,7 @@ function GetHistoryInterview() {
                       textAlign: "center",
                     }}
                   >
-                    {interview.interview.job_application_id.applicant.user.name}
+                    {interview.job_application_id.applicant.user.name}
                   </td>
                   <td
                     style={{
@@ -243,8 +243,8 @@ function GetHistoryInterview() {
                       textAlign: "center",
                     }}
                   >
-                    {interview.interview.datetime_start &&
-                      formatDateTime(interview.interview.datetime_start)}
+                    {interview.datetime_start &&
+                      formatDateTime(interview.datetime_start)}
                   </td>
                   <td
                     style={{
@@ -253,11 +253,11 @@ function GetHistoryInterview() {
                       textAlign: "center",
                     }}
                   >
-                    {interview.interview.datetime_start &&
-                      formatTime(interview.interview.datetime_start)}{" "}
+                    {interview.datetime_start &&
+                      formatTime(interview.datetime_start)}{" "}
                     -{" "}
-                    {interview.interview.datetime_end &&
-                      formatTime(interview.interview.datetime_end)}
+                    {interview.datetime_end &&
+                      formatTime(interview.datetime_end)}
                   </td>
                   <td
                     style={{
@@ -266,7 +266,7 @@ function GetHistoryInterview() {
                       textAlign: "center",
                     }}
                   >
-                    {interview.interview.interviewer_user_id?.name}
+                    {interview.interviewer_user_id?.name}
                   </td>
                   <td
                     style={{
@@ -275,7 +275,7 @@ function GetHistoryInterview() {
                       textAlign: "center",
                     }}
                   >
-                    {interview.interview.job_application_id.status}
+                    {interview.job_application_id.status}
                   </td>
                   <td
                     style={{
@@ -298,7 +298,7 @@ function GetHistoryInterview() {
                         margin: "auto",
                       }}
                     >
-                      {interview.interview.confirm}
+                      {interview.confirm}
                     </div>
                   </td>
                   <td
