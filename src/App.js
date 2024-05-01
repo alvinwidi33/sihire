@@ -64,7 +64,7 @@ function App() {
           <Route path="/careers" element={<Careers />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<ProtectedRoute child={<Dashboard />} />} />
           <Route path="/manage-user" element={<ProtectedRoute child={<ManageUser />} />} />
           <Route path="/add-user" element={<ProtectedRoute child={<AddUser />} />} />
           <Route path="/my-profile" element={<ProtectedRoute child={<MyProfile />} />} />
