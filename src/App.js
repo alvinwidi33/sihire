@@ -50,6 +50,7 @@ import AddFeedback from './pages/add-feedback';
 import EditMyProfile from './pages/edit-my-profile';
 import GetHistoryInterview from './pages/history-interview';
 import Dashboard from './pages/dashboard';
+import AddProject from './pages/add-project';
 
 function App() {
   return (
@@ -103,6 +104,7 @@ function App() {
           <Route path="/get-list-feedback-ga" element={<GetListFeedbackGA/>}/>
           <Route path="/get-list-feedback-other" element={<GetListFeedbackOther/>}/>
           <Route path="/edit-my-profile" element={<ProtectedRoute child={<EditMyProfile />} />} />
+          <Route path="/add-project" element={<AddProject/>}/>
       </Routes>
     </Router>
   );
