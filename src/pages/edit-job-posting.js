@@ -6,6 +6,12 @@ function EditJobPosting() {
   const navigate = useNavigate();
   const [successMessage, setSuccessMessage] = useState("");
   const { id } = useParams();
+    const [jobData, setJobData] = useState({
+    job_name: "",
+    description: "",
+    datetime_closes: "",
+  });
+  const [job, setJob] = useState(null);
   function formatDateTime(datetimeString) {
     const options = { day: "numeric", month: "long", year: "numeric" };
     const formattedDate = new Date(datetimeString).toLocaleDateString(
@@ -14,12 +20,6 @@ function EditJobPosting() {
     );
     return formattedDate;
   }
-  const [jobData, setJobData] = useState({
-    job_name: "",
-    description: "",
-    datetime_closes: "",
-  });
-  const [job, setJob] = useState(null);
 
   useEffect(() => {
     const getJob = async () => {
@@ -30,24 +30,6 @@ function EditJobPosting() {
         const data = await response.json();
         setJob(data);
 
-        //Mengurangi 1 hari dari tanggal yang diterima untuk menyesuaikan zona waktu
-        const adjustedDate = new Date(data.datetime_closes);
-        adjustedDate.setDate(adjustedDate.getDate() + 1);
-
-        // Pastikan bahwa datetime_closes tidak kosong atau null sebelum diformat
-        if (data.datetime_closes) {
-          setJobData({
-            job_name: data.job_name,
-            description: data.description,
-            datetime_closes: formatDateTime(adjustedDate),
-          });
-        } else {
-          setJobData({
-            job_name: data.job_name,
-            description: data.description,
-            datetime_closes: "", // Atur nilai default jika datetime_closes kosong
-          });
-        }
       } catch (error) {
         console.error("Error fetching job:", error);
       }
@@ -65,45 +47,46 @@ function EditJobPosting() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const isConfirmed = window.confirm("Do you want to submit the form?");
-    if (!isConfirmed) {
-      return;
-    }
+  const isConfirmed = window.confirm("Apakah Anda ingin mengubah pekerjaan?");
+  if (!isConfirmed) {
+    return;
+  }
+  
+  try {
+    const dataToSend = {
+      job_name: jobData.job_name || job.job_name,
+      description: jobData.description || job.description,
+      datetime_closes: jobData.datetime_closes || job.datetime_closes,
+    };
 
-    try {
-      const transformedDate = jobData.datetime_closes
-        ? new Date(jobData.datetime_closes).toISOString().split("T")[0]
-        : null;
-      const response = await fetch(
-        `https://sihire-be.vercel.app/api/job-posting/edit/${id}/`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            ...jobData,
-            datetime_closes: transformedDate,
-          }),
-        }
-      );
-
-      if (response.ok) {
-        console.log("Job updated successfully!");
-        setSuccessMessage("Job berhasil diperbarui!");
-        setTimeout(() => {
-          setSuccessMessage("");
-          navigate("/job-list-ga");
-        }, 5000);
-      } else {
-        console.error("Failed to update job:", response.statusText);
+    const response = await fetch(
+      `https://sihire-be.vercel.app/api/job-posting/edit/${id}/`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataToSend),
       }
-    } catch (error) {
-      console.error("Error updating job:", error);
+    );
+
+    if (response.ok) {
+      console.log("Job updated successfully!");
+      setSuccessMessage("Pekerjaan berhasil diperbarui!");
+      setTimeout(() => {
+        setSuccessMessage("");
+        navigate("/job-list-ga");
+      }, 5000);
+    } else {
+      console.error("Failed to update job:", response.statusText);
     }
-  };
+  } catch (error) {
+    console.error("Error updating job:", error);
+  }
+};
+
 
   return (
     <React.Fragment>
@@ -166,7 +149,7 @@ function EditJobPosting() {
                 position: "absolute",
               }}
             >
-              Judul Pekerjaan
+              Judul Pekerjaan 
             </p>
             {job && (
               <React.Fragment key={job.id}>
@@ -183,9 +166,10 @@ function EditJobPosting() {
                     position: "absolute",
                     width: "76%",
                   }}
-                  value={jobData.job_name}
-                  disabled
-                  readOnly
+                  value={jobData.job_name || job.job_name }
+                  onChange={(e) =>
+                    setJobData({ ...jobData, job_name: e.target.value })
+                  }
                 />
                 <p
                   style={{
@@ -200,7 +184,7 @@ function EditJobPosting() {
                   Deskripsi
                 </p>
                 <textarea
-                  value={jobData.description}
+                  value={jobData.description || job.description}
                   style={{
                     borderRadius: "5px",
                     border: "2px solid #CBD2E0",
@@ -232,7 +216,7 @@ function EditJobPosting() {
                     position: "absolute",
                   }}
                 >
-                  Tanggal Tutup
+                  Tanggal Tutup 
                 </p>
                 <input
                   type="date"
@@ -246,15 +230,13 @@ function EditJobPosting() {
                     color: "#2A3E4B",
                     position: "absolute",
                     width: "76%",
-                  }}
+                  }}      
                   value={
-                    jobData.datetime_closes
-                      ? new Date(jobData.datetime_closes)
-                          .toISOString()
-                          .split("T")[0]
-                      : ""
+                    jobData.datetime_closes ||
+                    (job && job.datetime_closes
+                      ? job.datetime_closes.split("T")[0]
+                      : "")
                   }
-
                   onChange={(e) =>
                     setJobData({ ...jobData, datetime_closes: e.target.value })
                   }

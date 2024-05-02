@@ -122,6 +122,7 @@ function AddFeedback() {
               }}
             >
               Beri Bintang
+              <span style={{ color: "red" }}>*</span>
             </p>
             <div style={{ marginLeft: "36%", position: "absolute", bottom: "380px", left: "0", right: "0" }}>
               {[...Array(5)].map((star, index) => (
@@ -134,7 +135,7 @@ function AddFeedback() {
             </div>
             <p
               style={{
-                marginLeft: "44%",
+                marginLeft: "43.5%",
                 fontSize: "16px",
                 color: "#2A3E4B",
                 position: "absolute",
@@ -142,6 +143,7 @@ function AddFeedback() {
               }}
             >
               Deskripsi Ulasan
+              <span style={{ color: "red" }}>*</span>
             </p>
             <textarea
               value={reviewDescription}
