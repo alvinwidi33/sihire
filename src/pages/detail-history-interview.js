@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import SidebarOther from "../components/sidebar-other"; 
 import SidebarGA from "../components/sidebar-ga";
 
-function DetailInterviewGA() {
-  const [interview, setInterview] = useState(null);
+function DetailHistoryInterview() {
+   const [interview, setInterview] = useState(null);
   const { id } = useParams();
   function formatTime(datetimeString) {
     const dateTime = new Date(datetimeString);
@@ -31,13 +32,13 @@ function DetailInterviewGA() {
     borderRadius: "10px",
     marginLeft: "22%",
     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.4)",
-    marginTop: "-19%",
+    marginTop: "-18%",
   };
   useEffect(() => {
     const getInterview = async () => {
       try {
         const response = await fetch(
-          `https://sihire-be.vercel.app/api/interview/get-interview/${id}/`
+          `https://sihire-be.vercel.app/api/interview/get-list-interview-history/${id}/`
         );
         const data = await response.json();
         setInterview(data);
@@ -62,7 +63,7 @@ function DetailInterviewGA() {
       >
         Wawancara
       </p>
-      <SidebarGA />
+      <SidebarGA/>
       <Link to="/get-list-interview-ga">
         <p
           style={{
@@ -79,12 +80,28 @@ function DetailInterviewGA() {
       >
         {">"}
       </p>
+      <Link to='/get-list-history-interview'>
+      <p
+          style={{
+            marginLeft: "31%",
+            position: "absolute",
+            marginTop: "-320px",
+          }}
+        >
+          List History Wawancara
+        </p>
+        </Link>
+      <p
+        style={{ marginLeft: "42%", position: "absolute", marginTop: "-320px" }}
+      >
+        {">"}
+      </p>
       {interview && (
         <React.Fragment key={interview.id}>
-          <Link to={`/get-list-interview-ga/${id}`}>
+          <Link to={`/get-list-history-interview/${id}`}>
             <p
               style={{
-                marginLeft: "31%",
+                marginLeft: "43%",
                 position: "absolute",
                 marginTop: "-320px",
               }}
@@ -212,27 +229,6 @@ function DetailInterviewGA() {
               >
                 {interview.reschedule_comment}
               </p>
-              <Link to={`/get-list-interview-ga/${id}/update`}>
-                <button
-                  style={{
-                    width: "10%",
-                padding: "8px",
-                fontSize: "16px",
-                fontFamily: "Inter, sans-serif",
-                fontWeight: "bold",
-                color: "#fff",
-                background: "#2A3E4B",
-                borderRadius: "6px",
-                cursor: "pointer",
-                marginTop: "480px",
-                border: "2px solid #2A3E4B",
-                marginLeft: "57%",
-                position: "absolute",
-                  }}
-                >
-                  Ubah Jadwal
-                </button>
-              </Link>
             </div>
           </div>
         </React.Fragment>
@@ -241,4 +237,4 @@ function DetailInterviewGA() {
   );
 }
 
-export default DetailInterviewGA;
+export default DetailHistoryInterview;

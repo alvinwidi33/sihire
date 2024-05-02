@@ -156,7 +156,7 @@ function GetListInterviewGA() {
             style={{
               marginLeft: "0%",
               borderCollapse: "collapse",
-              width: "88%",
+              width: "90%",
               padding:"12px"
             }}
           >

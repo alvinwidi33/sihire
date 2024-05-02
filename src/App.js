@@ -51,6 +51,7 @@ import EditMyProfile from './pages/edit-my-profile';
 import GetHistoryInterview from './pages/history-interview';
 import Dashboard from './pages/dashboard';
 import AddProject from './pages/add-project';
+import DetailHistoryInterview from './pages/detail-history-interview';
 
 function App() {
   return (
@@ -101,6 +102,7 @@ function App() {
           <Route path="/get-list-interview-other/:id" element={<ProtectedRoute child={<DetailInterviewOther/>}/>}/>
           <Route path="/job-application-detail/:id/feedback" element={<AddFeedback/>}/>
           <Route path="/get-list-history-interview" element={<GetHistoryInterview/>}/>
+          <Route path="/get-list-history-interview/:id" element={<DetailHistoryInterview/>}/>
           <Route path="/get-list-feedback-ga" element={<GetListFeedbackGA/>}/>
           <Route path="/get-list-feedback-other" element={<GetListFeedbackOther/>}/>
           <Route path="/edit-my-profile" element={<ProtectedRoute child={<EditMyProfile />} />} />

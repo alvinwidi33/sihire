@@ -126,14 +126,15 @@ function DetailInterviewOther() {
                   color: "#fff",
                   background: "#2A3E4B",
                   fontSize: "12px",
-                  width: "90px",
-                  height: "32px",
+                  width: "100px",
+                  height: "40px",
                   border: "2px solid #fff",
                   borderRadius: "90px",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
                   position: "absolute",
+                  textAlign:"center"
                 }}
               >
                 {interview.confirm}
