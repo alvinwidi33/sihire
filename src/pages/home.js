@@ -126,17 +126,33 @@ function Home() {
     position:absolute
 `;
 
-    const dataProject =[
-        { title:"Office 38", location:"Jl. Raden Saleh, Karang Tengah \n Tangerang – Indonesia",
-            type:"Architectural Interior", land:"486m",building:"800m"
-        },
-        { title:"Office 38", location:"Jl. Raden Saleh, Karang Tengah \n Tangerang – Indonesia",
-            type:"Architectural Interior", land:"486m",building:"800m"
-        },
-        { title:"Office 38", location:"Jl. Raden Saleh, Karang Tengah \n Tangerang – Indonesia",
-            type:"Architectural Interior", land:"486m",building:"800m"
-        }
-    ]
+const dataProject = [
+    {
+        title: "Rumah 1",
+        location: "Jl. Raden Saleh, Karang Tengah \n Tangerang – Indonesia",
+        type: "Residential",
+        land: "500m",
+        building: "300m",
+        image: require('../images/rumah1.png')
+    },
+    {
+        title: "Rumah 2",
+        location: "Jl. Darmo, Pakis, Surabaya \n Jawa Timur – Indonesia",
+        type: "Villa",
+        land: "800m",
+        building: "600m",
+        image: require('../images/rumah2.png')
+    },
+    {
+        title: "Rumah 3",
+        location: "Jl. Diponegoro, Menteng \n Jakarta Pusat – Indonesia",
+        type: "Luxury Residence",
+        land: "1000m",
+        building: "750m",
+        image: require('../images/rumah3.png')
+    }
+];
+
     const data = [
         { title: 'Social Security and Healthcare Security', 
         text: 'Jaminan Kesehatan dan Keselamatan Ketenagakerjaan of BPJS for each our project',
@@ -206,31 +222,32 @@ function Home() {
     </div>
     </div>
     <div style={frameProject}>
-    <p style={textProject}>Our Projects</p>
-    <div style={{ position: 'relative' }}>
-        {currentCardIndex > 0 && (
-            <button onClick={navigateToPreviousCard} style={{ position: 'absolute', top: '70%', left: '200px', transform: 'translate(-50%, -50%)', zIndex: '1' }}>
-                &lt;
-            </button>
-        )}
-        {currentCardIndex < dataProject.length - 1 && (
-            <button onClick={navigateToNextCard} style={{ position: 'absolute', top: '70%', right: '200px', transform: 'translate(50%, -50%)', zIndex: '1' }}>
-                &gt;
-            </button>
-        )}
-        <div style={cardProjectContainer}>
-            {dataProject.map((item, index) => (
-                <CardProject key={index} style={{ display: index === currentCardIndex ? 'block' : 'none' }}>
-                    <h1>{item.title}</h1>
-                    <p>{item.location}</p>
-                    <p>{item.type}</p>
-                    <p>{item.land}</p>
-                    <p>{item.building}</p>
-                </CardProject>
-            ))}
+        <p style={textProject}>Our Projects</p>
+        <div style={{ position: 'relative' }}>
+            {currentCardIndex > 0 && (
+                <button onClick={navigateToPreviousCard} style={{ position: 'absolute', top: '70%', left: '200px', transform: 'translate(-50%, -50%)', zIndex: '1' }}>
+                    &lt;
+                </button>
+            )}
+            {currentCardIndex < dataProject.length - 1 && (
+                <button onClick={navigateToNextCard} style={{ position: 'absolute', top: '70%', right: '200px', transform: 'translate(50%, -50%)', zIndex: '1' }}>
+                    &gt;
+                </button>
+            )}
+            <div style={cardProjectContainer}>
+                {dataProject.map((item, index) => (
+                    <CardProject key={index} style={{ display: index === currentCardIndex ? 'block' : 'none' }}>
+                        <img src={item.image} alt={item.title} style={{ width: '100%', height: 'auto', borderRadius: '10px 10px 0 0' }} />
+                        <h1>{item.title}</h1>
+                        <p>{item.location}</p>
+                        <p>{item.type}</p>
+                        <p>{item.land}</p>
+                        <p>{item.building}</p>
+                    </CardProject>
+                ))}
+            </div>
         </div>
     </div>
-</div>
 
         </React.Fragment>
     );

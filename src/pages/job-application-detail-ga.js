@@ -83,8 +83,63 @@ function JobApplicationDetailGA() {
     setSelectedStatus(e.target.value);
   };
 
+  // const handleSubmit = async () => {
+  //   // Use the selectedStatus from the state instead of formData.status
+  //   const fd = new FormData();
+  //   fd.append("job", formData.job.id);
+  //   fd.append("applicant", formData.applicant.applicant_id);
+  //   fd.append("status", selectedStatus); 
+  
+  //   try {
+  //     const response = await fetch('https://sihire-be.vercel.app/api/job-application/put/' + id + '/edit-status/', {
+  //       method: 'PUT',
+  //       headers: {},
+  //       body: fd
+  //     });
+  
+  //     if (response.ok) {
+  //       // Status updated successfully
+  //       console.log('Form submitted successfully');
+  //       setShowModal(false); // Close the popup
+  //       // Reload the page
+  //       window.location.reload();
+  //     } else {
+  //       // Handle error response
+  //       console.error('Failed to update status');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error submitting form:', error);
+  //   }
+  // };
+
   const handleSubmit = async () => {
-    // Use the selectedStatus from the state instead of formData.status
+    // Check if the selected status is 'Accepted'
+    if (selectedStatus === 'Accepted') {
+      // Fetch all job applications of the current applicant
+      try {
+        const response = await fetch(
+          'https://sihire-be.vercel.app/api/job-application/get-by-applicant/' + formData.applicant.applicant_id,
+          {
+            method: 'GET',
+          }
+        );
+        const jobApplications = await response.json();
+  
+        // Check if any of the job applications have the status 'Accepted'
+        const hasAcceptedStatus = jobApplications.some(application => application.status === 'Accepted');
+  
+        // If the applicant already has an accepted status, display an error message and return
+        if (hasAcceptedStatus) {
+          console.error('Applicant already has an accepted status for another job application.');
+          return;
+        }
+      } catch (error) {
+        console.error('Error fetching job applications:', error);
+        return;
+      }
+    }
+  
+    // Proceed with updating the status
     const fd = new FormData();
     fd.append("job", formData.job.id);
     fd.append("applicant", formData.applicant.applicant_id);
@@ -111,6 +166,7 @@ function JobApplicationDetailGA() {
       console.error('Error submitting form:', error);
     }
   };
+  
 
   return (
     <React.Fragment>

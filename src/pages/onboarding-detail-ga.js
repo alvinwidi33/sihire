@@ -45,7 +45,7 @@ function OnboardingDetailGA() {
             <Link to='/get-list-onboarding-internal'>
                 <p style={{ marginLeft: '22%', position: 'absolute', marginTop: "-240px" }}>List Onboarding</p>
             </Link>
-            <p style={{ marginLeft: '30%', position: 'absolute', marginTop: "-240px" }}>{'>'}</p>
+            <p style={{ marginLeft: '30%', position: 'absolute', marginTop: "" }}>{'>'}</p>
             {onboarding && (
                 <React.Fragment key={onboarding.id}>
                     <Link to={`/get-list-onboarding-internal/${id}`}>
