@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import SidebarGA from "../components/sidebar-ga";
 import SidebarApplicant from '../components/sidebar-applicant';
 import SidebarOther from '../components/sidebar-other';
@@ -6,6 +7,8 @@ import SidebarAdmin from '../components/sidebar-admin';
 
 function MyProfile() {
     const [profileData, setProfileData] = useState(null);
+
+    const navigate = useNavigate();
 
     const handleLogout = async (event) => {
         event.preventDefault();
@@ -76,11 +79,11 @@ function MyProfile() {
 
     let marginTop = "-180px";
 
-    if (profileData?.role === "General Affairs") {
+    if (window.localStorage.getItem("role") === "General Affairs") {
         marginTop = "-280px";
-    } else if (profileData?.role === "Applicant") {
+    } else if (window.localStorage.getItem("role") === "Applicant") {
         marginTop = "-180px";
-    } else if (profileData?.role === "Admin") {
+    } else if (window.localStorage.getItem("role") === "Admin") {
         marginTop = "-100px";
     } else {
         marginTop = "-220px";
@@ -123,27 +126,51 @@ function MyProfile() {
                                 <div className="flex flex-col justify-center">
                                     <h6 className="font-bold text-2xl" style={darkBlueText}>{profileData.username}</h6>
                                     <div style={profileInfoStyle}>
-                                        <p className="font-bold" style={darkBlueText}>Nama</p>
-                                        <p>{profileData.name}</p>
-                                        <p className="font-bold" style={darkBlueText}>Email</p>
-                                        <p>{profileData.email}</p>
-                                        <p className="font-bold" style={darkBlueText}>No Telpon</p>
-                                        <p>{profileData.phone}</p>
+                                        <div className="flex flex-col">
+                                            <div className="flex mb-4">
+                                                <div className="w-20">
+                                                    <p className="font-bold">Nama</p>
+                                                </div>
+                                                <div className='ml-2'>
+                                                    <p>{profileData.name}</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex mb-4">
+                                                <div className="w-20">
+                                                    <p className="font-bold">Email</p>
+                                                </div>
+                                                <div className='ml-2'>
+                                                    <p>{profileData.email}</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex">
+                                                <div className="w-20">
+                                                    <p className="font-bold">No Telpon</p>
+                                                </div>
+                                                <div className='ml-2'>
+                                                    <p>{profileData.phone}</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     )}
                     <div className="flex justify-end mt-4 mr-10">
-                        <div className="mr-4">
+                        {/* <div className="mr-4">
                             <a href="/change-password">
                             <button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md" style={{ background: 'var(--WF-Base-800, #2D3648)', fontSize: '1rem' }}>
                                 Change Password
                             </button>
                             </a>
-                        </div>
+                        </div> */}
                         <div className="mr-4">
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md" style={{ background: 'var(--WF-Base-800, #2D3648)', fontSize: '1rem' }}>
+                            <button
+                                className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md"
+                                style={{ background: 'var(--WF-Base-800, #2D3648)', fontSize: '1rem' }}
+                                onClick={() => {navigate("/edit-my-profile");}}
+                            >
                                 Edit Profile
                             </button>
                         </div>

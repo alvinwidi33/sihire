@@ -30,12 +30,16 @@ function UpdateJadwalInteviewGA() {
     marginTop:"-120px"
   };
 
-  const isOverlapping = (aStart, aEnd, bStart, bEnd) => {
-    if (aStart <= bStart && bEnd <= aEnd) return false;
-    if (aStart <= bStart && bStart < aEnd) return true;
-    if (aStart < bEnd && bEnd <= aEnd) return true;
-    return false;
-  };
+const isOverlapping = (aStart, aEnd, bStart, bEnd, idA, idB) => {
+  idB = parseInt(idB);
+  if (idA === idB) {
+    return false; 
+  }
+  if (aEnd <= bStart || bEnd <= aStart) {
+    return false; 
+  }
+  return true; 
+};
 
   useEffect(() => {
     const getInterview = async () => {
@@ -145,31 +149,36 @@ function UpdateJadwalInteviewGA() {
       }
     const formattedData = {
       datetime_start: datetimeStart.toISOString(),
-      datetime_end: datetimeEnd.toISOString(), //baris 139
+      datetime_end: datetimeEnd.toISOString(), 
       interviewer_user_id: interviewData.interviewer
         ? interviewData.interviewer
         : interview.interviewer_user_id.user_id,
       job_application_id: interview.job_application_id.id,
+      confirm:"Belum Dikonfirmasi"
     };
 
-    const isInterviewerScheduledInTheTimeRange = interviewers.find(
-      (interviewer) =>
-        interviews.find(
-          (interview) =>
-            interview.interviewer_user_id.user_id === interviewer.user_id &&
-            isOverlapping(
-              new Date(interview.datetime_start),
-              new Date(interview.datetime_end),
-              datetimeStart,
-              datetimeEnd
-            )
-        )
+   const isInterviewerScheduledInTheTimeRange = interviews
+  .filter(existingInterview => existingInterview.id !== id)
+  .find(existingInterview => {
+    const isOverlap = isOverlapping(
+      new Date(existingInterview.datetime_start),
+      new Date(existingInterview.datetime_end),
+      datetimeStart,
+      datetimeEnd,
+      existingInterview.id,
+      id
     );
+    return (
+      existingInterview.interviewer_user_id.user_id === formattedData.interviewer_user_id &&
+      isOverlap
+    );
+  });
 
     try {
       if (isInterviewerScheduledInTheTimeRange) {
+      console.log("Existing Interview ID:", isInterviewerScheduledInTheTimeRange.id);
         throw new Error(
-          "There is another interview in this time range for this interviewer"
+          "Pewawancara sudah memiliki jadwal wawancara di jam ini"
         );
       }
 
@@ -200,30 +209,6 @@ function UpdateJadwalInteviewGA() {
     } catch (error) {
       console.error("Error updating interview:", error);
       alert(error);
-    }
-  };
-  const deleteInterview = async (id) => {
-    try {
-      const response = await fetch(
-        `https://sihire-be.vercel.app/api/interview/delete-interview/${id}/`,
-        {
-          method: "DELETE",
-        }
-      );
-      const isConfirmed = window.confirm(
-        "Apakah Anda yakin ingin menghapus wawancara?"
-      );
-
-      if (isConfirmed && response.ok) {
-        setSuccessMessage("Wawancara berhasil dihapus.");
-        await new Promise((resolve) => setTimeout(resolve, 5000));
-        setSuccessMessage("");
-        navigate("/get-list-interview-ga");
-        setInterview(null);
-      }
-    } catch (error) {
-      console.error("Error deleting interview:", error);
-      setSuccessMessage("Terjadi kesalahan saat menghapus wawancara.");
     }
   };
   return (
@@ -630,25 +615,6 @@ onChange={(e) => {
                   {successMessage}
                 </p>
               )}
-              <button
-                onClick={() => deleteInterview(interview.id)}
-                style={{
-                  width: "500px",
-                  padding: "8px",
-                  fontSize: "16px",
-                  fontFamily: "Inter, sans-serif",
-                  fontWeight: "bold",
-                  color: "#2A3E4B",
-                  borderRadius: "6px",
-                  cursor: "pointer",
-                  marginTop: "730px",
-                  border: "2px solid #2A3E4B",
-                  marginLeft: "20%",
-                  position: "absolute",
-                }}
-              >
-                Hapus
-              </button>
             </div>
           </div>
         </React.Fragment>

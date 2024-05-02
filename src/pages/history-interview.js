@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import SidebarGA from "../components/sidebar-ga"; // Pastikan untuk mengimpor komponen Sidebar dengan benar
+import { Link } from "react-router-dom";
+import SidebarOther from "../components/sidebar-other"; 
 
-function GetListInterviewGA() {
-  const [interviews, setInterviews] = useState([]);
-  const [successMessage, setSuccessMessage] = useState("");
-  const { id } = useParams();
+function GetHistoryInterview() {
+    const [interviews, setInterviews] = useState([]);
+
   function formatTime(datetimeString) {
     const dateTime = new Date(datetimeString);
     const hours = dateTime.getHours().toString().padStart(2, "0");
@@ -31,7 +30,7 @@ function GetListInterviewGA() {
     const getInterviews = async () => {
       try {
         const response = await fetch(
-          "https://sihire-be.vercel.app/api/interview/get-list-interview/",
+          "https://sihire-be.vercel.app/api/interview/get-list-interview-history/",
           {
             method: "GET",
           }
@@ -44,31 +43,6 @@ function GetListInterviewGA() {
     };
     getInterviews();
   }, []);
-
-  const deleteInterview = async (id) => {
-    try {
-      const response = await fetch(
-        `https://sihire-be.vercel.app/api/interview/delete-interview/${id}/`,
-        {
-          method: "DELETE",
-        }
-      );
-      const isConfirmed = window.confirm(
-        "Apakah Anda yakin ingin menghapus wawancara?"
-      );
-
-      if (isConfirmed) {
-        setInterviews(interviews.filter((interview) => interview.id !== id));
-        setSuccessMessage("Wawancara berhasil dihapus.");
-        setTimeout(() => {
-          setSuccessMessage("");
-        }, 5000);
-      }
-    } catch (error) {
-      console.error("Error deleting interview:", error);
-      setSuccessMessage("Terjadi kesalahan saat menghapus wawancara.");
-    }
-  };
 
   const isDatePassed = (datetimeString) => {
     const interviewDate = new Date(datetimeString);
@@ -90,7 +64,7 @@ function GetListInterviewGA() {
       >
         Wawancara
       </p>
-      <SidebarGA />
+      <SidebarOther />
       <div
         style={{ marginLeft: "22%", position: "absolute", marginTop: "-40px" }}
         className="w-9/12"
@@ -101,55 +75,18 @@ function GetListInterviewGA() {
             fontWeight: "bold",
             fontSize: "32px",
             color: "#2A3E4B",
-            marginTop: "-300px",
-            marginBottom: "32px",
+            marginTop: "-320px",
+           
           }}
         >
-          List Wawancara
+          List History Wawancara
         </p>
-        <Link to="/create-interview">
-          <button
-            style={{
-              width: "18%",
-              padding: "8px",
-              fontSize: "16px",
-              fontFamily: "Inter, sans-serif",
-              fontWeight: "bold",
-              color: "#fff",
-              background: "#2A3E4B",
-              borderRadius: "6px",
-              cursor: "pointer",
-              marginTop: "-72px",
-              marginBottom: "32px",
-              marginLeft: "70%",
-              position: "absolute",
-              border: "2px solid #2A3E4B",
-            }}
-          >
-            Tambah Wawancara
-          </button>
+        <Link to="/get-list-interview-ga">
+          <p style={{ display: "inline", marginLeft: "4px", marginTop:"21%" }}>List Wawancara</p>
         </Link>
+        <span style={{ display: "inline", marginLeft: "10px" }}>{">"}</span>
         <Link to="/get-list-history-interview">
-          <button
-            style={{
-              width: "18%",
-              padding: "8px",
-              fontSize: "16px",
-              fontFamily: "Inter, sans-serif",
-              fontWeight: "bold",
-              color: "#2A3E4B",
-              background: "#fff",
-              borderRadius: "6px",
-              cursor: "pointer",
-              marginTop: "-72px",
-              marginBottom: "32px",
-              marginLeft: "50%",
-              position: "absolute",
-              border: "2px solid #2A3E4B",
-            }}
-          >
-            History Wawancara
-          </button>
+          <p style={{ display: "inline", marginLeft: "4px", marginTop:"21%" }}>History Wawancara</p>
         </Link>
         {interviews && (
           <table
@@ -157,7 +94,8 @@ function GetListInterviewGA() {
               marginLeft: "0%",
               borderCollapse: "collapse",
               width: "88%",
-              padding:"12px"
+              padding:"12px",
+              marginTop:"20px"
             }}
           >
             <thead>
@@ -245,6 +183,19 @@ function GetListInterviewGA() {
                   }}
                 >
                   Konfirmasi
+                </th>
+                <th
+                  style={{
+                    border: "2px solid #2A3E4B",
+                    padding: "8px",
+                    textAlign: "center",
+                    fontWeight: "bold",
+                    width: "180px",
+                    background:"#2A3E4B",
+                    color:"white"
+                  }}
+                >
+                  Last Updated
                 </th>
                 <th
                   style={{
@@ -351,8 +302,8 @@ function GetListInterviewGA() {
                         color: "#fff",
                         background: "#2A3E4B",
                         fontSize: "12px",
-                        width: "100px",
-                        height: "36px",
+                        width: "90px",
+                        height: "32px",
                         borderRadius: "90px",
                         display: "flex",
                         justifyContent: "center",
@@ -364,9 +315,19 @@ function GetListInterviewGA() {
                     </div>
                   </td>
                   <td
+                    style={{
+                      border: "2px solid #2A3E4B",
+                      padding: "8px",
+                      textAlign: "center",
+                    }}
+                  >
+                    {interview.created_at &&
+                      formatDateTime(interview.created_at)}
+                  </td>
+                  <td
                     style={{ border: "2px solid #2A3E4B", textAlign: "center" }}
                   >
-                    <Link to={`/get-list-interview-ga/${interview.id}`}>
+                    <Link to={`/get-list-interview-other/${interview.id}`}>
                       <button
                         style={{
                           width: "42%",
@@ -384,50 +345,15 @@ function GetListInterviewGA() {
                         Detail
                       </button>
                     </Link>
-                    <Link to={`/get-list-interview-ga/${interview.id}/update`}>
-                    <button
-                      style={{
-                        background: "#2A3E4B",
-                        width: "42%",
-                        padding: "8px",
-                        fontSize: "16px",
-                        fontFamily: "Inter, sans-serif",
-                        fontWeight: "bold",
-                        color: "#fff",
-                        borderRadius: "6px",
-                        cursor: "pointer",
-                        border: "2px solid #2A3E4B",
-                      }}
-                    >
-                      Ubah
-                    </button>
-                    </Link>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         )}
-        {successMessage && (
-          <p
-            style={{
-              color: "green",
-              position: "fixed",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              background: "white",
-              padding: "20px",
-              borderRadius: "10px",
-              boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-            }}
-          >
-            {successMessage}
-          </p>
-        )}
       </div>
     </React.Fragment>
   );
 }
 
-export default GetListInterviewGA;
+export default GetHistoryInterview;

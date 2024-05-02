@@ -47,6 +47,10 @@ import GetListFeedbackOther from './pages/get-list-feedback-other';
 import GetListInterviewOther from './pages/get-list-interview-other';
 import DetailInterviewOther from './pages/detail-interview-other';
 import AddFeedback from './pages/add-feedback';
+import EditMyProfile from './pages/edit-my-profile';
+import GetHistoryInterview from './pages/history-interview';
+import Dashboard from './pages/dashboard';
+import AddProject from './pages/add-project';
 
 function App() {
   return (
@@ -60,6 +64,7 @@ function App() {
           <Route path="/careers" element={<Careers />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<ProtectedRoute child={<Dashboard />} />} />
           <Route path="/manage-user" element={<ProtectedRoute child={<ManageUser />} />} />
           <Route path="/add-user" element={<ProtectedRoute child={<AddUser />} />} />
           <Route path="/my-profile" element={<ProtectedRoute child={<MyProfile />} />} />
@@ -94,9 +99,12 @@ function App() {
           <Route path='/applicant-detail/:applicant' element={<ProtectedRoute child={<ApplicantDetail />} />} />
           <Route path="/get-list-interview-other" element={<ProtectedRoute child={<GetListInterviewOther/>}/>}/>
           <Route path="/get-list-interview-other/:id" element={<ProtectedRoute child={<DetailInterviewOther/>}/>}/>
-          <Route path="/create-feedback" element={<AddFeedback/>}/>
+          <Route path="/job-application-detail/:id/feedback" element={<AddFeedback/>}/>
+          <Route path="/get-list-history-interview" element={<GetHistoryInterview/>}/>
           <Route path="/get-list-feedback-ga" element={<GetListFeedbackGA/>}/>
           <Route path="/get-list-feedback-other" element={<GetListFeedbackOther/>}/>
+          <Route path="/edit-my-profile" element={<ProtectedRoute child={<EditMyProfile />} />} />
+          <Route path="/add-project" element={<AddProject/>}/>
       </Routes>
     </Router>
   );
