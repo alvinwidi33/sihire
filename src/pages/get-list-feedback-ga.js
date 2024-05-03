@@ -52,7 +52,7 @@ const filterFeedbacks = (rating, posisi) => {
     setFilteredFeedbacks(filtered);
   }
 };
-
+const uniqueJobNames = Array.from(new Set(feedbacks.map(feedback => feedback.job.job_name)));
 
   return (
     <React.Fragment>
@@ -110,11 +110,11 @@ const filterFeedbacks = (rating, posisi) => {
                 style={{ border: "none", width: "100%", textAlign: "center", height: "32px" }}
               >
                 <option value="None">None</option>
-                {feedbacks.map((feedback) => (
-                  <option key={feedback.id} value={feedback.job.job_name}>
-                    {feedback.job.job_name}
-                  </option>
-                ))}
+                  {uniqueJobNames.map((jobName, index) => (
+                    <option key={index} value={jobName}>
+                      {jobName}
+                    </option>
+                  ))}
               </select>
             </div>
           </div>

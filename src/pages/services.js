@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from '../components/navbar';
+import Footer from '../components/footer';
 
 function Services() {
     const cardsData = [
@@ -63,6 +64,7 @@ function Services() {
                     <div style={{ marginBottom: "50px" }} />
                 </div>
             </div>
+            <Footer marginTop="1100px"/>
         </React.Fragment>
     );
 }

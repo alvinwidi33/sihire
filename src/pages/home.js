@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Contractor from '../images/contractor.png';
 import styled from 'styled-components';
 import Navbar from '../components/navbar';
-
+import Footer from '../components/footer';
 function Home() {
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
@@ -248,7 +248,7 @@ const dataProject = [
             </div>
         </div>
     </div>
-
+        <Footer marginTop="1500px"/>
         </React.Fragment>
     );
 }
