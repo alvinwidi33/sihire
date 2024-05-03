@@ -54,28 +54,30 @@ function GetHistoryInterview() {
     return interviewDate < currentDate;
   };
 const handlePosisiChange = (event) => {
-    setSelectedPosisi(event.target.value);
-    filterHistory(selectedConfirm, event.target.value); 
+    const selectedPosisi = event.target.value;
+    setSelectedPosisi(selectedPosisi);
+    filterHistory(selectedConfirm, selectedPosisi, searchTerm);
 };
-
 const handleConfirmChange = (event) => {
-    setSelectedConfirm(event.target.value);
-    filterHistory(event.target.value, selectedPosisi); 
+    const selectedConfirm = event.target.value;
+    setSelectedConfirm(selectedConfirm);
+    filterHistory(selectedConfirm, selectedPosisi, searchTerm); 
 }
+
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value);
         filterHistory(selectedConfirm, selectedPosisi, event.target.value);
     }
 const filterHistory = (confirm, posisi, searchTerm) => {
-        const filtered = interviews.filter(interview => {
-            return (
-                (confirm === "None" || interview.confirm === confirm) &&
-                (posisi === "None" || interview.job_application_id.job?.job_name === posisi) &&
-                (searchTerm === "" || interview.job_application_id.applicant.user.name.toLowerCase().includes(searchTerm.toLowerCase()))
-            );
-        });
-        setFilteredHistory(filtered);
-    };
+    const filtered = interviews.filter(interview => {
+        const isMatchingConfirm = confirm === "None" || interview.confirm === confirm;
+        const isMatchingPosisi = posisi === "None" || (interview.job_application_id.job?.job_name === posisi);
+        const isMatchingSearchTerm = searchTerm === "" || interview.job_application_id.applicant.user.name.toLowerCase().includes(searchTerm.toLowerCase());
+        
+        return isMatchingConfirm && isMatchingPosisi && isMatchingSearchTerm;
+    });
+    setFilteredHistory(filtered);
+};
 
 
 const uniqueConfirm = Array.from(new Set(interviews.map(interview => interview.confirm)));

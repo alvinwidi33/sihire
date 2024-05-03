@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SidebarGA from "../components/sidebar-ga";
 
 function AddJobPosting() {
+  const  navigate  = useNavigate()
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [jobData, setJobData] = useState({
@@ -56,7 +57,7 @@ function AddJobPosting() {
 
       if (response.ok) {
         console.log("Job posted successfully!");
-        setSuccessMessage("Job berhasil dibuat!");
+        setSuccessMessage("Pekerjaan berhasil dibuat!");
         setJobData({
           job_name: "",
           description: "",
@@ -64,6 +65,7 @@ function AddJobPosting() {
         });
         setTimeout(() => {
           setSuccessMessage("");
+          navigate("/job-list-ga")
         }, 5000);
       } else {
         console.error("Failed to post job:", response.statusText);
@@ -94,7 +96,7 @@ function AddJobPosting() {
           position: "absolute",
         }}
       >
-        Job
+        Pekerjaan
       </p>
       <SidebarGA />
       <Link to="/job-list-ga">
