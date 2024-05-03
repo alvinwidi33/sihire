@@ -68,7 +68,6 @@ function MyProfile() {
         borderRadius: '50%',
         backgroundColor: '#F2F2F2',
         margin: '0 auto',
-        backgroundImage: profileData?.foto ? `url(${profileData.foto})` : 'url(https://cdn-icons-png.flaticon.com/512/709/709699.png)',
         backgroundSize: 'cover',
     };
 
@@ -122,7 +121,11 @@ function MyProfile() {
                     {profileData && (
                         <div className="flex flex-col items-center">
                             <div className="flex justify-center items-center space-x-4">
-                                <div style={profilePictureStyle}></div>
+                                {profileData.foto ? (
+                                    <img src={profileData.foto} alt="Profile Pic" style={profilePictureStyle} />
+                                ) : (
+                                    <img src="https://cdn-icons-png.flaticon.com/512/709/709699.png" alt="Profile Pic" style={profilePictureStyle} />
+                                )}
                                 <div className="flex flex-col justify-center">
                                     <h6 className="font-bold text-2xl" style={darkBlueText}>{profileData.username}</h6>
                                     <div style={profileInfoStyle}>
