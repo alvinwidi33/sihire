@@ -1,5 +1,6 @@
 import Navbar from '../components/navbar';
 import React, { useEffect, useState } from "react";
+import Footer from '../components/footer';
 
 function ProjectManagerCards({ pm }) {
   return (
@@ -59,7 +60,6 @@ function OurTeam() {
   return (
     <React.Fragment>
       <Navbar/>
-      <Navbar/>
       <div>
         <h1 style={{ textAlign: "center", marginTop: "100px", fontWeight: "bold", fontSize: "30px"}}>Our Team</h1>
         <h2 style={{ textAlign: "center", marginTop: "70px", fontWeight: "bold" }}>Director</h2>
@@ -72,6 +72,7 @@ function OurTeam() {
         </div>
         <div style={{ marginBottom: "50px" }} />
       </div>
+      <Footer marginTop="1100px"/>
     </React.Fragment>
   );
 }

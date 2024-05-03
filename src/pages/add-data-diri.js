@@ -146,7 +146,7 @@ function AddDataDiri() {
         setSuccessMessage("Data Diri berhasil dikumpulkan!");
         setTimeout(() => {
           setSuccessMessage("");
-          navigate(`/my-job-application/`);
+          navigate(`/data-diri-detail/${id}`);
         }, 5000);
       }
     } catch (error) {
