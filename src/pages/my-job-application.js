@@ -457,7 +457,7 @@ const MyJobApplication = () => {
               <Th>Waktu</Th>
               <Th>Status</Th>
               <Th>Konfirmasi</Th>
-              <Th>Add Data Diri</Th> {/* New column header */}
+              <Th>Data Diri</Th> {/* New column header */}
             </tr>
           </thead>
           <tbody>
@@ -475,10 +475,17 @@ const MyJobApplication = () => {
                     <Button onClick={() => handleReject(onboarding.id)}>Tolak</Button>
                   </Td>
                   <Td>
-                    {/* Add Data Diri button */}
-                    <Link to={`/create-datadiri/${onboarding.id}`}>
-                      <Button primary>Add Data Diri</Button>
-                    </Link>
+                    {onboarding.ktp === null ? (
+                      // If onboarding.ktp is null, render the "Add Data Diri" button
+                      <Link to={`/create-datadiri/${onboarding.id}`}>
+                        <Button primary>Tambah Data</Button>
+                      </Link>
+                    ) : (
+                      // If onboarding.ktp is not null, render the "Detail" button
+                      <Link to={`/data-diri-detail/${onboarding.id}`}>
+                        <Button primary>Detail</Button>
+                      </Link>
+                    )}
                   </Td>
                 </tr>
               ))}
