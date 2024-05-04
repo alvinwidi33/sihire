@@ -141,7 +141,7 @@ function EditMyProfile() {
     }
 
     const handleHapusFoto = async (e) => {
-        setProfilePictureURL(null);
+        setProfilePictureURL("");
     }
     
     
