@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import SidebarOther from "../components/sidebar-other"; 
+import { Link } from "react-router-dom"; 
+import SidebarGA from "../components/sidebar-ga";
 
 function GetHistoryInterview() {
     const [interviews, setInterviews] = useState([]);
-
+      const [selectedPosisi, setSelectedPosisi] = useState("None");
+      const [selectedConfirm, setSelectedConfirm] = useState("None");
+      const [filteredHistory, setFilteredHistory] = useState([]);
+      const [searchTerm, setSearchTerm] = useState("");
   function formatTime(datetimeString) {
     const dateTime = new Date(datetimeString);
     const hours = dateTime.getHours().toString().padStart(2, "0");
     const minutes = dateTime.getMinutes().toString().padStart(2, "0");
     return `${hours}:${minutes}`;
   }
-
+  
   function formatDateTime(datetimeString) {
     const options = {
       weekday: "long",
@@ -37,6 +40,7 @@ function GetHistoryInterview() {
         );
         const data = await response.json();
         setInterviews(data);
+        setFilteredHistory(data);
       } catch (error) {
         console.error("Error fetching interview data:", error);
       }
@@ -49,7 +53,35 @@ function GetHistoryInterview() {
     const currentDate = new Date();
     return interviewDate < currentDate;
   };
+const handlePosisiChange = (event) => {
+    const selectedPosisi = event.target.value;
+    setSelectedPosisi(selectedPosisi);
+    filterHistory(selectedConfirm, selectedPosisi, searchTerm);
+};
+const handleConfirmChange = (event) => {
+    const selectedConfirm = event.target.value;
+    setSelectedConfirm(selectedConfirm);
+    filterHistory(selectedConfirm, selectedPosisi, searchTerm); 
+}
 
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+        filterHistory(selectedConfirm, selectedPosisi, event.target.value);
+    }
+const filterHistory = (confirm, posisi, searchTerm) => {
+    const filtered = interviews.filter(interview => {
+        const isMatchingConfirm = confirm === "None" || interview.confirm === confirm;
+        const isMatchingPosisi = posisi === "None" || (interview.job_application_id.job?.job_name === posisi);
+        const isMatchingSearchTerm = searchTerm === "" || interview.job_application_id.applicant.user.name.toLowerCase().includes(searchTerm.toLowerCase());
+        
+        return isMatchingConfirm && isMatchingPosisi && isMatchingSearchTerm;
+    });
+    setFilteredHistory(filtered);
+};
+
+
+const uniqueConfirm = Array.from(new Set(interviews.map(interview => interview.confirm)));
+const uniqueJobNames = Array.from(new Set(interviews.map(interview => interview.job_application_id.job?.job_name)));
   return (
     <React.Fragment>
       <p
@@ -64,7 +96,7 @@ function GetHistoryInterview() {
       >
         Wawancara
       </p>
-      <SidebarOther />
+      <SidebarGA />
       <div
         style={{ marginLeft: "22%", position: "absolute", marginTop: "-40px" }}
         className="w-9/12"
@@ -88,12 +120,59 @@ function GetHistoryInterview() {
         <Link to="/get-list-history-interview">
           <p style={{ display: "inline", marginLeft: "4px", marginTop:"21%" }}>History Wawancara</p>
         </Link>
-        {interviews && (
+        <div className="py-5 rounded rounded-xl border border-2 border-black" style={{ height: '160px', marginBottom: "12px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", marginBottom:"4px" }}>
+            <p style={{ marginLeft: "21%", fontSize: "16px", color: "#2A3E4B", }}>Konfirmasi</p>
+            <p style={{ marginLeft:"47%", marginRight:"auto", fontSize: "16px", color: "#2A3E4B", }}>Posisi</p>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div style={{ marginLeft: "2%", border: "2px solid black", borderRadius: "5px", width: "47%", height:"36px" }}>
+              <select
+              value={selectedConfirm}
+                onChange={handleConfirmChange}
+                style={{ border: "none", width: "100%", textAlign: "center", height:"32px" }}
+              >
+                <option value="None">None</option>
+                  {uniqueConfirm.map((confirm, index) => (
+                    <option key={index} value={confirm}>
+                      {confirm}
+                    </option>
+                  ))}
+
+              </select>
+
+            </div>
+            <div style={{ marginLeft: "2%", marginRight: "2%", border: "2px solid black", borderRadius: "5px", width: "45%" }}>
+              <select
+                value={selectedPosisi}
+                onChange={handlePosisiChange}
+                style={{ border: "none", width: "100%", textAlign: "center", height: "32px" }}
+              >
+                <option value="None">None</option>
+                  {uniqueJobNames.map((jobName, index) => (
+                    <option key={index} value={jobName}>
+                      {jobName}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          </div>
+          <div style={{ marginTop: "20px", marginLeft:"16%" }}>
+                <input
+                    type="text"
+                    placeholder="Cari berdasarkan nama pelamar..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    style={{ textAlign:"center",border: "2px solid black", borderRadius: "5px", height: "36px", padding: "0 10px", width:"80%" }}
+                />
+            </div>
+        </div>
+        {filteredHistory.length > 0 ? (
           <table
             style={{
               marginLeft: "0%",
               borderCollapse: "collapse",
-              width: "88%",
+              width: "100%",
               padding:"12px",
               marginTop:"20px"
             }}
@@ -213,7 +292,7 @@ function GetHistoryInterview() {
               </tr>
             </thead>
             <tbody>
-              {interviews.map((interview) => (
+              {filteredHistory.map((interview) => (
                 <tr
                   key={interview.id}
                   style={{
@@ -322,12 +401,13 @@ function GetHistoryInterview() {
                     }}
                   >
                     {interview.created_at &&
-                      formatDateTime(interview.created_at)}
+                      formatDateTime(interview.created_at)} - {interview.created_at &&
+                      formatTime(interview.created_at)}
                   </td>
                   <td
                     style={{ border: "2px solid #2A3E4B", textAlign: "center" }}
                   >
-                    <Link to={`/get-list-interview-other/${interview.id}`}>
+                    <Link to={`/get-list-history-interview/${interview.id}/`}>
                       <button
                         style={{
                           width: "42%",
@@ -350,6 +430,10 @@ function GetHistoryInterview() {
               ))}
             </tbody>
           </table>
+        ): (
+          <p style={{ marginLeft: "42.5%", fontSize: "16px", color: "#2A3E4B" }}>
+            Yang Anda Cari tidak ada
+          </p>
         )}
       </div>
     </React.Fragment>

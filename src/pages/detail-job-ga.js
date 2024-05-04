@@ -121,7 +121,7 @@ function DetailJobGA() {
                   border: "2px solid #2A3E4B",
                 }}
               >
-                Edit
+                Ubah
               </button>
             </Link>
             <button
