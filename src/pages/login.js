@@ -27,7 +27,7 @@ const Login = () => {
                 if(json_response.role ==="Applicant"){
                     window.location.href = "/job-list-applicant/";
                 } else if (json_response.role ==="Director"){
-                    window.location.href = "/job-list-other/";
+                    window.location.href = "/dashboard/";
                 } else if (json_response.role ==="General Affairs"){
                     window.location.href = "/job-list-ga/";
                 } else if (json_response.role ==="Project Manager"){
