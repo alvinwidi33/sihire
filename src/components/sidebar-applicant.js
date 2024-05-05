@@ -58,6 +58,15 @@ function SidebarApplicant() {
       console.error("Error during logout:", error);
     }
   };
+  
+  const profilePictureStyle = {
+    width: "32px",
+    height: "32px",
+      borderRadius: '50%',
+      backgroundColor: '#F2F2F2',
+      backgroundSize: 'cover',
+      border: "2px solid grey",
+  };
 
   useEffect(() => {
     getUser();
@@ -157,14 +166,11 @@ function SidebarApplicant() {
             }}
             className="flex gap-4 items-center"
           >
-            <div
-              style={{
-                width: "32px",
-                height: "32px",
-                borderRadius: "50%",
-                border: "2px solid grey",
-              }}
-            ></div>
+            {activeUser.foto ? (
+                <img src={activeUser.foto} alt="Profile Pic" style={profilePictureStyle} />
+            ) : (
+                <img src="https://cdn-icons-png.flaticon.com/512/709/709699.png" alt="Profile Pic" style={profilePictureStyle} />
+            )}
 
             <p>{activeUser.user.name}</p>
           </a>
