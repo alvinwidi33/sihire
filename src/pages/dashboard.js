@@ -301,7 +301,7 @@ const Dashboard = () => {
                 <div className="flex justify-center">
                   <div>
                     <div className="flex">
-                      {dataRating.average > 1 ? (
+                      {dataRating.average >= 1 ? (
                         <svg
                           width="49"
                           height="48"
@@ -333,7 +333,7 @@ const Dashboard = () => {
                           />
                         </svg>
                       )}
-                      {dataRating.average > 2 ? (
+                      {dataRating.average >= 2 ? (
                         <svg
                           width="49"
                           height="48"
@@ -365,7 +365,7 @@ const Dashboard = () => {
                           />
                         </svg>
                       )}
-                      {dataRating.average > 3 ? (
+                      {dataRating.average >= 3 ? (
                         <svg
                           width="49"
                           height="48"
@@ -397,7 +397,7 @@ const Dashboard = () => {
                           />
                         </svg>
                       )}
-                      {dataRating.average > 4 ? (
+                      {dataRating.average >= 4 ? (
                         <svg
                           width="49"
                           height="48"

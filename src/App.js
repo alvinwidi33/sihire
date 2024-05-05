@@ -53,8 +53,8 @@ import Dashboard from './pages/dashboard';
 import AddProject from './pages/add-project';
 import DetailHistoryInterview from './pages/detail-history-interview';
 import DataDiriDetail from './pages/data-diri-detail';
-import OurProjectDetail from './pages/our-project-detail';
 import EditProject from './pages/edit-project';
+import OurProjectDetail from './pages/project-detail';
 
 function App() {
   return (
