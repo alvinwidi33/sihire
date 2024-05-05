@@ -14,7 +14,7 @@ function Home() {
       const getProjects = async () => {
         try {
           const response = await fetch(
-            "https://sihire-be.vercel.app/api/project/get-all-projects/"
+            "https://sihire-be.vercel.app/api/project/get-latest-projects/"
           );
           if (response.ok) {
             const data = await response.json();
@@ -250,7 +250,7 @@ const dataProject = [
         textAlign: 'center',
         fontWeight:'bold',
         fontFamily:'Inter, sans-serif'}}>Our Projects</p>
-            <div className='flex flex-wrap gap-8' style={{marginLeft:"5%"}}>
+            <div className='flex flex-wrap gap-8' style={{marginLeft:"15%"}}>
             {
                 projects &&
                 projects.map((project) => (
