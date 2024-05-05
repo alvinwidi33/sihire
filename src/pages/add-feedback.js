@@ -61,7 +61,7 @@ function AddFeedback() {
         );
 
         if (response.ok) {
-          setSuccessMessage("Feedback berhasil dikirim!");
+          setSuccessMessage("Ulasan berhasil dikirim!");
         setTimeout(() => {
           setSuccessMessage("");
           navigate(`/job-application-detail/${id}`);
@@ -77,27 +77,25 @@ function AddFeedback() {
 
   return (
     <React.Fragment>
-      <div style={{ marginLeft: "22%", position: "absolute", marginTop: "10px" }}>
-        <p
-          style={{
-            fontWeight: "bold",
-            fontSize: "32px",
-            color: "#2A3E4B",
-            marginBottom: "45px",
-          }}
-        >
-          Feedback
-        </p>
-        <Link to="/get-list-interview-ga">
-          <p style={{ display: "inline", marginLeft: "4px", marginTop: "21%" }}>List Wawancara</p>
-        </Link>
-        <span style={{ display: "inline", marginLeft: "10px" }}>{">"}</span>
-        <Link to="/create-interview">
-          <p style={{ display: "inline", marginLeft: "4px", marginTop: "21%" }}>Tambah Wawancara</p>
-        </Link>
-      </div>
-      <SidebarApplicant />
-      <div style={{ marginLeft: "22%", position: "absolute", marginTop: "-240px" }} className="w-9/12">
+  <div style={{ marginLeft: "22%", position: "absolute", marginTop: "10px" }}>
+    <p
+      style={{
+        fontWeight: "bold",
+        fontSize: "32px",
+        color: "#2A3E4B",
+        marginBottom: "45px",
+      }}
+    >
+      Ulasan
+    </p>
+    <div style={{ display: "inline" }}>
+      <Link to={`/job-application-detail/${id}`} style={{ marginLeft: "4px", marginTop: "21%", position: "relative", zIndex: "1" }}>Job Application Detail</Link>
+      <span style={{ marginLeft: "10px" }}>{">"}</span>
+      <Link to={`/job-application-detail/${id}/feedback`} style={{ marginLeft: "4px", marginTop: "21%", position: "relative", zIndex: "1" }}>Beri Ulasan</Link>
+    </div>
+  </div>
+  <SidebarApplicant />
+      <div style={{ marginLeft: "22%", position: "absolute", marginTop: "-250px" }} className="w-9/12">
         <div className='rectangle' style={rectangleStyle}>
           <p
             style={{
@@ -109,12 +107,12 @@ function AddFeedback() {
               position: "absolute",
             }}
           >
-            Feedback
+            Ulasan
           </p>
           <form onSubmit={handleSubmit}>
             <p
               style={{
-                marginLeft: "45%",
+                marginLeft: "43%",
                 fontSize: "16px",
                 color: "#2A3E4B",
                 position: "absolute",
@@ -124,7 +122,7 @@ function AddFeedback() {
               Beri Bintang
               <span style={{ color: "red" }}>*</span>
             </p>
-            <div style={{ marginLeft: "36%", position: "absolute", bottom: "380px", left: "0", right: "0" }}>
+            <div style={{ marginLeft: "34%", position: "absolute", bottom: "380px", left: "0", right: "0" }}>
               {[...Array(5)].map((star, index) => (
                 <Star
                   key={index}
@@ -135,7 +133,7 @@ function AddFeedback() {
             </div>
             <p
               style={{
-                marginLeft: "43.5%",
+                marginLeft: "42%",
                 fontSize: "16px",
                 color: "#2A3E4B",
                 position: "absolute",

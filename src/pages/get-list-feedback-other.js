@@ -52,8 +52,8 @@ const filterFeedbacks = (rating, posisi) => {
     setFilteredFeedbacks(filtered);
   }
 };
-
 const uniqueJobNames = Array.from(new Set(feedbacks.map(feedback => feedback.job.job_name)));
+
   return (
     <React.Fragment>
       <p
@@ -66,7 +66,7 @@ const uniqueJobNames = Array.from(new Set(feedbacks.map(feedback => feedback.job
           marginTop: "12px",
         }}
       >
-        Feedback
+        Ulasan
       </p>
       <SidebarOther/>
       <div style={{ marginLeft: "22%", position: "absolute", marginTop: "-40px" }} className="w-9/12">
@@ -80,10 +80,10 @@ const uniqueJobNames = Array.from(new Set(feedbacks.map(feedback => feedback.job
             marginBottom: "12px",
           }}
         >
-          List Feedback
+          List Ulasan
         </p>
         <div className="py-5 rounded rounded-xl border border-2 border-black" style={{ height: '160px', marginBottom: "12px" }}>
-          <h2 className="text-xl font-semibold" style={{ textAlign: "center" }}>Filter Feedback</h2>
+          <h2 className="text-xl font-semibold" style={{ textAlign: "center" }}>Filter Ulasan</h2>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom:"4px" }}>
             <p style={{ marginLeft: "22.5%", fontSize: "16px", color: "#2A3E4B", }}>Rating</p>
             <p style={{ marginLeft:"47%", marginRight:"auto", fontSize: "16px", color: "#2A3E4B", }}>Posisi</p>
