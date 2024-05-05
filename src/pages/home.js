@@ -3,8 +3,31 @@ import Contractor from '../images/contractor.png';
 import styled from 'styled-components';
 import Navbar from '../components/navbar';
 import Footer from '../components/footer';
+import { Link } from 'react-router-dom';
+
 function Home() {
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
+    const [projects, setProjects] = React.useState(null);
+    const [profileData, setProfileData] = React.useState(null);
+
+    React.useEffect(() => {
+      const getProjects = async () => {
+        try {
+          const response = await fetch(
+            "https://sihire-be.vercel.app/api/project/get-all-projects/"
+          );
+          if (response.ok) {
+            const data = await response.json();
+            setProjects(data);
+          } else {
+            console.error("Failed to fetch projects");
+          }
+        } catch (error) {
+          console.error("Error fetching projects:", error);
+        }
+      };
+      getProjects();
+    }, []);
 
     const navigateToPreviousCard = () => {
         setCurrentCardIndex((prevIndex) => Math.max(prevIndex - 1, 0));
@@ -126,17 +149,33 @@ function Home() {
     position:absolute
 `;
 
-    const dataProject =[
-        { title:"Office 38", location:"Jl. Raden Saleh, Karang Tengah \n Tangerang – Indonesia",
-            type:"Architectural Interior", land:"486m",building:"800m"
-        },
-        { title:"Office 38", location:"Jl. Raden Saleh, Karang Tengah \n Tangerang – Indonesia",
-            type:"Architectural Interior", land:"486m",building:"800m"
-        },
-        { title:"Office 38", location:"Jl. Raden Saleh, Karang Tengah \n Tangerang – Indonesia",
-            type:"Architectural Interior", land:"486m",building:"800m"
-        }
-    ]
+const dataProject = [
+    {
+        title: "Rumah 1",
+        location: "Jl. Raden Saleh, Karang Tengah \n Tangerang – Indonesia",
+        type: "Residential",
+        land: "500m",
+        building: "300m",
+        image: require('../images/rumah1.png')
+    },
+    {
+        title: "Rumah 2",
+        location: "Jl. Darmo, Pakis, Surabaya \n Jawa Timur – Indonesia",
+        type: "Villa",
+        land: "800m",
+        building: "600m",
+        image: require('../images/rumah2.png')
+    },
+    {
+        title: "Rumah 3",
+        location: "Jl. Diponegoro, Menteng \n Jakarta Pusat – Indonesia",
+        type: "Luxury Residence",
+        land: "1000m",
+        building: "750m",
+        image: require('../images/rumah3.png')
+    }
+];
+
     const data = [
         { title: 'Social Security and Healthcare Security', 
         text: 'Jaminan Kesehatan dan Keselamatan Ketenagakerjaan of BPJS for each our project',
@@ -206,31 +245,66 @@ function Home() {
     </div>
     </div>
     <div style={frameProject}>
-    <p style={textProject}>Our Projects</p>
-    <div style={{ position: 'relative' }}>
-        {currentCardIndex > 0 && (
-            <button onClick={navigateToPreviousCard} style={{ position: 'absolute', top: '70%', left: '200px', transform: 'translate(-50%, -50%)', zIndex: '1' }}>
-                &lt;
-            </button>
-        )}
-        {currentCardIndex < dataProject.length - 1 && (
-            <button onClick={navigateToNextCard} style={{ position: 'absolute', top: '70%', right: '200px', transform: 'translate(50%, -50%)', zIndex: '1' }}>
-                &gt;
-            </button>
-        )}
-        <div style={cardProjectContainer}>
-            {dataProject.map((item, index) => (
-                <CardProject key={index} style={{ display: index === currentCardIndex ? 'block' : 'none' }}>
-                    <h1>{item.title}</h1>
-                    <p>{item.location}</p>
-                    <p>{item.type}</p>
-                    <p>{item.land}</p>
-                    <p>{item.building}</p>
-                </CardProject>
-            ))}
-        </div>
+    <p className='mx-auto text-xl font-bold text-center my-8' style={{color: '#2A3E4B',
+        fontSize: '36px',
+        textAlign: 'center',
+        fontWeight:'bold',
+        fontFamily:'Inter, sans-serif'}}>Our Projects</p>
+            <div className='flex flex-wrap gap-8' style={{marginLeft:"5%"}}>
+            {
+                projects &&
+                projects.map((project) => (
+                    <div key={project.id} className='bg-white w-64 shadow-lg rounded-xl overflow-hidden'>
+                        <div className='flex flex-col h-full'>
+                            <img src={"https://lwchpknnmkmpfbkwcrjs.supabase.co/storage/v1/object/public/sihire-project/" + project.foto1.split(",")[0]} alt="project" className='h-36 w-full object-cover'/>
+                            <div className='flex flex-col p-4 justify-between gap-4 h-full'>
+                                <h2 className='font-bold line-clamp-2'>{project.project_name}</h2>
+                                <div className='flex gap-2'>
+                                <Link to={`/project/${project.id}`}>
+                                  <button style={{
+                                      width: "100px",
+                                      padding: "8px",
+                                      fontSize: "14px",
+                                      fontFamily: "Inter, sans-serif",
+                                      fontWeight: "bold",
+                                      color: "#fff",
+                                      background: "#333",
+                                      borderRadius: "6px",
+                                      cursor: "pointer",
+                                      border: "2px solid #333",
+                                  }}
+                                  >
+                                      Lihat Detail
+                                  </button>
+                                </Link>
+                                {profileData && profileData.role === 'Admin' &&
+                                    <Link to={`/edit-project/${project.id}`}>
+                                        <button 
+                                          style={{
+                                            width: "90px",
+                                            padding: "8px",
+                                            fontSize: "14px",
+                                            fontFamily: "Inter, sans-serif",
+                                            fontWeight: "bold",
+                                            color: "#2A3E4B",
+                                            borderRadius: "6px",
+                                            cursor: "pointer",
+                                            border: "2px solid #2A3E4B",
+                                          }}
+                                        >
+                                            Edit
+                                        </button>
+                                    </Link>
+                                }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))
+            }
+            </div>
     </div>
-</div>
+
         <Footer marginTop="1500px"/>
         </React.Fragment>
     );

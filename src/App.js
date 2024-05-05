@@ -53,6 +53,7 @@ import Dashboard from './pages/dashboard';
 import AddProject from './pages/add-project';
 import DetailHistoryInterview from './pages/detail-history-interview';
 import DataDiriDetail from './pages/data-diri-detail';
+import EditProject from './pages/edit-project';
 import OurProjectDetail from './pages/project-detail';
 
 function App() {
@@ -111,6 +112,7 @@ function App() {
           <Route path="/add-project" element={<AddProject/>}/>
           <Route path='/data-diri-detail/:id' element={<ProtectedRoute child={<DataDiriDetail />} />} />
           <Route path="/project/:id" element={<ProtectedRoute child={<OurProjectDetail />} />} />
+          <Route path="/edit-project/:id" element={<ProtectedRoute child={<EditProject />} />} />
       </Routes>
     </Router>
   );
