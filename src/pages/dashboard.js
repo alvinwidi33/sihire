@@ -121,7 +121,7 @@ const Dashboard = () => {
       <SidebarDirector />
 
       <div
-        style={{ marginLeft: "22%", position: "absolute", marginTop: "-320px" }}
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-360px" }}
         className="w-9/12"
       >
         <TabContainer>

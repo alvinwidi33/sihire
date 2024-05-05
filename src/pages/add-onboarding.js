@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import SidebarGA from "../components/sidebar-ga";
+import Select from "react-select";
 
 const AddOnboarding = () => {
   const navigate = useNavigate();
-  const { startTime, endTime, job_name } = useParams();
   const [successMessage, setSuccessMessage] = useState("");
   const [interviewers, setInterviewers] = useState([]);
   const [jobOptions, setJobOptions] = useState([]);
@@ -12,6 +12,7 @@ const AddOnboarding = () => {
   const [selectedJob, setSelectedJob] = useState("");
   const [applicants, setApplicants] = useState([]);
   const [interviewData, setInterviewData] = useState("");
+  const [selectedApplicants, setSelectedApplicants] = useState([]);
 
   const currentDate = new Date();
   const currentDateString = currentDate.toISOString().split("T")[0];
@@ -54,7 +55,7 @@ const AddOnboarding = () => {
     interviewData.startTime,
     interviewData.endTime,
     selectedJob,
-  ]); 
+  ]);
 
   useEffect(() => {
     const getJobNames = async () => {
@@ -111,63 +112,59 @@ const AddOnboarding = () => {
   const handleInterviewerChange = (event) => {
     setInterviewData({ ...interviewData, interviewer: event.target.value });
   };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const selectedJobObjects = jobOptions.filter(
+      (option) =>
+        option.job.job_name === selectedJob &&
+        interviewData.applicants.includes(option.applicant.user.user_id)
+    );
+
     try {
-      const selectedJobObject = jobOptions.find(
-        (option) =>
-          option.job.job_name === selectedJob &&
-          option.applicant.user.user_id === interviewData.applicant
-      );
-      if (!selectedJobObject) {
-        throw new Error("Selected job not found.");
-      }
-      const isConfirmed = window.confirm(
-        "Apakah Anda yakin membuat On Boarding?"
-      );
+      const promises = selectedJobObjects.map(async (selectedJobObject) => {
+        const datetimeStart = new Date(
+          interviewData.datetime + "T" + interviewData.startTime
+        );
+        const datetimeEnd = new Date(
+          interviewData.datetime + "T" + interviewData.endTime
+        );
 
-      if (!isConfirmed) {
-        return;
-      }
+        const { applicants, ...interviewDataWithoutApplicants } = interviewData;
 
-      const datetimeStart = new Date(
-        interviewData.datetime + "T" + interviewData.startTime
-      );
-      const datetimeEnd = new Date(
-        interviewData.datetime + "T" + interviewData.endTime
-      );
-      const formattedData = {
-        ...interviewData,
-        datetime_start: datetimeStart.toISOString(),
-        datetime_end: datetimeEnd.toISOString(),
-        applicant: interviewData.applicant,
-        pic_user_id: interviewData.interviewer,
-        job_application_id: selectedJobObject.id,
-      };
+        const formattedData = {
+          ...interviewDataWithoutApplicants,
+          datetime_start: datetimeStart.toISOString(),
+          datetime_end: datetimeEnd.toISOString(),
+          applicant: interviewData.applicant,
+          pic_user_id: interviewData.interviewer,
+          job_application_id: selectedJobObject.id,
+        };
 
-      const response = await fetch(
-        "https://sihire-be.vercel.app/api/onboarding/add-onboarding/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formattedData),
+        console.log(formattedData);
+        const response = await fetch(
+          "https://sihire-be.vercel.app/api/onboarding/add-onboarding/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formattedData),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to submit On Boarding schedule");
         }
-      );
+      });
 
-      if (!response.ok) {
-        throw new Error("Failed to submit On Boarding schedule");
-      }
-      if (response.ok) {
-        setSuccessMessage("On Boarding berhasil dibuat!");
-        setTimeout(() => {
-          setSuccessMessage("");
-          navigate("/get-list-onboarding-internal");
-        }, 5000);
-      } else {
-        console.error("Failed to post On Boarding", response.statusText);
-      }
+      await Promise.all(promises);
+
+      setSuccessMessage("On Boarding berhasil dibuat!");
+      setTimeout(() => {
+        setSuccessMessage("");
+        navigate("/get-list-onboarding-internal");
+      }, 5000);
     } catch (error) {
       alert("On Boarding applicant sudah ada");
     }
@@ -187,7 +184,7 @@ const AddOnboarding = () => {
       >
         On Boarding
       </p>
-      <Link to="/get-list-onboarding-internal">
+      <Link to='/get-list-onboarding-internal'>
         <p
           style={{
             marginLeft: "22%",
@@ -203,7 +200,7 @@ const AddOnboarding = () => {
       >
         {">"}
       </p>
-      <Link to="/create-onboarding">
+      <Link to='/create-onboarding'>
         <p
           style={{
             marginLeft: "32%",
@@ -215,8 +212,8 @@ const AddOnboarding = () => {
         </p>
       </Link>
       <SidebarGA />
-      <div className="create-interview" style={{ position: "relative" }}>
-        <div className="rectangle" style={rectangleStyle}>
+      <div className='create-interview' style={{ position: "relative" }}>
+        <div className='rectangle' style={rectangleStyle}>
           <p
             style={{
               marginTop: "20px",
@@ -257,11 +254,11 @@ const AddOnboarding = () => {
                 position: "absolute",
               }}
               required
-              id="job"
+              id='job'
               value={selectedJob}
               onChange={handleJobChange}
             >
-              <option value="">Select Job</option>
+              <option value=''>Select Job</option>
               {jobOptions
                 .map((job) => job.job)
                 .filter(
@@ -287,7 +284,7 @@ const AddOnboarding = () => {
               Pelamar Tahap Onboarding
               <span style={{ color: "red" }}>*</span>
             </p>
-            <select
+            <div
               style={{
                 borderRadius: "5px",
                 border: "2px solid #ccc",
@@ -300,36 +297,59 @@ const AddOnboarding = () => {
                 color: "#2A3E4B",
                 position: "absolute",
               }}
-              required
-              id="applicant"
-              value={interviewData.applicant}
-              onChange={(e) =>
-                setInterviewData({
-                  ...interviewData,
-                  applicant: e.target.value,
-                })
-              }
             >
-              <option value="">Pilih Applicant</option>
-              {applicants
-                .filter((applicant) =>
-                  interviews.length > 0
-                    ? !interviews.some(
-                        (interview) =>
-                          interview.job_application_id.applicant.applicant_id === applicant.applicant_id &&
-                          interview.job_application_id.job.job_name === selectedJob
-                      )
-                    : true
-                )
-                .map((applicant) => (
-                  <option
-                    key={applicant.user.user_id}
-                    value={applicant.user.user_id}
-                  >
-                    {applicant.user.name}
-                  </option>
-                ))}
-            </select>
+              <Select
+                required
+                isMulti
+                name='colors'
+                value={applicants
+                  .filter((applicant) =>
+                    interviews.length > 0
+                      ? !interviews.some(
+                          (interview) =>
+                            interview.job_application_id.applicant
+                              .applicant_id === applicant.applicant_id &&
+                            interview.job_application_id.job.job_name ===
+                              selectedJob
+                        )
+                      : true
+                  )
+                  .map((applicant) => ({
+                    value: applicant.user.user_id,
+                    label: applicant.user.name,
+                  }))
+                  .filter((obj) => selectedApplicants.includes(obj.value))}
+                options={applicants
+                  .filter((applicant) =>
+                    interviews.length > 0
+                      ? !interviews.some(
+                          (interview) =>
+                            interview.job_application_id.applicant
+                              .applicant_id === applicant.applicant_id &&
+                            interview.job_application_id.job.job_name ===
+                              selectedJob
+                        )
+                      : true
+                  )
+                  .map((applicant) => ({
+                    value: applicant.user.user_id,
+                    label: applicant.user.name,
+                  }))}
+                className='basic-multi-select'
+                classNamePrefix='select'
+                onChange={(e) => {
+                  const selectedValues = Array.isArray(e)
+                    ? e.map((x) => x.value)
+                    : [];
+                  setSelectedApplicants(selectedValues);
+                  setInterviewData({
+                    ...interviewData,
+                    applicants: selectedValues,
+                  });
+                }}
+              />
+            </div>
+
             <p
               style={{
                 marginTop: "280px",
@@ -344,7 +364,7 @@ const AddOnboarding = () => {
               <span style={{ color: "red" }}>*</span>
             </p>
             <input
-              type="date"
+              type='date'
               style={{
                 borderRadius: "5px",
                 border: "2px solid #CBD2E0",
@@ -402,7 +422,7 @@ const AddOnboarding = () => {
               <span style={{ color: "red" }}>*</span>
             </p>
             <input
-              type="time"
+              type='time'
               style={{
                 borderRadius: "5px",
                 border: "2px solid #CBD2E0",
@@ -430,9 +450,7 @@ const AddOnboarding = () => {
                   .toISOString()
                   .split("T")[0];
                 if (startTime > endTime) {
-                  alert(
-                    "Waktu mulai tidak boleh lebih dari waktu akhir."
-                  );
+                  alert("Waktu mulai tidak boleh lebih dari waktu akhir.");
                   return;
                 }
                 if (
@@ -471,7 +489,7 @@ const AddOnboarding = () => {
               <span style={{ color: "red" }}>*</span>
             </p>
             <input
-              type="time"
+              type='time'
               style={{
                 borderRadius: "5px",
                 border: "2px solid #CBD2E0",
@@ -548,11 +566,11 @@ const AddOnboarding = () => {
                 color: "#2A3E4B",
                 position: "absolute",
               }}
-              id="pic_user_id"
+              id='pic_user_id'
               value={interviewData.pic_user_id}
               onChange={handleInterviewerChange}
             >
-              <option value="">Pilih Person In Charge</option>
+              <option value=''>Pilih Person In Charge</option>
               {interviewers &&
                 interviewers.map((pic) => (
                   <option key={pic.user_id} value={pic.user_id}>
@@ -562,7 +580,7 @@ const AddOnboarding = () => {
             </select>
 
             <button
-              type="submit"
+              type='submit'
               style={{
                 width: "420px",
                 padding: "8px",

@@ -1,11 +1,11 @@
+import { createClient } from "@supabase/supabase-js";
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from "uuid";
 import SidebarAdmin from '../components/sidebar-admin';
 import SidebarApplicant from '../components/sidebar-applicant';
 import SidebarGA from "../components/sidebar-ga";
 import SidebarOther from '../components/sidebar-other';
-import { createClient } from "@supabase/supabase-js";
-import { v4 as uuidv4 } from "uuid";
 
 function EditMyProfile() {
     const navigate = useNavigate();
@@ -81,7 +81,7 @@ function EditMyProfile() {
             formData.append('name', profileData.name);
             formData.append('phone', profileData.phone);
             if (profilePictureURL !== profileData.foto) {
-                formData.append('profile_picture', profilePictureURL);
+                formData.append('foto', profilePictureURL);
             }
 
             const response = await fetch('https://sihire-be.vercel.app/api/users/edit-my-profile/', {
@@ -133,11 +133,15 @@ function EditMyProfile() {
             });
         
             if (data != null) {
-                setProfilePictureURL(cdnURL + profileData.username + "/" + data[0].name)
+                setProfilePictureURL(cdnURL + profileData.username + "/" + data[0].name);
             }
             else {
-                console.log("error loading images " + error)
+                console.log("error loading images " + error);
             }
+    }
+
+    const handleHapusFoto = async (e) => {
+        setProfilePictureURL("");
     }
     
     
@@ -232,6 +236,7 @@ function EditMyProfile() {
                                                 <button
                                                     className="text-red-500 hover:text-red-700 rounded-md"
                                                     style={{ fontSize: '1rem' }}
+                                                    onClick={handleHapusFoto}
                                                 >
                                                     Hapus Foto
                                                 </button>
