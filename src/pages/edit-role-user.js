@@ -57,7 +57,10 @@ function EditRoleUser(props) {
         .then(response => {
             if (response.ok) {
                 setEditSuccessVisible(true);
-                navigate("/manage-user");
+                setTimeout(() => {
+                    setEditSuccessVisible(false);
+                    navigate('/manage-user');
+                }, 5000); // 5 seconds delay
             } else {
                 throw new Error('Failed to update role');
             }
@@ -82,8 +85,13 @@ function EditRoleUser(props) {
         })
         .then(response => {
             if (response.ok) {
+                setDeleteConfirmationVisible(false);
                 setDeleteSuccessVisible(true);
                 console.log('User deleted successfully');
+                setTimeout(() => {
+                    setDeleteSuccessVisible(false);
+                    navigate('/manage-user');
+                }, 5000); // 5 seconds delay
             } else {
                 console.error('Failed to delete user');
             }
@@ -91,9 +99,6 @@ function EditRoleUser(props) {
         .catch(error => console.error('Error deleting user:', error));
     };
 
-    const handleCancelDelete = () => {
-        setDeleteConfirmationVisible(false);
-    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -183,6 +188,7 @@ function EditRoleUser(props) {
                                 <option value="Project Manager">Project Manager</option>
                                 <option value="Director">Director</option>
                                 <option value="Admin">Admin</option>
+                                <option value="Applicant">Applicant</option>
                             </select>
                         </div>
                         <div className="mt-6">
@@ -194,15 +200,15 @@ function EditRoleUser(props) {
                                 Update User
                             </button>
                         </div>
-                        <div className="mt-6">
+                    </form>
+                    <div className="mt-6">
                             <button
                                 className="w-full px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-700 focus:outline-none focus:bg-indigo-700"
                                 onClick={handleDeleteUser}
                             >
                                 Delete User
                             </button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -211,13 +217,13 @@ function EditRoleUser(props) {
         <NotificationPopup
                 isVisible={deleteConfirmationVisible}
                 onAccept={handleConfirmDelete}
-                onClose={handleCancelDelete}
+                onClose={() => {setDeleteConfirmationVisible(false)}}
                 popupText="Apakah Anda yakin ingin menghapus user ini?"
                 needsConfirmation
                 acceptText="Ya"
                 declineText="Tidak"
         />
-        {/* Success popup
+        {/* Success popup */}
         <NotificationPopup
             isVisible={editSuccessVisible}
             successIcon
@@ -238,7 +244,7 @@ function EditRoleUser(props) {
             }}
             popupText='User berhasil dihapus'
             needsConfirmation={false}
-        /> */}
+        />
     </React.Fragment>
     );
 }
