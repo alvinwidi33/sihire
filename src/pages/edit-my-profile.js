@@ -6,10 +6,12 @@ import SidebarAdmin from '../components/sidebar-admin';
 import SidebarApplicant from '../components/sidebar-applicant';
 import SidebarGA from "../components/sidebar-ga";
 import SidebarOther from '../components/sidebar-other';
+import NotificationPopup from '../components/popupNotification';
 
 function EditMyProfile() {
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
+    const [editSuccessVisible, setEditSuccessVisible] = useState(false);
     const cdnURL = "https://lwchpknnmkmpfbkwcrjs.supabase.co/storage/v1/object/public/sihire-profilepicture/"
 
     const [profileData, setProfileData] = useState({
@@ -95,7 +97,11 @@ function EditMyProfile() {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Profile successfully updated: ' + data[0]);
-                navigate('/my-profile');
+                setEditSuccessVisible(true);
+                setTimeout(() => {
+                    setEditSuccessVisible(false);
+                    navigate('/my-profile');
+                }, 5000); // 5 seconds delay
             } else {
                 console.error('Failed to update profile data');
             }
@@ -342,6 +348,17 @@ function EditMyProfile() {
                     </button> */}
                 </div>
             </div>
+            {/* Success popup */}
+            <NotificationPopup
+                isVisible={editSuccessVisible}
+                successIcon
+                onClose={() => {
+                    setEditSuccessVisible(false);
+                    navigate('/my-profile');
+                }}
+                popupText='Profil berhasil diupdate'
+                needsConfirmation={false}
+            />
         </React.Fragment>
     );
 }
