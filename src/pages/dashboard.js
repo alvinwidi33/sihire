@@ -462,7 +462,9 @@ const Dashboard = () => {
                         </svg>
                       )}
                     </div>
-                    <p className="mx-auto">{dataRating.average}</p>
+                    <p className="mx-auto">
+                      Rata-rata rating : {dataRating.average}
+                    </p>
                   </div>
                 </div>
                 <Chart
