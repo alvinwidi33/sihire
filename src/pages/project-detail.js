@@ -1,7 +1,8 @@
 import React from 'react';
 import Navbar from '../components/navbar';
 import { useParams } from 'react-router-dom';
-import useEmblaCarousel from 'embla-carousel-react'
+import useEmblaCarousel from 'embla-carousel-react';
+import Footer from '../components/footer';
 
 function OurProjectDetail() {
     const { id } = useParams();
@@ -85,6 +86,7 @@ function OurProjectDetail() {
                   </div>
               </div>
               </div>
+              <Footer marginTop="900px"/>
           </div>)
           }
       </>
