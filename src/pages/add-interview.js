@@ -79,7 +79,6 @@ const AddInterview = () => {
     };
     getJobNames();
   }, []);
-
   useEffect(() => {
     const getInterviews = async () => {
       try {
