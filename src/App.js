@@ -55,6 +55,7 @@ import DetailHistoryInterview from './pages/detail-history-interview';
 import DataDiriDetail from './pages/data-diri-detail';
 import EditProject from './pages/edit-project';
 import OurProjectDetail from './pages/project-detail';
+import CareersJob from './pages/careers-job';
 
 function App() {
   return (
@@ -66,6 +67,7 @@ function App() {
           <Route path="/our-projects" element={<OurProjects />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/careers" element={<Careers />} />
+          <Route path="/careers/:id" element={<CareersJob/>}/>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<ProtectedRoute child={<Dashboard />} />} />
@@ -76,7 +78,7 @@ function App() {
           <Route path='/job-application-detail/:id' element={<ProtectedRoute child={<JobApplicationDetail />} />} />
           <Route path='/applicants' element={<ProtectedRoute child={<Applicants />} />} />
           <Route path='/job-list-applicant/' element={<ProtectedRoute child={<JobListApplicant />} />} />
-          <Route path='/job-list-applicant/:id' element={<DetailJobApplicant />} />
+          <Route path='/job-list-applicant/:id' element={<ProtectedRoute child={<DetailJobApplicant />} />} />
           <Route path='/job-list-ga' element={<ProtectedRoute child={<JobListGA />} />} />
           <Route path='/job-list-ga/:id' element={<ProtectedRoute child={<DetailJobGA />} />} />
           <Route path='/job-list-other' element={<ProtectedRoute child={<JobListOther />} />} />
