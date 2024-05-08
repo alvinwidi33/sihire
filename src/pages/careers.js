@@ -112,7 +112,7 @@ function Careers() {
                       textAlign: "center",
                     }}
                   >
-                    <Link to={`/add-job-application/${job.id}`}>
+                    <Link to={`/login`}>
                       <button
                         style={{
                           width: "90px",
@@ -138,7 +138,7 @@ function Careers() {
                       textAlign: "center",
                     }}
                   >
-                    <Link to={`/job-list-applicant/${job.id}`}>
+                    <Link to={`/careers/${job.id}`}>
                       <button
                         style={{
                           width: "90px",
