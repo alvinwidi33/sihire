@@ -76,7 +76,7 @@ const isOverlapping = (aStart, aEnd, bStart, bEnd, idA, idB) => {
     const getInterviews = async () => {
       try {
         const response = await fetch(
-          `https://sihire-be.vercel.app/api/interview/get-list-interview/`,
+          `https://sihire-be.vercel.app/api/interview/get-list-interview-all/`,
           {
             method: "GET",
           }
