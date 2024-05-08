@@ -232,6 +232,13 @@ const handleSubmit = async (e) => {
         </div>
       </div>
     </div>
+    <div className="p-4 bg-white rounded-lg shadow-md flex flex-col" style={{boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)', width:"74%", marginLeft:"22%", marginTop:"-100px"}}>
+  <p style={{fontWeight: "bold", fontSize: "24px", marginBottom:"20px"}}>Ulasan</p>
+  <p style={{fontWeight: "bold"}}>Rating</p>
+  <p>{'★'.repeat(formData.rating)}</p>
+  <p style={{fontWeight: "bold", marginTop:"20px"}}>Ulasan</p>
+  <p>{formData.feedbacks}</p>
+</div>
     </React.Fragment>
   );
 }

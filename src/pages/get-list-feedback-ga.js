@@ -5,6 +5,7 @@ function GetListFeedbackGA() {
   const [feedbacks, setFeedbacks] = useState([]);
   const [selectedPosisi, setSelectedPosisi] = useState("None");
   const [selectedRating, setSelectedRating] = useState("None");
+  const [selectedStatus, setSelectedStatus] = useState("None");
   const [filteredFeedbacks, setFilteredFeedbacks] = useState([]);
   
   useEffect(() => {
@@ -28,21 +29,24 @@ function GetListFeedbackGA() {
   
   const handlePosisiChange = (event) => {
     setSelectedPosisi(event.target.value);
-    filterFeedbacks(selectedRating, event.target.value);
+    filterFeedbacks(selectedRating, event.target.value, selectedStatus);
   };
-
+  const handleStatusChange = (event) => {
+    setSelectedStatus(event.target.value);
+    filterFeedbacks(selectedRating, selectedPosisi,event.target.value);
+  };
   const handleRatingChange = (event) => {
     setSelectedRating(event.target.value);
-    filterFeedbacks(event.target.value, selectedPosisi);
+    filterFeedbacks(event.target.value, selectedPosisi, selectedStatus);
   };
 
-const filterFeedbacks = (rating, posisi) => {
-  if (posisi === "None") {
+const filterFeedbacks = (rating, posisi, status) => {
+  if (posisi === "None" && status === "None") {
     const filtered = feedbacks.filter(feedback => {
       return (rating === "None" || feedback.rating === parseInt(rating));
     });
     setFilteredFeedbacks(filtered);
-  } else {
+  } else if (posisi !== "None" && status === "None") {
     const filtered = feedbacks.filter(feedback => {
       return (
         (rating === "None" || feedback.rating === parseInt(rating)) &&
@@ -50,10 +54,28 @@ const filterFeedbacks = (rating, posisi) => {
       );
     });
     setFilteredFeedbacks(filtered);
+  } else if (posisi === "None" && status !== "None") {
+    const filtered = feedbacks.filter(feedback => {
+      return (
+        (rating === "None" || feedback.rating === parseInt(rating)) &&
+        (feedback.status === status)
+      );
+    });
+    setFilteredFeedbacks(filtered);
+  } else {
+    const filtered = feedbacks.filter(feedback => {
+      return (
+        (rating === "None" || feedback.rating === parseInt(rating)) &&
+        (feedback.job.job_name === posisi) &&
+        (feedback.status === status)
+      );
+    });
+    setFilteredFeedbacks(filtered);
   }
 };
-const uniqueJobNames = Array.from(new Set(feedbacks.map(feedback => feedback.job.job_name)));
 
+const uniqueJobNames = Array.from(new Set(feedbacks.map(feedback => feedback.job.job_name)));
+const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.status)));
   return (
     <React.Fragment>
       <p
@@ -85,10 +107,11 @@ const uniqueJobNames = Array.from(new Set(feedbacks.map(feedback => feedback.job
         <div className="py-5 rounded rounded-xl border border-2 border-black" style={{ height: '160px', marginBottom: "12px" }}>
           <h2 className="text-xl font-semibold" style={{ textAlign: "center" }}>Filter Ulasan</h2>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom:"4px" }}>
-            <p style={{ marginLeft: "22.5%", fontSize: "16px", color: "#2A3E4B", }}>Rating</p>
-            <p style={{ marginLeft:"47%", marginRight:"auto", fontSize: "16px", color: "#2A3E4B", }}>Posisi</p>
+            <p style={{ marginLeft: "15%", fontSize: "16px", color: "#2A3E4B", }}>Rating</p>
+            <p style={{ marginLeft:"28%", marginRight:"auto", fontSize: "16px", color: "#2A3E4B", }}>Posisi</p>
+            <p style={{ marginLeft:"16%", marginRight:"auto", fontSize: "16px", color: "#2A3E4B", }}>Status</p>
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", justifyContent: "space-between"}}>
             <div style={{ marginLeft: "2%", border: "2px solid black", borderRadius: "5px", width: "47%", height:"36px" }}>
               <select
                 value={selectedRating}
@@ -115,6 +138,21 @@ const uniqueJobNames = Array.from(new Set(feedbacks.map(feedback => feedback.job
                       {jobName}
                     </option>
                   ))}
+              </select>
+            </div>
+            <div style={{border: "2px solid black", borderRadius: "5px", width: "47%", height:"36px", marginRight:"2%" }}>
+              <select
+                value={selectedStatus}
+                onChange={handleStatusChange}
+                style={{ border: "none", width: "100%", textAlign: "center", height:"32px"}}
+              >
+                <option value="None">None</option>
+                {uniqueStatus.map((status, index) => (
+                    <option key={index} value={status}>
+                      {status}
+                    </option>
+                  ))}
+                
               </select>
             </div>
           </div>
@@ -190,6 +228,19 @@ const uniqueJobNames = Array.from(new Set(feedbacks.map(feedback => feedback.job
                     fontWeight: "bold",
                     background:"#2A3E4B",
                     color:"white",
+                    width: "180px" 
+                  }}
+                >
+                  Status
+                </th>
+                <th
+                  style={{
+                    border: "2px solid #2A3E4B",
+                    padding: "8px",
+                    textAlign: "center",
+                    fontWeight: "bold",
+                    background:"#2A3E4B",
+                    color:"white",
                     width: "400px" , 
                   }}
                 >
@@ -247,6 +298,17 @@ const uniqueJobNames = Array.from(new Set(feedbacks.map(feedback => feedback.job
                     }}
                   >
                     {feedback.applicant.user?.username}
+                  </td>
+                  <td
+                    style={{
+                      border: "2px solid #2A3E4B",
+                      padding: "6px",
+                      fontFamily: "Inter, sans-serif",
+                      fontSize: "16px",
+                      textAlign: "center", 
+                    }}
+                  >
+                    {feedback.status}
                   </td>
                   <td
                     style={{
