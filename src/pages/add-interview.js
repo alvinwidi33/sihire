@@ -84,7 +84,7 @@ const AddInterview = () => {
     const getInterviews = async () => {
       try {
         const response = await fetch(
-          `https://sihire-be.vercel.app/api-/interview/get-list-interview-all/`,
+          `https://sihire-be.vercel.app/api/interview/get-list-interview-all/`,
           {
             method: "GET",
           }
