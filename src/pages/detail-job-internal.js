@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import SidebarApplicant from "../components/sidebar-applicant";
+import SidebarOther from "../components/sidebar-other";
 
 function DetailJobApplicant() {
   const { id } = useParams();
@@ -78,9 +78,9 @@ function DetailJobApplicant() {
       >
         Pekerjaan
       </p>
-      <SidebarApplicant />
+      <SidebarOther />
       <div
-        style={{ marginLeft: "22%", position: "absolute", marginTop: "40px" }}
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-100px" }}
         className="w-9/12"
       >
         {job && (
@@ -98,10 +98,20 @@ function DetailJobApplicant() {
             </p>
             <p
               style={{
+                position: "absolute",
+                fontSize: "16px",
+                color: "#2A3E4B",
+                marginBottom: "12px",
+              }}
+            >
+              Pekerjaan ini akan ditutup pada: <strong>{job.datetime_closes && formatDateTime(job.datetime_closes)}</strong>
+            </p>
+            <p
+              style={{
                 fontWeight: "bold",
                 fontSize: "24px",
                 color: "#2A3E4B",
-                marginTop: "-0px",
+                marginTop: "52px",
                 marginBottom: "4px",
               }}
             >
@@ -116,28 +126,7 @@ function DetailJobApplicant() {
               }}
             >
               {job.description}
-            </p>
-            <p
-              style={{
-                fontWeight: "bold",
-                fontSize: "24px",
-                color: "#2A3E4B",
-                marginBottom: "4px",
-              }}
-            >
-              Tanggal Tutup
-            </p>
-            <p
-              style={{
-                position: "absolute",
-                fontSize: "16px",
-                color: "#2A3E4B",
-                marginBottom: "12px",
-              }}
-            >
-              {job.datetime_closes && formatDateTime(job.datetime_closes)}
-            </p>
-          
+            </p>         
           </React.Fragment>
         )}
       </div>

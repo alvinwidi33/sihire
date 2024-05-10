@@ -56,6 +56,8 @@ import DataDiriDetail from './pages/data-diri-detail';
 import EditProject from './pages/edit-project';
 import OurProjectDetail from './pages/project-detail';
 import CareersJob from './pages/careers-job';
+import GetHistoryInterviewOther from './pages/history-interview-other';
+import DetailHistoryInterviewOther from './pages/detail-history-interview-other';
 
 function App() {
   return (
@@ -108,6 +110,8 @@ function App() {
           <Route path="/job-application-detail/:id/feedback" element={<AddFeedback/>}/>
           <Route path="/get-list-history-interview" element={<GetHistoryInterview/>}/>
           <Route path="/get-list-history-interview/:id" element={<DetailHistoryInterview/>}/>
+          <Route path="/get-list-history-interview-other" element={<GetHistoryInterviewOther/>}/>
+          <Route path="/get-list-history-interview-other/:id" element={<DetailHistoryInterviewOther/>}/>
           <Route path="/get-list-feedback-ga" element={<GetListFeedbackGA/>}/>
           <Route path="/get-list-feedback-other" element={<GetListFeedbackOther/>}/>
           <Route path="/edit-my-profile" element={<ProtectedRoute child={<EditMyProfile />} />} />

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import SidebarOther from "../components/sidebar-other"; 
-import SidebarGA from "../components/sidebar-ga";
 
-function DetailHistoryInterview() {
+function DetailHistoryInterviewOther() {
    const [interview, setInterview] = useState(null);
   const { id } = useParams();
   function formatTime(datetimeString) {
@@ -63,48 +62,30 @@ function DetailHistoryInterview() {
       >
         Wawancara
       </p>
-      <SidebarGA/>
-      <Link to="/get-list-interview-ga">
-        <p
-          style={{
-            marginLeft: "22%",
-            position: "absolute",
-            marginTop: "-320px",
-          }}
-        >
-          List Wawancara
-          
+      <SidebarOther/>
+      <div style={{ display: 'flex', justifyContent: 'space-between'}}>
+  <Link to="/get-list-interview-other">
+    <p style={{ marginLeft:"22%",position: "absolute", marginTop: "-320px" }}>
+      List Wawancara <span>{'>'}</span>
+    </p>
+  </Link>
+  <Link to='/get-list-history-interview-other'>
+    <p style={{ position: "absolute", marginTop: "-320px", left: "31%" }}>
+      List History Wawancara <span>{'>'}</span>
+    </p>
+  </Link>
+  {interview && (
+    <React.Fragment key={interview.id}>
+      <Link to={`/get-list-history-interview/${id}`}>
+        <p style={{ position: "absolute", marginTop: "-320px",left:"44%"}}>
+          {interview.job_application_id.job.job_name}
         </p>
       </Link>
-      <Link to='/get-list-history-interview'>
-      <p
-          style={{
-            marginLeft: "31%",
-            position: "absolute",
-            marginTop: "-320px",
-          }}
-        >
-          List History Wawancara
-        </p>
-        </Link>
-      <p
-        style={{ marginLeft: "42%", position: "absolute", marginTop: "-320px" }}
-      >
-        {">"}
-      </p>
-      {interview && (
-        <React.Fragment key={interview.id}>
-          <Link to={`/get-list-history-interview/${id}`}>
-            <p
-              style={{
-                marginLeft: "43%",
-                position: "absolute",
-                marginTop: "-320px",
-              }}
-            >
-              {interview.job_application_id.job.job_name}
-            </p>
-          </Link>
+    </React.Fragment>
+  )}
+</div>
+ {interview && (
+    <React.Fragment key={interview.id}>
           <div className="detail-interview-ga">
             <div className="rectangle-style" style={rectangleStyle}>
               <p
@@ -233,4 +214,4 @@ function DetailHistoryInterview() {
   );
 }
 
-export default DetailHistoryInterview;
+export default DetailHistoryInterviewOther;

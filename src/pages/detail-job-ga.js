@@ -156,12 +156,23 @@ function DetailJobGA() {
             >
               {job.job_name}
             </p>
+            
+            <p
+              style={{
+                position: "absolute",
+                fontSize: "16px",
+                color: "#2A3E4B",
+                marginBottom: "12px",
+              }}
+            >
+              Pekerjaan ini akan ditutup pada : <strong>{job.datetime_closes && formatDateTime(job.datetime_closes)}</strong>
+            </p>
             <p
               style={{
                 fontWeight: "bold",
                 fontSize: "24px",
                 color: "#2A3E4B",
-                marginTop: "0",
+                marginTop: "52px",
                 marginBottom: "4px",
               }}
             >
@@ -176,27 +187,6 @@ function DetailJobGA() {
               }}
             >
               {job.description}
-            </p>
-
-            <p
-              style={{
-                fontWeight: "bold",
-                fontSize: "24px",
-                color: "#2A3E4B",
-                marginBottom: "4px",
-              }}
-            >
-              Tanggal Tutup
-            </p>
-            <p
-              style={{
-                position: "absolute",
-                fontSize: "16px",
-                color: "#2A3E4B",
-                marginBottom: "12px",
-              }}
-            >
-              {job.datetime_closes && formatDateTime(job.datetime_closes)}
             </p>
           </React.Fragment>
         )}
