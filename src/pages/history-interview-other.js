@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"; 
-import SidebarGA from "../components/sidebar-ga";
+import SidebarOther from "../components/sidebar-other";
 
-function GetHistoryInterview() {
+function GetHistoryInterviewOther() {
     const [interviews, setInterviews] = useState([]);
       const [selectedPosisi, setSelectedPosisi] = useState("None");
       const [selectedConfirm, setSelectedConfirm] = useState("None");
@@ -10,16 +10,15 @@ function GetHistoryInterview() {
       const [searchTerm, setSearchTerm] = useState("");
       const [currentPage, setCurrentPage] = useState(1);
       const [rowsPerPage] = useState(10);
-      const indexOfLastRow = currentPage * rowsPerPage;
-    const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-    const currentRows = filteredHistory.slice(indexOfFirstRow, indexOfLastRow);
   function formatTime(datetimeString) {
     const dateTime = new Date(datetimeString);
     const hours = dateTime.getHours().toString().padStart(2, "0");
     const minutes = dateTime.getMinutes().toString().padStart(2, "0");
     return `${hours}:${minutes}`;
   }
-  
+   const indexOfLastRow = currentPage * rowsPerPage;
+    const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+    const currentRows = filteredHistory.slice(indexOfFirstRow, indexOfLastRow);
   function formatDateTime(datetimeString) {
     const options = {
       weekday: "long",
@@ -101,7 +100,7 @@ const uniqueJobNames = Array.from(new Set(interviews.map(interview => interview.
       >
         Wawancara
       </p>
-      <SidebarGA />
+      <SidebarOther />
       <div
         style={{ marginLeft: "22%", position: "absolute", marginTop: "-40px" }}
         className="w-9/12"
@@ -412,7 +411,7 @@ const uniqueJobNames = Array.from(new Set(interviews.map(interview => interview.
                   <td
                     style={{ border: "2px solid #2A3E4B", textAlign: "center" }}
                   >
-                    <Link to={`/get-list-history-interview/${interview.id}/`}>
+                    <Link to={`/get-list-history-interview-other/${interview.id}/`}>
                       <button
                         style={{
                           width: "42%",
@@ -460,4 +459,4 @@ const uniqueJobNames = Array.from(new Set(interviews.map(interview => interview.
   );
 }
 
-export default GetHistoryInterview;
+export default GetHistoryInterviewOther;

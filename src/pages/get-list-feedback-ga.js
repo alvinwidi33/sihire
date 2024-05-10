@@ -7,6 +7,11 @@ function GetListFeedbackGA() {
   const [selectedRating, setSelectedRating] = useState("None");
   const [selectedStatus, setSelectedStatus] = useState("None");
   const [filteredFeedbacks, setFilteredFeedbacks] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage] = useState(10);
+  const indexOfLastRow = currentPage * rowsPerPage;
+  const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+  const currentRows = filteredFeedbacks.slice(indexOfFirstRow, indexOfLastRow);
   
   useEffect(() => {
     const getFeedbacks = async () => {
@@ -157,7 +162,7 @@ const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.statu
             </div>
           </div>
         </div>
-        {filteredFeedbacks.length > 0 ? (
+        {currentRows.length > 0 ? (
           <table
             style={{
               borderCollapse: "collapse",
@@ -330,6 +335,21 @@ const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.statu
             Yang Anda Cari tidak ada
           </p>
         )}
+        <div style={{ textAlign: "center", marginTop: "20px" }}>
+                        <button
+                            onClick={() => setCurrentPage(currentPage - 1)}
+                            disabled={currentPage === 1}
+                            style={{ marginRight: "10px" }}
+                        >
+                            Previous
+                        </button>
+                        <button
+                            onClick={() => setCurrentPage(currentPage + 1)}
+                            disabled={indexOfLastRow >= filteredFeedbacks.length}
+                        >
+                            Next
+                        </button>
+                    </div>
       </div>
     </React.Fragment>
   );

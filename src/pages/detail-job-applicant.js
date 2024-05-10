@@ -98,10 +98,20 @@ function DetailJobApplicant() {
             </p>
             <p
               style={{
+                position: "absolute",
+                fontSize: "16px",
+                color: "#2A3E4B",
+                marginBottom: "12px",
+              }}
+            >
+              Pekerjaan ini akan ditutup pada: <strong>{job.datetime_closes && formatDateTime(job.datetime_closes)}</strong>
+            </p>
+            <p
+              style={{
                 fontWeight: "bold",
                 fontSize: "24px",
                 color: "#2A3E4B",
-                marginTop: "-0px",
+                marginTop: "52px",
                 marginBottom: "4px",
               }}
             >
@@ -117,30 +127,10 @@ function DetailJobApplicant() {
             >
               {job.description}
             </p>
-            <p
-              style={{
-                fontWeight: "bold",
-                fontSize: "24px",
-                color: "#2A3E4B",
-                marginBottom: "4px",
-              }}
-            >
-              Tanggal Tutup
-            </p>
-            <p
-              style={{
-                position: "absolute",
-                fontSize: "16px",
-                color: "#2A3E4B",
-                marginBottom: "12px",
-              }}
-            >
-              {job.datetime_closes && formatDateTime(job.datetime_closes)}
-            </p>
             <Link to={`/add-job-application/${job.id}`}>
               <button
                 style={{
-                  width: "520px",
+                  width: "100px",
                   padding: "8px",
                   fontSize: "16px",
                   fontFamily: "Inter, sans-serif",
@@ -149,10 +139,10 @@ function DetailJobApplicant() {
                   background: "#2A3E4B",
                   borderRadius: "6px",
                   cursor: "pointer",
-                  marginTop: "6%",
+                  marginTop: "-64%",
                   marginBottom: "12px",
                   border: "2px solid #2A3E4B",
-                  marginLeft: "22%",
+                  marginLeft: "80%",
                   position: "absolute",
                 }}
               >
