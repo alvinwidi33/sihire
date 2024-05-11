@@ -197,6 +197,7 @@ function EditJobPosting() {
                     width: "76%",
                     height: "200px",
                     resize: "none",
+                    whiteSpace: "pre-line",
                   }}
                   onChange={(e) =>
                     setJobData({
@@ -205,7 +206,6 @@ function EditJobPosting() {
                     })
                   }
                 />
-
                 <p
                   style={{
                     marginTop: "440px",
