@@ -202,6 +202,7 @@ function AddJobPosting() {
                 width: "76%",
                 height: "200px",
                 resize: "none",
+                whiteSpace: "pre-line",
               }}
               required
               value={jobData.description}
