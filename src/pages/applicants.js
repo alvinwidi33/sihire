@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import SidebarGA from "../components/sidebar-ga";
 
 function Applicants() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [applications, setApplications] = useState([]);
   const [jobs, setJobs] = useState([]);
-  const [selectedStatus, setSelectedStatus] = useState("None");
+  const [selectedStatus, setSelectedStatus] = useState(
+    location.state ? location.state.status : "None"
+  );
   const [selectedPosisi, setSelectedPosisi] = useState("None");
 
   const getJobs = async () => {

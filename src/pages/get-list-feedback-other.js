@@ -1,17 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import SidebarOther from "../components/sidebar-other";
 
 function GetListFeedbackOther() {
+  const location = useLocation();
   const [feedbacks, setFeedbacks] = useState([]);
   const [selectedPosisi, setSelectedPosisi] = useState("None");
-  const [selectedRating, setSelectedRating] = useState("None");
+  const [selectedRating, setSelectedRating] = useState(
+    location.state ? location.state.rating : "None"
+  );
   const [selectedStatus, setSelectedStatus] = useState("None");
   const [filteredFeedbacks, setFilteredFeedbacks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage] = useState(10);
-   const indexOfLastRow = currentPage * rowsPerPage;
-    const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-    const currentRows = filteredFeedbacks.slice(indexOfFirstRow, indexOfLastRow);
+  const indexOfLastRow = currentPage * rowsPerPage;
+  const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+  const currentRows = filteredFeedbacks.slice(indexOfFirstRow, indexOfLastRow);
+
   useEffect(() => {
     const getFeedbacks = async () => {
       try {
@@ -23,63 +28,70 @@ function GetListFeedbackOther() {
         );
         const data = await response.json();
         setFeedbacks(data);
-        setFilteredFeedbacks(data);
       } catch (error) {
         console.error("Error fetching interview data:", error);
       }
     };
     getFeedbacks();
   }, []);
-  
+
+  useEffect(() => {
+    filterFeedbacks(selectedRating, selectedPosisi, selectedStatus);
+  }, [feedbacks]);
+
   const handlePosisiChange = (event) => {
     setSelectedPosisi(event.target.value);
     filterFeedbacks(selectedRating, event.target.value, selectedStatus);
   };
   const handleStatusChange = (event) => {
     setSelectedStatus(event.target.value);
-    filterFeedbacks(selectedRating, selectedPosisi,event.target.value);
+    filterFeedbacks(selectedRating, selectedPosisi, event.target.value);
   };
   const handleRatingChange = (event) => {
     setSelectedRating(event.target.value);
     filterFeedbacks(event.target.value, selectedPosisi, selectedStatus);
   };
 
-const filterFeedbacks = (rating, posisi, status) => {
-  if (posisi === "None" && status === "None") {
-    const filtered = feedbacks.filter(feedback => {
-      return (rating === "None" || feedback.rating === parseInt(rating));
-    });
-    setFilteredFeedbacks(filtered);
-  } else if (posisi !== "None" && status === "None") {
-    const filtered = feedbacks.filter(feedback => {
-      return (
-        (rating === "None" || feedback.rating === parseInt(rating)) &&
-        (feedback.job.job_name === posisi)
-      );
-    });
-    setFilteredFeedbacks(filtered);
-  } else if (posisi === "None" && status !== "None") {
-    const filtered = feedbacks.filter(feedback => {
-      return (
-        (rating === "None" || feedback.rating === parseInt(rating)) &&
-        (feedback.status === status)
-      );
-    });
-    setFilteredFeedbacks(filtered);
-  } else {
-    const filtered = feedbacks.filter(feedback => {
-      return (
-        (rating === "None" || feedback.rating === parseInt(rating)) &&
-        (feedback.job.job_name === posisi) &&
-        (feedback.status === status)
-      );
-    });
-    setFilteredFeedbacks(filtered);
-  }
-};
+  const filterFeedbacks = (rating, posisi, status) => {
+    if (posisi === "None" && status === "None") {
+      const filtered = feedbacks.filter((feedback) => {
+        return rating === "None" || feedback.rating === parseInt(rating);
+      });
+      setFilteredFeedbacks(filtered);
+    } else if (posisi !== "None" && status === "None") {
+      const filtered = feedbacks.filter((feedback) => {
+        return (
+          (rating === "None" || feedback.rating === parseInt(rating)) &&
+          feedback.job.job_name === posisi
+        );
+      });
+      setFilteredFeedbacks(filtered);
+    } else if (posisi === "None" && status !== "None") {
+      const filtered = feedbacks.filter((feedback) => {
+        return (
+          (rating === "None" || feedback.rating === parseInt(rating)) &&
+          feedback.status === status
+        );
+      });
+      setFilteredFeedbacks(filtered);
+    } else {
+      const filtered = feedbacks.filter((feedback) => {
+        return (
+          (rating === "None" || feedback.rating === parseInt(rating)) &&
+          feedback.job.job_name === posisi &&
+          feedback.status === status
+        );
+      });
+      setFilteredFeedbacks(filtered);
+    }
+  };
 
-const uniqueJobNames = Array.from(new Set(feedbacks.map(feedback => feedback.job.job_name)));
-const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.status)));
+  const uniqueJobNames = Array.from(
+    new Set(feedbacks.map((feedback) => feedback.job.job_name))
+  );
+  const uniqueStatus = Array.from(
+    new Set(feedbacks.map((feedback) => feedback.status))
+  );
   return (
     <React.Fragment>
       <p
@@ -94,8 +106,11 @@ const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.statu
       >
         Ulasan
       </p>
-      <SidebarOther/>
-      <div style={{ marginLeft: "22%", position: "absolute", marginTop: "-40px" }} className="w-9/12">
+      <SidebarOther />
+      <div
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-40px" }}
+        className="w-9/12"
+      >
         <p
           style={{
             marginLeft: "0",
@@ -108,19 +123,65 @@ const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.statu
         >
           List Ulasan
         </p>
-        <div className="py-5 rounded rounded-xl border border-2 border-black" style={{ height: '160px', marginBottom: "12px" }}>
-          <h2 className="text-xl font-semibold" style={{ textAlign: "center" }}>Filter Ulasan</h2>
-          <div style={{ display: "flex", justifyContent: "space-between", marginBottom:"4px" }}>
-            <p style={{ marginLeft: "15%", fontSize: "16px", color: "#2A3E4B", }}>Rating</p>
-            <p style={{ marginLeft:"28%", marginRight:"auto", fontSize: "16px", color: "#2A3E4B", }}>Posisi</p>
-            <p style={{ marginLeft:"16%", marginRight:"auto", fontSize: "16px", color: "#2A3E4B", }}>Status</p>
+        <div
+          className="py-5 rounded rounded-xl border border-2 border-black"
+          style={{ height: "160px", marginBottom: "12px" }}
+        >
+          <h2 className="text-xl font-semibold" style={{ textAlign: "center" }}>
+            Filter Ulasan
+          </h2>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginBottom: "4px",
+            }}
+          >
+            <p
+              style={{ marginLeft: "15%", fontSize: "16px", color: "#2A3E4B" }}
+            >
+              Rating
+            </p>
+            <p
+              style={{
+                marginLeft: "28%",
+                marginRight: "auto",
+                fontSize: "16px",
+                color: "#2A3E4B",
+              }}
+            >
+              Posisi
+            </p>
+            <p
+              style={{
+                marginLeft: "16%",
+                marginRight: "auto",
+                fontSize: "16px",
+                color: "#2A3E4B",
+              }}
+            >
+              Status
+            </p>
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between"}}>
-            <div style={{ marginLeft: "2%", border: "2px solid black", borderRadius: "5px", width: "47%", height:"36px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div
+              style={{
+                marginLeft: "2%",
+                border: "2px solid black",
+                borderRadius: "5px",
+                width: "47%",
+                height: "36px",
+              }}
+            >
               <select
                 value={selectedRating}
                 onChange={handleRatingChange}
-                style={{ border: "none", width: "100%", textAlign: "center", height:"32px" }}
+                style={{
+                  border: "none",
+                  width: "100%",
+                  textAlign: "center",
+                  height: "32px",
+                }}
               >
                 <option value="None">None</option>
                 <option value="1">1</option>
@@ -130,33 +191,58 @@ const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.statu
                 <option value="5">5</option>
               </select>
             </div>
-            <div style={{ marginLeft: "2%", marginRight: "2%", border: "2px solid black", borderRadius: "5px", width: "45%" }}>
+            <div
+              style={{
+                marginLeft: "2%",
+                marginRight: "2%",
+                border: "2px solid black",
+                borderRadius: "5px",
+                width: "45%",
+              }}
+            >
               <select
                 value={selectedPosisi}
                 onChange={handlePosisiChange}
-                style={{ border: "none", width: "100%", textAlign: "center", height: "32px" }}
+                style={{
+                  border: "none",
+                  width: "100%",
+                  textAlign: "center",
+                  height: "32px",
+                }}
               >
                 <option value="None">None</option>
-                  {uniqueJobNames.map((jobName, index) => (
-                    <option key={index} value={jobName}>
-                      {jobName}
-                    </option>
-                  ))}
+                {uniqueJobNames.map((jobName, index) => (
+                  <option key={index} value={jobName}>
+                    {jobName}
+                  </option>
+                ))}
               </select>
             </div>
-            <div style={{border: "2px solid black", borderRadius: "5px", width: "47%", height:"36px", marginRight:"2%" }}>
+            <div
+              style={{
+                border: "2px solid black",
+                borderRadius: "5px",
+                width: "47%",
+                height: "36px",
+                marginRight: "2%",
+              }}
+            >
               <select
                 value={selectedStatus}
                 onChange={handleStatusChange}
-                style={{ border: "none", width: "100%", textAlign: "center", height:"32px"}}
+                style={{
+                  border: "none",
+                  width: "100%",
+                  textAlign: "center",
+                  height: "32px",
+                }}
               >
                 <option value="None">None</option>
                 {uniqueStatus.map((status, index) => (
-                    <option key={index} value={status}>
-                      {status}
-                    </option>
-                  ))}
-                
+                  <option key={index} value={status}>
+                    {status}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -166,8 +252,8 @@ const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.statu
             style={{
               borderCollapse: "collapse",
               width: "95%",
-              padding:"12px",
-              marginLeft:"2.5%"
+              padding: "12px",
+              marginLeft: "2.5%",
             }}
           >
             <thead>
@@ -178,9 +264,9 @@ const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.statu
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
-                    background:"#2A3E4B",
-                    color:"white",
-                    width: "100px" 
+                    background: "#2A3E4B",
+                    color: "white",
+                    width: "100px",
                   }}
                 >
                   Rating
@@ -191,9 +277,9 @@ const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.statu
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
-                    background:"#2A3E4B",
-                    color:"white",
-                    width: "180px" 
+                    background: "#2A3E4B",
+                    color: "white",
+                    width: "180px",
                   }}
                 >
                   Posisi
@@ -204,9 +290,9 @@ const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.statu
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
-                    background:"#2A3E4B",
-                    color:"white",
-                    width: "180px" 
+                    background: "#2A3E4B",
+                    color: "white",
+                    width: "180px",
                   }}
                 >
                   Nama Pelamar
@@ -217,9 +303,9 @@ const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.statu
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
-                    background:"#2A3E4B",
-                    color:"white",
-                    width: "180px" 
+                    background: "#2A3E4B",
+                    color: "white",
+                    width: "180px",
                   }}
                 >
                   Username
@@ -230,9 +316,9 @@ const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.statu
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
-                    background:"#2A3E4B",
-                    color:"white",
-                    width: "180px" 
+                    background: "#2A3E4B",
+                    color: "white",
+                    width: "180px",
                   }}
                 >
                   Status
@@ -243,9 +329,9 @@ const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.statu
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
-                    background:"#2A3E4B",
-                    color:"white",
-                    width: "400px" , 
+                    background: "#2A3E4B",
+                    color: "white",
+                    width: "400px",
                   }}
                 >
                   Deskripsi
@@ -263,7 +349,7 @@ const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.statu
                       fontWeight: "bold",
                       fontSize: "16px",
                       color: "#2A3E4B",
-                      textAlign: "center", 
+                      textAlign: "center",
                     }}
                   >
                     {feedback.rating}
@@ -276,7 +362,7 @@ const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.statu
                       fontWeight: "bold",
                       fontSize: "16px",
                       color: "#2A3E4B",
-                      textAlign: "center", 
+                      textAlign: "center",
                     }}
                   >
                     {feedback.job.job_name}
@@ -287,7 +373,7 @@ const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.statu
                       padding: "6px",
                       fontFamily: "Inter, sans-serif",
                       fontSize: "16px",
-                      textAlign: "center", 
+                      textAlign: "center",
                     }}
                   >
                     {feedback.applicant.user?.name}
@@ -298,7 +384,7 @@ const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.statu
                       padding: "6px",
                       fontFamily: "Inter, sans-serif",
                       fontSize: "16px",
-                      textAlign: "center", 
+                      textAlign: "center",
                     }}
                   >
                     {feedback.applicant.user?.username}
@@ -309,7 +395,7 @@ const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.statu
                       padding: "6px",
                       fontFamily: "Inter, sans-serif",
                       fontSize: "16px",
-                      textAlign: "center", 
+                      textAlign: "center",
                     }}
                   >
                     {feedback.status}
@@ -320,7 +406,7 @@ const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.statu
                       padding: "6px",
                       fontFamily: "Inter, sans-serif",
                       fontSize: "16px",
-                      textAlign: "center", 
+                      textAlign: "center",
                     }}
                   >
                     {feedback.feedbacks}
@@ -330,25 +416,27 @@ const uniqueStatus = Array.from(new Set(feedbacks.map(feedback => feedback.statu
             </tbody>
           </table>
         ) : (
-          <p style={{ marginLeft: "42.5%", fontSize: "16px", color: "#2A3E4B" }}>
+          <p
+            style={{ marginLeft: "42.5%", fontSize: "16px", color: "#2A3E4B" }}
+          >
             Yang Anda Cari tidak ada
           </p>
         )}
         <div style={{ textAlign: "center", marginTop: "20px" }}>
-                        <button
-                            onClick={() => setCurrentPage(currentPage - 1)}
-                            disabled={currentPage === 1}
-                            style={{ marginRight: "10px" }}
-                        >
-                            Previous
-                        </button>
-                        <button
-                            onClick={() => setCurrentPage(currentPage + 1)}
-                            disabled={indexOfLastRow >= filteredFeedbacks.length}
-                        >
-                            Next
-                        </button>
-                    </div>
+          <button
+            onClick={() => setCurrentPage(currentPage - 1)}
+            disabled={currentPage === 1}
+            style={{ marginRight: "10px" }}
+          >
+            Previous
+          </button>
+          <button
+            onClick={() => setCurrentPage(currentPage + 1)}
+            disabled={indexOfLastRow >= filteredFeedbacks.length}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </React.Fragment>
   );
