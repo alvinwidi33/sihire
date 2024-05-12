@@ -22,7 +22,7 @@ function Applicants() {
 
   const getJobApplication = async () => {
     await fetch(
-      `http://127.0.0.1:8000/api/job-application/get?status=${selectedStatus}&posisi=${selectedPosisi}`
+      `https://sihire-be.vercel.app/api/job-application/get?status=${selectedStatus}&posisi=${selectedPosisi}`
     )
       .then((resp) => resp.json())
       .then((data) => {
