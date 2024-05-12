@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Popup from "../components/popup";
-import InterviewPopup from "../components/popupInterview";
-import SidebarApplicant from "../components/sidebar-applicant";
 import { Chart } from "react-google-charts";
 import SidebarDirector from "../components/sidebar-director";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("rekrutmen");
+  const today = new Date();
+  const [jobs, setJobs] = useState([]);
   const [dataStatus, setDataStatus] = useState([]);
   const [dataPosisi, setDataPosisi] = useState([]);
   const [dataRating, setDataRating] = useState({});
+  const navigate = useNavigate();
   const [month, setMonth] = useState("None");
   const handleMonthChange = (event) => {
     setMonth(event.target.value);
@@ -24,6 +24,30 @@ const Dashboard = () => {
   for (let year = new Date().getFullYear(); year >= 1970; year--) {
     years.push(year);
   }
+
+  const goToListFeedback = (rating) => {
+    navigate("/get-list-feedback-other", {
+      state: {
+        rating: rating,
+      },
+    });
+  };
+
+  const goToListApplicantsStatus = (status) => {
+    navigate("/applicants", {
+      state: {
+        status: status,
+      },
+    });
+  };
+
+  const getJobs = async () => {
+    await fetch("https://sihire-be.vercel.app/api/job-posting/get-all/")
+      .then((resp) => resp.json())
+      .then((data) => {
+        setJobs(data);
+      });
+  };
 
   const getStatus = async () => {
     const response = await fetch(
@@ -71,6 +95,7 @@ const Dashboard = () => {
     getStatus();
     getPosisi();
     getRating();
+    getJobs();
   }, [month, year]);
 
   const TabContainer = styled.div`
@@ -196,6 +221,22 @@ const Dashboard = () => {
                 height={"400px"}
               />
             )}
+
+            <div className="flex justify-center mb-10">
+              <div>
+                <p className="text-center">Lihat daftar pelamar :</p>
+                <div className="flex gap-4">
+                  {dataStatus.slice(1).map((item) => (
+                    <a
+                      onClick={() => goToListApplicantsStatus(item[0])}
+                      className="p-4 bg-gray-200 rounded rounded-lg"
+                    >
+                      {item[0]}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </ContentContainer>
 
@@ -250,11 +291,29 @@ const Dashboard = () => {
                 height={"400px"}
               />
             )}
+
+            <div className="flex justify-center mb-10">
+              <div>
+                <p className="text-center">
+                  Jumlah hari sejak lowongan dibuka :
+                </p>
+                {jobs.map((item) => (
+                  <p>
+                    {item.job_name} :{" "}
+                    {Math.ceil(
+                      (today - new Date(item.datetime_opens)) /
+                        (1000 * 60 * 60 * 24)
+                    )}{" "}
+                    hari
+                  </p>
+                ))}
+              </div>
+            </div>
           </div>
         </ContentContainer>
 
         <ContentContainer active={activeTab === "feedback"}>
-          <SubTitle>Rangkuman Feedback</SubTitle>
+          <SubTitle>Rangkuman Ulasan</SubTitle>
           <div>
             <div className="flex justify-center mb-10">
               <div className="flex gap-4">
@@ -463,7 +522,7 @@ const Dashboard = () => {
                       )}
                     </div>
                     <p className="mx-auto">
-                      Rata-rata rating : {dataRating.average}
+                      Rata-rata ulasan : {dataRating.average}
                     </p>
                   </div>
                 </div>
@@ -475,6 +534,44 @@ const Dashboard = () => {
                 />
               </div>
             )}
+
+            <div className="flex justify-center mb-10">
+              <div>
+                <p className="text-center">Lihat daftar ulasan :</p>
+                <div className="flex gap-4">
+                  <a
+                    onClick={() => goToListFeedback(1)}
+                    className="p-4 bg-gray-200 rounded rounded-lg"
+                  >
+                    1
+                  </a>
+                  <a
+                    onClick={() => goToListFeedback(2)}
+                    className="p-4 bg-gray-200 rounded rounded-lg"
+                  >
+                    2
+                  </a>
+                  <a
+                    onClick={() => goToListFeedback(3)}
+                    className="p-4 bg-gray-200 rounded rounded-lg"
+                  >
+                    3
+                  </a>
+                  <a
+                    onClick={() => goToListFeedback(4)}
+                    className="p-4 bg-gray-200 rounded rounded-lg"
+                  >
+                    4
+                  </a>
+                  <a
+                    onClick={() => goToListFeedback(5)}
+                    className="p-4 bg-gray-200 rounded rounded-lg"
+                  >
+                    5
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </ContentContainer>
       </div>
