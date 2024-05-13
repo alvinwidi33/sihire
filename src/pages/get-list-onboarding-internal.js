@@ -50,7 +50,7 @@ function GetListOnboardingInternal() {
                 window.location.reload();
                 getOnboarding();
             } else {
-                console.error('Failed to delete onboarding');
+                console.error('Failed to delete onboardingf');
             }
         } catch (error) {
             console.error('Error deleting onboarding:', error);
@@ -135,12 +135,12 @@ function GetListOnboardingInternal() {
                                                 Detail
                                             </button>
                                         </Link>
-                                        <button style={{ width: "80px", padding: "8px", fontSize: "16px", 
+                                        {/* <button style={{ width: "80px", padding: "8px", fontSize: "16px", 
                                         fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#2A3E4B", 
                                         borderRadius: "6px", cursor: "pointer", border: "2px solid #2A3E4B", marginRight: "4px" }}
                                         onClick={() => deleteOnboarding(onboarding.id)}>
                                                 Hapus
-                                        </button>
+                                        </button> */}
                                     </td>
                                 </tr>
                             ))}
