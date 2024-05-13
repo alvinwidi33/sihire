@@ -14,7 +14,7 @@ function Home() {
       const getProjects = async () => {
         try {
           const response = await fetch(
-            "http://127.0.0.1:8000/api/project/get-all-projects/"
+            "https://sihire-be.vercel.app/api/project/get-all-projects/"
           );
           if (response.ok) {
             const data = await response.json();
