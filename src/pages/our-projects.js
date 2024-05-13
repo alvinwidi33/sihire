@@ -1,11 +1,29 @@
 import React from 'react';
 import Navbar from '../components/navbar';
 import { Link } from 'react-router-dom';
-
+import { Star } from 'lucide-react'
 
 function OurProjects() {
     const [projects, setProjects] = React.useState(null);
     const [profileData, setProfileData] = React.useState(null);
+
+    const handleHighlight = async (id) => {
+      try {
+          const response = await fetch('https://sihire-be.vercel.app/api/project/highlight-project/' + id + "/", {
+              method: 'PATCH',
+              headers: {
+                  'Authorization': 'Token ' + window.localStorage.getItem("token")
+              }
+          });
+          if (!response.ok) {
+              console.error('Failed to update project');
+          } else {
+            window.location.reload()
+          }
+      } catch (error) {
+          console.error('Error to update project:', error);
+      }
+    }
 
     React.useEffect(() => {
       const getProjects = async () => {
@@ -15,6 +33,7 @@ function OurProjects() {
           );
           if (response.ok) {
             const data = await response.json();
+            console.log(data)
             setProjects(data);
           } else {
             console.error("Failed to fetch projects");
@@ -59,9 +78,24 @@ function OurProjects() {
             <div className='flex flex-wrap gap-8'>
             {
                 projects &&
-                projects.map((project) => (
+                projects.sort((a, b) => {
+                  if (a.is_highlighted && !b.is_highlighted) {
+                      return -1;
+                  } else if (!a.is_highlighted && b.is_highlighted) {
+                      return 1;
+                  } else {
+                      return 0;
+                  }
+              }).map((project) => (
                     <div key={project.id} className='bg-white w-64 shadow-lg rounded-xl overflow-hidden'>
-                        <div className='flex flex-col h-full'>
+                        <div className='relative flex flex-col h-full'>
+                        {profileData && profileData.role === 'Admin' && (
+                          project.is_highlighted ? (
+                            <Star className='absolute w-10 h-10 right-2 top-2 bg-yellow-300 p-1 rounded-full cursor-pointer' onClick={() => handleHighlight(project.id)}/>
+                          ) : (
+                            <Star className='absolute w-10 h-10 right-2 top-2 bg-white p-1 rounded-full cursor-pointer' onClick={() => handleHighlight(project.id)}/>
+                          )
+                        )}
                             <img src={"https://lwchpknnmkmpfbkwcrjs.supabase.co/storage/v1/object/public/sihire-project/" + project.foto1.split(",")[0]} alt="project" className='h-36 w-full object-cover'/>
                             <div className='flex flex-col p-4 justify-between gap-4 h-full'>
                                 <h2 className='font-bold line-clamp-2'>{project.project_name}</h2>
