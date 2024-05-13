@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from "uuid";
 import SidebarAdmin from '../components/sidebar-admin';
 import SidebarApplicant from '../components/sidebar-applicant';
@@ -194,7 +194,7 @@ function EditMyProfile() {
                 position: "absolute",
                 }}
             >
-                My Profile
+                Profil Diri
             </p>
             {profileData && (
                 <>
@@ -213,6 +213,38 @@ function EditMyProfile() {
                     className="container mx-auto"
                     style={{marginLeft: '-15%'}}
                 >
+
+                    {/* Breadcrum */}
+                    <div
+                        className="flex flex-row items-center mb-20"
+                        style={{marginLeft: '15%', marginTop: '-12%'}}
+                    >
+                        <Link
+                        to="/my-profile"
+                        style={{
+                            textDecoration: "none",
+                            color: "#2A3E4B",
+                            cursor: "pointer",
+                        }}
+                        >
+                            <p style={{ display: "inline", marginLeft: "4px" }}>Profil Diri</p>
+                        </Link>
+                        <span style={{ display: "inline", marginLeft: "10px" }}>{">"}</span>
+                        <Link
+                        to={"/edit-my-profile"}
+                        style={{
+                            textDecoration: "none",
+                            color: "#2A3E4B",
+                            cursor: "pointer",
+                        }}
+                        >
+                            <p style={{ display: "inline", marginLeft: "10px" }}>
+                                Edit Profil
+                            </p>
+                        </Link>
+                    </div>
+                    
+                    {/* Main Part */}
                     {profileData && (
                         <div className="flex flex-col items-center">
                             <div className="flex justify-center items-center space-x-4">
