@@ -172,21 +172,21 @@ function AddJobApplication() {
           marginTop: "-288px"
         }}
       >
-        Job Applications
+        Lamaran Pekerjaan
       </p>
       <div style={{ marginLeft: '20%', position: 'absolute', marginBottom: '40px', marginTop: '-200px' }}>
         <Link to='/job-list-applicant'>
-          <p style={{ display: 'inline', marginLeft: '4px' }}>List Job</p>
+          <p style={{ display: 'inline', marginLeft: '4px' }}>Daftar Pekerjaan</p>
         </Link>
         <span style={{ display: 'inline', marginLeft: '10px' }}>{'>'}</span>
         {job && (
           <React.Fragment key={job.id}>
             <Link to={`/job-list-applicant/${job.id}`}>
-              <p style={{ display: 'inline', marginLeft: '10px' }}>Job Details</p>
+              <p style={{ display: 'inline', marginLeft: '10px' }}>Detail Pekerjaan</p>
             </Link>
             <span style={{ display: 'inline', marginLeft: '10px' }}>{'>'}</span>
             <Link to={`/add-job-application/${job.id}`}>
-              <p style={{ display: 'inline', marginLeft: '10px' }}>Add Job Application</p>
+              <p style={{ display: 'inline', marginLeft: '10px' }}>Melamar Pekerjaan</p>
             </Link>
           </React.Fragment>
         )}
@@ -246,7 +246,7 @@ function AddJobApplication() {
           />
         </div>
         <div className="mb-2">
-          <label htmlFor="coverLetter" className="block text-gray-600 font-semibold mb-2">Cover Letter<span style={{ color: "red" }}>*</span></label>
+          <label htmlFor="coverLetter" className="block text-gray-600 font-semibold mb-2">Surat Lamaran<span style={{ color: "red" }}>*</span></label>
           <input
             type="file"
             id="coverLetter"
@@ -257,7 +257,7 @@ function AddJobApplication() {
           />
         </div>
         <div className="flex justify-center">
-              <button type="submit" className="bg-gray-800 text-white px-40 py-2 rounded-md">Submit</button>
+              <button type="submit" className="bg-gray-800 text-white px-40 py-2 rounded-md">Kumpul</button>
             </div>
       </form>
       {successMessage && (
