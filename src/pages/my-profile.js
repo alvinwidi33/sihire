@@ -4,6 +4,7 @@ import SidebarGA from "../components/sidebar-ga";
 import SidebarApplicant from '../components/sidebar-applicant';
 import SidebarOther from '../components/sidebar-other';
 import SidebarAdmin from '../components/sidebar-admin';
+import SidebarDirector from '../components/sidebar-director';
 
 function MyProfile() {
     const [profileData, setProfileData] = useState(null);
@@ -76,16 +77,18 @@ function MyProfile() {
         marginTop: '20px',
     };
 
-    let marginTop = "-180px";
+    let marginTop = "-240px";
 
-    if (window.localStorage.getItem("role") === "General Affairs") {
-        marginTop = "-280px";
-    } else if (window.localStorage.getItem("role") === "Applicant") {
-        marginTop = "-180px";
-    } else if (window.localStorage.getItem("role") === "Admin") {
+    if (profileData?.role === "General Affairs") {
+        marginTop = "-240px";
+    } else if (profileData?.role === "Applicant") {
         marginTop = "-100px";
+    } else if (profileData?.role === "Admin") {
+        marginTop = "-100px";
+    } else if (profileData?.role === "Director") {
+        marginTop = "-300px";
     } else {
-        marginTop = "-220px";
+        marginTop = "-240px";
     }
 
     return (
@@ -99,14 +102,15 @@ function MyProfile() {
                 position: "absolute",
                 }}
             >
-                My Profile
+                Profil Diri
             </p>
             {profileData && (
                 <>
                     {profileData.role === "General Affairs" && <SidebarGA />}
                     {profileData.role === "Applicant" && <SidebarApplicant />}
                     {profileData.role === "Admin" && <SidebarAdmin />}
-                    {profileData.role !== "General Affairs" && profileData.role !== "Applicant" && profileData.role !== "Admin" && <SidebarOther />}
+                    {profileData.role === "Director" && <SidebarDirector />}
+                    {profileData.role === "Project Manager" && <SidebarOther />}
                 </>
             )}
 
@@ -174,7 +178,7 @@ function MyProfile() {
                                 style={{ background: 'var(--WF-Base-800, #2D3648)', fontSize: '1rem' }}
                                 onClick={() => {navigate("/edit-my-profile");}}
                             >
-                                Edit Profile
+                                Edit Profil
                             </button>
                         </div>
                         <div>

@@ -14,7 +14,7 @@ function Home() {
       const getProjects = async () => {
         try {
           const response = await fetch(
-            "https://sihire-be.vercel.app/api/project/get-latest-projects/"
+            "https://sihire-be.vercel.app/api/project/get-all-projects/"
           );
           if (response.ok) {
             const data = await response.json();
@@ -224,7 +224,7 @@ const dataProject = [
             <div style={overlayStyle}></div>
             <div style={textStyle}>
                 <p>We do not follow the mainstream,</p>
-               <p>but we deliver a different thing.</p>
+               <p>but we deliver a different thing.</p>
                <button style={buttonText} type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-3 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Hubungi Kami</button>
             </div>
         </div>
@@ -253,7 +253,7 @@ const dataProject = [
             <div className='flex flex-wrap gap-8' style={{marginLeft:"15%"}}>
             {
                 projects &&
-                projects.map((project) => (
+                projects.filter(p => p.is_highlighted).map((project) => (
                     <div key={project.id} className='bg-white w-64 shadow-lg rounded-xl overflow-hidden'>
                         <div className='flex flex-col h-full'>
                             <img src={"https://lwchpknnmkmpfbkwcrjs.supabase.co/storage/v1/object/public/sihire-project/" + project.foto1.split(",")[0]} alt="project" className='h-36 w-full object-cover'/>

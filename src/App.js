@@ -58,6 +58,8 @@ import OurProjectDetail from './pages/project-detail';
 import CareersJob from './pages/careers-job';
 import GetHistoryInterviewOther from './pages/history-interview-other';
 import DetailHistoryInterviewOther from './pages/detail-history-interview-other';
+import OurProjectDetailAdmin from './pages/project-detail-admin';
+import OurProjectsAdmin from './pages/our-projects-admin';
 
 function App() {
   return (
@@ -119,6 +121,8 @@ function App() {
           <Route path='/data-diri-detail/:id' element={<ProtectedRoute child={<DataDiriDetail />} />} />
           <Route path="/project/:id" element={<ProtectedRoute child={<OurProjectDetail />} />} />
           <Route path="/edit-project/:id" element={<ProtectedRoute child={<EditProject />} />} />
+          <Route path="/project-admin/:id" element={<ProtectedRoute child={<OurProjectDetailAdmin/>}/>} />
+          <Route path="/our-projects-admin" element={<ProtectedRoute child={<OurProjectsAdmin/>}/>} />
       </Routes>
     </Router>
   );

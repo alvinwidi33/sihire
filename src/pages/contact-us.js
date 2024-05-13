@@ -14,6 +14,10 @@ function ContactUs() {
     window.location.href = `mailto:fiberglobeauty@gmail.com?subject=${emailSubject}&body=${emailMessage}`;
   };  
 
+  const handleContactWhatsApp = () => {
+    window.open("https://api.whatsapp.com/send?phone=6281802532929");
+  };
+
   const rectangleStyle = {
     width: "90%",
     backgroundColor: "#fff",
@@ -24,15 +28,16 @@ function ContactUs() {
     padding: "20px",
     position: "relative",
     display: "flex",
+    justifyContent: "space-between",
   };
 
   const formContainerStyle = {
-    flexBasis: "50%",
+    flexBasis: "45%",
   };
 
   const imageContainerStyle = {
-    flexBasis: "50%",
-    marginLeft: "20px", // Add spacing between form and image
+    flexBasis: "45%", 
+    marginLeft: "5%",
   };
 
   const imageStyle = {
@@ -81,7 +86,7 @@ function ContactUs() {
         <div style={formContainerStyle}>
           <h2 style={{fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B' }}>Contact Us</h2>
           <form onSubmit={handleSendEmail}>
-            <div>
+            {/* <div>
               <label style={labelStyle} htmlFor="subject">Subject:</label>
               <input
                 type="text"
@@ -91,18 +96,24 @@ function ContactUs() {
                 required
                 style={inputStyle}
               />
-            </div>
-            <div>
-              <label style={labelStyle} htmlFor="message">Message:</label>
-              <textarea
+            </div> */}
+            <div style={{marginTop:'20px', marginBottom:'50px'}}>
+              {/* <label style={labelStyle} htmlFor="message">Butuh bantuan untuk proyek Anda atau punya pertanyaan? Jangan ragu untuk menghubungi kami:</label> */}
+              {/* <textarea
                 id="message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 required
                 style={{ ...inputStyle, height: "150px", resize: "none" }}
-              />
+              /> */}
+<p>Butuh bantuan untuk proyek Anda atau punya pertanyaan? Jangan ragu untuk menghubungi kami:</p>
+    <p>Kontak:</p>
+    <p><span>📞</span> +62 818 0253 2929</p>
+    <p><span>📧</span> <a href="mailto:petrakonindonesia@gmail.com">petrakonindonesia@gmail.com</a></p>
+    <p><span>📱</span> <a href="https://instagram.com/petrakon.id">@petrakon.id</a></p>
             </div>
-            <button type="submit" style={buttonStyle}>Send Email</button>
+            {/* <button type="submit" style={buttonStyle}>Send Email</button> */}
+            <button type="button" onClick={handleContactWhatsApp} style={buttonStyle}>Hubungi WhatsApp</button>
           </form>
         </div>
         <div style={imageContainerStyle}>

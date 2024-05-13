@@ -30,6 +30,12 @@ function EditProject() {
         if (response.ok) {
           const data = await response.json();
           setProject(data.find((project) => project.id === +id));
+          setFormData({
+            nama: data.find((project) => project.id === +id).project_name,
+            tipe: data.find((project) => project.id === +id).project_type,
+            lokasi: data.find((project) => project.id === +id).location,
+            des: data.find((project) => project.id === +id).description,
+          });
         } else {
           console.error("Failed to fetch job data");
         }
@@ -53,16 +59,12 @@ function EditProject() {
       }
     
       const fd = new FormData();
-      const nama = fd.nama;
-      const tipe = fd.tipe;
-      const lokasi = fd.lokasi;
-      const des = fd.des;
       const foto = event.target.foto.files;
     
-      fd.append("project_name", nama);
-      fd.append("project_type", tipe);
-      fd.append("location", lokasi);
-      fd.append("description", des);
+      fd.append("project_name",  formData.nama );
+      fd.append("project_type", formData.tipe);
+      fd.append("location", formData.lokasi);
+      fd.append("description", formData.des);
     
       const uploadPromises = Array.from(foto).map(file => {
         return supabase.storage
@@ -104,10 +106,10 @@ function EditProject() {
       if (!response.ok) {
         throw new Error("Failed to submit On Boarding schedule");
       }
-      setSuccessMessage("On Boarding berhasil dibuat!");
+      setSuccessMessage("Proyek berhasil diubah!");
       setTimeout(() => {
         setSuccessMessage("");
-        navigate("/our-projects");
+        navigate("/our-projects-admin");
       }, 5000);
     } catch (error) {
       console.error("Error:", error);
@@ -124,7 +126,7 @@ function EditProject() {
           fontSize: "32px",
           color: "#2A3E4B",
           position: "absolute",
-          marginTop: "-250px",
+          marginTop: "-290px",
         }}
       >
         Our Project
@@ -155,7 +157,7 @@ function EditProject() {
                 name='nama'
                 className='w-full border rounded-md p-2'
                 required
-                value={project ? project.project_name : ''}
+                value={formData.nama ? formData.nama : ''  }
                 onChange={(e) => setFormData({ ...formData, nama: e.target.value })}
               />
             </div>
@@ -172,7 +174,7 @@ function EditProject() {
                 name='tipe'
                 className='w-full border rounded-md p-2'
                 required
-                value={project ? project.project_type : ''}
+                value={formData.tipe ? formData.tipe : ''}
                 onChange={(e) => setFormData({ ...formData, tipe: e.target.value })}
               />
             </div>
@@ -189,7 +191,7 @@ function EditProject() {
                 name='lokasi'
                 className='w-full border rounded-md p-2'
                 required
-                value={project ? project.location : ''}
+                value={formData.lokasi ? formData.lokasi : '' }
                 onChange={(e) => setFormData({ ...formData, lokasi: e.target.value })}
               />
             </div>
@@ -206,7 +208,7 @@ function EditProject() {
                 name='des'
                 className='w-full border rounded-md p-2'
                 required
-                value={project ? project.description : ''}
+                value={formData.des ? formData.des : ''}
                 onChange={(e) => setFormData({ ...formData, des: e.target.value })}
               />
             </div>

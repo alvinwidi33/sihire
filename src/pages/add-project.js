@@ -82,7 +82,7 @@ function AddProject() {
       setSuccessMessage("Proyek berhasil ditambahkan!");
       setTimeout(() => {
         setSuccessMessage("");
-        navigate("/our-projects");
+        navigate("/our-projects-admin");
       }, 5000);
     } catch (error) {
       console.error("Error:", error);
@@ -99,7 +99,7 @@ function AddProject() {
           fontSize: "32px",
           color: "#2A3E4B",
           position: "absolute",
-          marginTop: "-250px",
+          marginTop: "-290px",
         }}
       >
         Our Project
@@ -175,7 +175,7 @@ function AddProject() {
             htmlFor='foto'
             className='block text-gray-600 font-semibold mb-2'
           >
-            Foto<span style={{ color: "red" }}>*</span>
+            Foto (maksimal 10)<span style={{ color: "red" }}>*</span>
           </label>
           <input
             type='file'

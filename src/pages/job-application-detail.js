@@ -107,8 +107,17 @@ const handleSubmit = async (e) => {
 
   return (
     <React.Fragment>
-      <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>Job Application</p>
+      <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>Lamaran Pekerjaan</p>
       <SidebarApplicant />
+      <div style={{ marginLeft: '20%', position: 'absolute', marginBottom: '40px', marginTop: '-200px' }}>
+        <Link to='/my-job-application'>
+          <p style={{ display: 'inline', marginLeft: '4px' }}>Lamaran Pekerjaan Saya</p>
+        </Link>
+        <span style={{ display: 'inline', marginLeft: '10px' }}>{'>'}</span>
+        <Link to={`/job-application-detail/${id}`}>
+          <p style={{ display: 'inline', marginLeft: '4px' }}>Detail Lamaran Pekerjaan</p>
+        </Link>
+      </div>
     <div className="min-h-screen flex" style={{ marginLeft:"18%", marginTop:"-15%"}}>
       <div className="container mx-auto mt-8 md:mt-16 w-11/12">
         <div className="p-4 bg-white rounded-lg shadow-md flex flex-col" style={{boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)'}}>
@@ -180,7 +189,7 @@ const handleSubmit = async (e) => {
                   </a>
               }
               <br />
-              <strong>Cover Letter</strong>
+              <strong>Surat Lamaran</strong>
               {
                 formData.coverLetter ?
                   <a
@@ -218,7 +227,7 @@ const handleSubmit = async (e) => {
   className={`py-2 px-4 rounded border bg-white border-black hover:bg-gray-200 hover:text-black ${formData.status === "Withdrawn" || formData.status === "Declined" ? 'disabled' : ''}`}
   disabled={formData.status === 'Withdrawn' || formData.status === 'Declined'}
 >
-  Withdraw
+  Undurkan Diri
 </button>
           </div>
          <style>

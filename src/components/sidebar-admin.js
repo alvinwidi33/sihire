@@ -13,6 +13,11 @@ function SidebarAdmin() {
     navigate("/manage-user");
   };
 
+  const handleClickManageProjects = () => {
+    setActivePage("Manage Projects");
+    navigate("/our-projects-admin");
+  };
+
   const handleClickMyProfile = () => {
     setActivePage("My Profile");
     navigate("/my-profile");
@@ -128,6 +133,24 @@ function SidebarAdmin() {
                 onClick={() => handleClickManageUsers()}
               >
                 Manage Users
+              </button>
+            </li>
+            <li>
+              <button
+                style={{
+                  fontFamily: "Inter, sans-serif",
+                  fontWeight: "medium",
+                  display: "block",
+                  marginBottom: "16px",
+                  border: "none",
+                  height: "32px",
+                  width: "18%",
+                  textAlign: "left",
+                  paddingLeft: "2%",
+                }}
+                onClick={() => handleClickManageProjects()}
+              >
+                Manage Projects
               </button>
             </li>
           </ul>
