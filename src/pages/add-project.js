@@ -175,7 +175,7 @@ function AddProject() {
             htmlFor='foto'
             className='block text-gray-600 font-semibold mb-2'
           >
-            Foto<span style={{ color: "red" }}>*</span>
+            Foto (maksimal 10)<span style={{ color: "red" }}>*</span>
           </label>
           <input
             type='file'
