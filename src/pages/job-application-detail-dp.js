@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { createClient } from "@supabase/supabase-js";
 import { FileText } from 'lucide-react';
 import SidebarOther from '../components/sidebar-other';
+import SidebarDirector from '../components/sidebar-director';
 
 const supabase = createClient(
   "https://lwchpknnmkmpfbkwcrjs.supabase.co",
@@ -18,6 +19,7 @@ function JobApplicationDetailDP() {
     { name: 'On Boarding', value: 100 },
     { name: 'Declined', value: 64 },
   ];
+  const [user, setUser] = useState(null);
 
   const { id } = useParams();
   const [formData, setFormData] = useState({
@@ -42,6 +44,25 @@ function JobApplicationDetailDP() {
 
   const currentStage = formData.status;
   const progress = calculateProgress(currentStage);
+
+  useEffect(() => {
+    const getUser = async () => {
+        try {
+            const response = await fetch('https://sihire-be.vercel.app/api/users/logged-in/', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Token ' + window.localStorage.getItem("token")
+                },
+              });
+            const data = await response.json();
+            setUser(data);
+            console.log("data",data)
+        } catch (error) {
+            console.error('Error fetching user:', error);
+        }
+    }
+    getUser();
+})
 
   useEffect(() => {
     const fetchJobApplicationData = async () => {
@@ -113,9 +134,47 @@ function JobApplicationDetailDP() {
 
   return (
     <React.Fragment>
-      <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>Job Application</p>
-      <SidebarOther />
-    <div className="min-h-screen flex" style={{ marginLeft:"18%", marginTop:"-22%"}}>
+      {user && (
+    <>
+        {user.role === "Director" ? (
+            <><SidebarDirector /><p
+            style={{
+                marginLeft: "22%",
+                fontWeight: "bold",
+                fontSize: "32px",
+                color: "#2A3E4B",
+                position: "absolute",
+                marginTop: "-35%"
+            }}
+        >
+            Lamaran Pekerjaan
+        </p></>
+        ) : (
+            <><SidebarOther /><p
+                              style={{
+                                  marginLeft: "22%",
+                                  fontWeight: "bold",
+                                  fontSize: "32px",
+                                  color: "#2A3E4B",
+                                  position: "absolute",
+                                  marginTop: "-32%"
+                              }}
+                          >
+                              Lamaran Pekerjaan
+                          </p></>
+        )}
+    </>
+    )}
+    <div style={{ marginLeft: '22%', position: 'absolute', marginBottom: '40px', marginTop: '-350px' }}>
+        <Link to='/applicants'>
+          <p style={{ display: 'inline', marginLeft: '4px' }}>Daftar Pelamar</p>
+        </Link>
+        <span style={{ display: 'inline', marginLeft: '10px' }}>{'>'}</span>
+        <Link to={`/job-application-detail-dp/${id}`}>
+          <p style={{ display: 'inline', marginLeft: '4px' }}>Detail Lamaran Pekerjaan</p>
+        </Link>
+      </div>
+    <div className="min-h-screen flex" style={{ marginLeft:"18%", marginTop:"-25%"}}>
       <div className="container mx-auto mt-8 md:mt-16 w-11/12">
         <div className="p-4 bg-white rounded-lg shadow-md flex flex-col" style={{boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)'}}>
           <h2 className="text-2xl font-bold mb-2">{formData.job.job_name}</h2>
@@ -188,7 +247,7 @@ function JobApplicationDetailDP() {
                 </a>
               )}
               <br />
-              <strong>Cover Letter</strong>
+              <strong>Surat Lamaran</strong>
               {formData.coverLetter ? (
                 <a
                   href={formData.coverLetter}
