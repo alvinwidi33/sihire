@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import SidebarAdmin from '../components/sidebar-admin';
 import SidebarApplicant from '../components/sidebar-applicant';
 import SidebarGA from "../components/sidebar-ga";
+import SidebarDirector from "../components/sidebar-director";
 import SidebarOther from '../components/sidebar-other';
 import NotificationPopup from '../components/popupNotification';
 
@@ -171,16 +172,18 @@ function EditMyProfile() {
         marginTop: '20px',
     };
 
-    let marginTop = "-180px";
+    let marginTop = "-240px";
 
     if (profileData?.role === "General Affairs") {
-        marginTop = "-280px";
+        marginTop = "-240px";
     } else if (profileData?.role === "Applicant") {
-        marginTop = "-180px";
+        marginTop = "-100px";
     } else if (profileData?.role === "Admin") {
         marginTop = "-100px";
+    } else if (profileData?.role === "Director") {
+        marginTop = "-300px";
     } else {
-        marginTop = "-220px";
+        marginTop = "-240px";
     }
 
     return (
@@ -201,7 +204,8 @@ function EditMyProfile() {
                     {profileData.role === "General Affairs" && <SidebarGA />}
                     {profileData.role === "Applicant" && <SidebarApplicant />}
                     {profileData.role === "Admin" && <SidebarAdmin />}
-                    {profileData.role !== "General Affairs" && profileData.role !== "Applicant" && profileData.role !== "Admin" && <SidebarOther />}
+                    {profileData.role === "Director" && <SidebarDirector />}
+                    {profileData.role === "Project Manager" && <SidebarOther />}
                 </>
             )}
 
@@ -217,7 +221,7 @@ function EditMyProfile() {
                     {/* Breadcrum */}
                     <div
                         className="flex flex-row items-center mb-20"
-                        style={{marginLeft: '15%', marginTop: '-12%'}}
+                        style={{marginLeft: '15%', marginTop: '-100px'}}
                     >
                         <Link
                         to="/my-profile"
