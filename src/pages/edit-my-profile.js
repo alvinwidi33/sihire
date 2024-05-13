@@ -227,7 +227,7 @@ function EditMyProfile() {
                                         <div className="">
                                             <div className="flex flex-col items-center">
                                                 <label htmlFor="foto" className="text-blue-500 hover:text-blue-700 rounded-md" style={{ fontSize: '1rem', cursor: 'pointer' }}>
-                                                    ✎ Ubah Foto
+                                                    ✎ Pilih Foto
                                                 </label>
                                                 <input
                                                     type="file"
