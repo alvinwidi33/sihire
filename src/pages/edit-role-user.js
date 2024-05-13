@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import SidebarAdmin from '../components/sidebar-admin';
 import NotificationPopup from '../components/popupNotification';
 
@@ -116,7 +116,7 @@ function EditRoleUser(props) {
                 position: "absolute",
             }}
         >
-            Manage User
+            Manage Users
         </p>
         <SidebarAdmin />
         <div
@@ -124,6 +124,37 @@ function EditRoleUser(props) {
             className="w-9/12"
         >
         <div className="container mx-auto">
+            {/* Breadcrum */}
+            <div
+                className="flex flex-row items-center mb-2"
+                style={{marginTop: '-40px'}}
+            >
+                <Link
+                to="/manage-user"
+                style={{
+                    textDecoration: "none",
+                    color: "#2A3E4B",
+                    cursor: "pointer",
+                }}
+                >
+                    <p style={{ display: "inline", marginLeft: "4px" }}>Manage Users</p>
+                </Link>
+                <span style={{ display: "inline", marginLeft: "10px" }}>{">"}</span>
+                <Link
+                to={`/edit-user-role/${id}`}
+                style={{
+                    textDecoration: "none",
+                    color: "#2A3E4B",
+                    cursor: "pointer",
+                }}
+                >
+                    <p style={{ display: "inline", marginLeft: "10px" }}>
+                        Edit User
+                    </p>
+                </Link>
+            </div>
+            
+            {/* Main Part */}
             <div className="min-h-screen py-8">
                 <div
                     className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md"
