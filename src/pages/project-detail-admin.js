@@ -44,7 +44,7 @@ function OurProjectDetailAdmin() {
         <React.Fragment>
           
                 <><SidebarAdmin />
-                <div style={{ marginTop: '-18%' }}></div>
+                <div style={{ marginTop: '-21%' }}></div>
                 <p
                     style={{
                         marginLeft: "22%",
