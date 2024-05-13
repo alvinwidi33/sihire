@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import SidebarOther from "../components/sidebar-other";
+import SidebarDirector from "../components/sidebar-director";
 
 function GetListFeedbackOther() {
   const location = useLocation();
+  const role = window.localStorage.getItem("role");
   const [feedbacks, setFeedbacks] = useState([]);
   const [selectedPosisi, setSelectedPosisi] = useState("None");
   const [selectedRating, setSelectedRating] = useState(
@@ -106,7 +108,7 @@ function GetListFeedbackOther() {
       >
         Ulasan
       </p>
-      <SidebarOther />
+      {role === "Director" ? <SidebarDirector /> : <SidebarOther />}
       <div
         style={{ marginLeft: "22%", position: "absolute", marginTop: "-40px" }}
         className="w-9/12"

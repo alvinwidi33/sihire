@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SidebarOther from "../components/sidebar-other";
+import SidebarDirector from "../components/sidebar-director";
 
 function JobListInternal() {
   const [jobs, setJobs] = useState(null);
+  const role = window.localStorage.getItem("role");
   function formatDateTime(datetimeString) {
     const options = { day: "numeric", month: "long", year: "numeric" };
     const formattedDate = new Date(datetimeString).toLocaleDateString(
@@ -43,7 +45,7 @@ function JobListInternal() {
       >
         Pekerjaan
       </p>
-      <SidebarOther />
+      {role === "Director" ? <SidebarDirector /> : <SidebarOther />}
       <div
         style={{ marginLeft: "22%", position: "absolute", marginTop: "-330px" }}
         className="w-9/12"
@@ -75,8 +77,8 @@ function JobListInternal() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
-                    background:"#2A3E4B",
-                    color:"white"
+                    background: "#2A3E4B",
+                    color: "white",
                   }}
                 >
                   Pekerjaan
@@ -87,8 +89,8 @@ function JobListInternal() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
-                    background:"#2A3E4B",
-                    color:"white"
+                    background: "#2A3E4B",
+                    color: "white",
                   }}
                 >
                   Tanggal Tutup
@@ -99,8 +101,8 @@ function JobListInternal() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
-                    background:"#2A3E4B",
-                    color:"white"
+                    background: "#2A3E4B",
+                    color: "white",
                   }}
                 >
                   Detail
