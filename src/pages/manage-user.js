@@ -112,7 +112,7 @@ function ManageUser() {
       <SidebarAdmin />
 
       <div
-        style={{ marginLeft: "22%", position: "absolute", marginTop: "-160px" }}
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-210px" }}
         className="w-9/12"
       >
     <div className="container mx-auto">
