@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import SidebarOther from "../components/sidebar-other"; // Pastikan untuk mengimpor komponen Sidebar dengan benar
+import SidebarDirector from "../components/sidebar-director";
 
 function GetListInterviewGA() {
+  const role = window.localStorage.getItem("role");
   const [interviews, setInterviews] = useState([]);
   const [successMessage, setSuccessMessage] = useState("");
   const { id } = useParams();
@@ -90,7 +92,7 @@ function GetListInterviewGA() {
       >
         Wawancara
       </p>
-      <SidebarOther />
+      {role === "Director" ? <SidebarDirector /> : <SidebarOther />}
       <div
         style={{ marginLeft: "22%", position: "absolute", marginTop: "-40px" }}
         className="w-9/12"
@@ -157,7 +159,7 @@ function GetListInterviewGA() {
               marginLeft: "0%",
               borderCollapse: "collapse",
               width: "90%",
-              padding:"12px"
+              padding: "12px",
             }}
           >
             <thead>
@@ -168,8 +170,8 @@ function GetListInterviewGA() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
-                    background:"#2A3E4B",
-                    color:"white"
+                    background: "#2A3E4B",
+                    color: "white",
                   }}
                 >
                   Posisi
@@ -180,8 +182,8 @@ function GetListInterviewGA() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
-                    background:"#2A3E4B",
-                    color:"white"
+                    background: "#2A3E4B",
+                    color: "white",
                   }}
                 >
                   Pelamar
@@ -192,8 +194,8 @@ function GetListInterviewGA() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
-                    background:"#2A3E4B",
-                    color:"white"
+                    background: "#2A3E4B",
+                    color: "white",
                   }}
                 >
                   Tanggal
@@ -204,8 +206,8 @@ function GetListInterviewGA() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
-                    background:"#2A3E4B",
-                    color:"white"
+                    background: "#2A3E4B",
+                    color: "white",
                   }}
                 >
                   Waktu
@@ -216,8 +218,8 @@ function GetListInterviewGA() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
-                    background:"#2A3E4B",
-                    color:"white"
+                    background: "#2A3E4B",
+                    color: "white",
                   }}
                 >
                   Pewawancara
@@ -228,8 +230,8 @@ function GetListInterviewGA() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
-                    background:"#2A3E4B",
-                    color:"white"
+                    background: "#2A3E4B",
+                    color: "white",
                   }}
                 >
                   Status
@@ -240,8 +242,8 @@ function GetListInterviewGA() {
                     padding: "8px",
                     textAlign: "center",
                     fontWeight: "bold",
-                    background:"#2A3E4B",
-                    color:"white"
+                    background: "#2A3E4B",
+                    color: "white",
                   }}
                 >
                   Konfirmasi
@@ -253,8 +255,8 @@ function GetListInterviewGA() {
                     textAlign: "center",
                     fontWeight: "bold",
                     width: "180px",
-                    background:"#2A3E4B",
-                    color:"white"
+                    background: "#2A3E4B",
+                    color: "white",
                   }}
                 >
                   Action
@@ -385,22 +387,22 @@ function GetListInterviewGA() {
                       </button>
                     </Link>
                     <Link to={`/get-list-interview-ga/${interview.id}/update`}>
-                    <button
-                      style={{
-                        background: "#2A3E4B",
-                        width: "42%",
-                        padding: "8px",
-                        fontSize: "16px",
-                        fontFamily: "Inter, sans-serif",
-                        fontWeight: "bold",
-                        color: "#fff",
-                        borderRadius: "6px",
-                        cursor: "pointer",
-                        border: "2px solid #2A3E4B",
-                      }}
-                    >
-                      Ubah
-                    </button>
+                      <button
+                        style={{
+                          background: "#2A3E4B",
+                          width: "42%",
+                          padding: "8px",
+                          fontSize: "16px",
+                          fontFamily: "Inter, sans-serif",
+                          fontWeight: "bold",
+                          color: "#fff",
+                          borderRadius: "6px",
+                          cursor: "pointer",
+                          border: "2px solid #2A3E4B",
+                        }}
+                      >
+                        Ubah
+                      </button>
                     </Link>
                   </td>
                 </tr>

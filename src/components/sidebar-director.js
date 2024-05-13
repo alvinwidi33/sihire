@@ -31,7 +31,7 @@ function SidebarDirector() {
 
   const handleClickOnBoarding = () => {
     setActivePage("On Boarding");
-    navigate("/");
+    navigate("/get-list-onboarding-internal");
   };
   const handleClickInterview = () => {
     setActivePage("Interview");
@@ -86,10 +86,10 @@ function SidebarDirector() {
   const profilePictureStyle = {
     width: "32px",
     height: "32px",
-      borderRadius: '50%',
-      backgroundColor: '#F2F2F2',
-      backgroundSize: 'cover',
-      border: "2px solid grey",
+    borderRadius: "50%",
+    backgroundColor: "#F2F2F2",
+    backgroundSize: "cover",
+    border: "2px solid grey",
   };
 
   useEffect(() => {
@@ -187,7 +187,7 @@ function SidebarDirector() {
                 }}
                 onClick={() => handleClickApplication()}
               >
-                Application
+                Applicants
               </button>
             </li>
             <li>
@@ -263,9 +263,17 @@ function SidebarDirector() {
             className="flex gap-4 items-center"
           >
             {activeUser.foto ? (
-                <img src={activeUser.foto} alt="Profile Pic" style={profilePictureStyle} />
+              <img
+                src={activeUser.foto}
+                alt="Profile Pic"
+                style={profilePictureStyle}
+              />
             ) : (
-                <img src="https://cdn-icons-png.flaticon.com/512/709/709699.png" alt="Profile Pic" style={profilePictureStyle} />
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/709/709699.png"
+                alt="Profile Pic"
+                style={profilePictureStyle}
+              />
             )}
 
             <p>{activeUser.name}</p>

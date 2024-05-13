@@ -1,42 +1,56 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import SidebarGA from '../components/sidebar-ga';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import SidebarGA from "../components/sidebar-ga";
+import SidebarDirector from "../components/sidebar-director";
+import SidebarOther from "../components/sidebar-other";
 
 function GetListOnboardingInternal() {
-    const [onboarding, setOnboarding] = useState([]);
-    const [successMessage, setSuccessMessage] = useState('');
-    const [user, setUser] = useState(null);
-    useEffect(() => {
-        const getUser = async () => {
-            try {
-                const response = await fetch('https://sihire-be.vercel.app/api/users/logged-in/', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': 'Token ' + window.localStorage.getItem("token")
-                    },
-                  });
-                const data = await response.json();
-                setUser(data);
-                console.log("data",data)
-            } catch (error) {
-                console.error('Error fetching user:', error);
-            }
-        }
-        getUser();
-    })
+  const role = window.localStorage.getItem("role");
+  const [onboarding, setOnboarding] = useState([]);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const response = await fetch(
+          "https://sihire-be.vercel.app/api/users/logged-in/",
+          {
+            method: "GET",
+            headers: {
+              Authorization: "Token " + window.localStorage.getItem("token"),
+            },
+          }
+        );
+        const data = await response.json();
+        setUser(data);
+        console.log("data", data);
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+    getUser();
+  });
 
-    function formatTime(datetimeString) {
-        const dateTime = new Date(datetimeString);
-        const hours = dateTime.getHours().toString().padStart(2, '0');
-        const minutes = dateTime.getMinutes().toString().padStart(2, '0');
-        return `${hours}:${minutes}`;
-    }
+  function formatTime(datetimeString) {
+    const dateTime = new Date(datetimeString);
+    const hours = dateTime.getHours().toString().padStart(2, "0");
+    const minutes = dateTime.getMinutes().toString().padStart(2, "0");
+    return `${hours}:${minutes}`;
+  }
 
-    function formatDateTime(datetimeString) {
-        const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-        const formattedDate = new Date(datetimeString).toLocaleDateString('id-ID', options);
-        return formattedDate;
-    }
+  function formatDateTime(datetimeString) {
+    const options = {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    };
+    const formattedDate = new Date(datetimeString).toLocaleDateString(
+      "id-ID",
+      options
+    );
+    return formattedDate;
+  }
 
     const deleteOnboarding = async (id) => {
         try {
@@ -57,33 +71,53 @@ function GetListOnboardingInternal() {
         }
     };
 
-    const getOnboarding = async () => {
-        try {
-            const response = await fetch('https://sihire-be.vercel.app/api/onboarding/get-list-onboarding/', {
-                method: "GET",
-            });
-            const data = await response.json();
-            setOnboarding(data);
-        } catch (error) {
-            console.error('Error fetching onboarding data:', error);
+  const getOnboarding = async () => {
+    try {
+      const response = await fetch(
+        "https://sihire-be.vercel.app/api/onboarding/get-list-onboarding/",
+        {
+          method: "GET",
         }
-    };
+      );
+      const data = await response.json();
+      setOnboarding(data);
+    } catch (error) {
+      console.error("Error fetching onboarding data:", error);
+    }
+  };
 
-    useEffect(() => {
-        getOnboarding();
-    }, []);
+  useEffect(() => {
+    getOnboarding();
+  }, []);
 
-    const isDatePassed = (datetimeString) => {
-        const onboardDate = new Date(datetimeString);
-        const currentDate = new Date();
-        return onboardDate < currentDate;
-    };
+  const isDatePassed = (datetimeString) => {
+    const onboardDate = new Date(datetimeString);
+    const currentDate = new Date();
+    return onboardDate < currentDate;
+  };
 
-    return (
-        <React.Fragment>
-            <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>On Boarding</p>
-            <SidebarGA />
-            <div
+  return (
+    <React.Fragment>
+      <p
+        style={{
+          marginLeft: "22%",
+          fontWeight: "bold",
+          fontSize: "32px",
+          color: "#2A3E4B",
+          position: "absolute",
+          marginTop: "12px",
+        }}
+      >
+        On Boarding
+      </p>
+      {role === "General Affairs" ? (
+        <SidebarGA />
+      ) : role === "Director" ? (
+        <SidebarDirector />
+      ) : (
+        <SidebarOther />
+      )}
+      <div
         style={{ marginLeft: "10%", position: "absolute", marginTop: "-20px" }}
         className="w-9/12"
       >

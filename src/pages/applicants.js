@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import SidebarGA from "../components/sidebar-ga";
+import SidebarDirector from "../components/sidebar-director";
+import SidebarOther from "../components/sidebar-other";
 
 function Applicants() {
   const navigate = useNavigate();
   const location = useLocation();
   const [applications, setApplications] = useState([]);
   const [jobs, setJobs] = useState([]);
+  const role = window.localStorage.getItem("role");
   const [selectedStatus, setSelectedStatus] = useState(
     location.state ? location.state.status : "None"
   );
@@ -35,7 +38,11 @@ function Applicants() {
   };
 
   const detailJobApplication = (id) => {
-    navigate(`/job-application-detail/${id}`);
+    if (role === "General Affairs") {
+      navigate(`/job-application-detail-ga/${id}`);
+    }
+
+    navigate(`/job-application-detail-dp/${id}`);
   };
 
   const handleStatusChange = (event) => {
@@ -69,7 +76,13 @@ function Applicants() {
       >
         Applicants
       </p>
-      <SidebarGA />
+      {role === "General Affairs" ? (
+        <SidebarGA />
+      ) : role === "Director" ? (
+        <SidebarDirector />
+      ) : (
+        <SidebarOther />
+      )}
       <div
         style={{ marginLeft: "22%", position: "absolute", marginTop: "-340px" }}
         className="w-9/12"
