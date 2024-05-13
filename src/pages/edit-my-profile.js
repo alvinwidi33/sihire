@@ -1,10 +1,11 @@
 import { createClient } from "@supabase/supabase-js";
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from "uuid";
 import SidebarAdmin from '../components/sidebar-admin';
 import SidebarApplicant from '../components/sidebar-applicant';
 import SidebarGA from "../components/sidebar-ga";
+import SidebarDirector from "../components/sidebar-director";
 import SidebarOther from '../components/sidebar-other';
 import NotificationPopup from '../components/popupNotification';
 
@@ -171,16 +172,18 @@ function EditMyProfile() {
         marginTop: '20px',
     };
 
-    let marginTop = "-180px";
+    let marginTop = "-240px";
 
     if (profileData?.role === "General Affairs") {
-        marginTop = "-280px";
+        marginTop = "-240px";
     } else if (profileData?.role === "Applicant") {
-        marginTop = "-180px";
+        marginTop = "-100px";
     } else if (profileData?.role === "Admin") {
         marginTop = "-100px";
+    } else if (profileData?.role === "Director") {
+        marginTop = "-300px";
     } else {
-        marginTop = "-220px";
+        marginTop = "-240px";
     }
 
     return (
@@ -194,14 +197,15 @@ function EditMyProfile() {
                 position: "absolute",
                 }}
             >
-                My Profile
+                Profil Diri
             </p>
             {profileData && (
                 <>
                     {profileData.role === "General Affairs" && <SidebarGA />}
                     {profileData.role === "Applicant" && <SidebarApplicant />}
                     {profileData.role === "Admin" && <SidebarAdmin />}
-                    {profileData.role !== "General Affairs" && profileData.role !== "Applicant" && profileData.role !== "Admin" && <SidebarOther />}
+                    {profileData.role === "Director" && <SidebarDirector />}
+                    {profileData.role === "Project Manager" && <SidebarOther />}
                 </>
             )}
 
@@ -213,6 +217,38 @@ function EditMyProfile() {
                     className="container mx-auto"
                     style={{marginLeft: '-15%'}}
                 >
+
+                    {/* Breadcrum */}
+                    <div
+                        className="flex flex-row items-center mb-20"
+                        style={{marginLeft: '15%', marginTop: '-100px'}}
+                    >
+                        <Link
+                        to="/my-profile"
+                        style={{
+                            textDecoration: "none",
+                            color: "#2A3E4B",
+                            cursor: "pointer",
+                        }}
+                        >
+                            <p style={{ display: "inline", marginLeft: "4px" }}>Profil Diri</p>
+                        </Link>
+                        <span style={{ display: "inline", marginLeft: "10px" }}>{">"}</span>
+                        <Link
+                        to={"/edit-my-profile"}
+                        style={{
+                            textDecoration: "none",
+                            color: "#2A3E4B",
+                            cursor: "pointer",
+                        }}
+                        >
+                            <p style={{ display: "inline", marginLeft: "10px" }}>
+                                Edit Profil
+                            </p>
+                        </Link>
+                    </div>
+                    
+                    {/* Main Part */}
                     {profileData && (
                         <div className="flex flex-col items-center">
                             <div className="flex justify-center items-center space-x-4">
