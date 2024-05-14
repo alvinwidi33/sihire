@@ -243,7 +243,7 @@ function EditMyProfile() {
                         }}
                         >
                             <p style={{ display: "inline", marginLeft: "10px" }}>
-                                Edit Profil
+                                Ubah Profil
                             </p>
                         </Link>
                     </div>
@@ -372,16 +372,6 @@ function EditMyProfile() {
                             </a>
                         </div>
                     </div>
-                    {/* <button
-                        className="bg-red-700 text-white py-2 px-4 rounded-md"
-                        style={{ fontSize: '1rem' }}
-                        onClick={(e) => {
-                            console.log(profileData)
-                            console.log(profilePictureURL)
-                        }}
-                    >
-                        console log
-                    </button> */}
                 </div>
             </div>
             {/* Success popup */}
@@ -392,7 +382,7 @@ function EditMyProfile() {
                     setEditSuccessVisible(false);
                     navigate('/my-profile');
                 }}
-                popupText='Profil berhasil diupdate'
+                popupText='Profil berhasil diubah'
                 needsConfirmation={false}
             />
         </React.Fragment>

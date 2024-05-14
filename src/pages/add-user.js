@@ -64,7 +64,7 @@ function AddUser() {
                     setShowError(true);
                 } else {
                     // Show success message
-                    setSuccessMessage('Berhasil menambahkan user');
+                    setSuccessMessage('Berhasil menambahkan pengguna');
                     setShowSuccess(true);
                     // Reset form data
                     setFormData({
@@ -112,7 +112,7 @@ function AddUser() {
             position: "absolute",
             }}
         >
-            Manage Users
+            Kelola Pengguna
         </p>
         <SidebarAdmin />
 
@@ -134,7 +134,7 @@ function AddUser() {
                     cursor: "pointer",
                 }}
                 >
-                    <p style={{ display: "inline", marginLeft: "4px" }}>Manage Users</p>
+                    <p style={{ display: "inline", marginLeft: "4px" }}>Kelola Pengguna</p>
                 </Link>
                 <span style={{ display: "inline", marginLeft: "10px" }}>{">"}</span>
                 <Link
@@ -146,7 +146,7 @@ function AddUser() {
                 }}
                 >
                     <p style={{ display: "inline", marginLeft: "10px" }}>
-                        Tambah User
+                        Tambah Pengguna
                     </p>
                 </Link>
             </div>
@@ -158,7 +158,7 @@ function AddUser() {
                     className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md"
                     style={{ boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)'}}
                 >
-                    <h2 className="text-lg font-semibold mb-4 text-center" style={darkBlueText}>Add User</h2>
+                    <h2 className="text-lg font-semibold mb-4 text-center" style={darkBlueText}>Tambah Pengguna</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4">
                             <label htmlFor="email" className="block text-sm font-medium" style={darkBlueText}>Email <span className="text-red-500">*</span></label>
@@ -236,7 +236,7 @@ function AddUser() {
                             className="w-full px-4 py-2 bg-indigo-800 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700"
                             style={{ background: 'var(--WF-Base-800, #2D3648)' }}
                         >
-                            Add User
+                            Simpan Pengguna
                         </button>
                         </div>
                     </form>

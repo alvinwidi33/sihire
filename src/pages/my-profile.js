@@ -178,7 +178,7 @@ function MyProfile() {
                                 style={{ background: 'var(--WF-Base-800, #2D3648)', fontSize: '1rem' }}
                                 onClick={() => {navigate("/edit-my-profile");}}
                             >
-                                Edit Profil
+                                Ubah Profil
                             </button>
                         </div>
                         <div>
