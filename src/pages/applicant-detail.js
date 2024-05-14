@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import SidebarGA from '../components/sidebar-ga';
 import SidebarOther from '../components/sidebar-other';
+import SidebarDirector from '../components/sidebar-director';
 
 const ApplicantDetail = () => {
     const {applicant} = useParams()
@@ -130,7 +131,9 @@ const DetailButton = {
     {user && (
     <>
         {user.role === "General Affairs" ? (
-            <><SidebarGA /><p
+    <>
+        <SidebarGA />
+        <p
             style={{
                 marginLeft: "22%",
                 fontWeight: "bold",
@@ -140,27 +143,56 @@ const DetailButton = {
                 marginTop: "-32%"
             }}
         >
-            Applicants
-        </p></>
-        ) : (
-            <><SidebarOther /><p
-                              style={{
-                                  marginLeft: "22%",
-                                  fontWeight: "bold",
-                                  fontSize: "32px",
-                                  color: "#2A3E4B",
-                                  position: "absolute",
-                                  marginTop: "-28%"
-                              }}
-                          >
-                              Applicants
-                          </p></>
-        )}
+            Pelamar
+        </p>
+    </>
+) : user.role === "Director" ? (
+    <>
+        <SidebarDirector />
+        <p
+            style={{
+                marginLeft: "22%",
+                fontWeight: "bold",
+                fontSize: "32px",
+                color: "#2A3E4B",
+                position: "absolute",
+                marginTop: "-35%"
+            }}
+        >
+            Pelamar
+        </p>
+    </>
+) : (
+    <>
+        <SidebarOther />
+        <p
+            style={{
+                marginLeft: "22%",
+                fontWeight: "bold",
+                fontSize: "32px",
+                color: "#2A3E4B",
+                position: "absolute",
+                marginTop: "-32%" 
+            }}
+        >
+            Pelamar
+        </p>
+    </>
+)}
+
     </>
     )}
 
 
-    {/* <div style={PageContainer}> */}
+        <div style={{ marginLeft: '21.7%', position: 'absolute', marginBottom: '40px', marginTop: '-350px' }}>
+        <Link to='/applicants'>
+          <p style={{ display: 'inline', marginLeft: '4px' }}>Daftar Pelamar</p>
+        </Link>
+        <span style={{ display: 'inline', marginLeft: '10px' }}>{'>'}</span>
+        <Link to={`/applicant-detail/${applicant}`}>
+          <p style={{ display: 'inline', marginLeft: '4px' }}>Detail Pelamar</p>
+        </Link>
+      </div>
       <div className="min-h-screen flex">
       <div className="container mx-auto mt-8 md:mt-16" style={{ marginLeft:"22%", marginRight:"3%", marginTop:"-23%" }}>
         <h2 style={SubTitle}><strong>Nama</strong></h2>
@@ -181,14 +213,14 @@ const DetailButton = {
             <h2>{userApplicant.phone}</h2>
         )}
         </div>
-        <h2 style={SubTitle}><strong>Pekerjaan Dilamar</strong></h2>
+        <h2 style={SubTitle}><strong>Pekerjaan yang Dilamar</strong></h2>
         <div style={CardContainer}>
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
     <thead>
         <tr>
-            <th style={TableHeader}>Job Name</th>
+            <th style={TableHeader}>Nama Pekerjaan</th>
             <th style={TableHeader}>Status</th>
-            <th style={TableHeader}>Action</th>
+            <th style={TableHeader}>Tindakan</th>
         </tr>
     </thead>
     <tbody>
