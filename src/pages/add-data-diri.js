@@ -158,8 +158,16 @@ function AddDataDiri() {
   return (
     <React.Fragment>
     <SidebarApplicant />
-    {/* <div className="bg-gray-100 min-h-screen flex justify-center items-center">
-    <div className="container mx-auto mt-8" style={{ marginTop: "3%" }}> */}
+    <div style={{ marginLeft: '22%', position: 'absolute', marginBottom: '40px', marginTop: '-200px' }}>
+        <Link to='/my-job-application'>
+          <p style={{ display: 'inline', marginLeft: '4px' }}>Lamaran Pekerjaan Saya</p>
+        </Link>
+        <span style={{ display: 'inline', marginLeft: '10px' }}>{'>'}</span>
+        <Link to={`/create-datadiri/${id}`}>
+          <p style={{ display: 'inline', marginLeft: '4px' }}>Masukkan Data Diri</p>
+        </Link>
+      </div>
+    
       <p
         style={{
           marginLeft: "22%",
@@ -173,7 +181,7 @@ function AddDataDiri() {
         On Boarding
       </p>
 
-    {/* <hr className="mb-4 border-solid border-black" />  */}
+    
       <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded shadow-md" style={{marginTop:'-160px'}} encType="multipart/form-data">
       
         <h1 className="text-2xl font-bold text-center mb-4">Data Personal</h1>
@@ -233,7 +241,7 @@ function AddDataDiri() {
           />
         </div>
         <div className="flex justify-center">
-              <button type="submit" className="bg-gray-800 text-white px-40 py-2 rounded-md">Submit</button>
+              <button type="submit" className="bg-gray-800 text-white px-40 py-2 rounded-md">Kirim</button>
             </div>
       </form>
       {successMessage && (
