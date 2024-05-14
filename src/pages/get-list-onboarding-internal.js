@@ -170,7 +170,7 @@ function GetListOnboardingInternal() {
                                 <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Pelamar</th>
                                 <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Tanggal</th>
                                 <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Waktu</th>
-                                <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Konfirmasi</th>
+                                
                                 <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold", width: "180px" }}>Data Diri</th>
                                 <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold", width: "180px" }}>Action</th>
                             </tr>
@@ -184,9 +184,7 @@ function GetListOnboardingInternal() {
                                     <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center" }}>
                                         {onboarding.datetime_start && formatTime(onboarding.datetime_start)} - {onboarding.datetime_end && formatTime(onboarding.datetime_end)}
                                     </td>
-                                    <td style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center" }}>
-                                        {onboarding.confirm}
-                                    </td>
+                                    
                                     <td style={{ border: "2px solid #2A3E4B", textAlign: "center" }}>
                                         <Link to={`/data-diri-detail/${onboarding.id}`}>
                                             <button style={{ width: "80px", padding: "8px", fontSize: "16px", marginTop:'8px', marginBottom:'8px', marginRight:'10px', fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#2A3E4B", borderRadius: "6px", cursor: "pointer", border: "2px solid #2A3E4B", marginRight: "4px" }}>

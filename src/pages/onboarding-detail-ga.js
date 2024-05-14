@@ -65,16 +65,6 @@ function OnboardingDetailGA() {
                             <p style={{ marginTop: '270px', marginLeft: '5%', fontSize: '16px', color: '#2A3E4B', position: 'absolute' }}>
                                 Waktu : {onboarding.datetime_start && formatTime(onboarding.datetime_start)} - {onboarding.datetime_end && formatTime(onboarding.datetime_end)}
                             </p>
-                    
-                            <p style={{ marginTop: '350px', marginLeft: '5%', fontWeight: 'bold', fontSize: '24px', color: '#2A3E4B', position: 'absolute' }}>Alasan</p>
-                            <p style={{ marginTop: '390px', marginLeft: '5%', fontSize: '16px', color: '#2A3E4B', position: 'absolute' }}>
-                                {onboarding.reschedule_comment}
-                            </p>
-                            <Link to={`/get-list-onboarding-ga/${id}/update`}>
-                                <button style={{ marginLeft: "700px", marginTop: "480px", backgroundColor: "#2A3E4B", width: "130px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#fff", borderRadius: "6px", cursor: "pointer", border: "2px solid #2A3E4B", marginRight: "80px" }}>
-                                    Ubah Jadwal
-                                </button>
-                            </Link>
                         </div>
                     </div>
                 </React.Fragment>
