@@ -205,7 +205,7 @@ const MyJobApplication = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          confirm: "Yes",
+          confirm: "Bisa Hadir",
         }),
       });
 
@@ -413,7 +413,7 @@ const MyJobApplication = () => {
                 <Th>Tanggal</Th>
                 <Th>Waktu</Th>
                 <Th>Status</Th>
-                <Th>Action</Th>
+                <Th>Tindakan</Th>
               </tr>
             </thead>
             <tbody>
@@ -428,7 +428,7 @@ const MyJobApplication = () => {
                       <Button primary>Batalkan</Button>
                     )}
                     <Td>
-                      {interview.confirm === "Not Confirm" ? (
+                      {interview.confirm === "Belum Dikonfirmasi" ? (
                         <Button
                           primary
                           onClick={() =>
