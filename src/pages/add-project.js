@@ -92,6 +92,15 @@ function AddProject() {
   return (
     <React.Fragment>
       <SidebarAdmin />
+      <div style={{ marginLeft: '22%', position: 'absolute', marginBottom: '40px', marginTop: '-200px' }}>
+        <Link to='/our-projects-admin'>
+          <p style={{ display: 'inline', marginLeft: '4px' }}>Daftar Proyek</p>
+        </Link>
+        <span style={{ display: 'inline', marginLeft: '10px' }}>{'>'}</span>
+        <Link to={`/add-project`}>
+          <p style={{ display: 'inline', marginLeft: '4px' }}>Tambah Proyek</p>
+        </Link>
+      </div>
       <p
         style={{
           marginLeft: "22%",
@@ -102,7 +111,7 @@ function AddProject() {
           marginTop: "-290px",
         }}
       >
-        Our Project
+        Proyek
       </p>
       <form
         className='max-w-lg mx-auto bg-white p-6 rounded shadow-md'
@@ -191,7 +200,7 @@ function AddProject() {
             type='submit'
             className='bg-gray-800 text-white px-40 py-2 rounded-md'
           >
-            Submit
+            Kirim
           </button>
         </div>
       </form>
