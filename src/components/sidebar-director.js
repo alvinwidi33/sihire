@@ -187,7 +187,7 @@ function SidebarDirector() {
                 }}
                 onClick={() => handleClickApplication()}
               >
-                Applicants
+                Pelamar
               </button>
             </li>
             <li>
@@ -205,7 +205,7 @@ function SidebarDirector() {
                 }}
                 onClick={() => handleClickFeedback()}
               >
-                Feedback
+                Ulasan
               </button>
             </li>
             <li>

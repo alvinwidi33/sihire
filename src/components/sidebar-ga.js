@@ -80,10 +80,10 @@ function SidebarGA() {
   const profilePictureStyle = {
     width: "32px",
     height: "32px",
-      borderRadius: '50%',
-      backgroundColor: '#F2F2F2',
-      backgroundSize: 'cover',
-      border: "2px solid grey",
+    borderRadius: "50%",
+    backgroundColor: "#F2F2F2",
+    backgroundSize: "cover",
+    border: "2px solid grey",
   };
 
   useEffect(() => {
@@ -163,7 +163,7 @@ function SidebarGA() {
                 }}
                 onClick={() => handleClickApplication()}
               >
-                Applicants
+                Pelamar
               </button>
             </li>
             <li>
@@ -181,7 +181,7 @@ function SidebarGA() {
                 }}
                 onClick={() => handleClickFeedback()}
               >
-                Feedback
+                Ulasan
               </button>
             </li>
             <li>
@@ -239,9 +239,17 @@ function SidebarGA() {
             className="flex gap-4 items-center"
           >
             {activeUser.foto ? (
-                <img src={activeUser.foto} alt="Profile Pic" style={profilePictureStyle} />
+              <img
+                src={activeUser.foto}
+                alt="Profile Pic"
+                style={profilePictureStyle}
+              />
             ) : (
-                <img src="https://cdn-icons-png.flaticon.com/512/709/709699.png" alt="Profile Pic" style={profilePictureStyle} />
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/709/709699.png"
+                alt="Profile Pic"
+                style={profilePictureStyle}
+              />
             )}
 
             <p>{activeUser.name}</p>
