@@ -134,37 +134,41 @@ const MyJobApplication = () => {
     setInterviewPopupVisibility(false);
   };
 
-  const handleWithdraw = async (id) => {
+  const handleWithdraw = async (id, job) => {
     try {
       const response = await fetch(
         `https://sihire-be.vercel.app/api/job-application/put/${id}/edit-status/`,
         {
-          method: "PATCH", // Assuming PATCH method is used for withdrawal
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            status: "Withdrawn", // Update the status to 'Withdrawn'
+            job: job,
+            applicant: applicant,
+            status: "Withdrawn",
           }),
         }
       );
-
+    
       if (response.ok) {
-        // If the withdrawal is successful, update the local state to reflect the changed status
         const updatedJobApplications = jobApplications.map((application) => {
           if (application.id === id) {
             return { ...application, status: "Withdrawn" };
           }
           return application;
         });
-        setJobApplications(updatedJobApplications);
+        setJobApplications(updatedJobApplications)
       } else {
         console.error("Failed to withdraw application");
       }
     } catch (error) {
       console.error("Error withdrawing application:", error);
     }
+    
   };
+  
+  
 
   const handleReject = async (id) => {
     try {
@@ -439,7 +443,7 @@ const TooltipContent = styled.div`
                     <Td>
                       <Button
                         primary
-                        onClick={() => handleWithdraw(jobApplication.id)}
+                        onClick={() => handleWithdraw(jobApplication.id, jobApplication.job.id)}
                       >
                         Withdraw
                       </Button>
@@ -473,17 +477,6 @@ const TooltipContent = styled.div`
                       <>
                         <Td>
                         <div className="tooltip-container">
-                          {/* <button
-                          data-tooltip-target="tooltip-click" data-tooltip-trigger="click" type="button"
-                          class="ms-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                          >
-                            Tooltip click
-                          </button>
-                          <div id="tooltip-click" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                              Tooltip content
-                              <div class="tooltip-arrow" data-popper-arrow></div>
-                          </div> */}
-
                         </div>
                           <TooltipContainer>
                             <TooltipButton
