@@ -18,7 +18,7 @@ function OnboardingDetailGA() {
     }
     const rectangleStyle = {
     width: '70%',
-    height: '550px',
+    height: '390px',
     backgroundColor: '#fff',
     borderRadius: '10px',
     marginLeft: '22%',
