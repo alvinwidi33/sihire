@@ -76,7 +76,7 @@ const DeclineInterview = () => {
                 position: "absolute",
                 }}
             >
-                Wawancara
+                Lamaran Pekerjaan
             </p>
             <SidebarApplicant />
             <div className="container mx-auto" style={containerStyle}>
