@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { createClient } from "@supabase/supabase-js";
 import { FileText } from 'lucide-react';
 import SidebarOther from '../components/sidebar-other';
@@ -94,7 +94,17 @@ function DataDiriDetail() {
                 }}
             >
                 On Boarding
-            </p></>
+            </p>
+            <div style={{ marginLeft: '22%', position: 'absolute', marginBottom: '40px', marginTop: '-350px' }}>
+              <Link to='/get-list-onboarding-internal'>
+                <p style={{ display: 'inline', marginLeft: '4px' }}>Daftar Onboarding</p>
+              </Link>
+              <span style={{ display: 'inline', marginLeft: '10px' }}>{'>'}</span>
+              <Link to={`/data-diri-detail/${id}`}>
+                <p style={{ display: 'inline', marginLeft: '4px' }}>Detail Data Diri</p>
+              </Link>
+            </div>
+            </>
         ) : user.role === "Applicant" ? (
             <><SidebarApplicant /><p
                 style={{
@@ -107,7 +117,17 @@ function DataDiriDetail() {
                 }}
             >
                 On Boarding
-            </p></>
+            </p>
+            <div style={{ marginLeft: '22%', position: 'absolute', marginBottom: '40px', marginTop: '-200px' }}>
+        <Link to='/my-job-application'>
+          <p style={{ display: 'inline', marginLeft: '4px' }}>Lamaran Pekerjaan Saya</p>
+        </Link>
+        <span style={{ display: 'inline', marginLeft: '10px' }}>{'>'}</span>
+        <Link to={`/data-diri-detail/${id}`}>
+          <p style={{ display: 'inline', marginLeft: '4px' }}>Detail Data Diri</p>
+        </Link>
+      </div>
+            </>
         ) : user.role === "Director" ? (
             <><SidebarDirector /><p
             style={{
@@ -120,7 +140,17 @@ function DataDiriDetail() {
             }}
         >
             On Boarding
-        </p></>
+        </p>
+        <div style={{ marginLeft: '22%', position: 'absolute', marginBottom: '40px', marginTop: '-390px' }}>
+              <Link to='/get-list-onboarding-internal'>
+                <p style={{ display: 'inline', marginLeft: '4px' }}>Daftar Onboarding</p>
+              </Link>
+              <span style={{ display: 'inline', marginLeft: '10px' }}>{'>'}</span>
+              <Link to={`/data-diri-detail/${id}`}>
+                <p style={{ display: 'inline', marginLeft: '4px' }}>Detail Data Diri</p>
+              </Link>
+            </div>
+        </>
         ) : (
             <><SidebarOther /><p
                 style={{
@@ -133,12 +163,22 @@ function DataDiriDetail() {
                 }}
             >
                 On Boarding
-            </p></>
+            </p>
+            <div style={{ marginLeft: '22%', position: 'absolute', marginBottom: '40px', marginTop: '-350px' }}>
+              <Link to='/get-list-onboarding-internal'>
+                <p style={{ display: 'inline', marginLeft: '4px' }}>Daftar Onboarding</p>
+              </Link>
+              <span style={{ display: 'inline', marginLeft: '10px' }}>{'>'}</span>
+              <Link to={`/data-diri-detail/${id}`}>
+                <p style={{ display: 'inline', marginLeft: '4px' }}>Detail Data Diri</p>
+              </Link>
+            </div>
+            </>
         )}
     </>
 )}
 
-    <div className="min-h-screen flex" style={{ marginLeft:"18%", marginTop:"-20%"}}>
+    <div className="min-h-screen flex" style={{ marginLeft:"18%", marginTop:"-16%"}}>
       <div className="container mx-auto mt-8 md:mt-16 w-11/12">
         <div className="p-4 bg-white rounded-lg shadow-md flex flex-col" style={{boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)'}}>
         <h2 className="text-2xl font-bold mb-2">Data Diri</h2>
