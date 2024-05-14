@@ -118,19 +118,37 @@ function GetListOnboardingInternal() {
         <SidebarOther />
       )}
       <div
-        style={{ marginLeft: "10%", position: "absolute", marginTop: "-20px" }}
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-40px" }}
         className="w-9/12"
       >
-                <p style={{ marginLeft: "22%", fontWeight: "bold", fontSize: "32px", color: "#2A3E4B", marginTop: "-300px", marginBottom: "32px" }}>List Onboarding</p>
+                <p style={{
+            marginLeft: "0",
+            fontWeight: "bold",
+            fontSize: "32px",
+            color: "#2A3E4B",
+            marginTop: "-300px",
+            marginBottom: "32px",
+          }}>List Onboarding</p>
                 {user && (
                 <>
                     {user.role === "General Affairs" && (
                         <Link to="/create-onboarding">
                             <button style={{
-                                width: "180px", padding: "8px", fontSize: "16px", fontFamily: 'Inter, sans-serif', fontWeight: 'bold', color: "#fff", background: "#2A3E4B",
-                                borderRadius: "6px", cursor: "pointer",
-                                marginTop: "-72px", marginBottom: "32px", marginLeft: "90%", position: "absolute", border: "2px solid #2A3E4B",
-                            }}>
+                                width: "18%",
+                                padding: "8px",
+                                fontSize: "16px",
+                                fontFamily: "Inter, sans-serif",
+                                fontWeight: "bold",
+                                color: "#fff",
+                                background: "#2A3E4B",
+                                borderRadius: "6px",
+                                cursor: "pointer",
+                                marginTop: "-72px",
+                                marginBottom: "32px",
+                                marginLeft: "70%",
+                                position: "absolute",
+                                border: "2px solid #2A3E4B",
+                                }}>
                                 Tambah Onboarding
                             </button>
                         </Link>
@@ -140,7 +158,12 @@ function GetListOnboardingInternal() {
 
                 
                 {onboarding && (
-                    <table style={{ marginLeft: "22%", borderCollapse: "collapse", width: "90%" }}>
+                    <table style={{
+                        marginLeft: "0%",
+                        borderCollapse: "collapse",
+                        width: "90%",
+                        padding:"12px"
+                      }}>
                         <thead>
                             <tr>
                                 <th style={{ border: "2px solid #2A3E4B", padding: "8px", textAlign: "center", fontWeight: "bold" }}>Posisi</th>

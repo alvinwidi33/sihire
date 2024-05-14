@@ -352,24 +352,24 @@ const MyJobApplication = () => {
             active={activeTab === "applications"}
             onClick={() => setActiveTab("applications")}
           >
-            My Applications
+            Lamaran Saya
           </TabButton>
           <TabButton
             active={activeTab === "interviews"}
             onClick={() => setActiveTab("interviews")}
           >
-            My Interviews
+            Wawancara Saya
           </TabButton>
           <TabButton
             active={activeTab === "onboarding"}
             onClick={() => setActiveTab("onboarding")}
           >
-            My Onboarding
+            Onboarding Saya
           </TabButton>
         </TabContainer>
 
         <ContentContainer active={activeTab === "applications"}>
-          <SubTitle>My Applications</SubTitle>
+          <SubTitle>Lamaran Saya</SubTitle>
           <Table>
             <thead style={{ backgroundColor: "#D2D2D2" }}>
               <tr>
@@ -405,7 +405,7 @@ const MyJobApplication = () => {
         </ContentContainer>
 
         <ContentContainer active={activeTab === "interviews"}>
-          <SubTitle>My Interviews</SubTitle>
+          <SubTitle>Wawancara Saya</SubTitle>
           <Table>
             <thead style={{ backgroundColor: "#D2D2D2" }}>
               <tr>
@@ -448,15 +448,13 @@ const MyJobApplication = () => {
         </ContentContainer>
 
         <ContentContainer active={activeTab === 'onboarding'}>
-        <SubTitle>My Onboarding</SubTitle>
+        <SubTitle>Onboarding Saya</SubTitle>
         <Table>
           <thead style={{ backgroundColor: "#D2D2D2" }}>
             <tr>
               <Th>Pekerjaan</Th>
               <Th>Tanggal</Th>
               <Th>Waktu</Th>
-              <Th>Status</Th>
-              <Th>Konfirmasi</Th>
               <Th>Data Diri</Th> {/* New column header */}
             </tr>
           </thead>
@@ -467,13 +465,6 @@ const MyJobApplication = () => {
                   <Td>{onboarding.job_application_id.job.job_name}</Td>
                   <Td>{onboarding.datetime_start && formatDateTime(onboarding.datetime_start)}</Td>
                   <Td>{onboarding.datetime_start && formatTime(onboarding.datetime_start)} - {onboarding.datetime_end && formatTime(onboarding.datetime_end)}</Td>
-                  <Td>{onboarding.confirm}</Td>
-                  <Td>
-                    {/* Konfirmasi button */}
-                    <Button primary style={{ marginRight: '8px' }} onClick={() => handleConfirmation(onboarding.id)}>Konfirmasi</Button>
-                    {/* Tolak button */}
-                    <Button onClick={() => handleReject(onboarding.id)}>Tolak</Button>
-                  </Td>
                   <Td>
                     {onboarding.ktp === null ? (
                       // If onboarding.ktp is null, render the "Add Data Diri" button

@@ -295,7 +295,7 @@ function JobApplicationDetailGA() {
                   <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                       <div className="flex justify-between items-center mb-4" >
-                        <h2 className="text-xl font-bold">Update Status</h2>
+                        <h2 className="text-xl font-bold">Ubah Status</h2>
                         <button
                           onClick={() => setShowModal(false)}
                           className="text-gray-600 hover:text-gray-800 focus:outline-none"
@@ -312,7 +312,7 @@ function JobApplicationDetailGA() {
                         </button>
                       </div>
                       <div className="mb-4">
-                        <label htmlFor="status" className="block font-bold">Select Status:</label>
+                        <label htmlFor="status" className="block font-bold">Pilih Status:</label>
                         <select
                           id="status"
                           value={selectedStatus}
@@ -331,7 +331,7 @@ function JobApplicationDetailGA() {
                         onClick={handleSubmit}
                         className="bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded"
                       >
-                        Update
+                        Simpan
                       </button>
                     </div>
                   </div>
