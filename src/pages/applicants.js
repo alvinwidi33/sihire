@@ -40,9 +40,9 @@ function Applicants() {
   const detailJobApplication = (id) => {
     if (role === "General Affairs") {
       navigate(`/job-application-detail-ga/${id}`);
+    } else {
+      navigate(`/job-application-detail-dp/${id}`);
     }
-
-    navigate(`/job-application-detail-dp/${id}`);
   };
 
   const handleStatusChange = (event) => {
@@ -87,10 +87,10 @@ function Applicants() {
         style={{ marginLeft: "22%", position: "absolute", marginTop: "-340px" }}
         className="w-9/12"
       >
-        <h1 className="text-2xl font-bold">All Applicants</h1>
+        <h1 className="text-2xl font-bold">Semua Pelamar</h1>
         <div className="w-full text-center">
           <div className="py-5 rounded rounded-xl border border-2 border-black">
-            <h2 className="text-xl font-semibold">Filter Applicants</h2>
+            <h2 className="text-xl font-semibold">Filter Pelamar</h2>
             <div className="flex justify-around mt-5">
               <div flex-center>
                 <p>Status</p>
@@ -142,7 +142,7 @@ function Applicants() {
                   Status
                 </th>
                 <th className="text-white bg-gray-900 text-center font-bold py-2">
-                  Action
+                  Tindakan
                 </th>
               </tr>
             </thead>
