@@ -107,7 +107,7 @@ function ManageUser() {
           position: "absolute",
         }}
       >
-        Manage Users
+        Kelola Pengguna
       </p>
       <SidebarAdmin />
 
@@ -119,7 +119,7 @@ function ManageUser() {
       <div className="px-5">
         <div className="flex items-center mt-4">
           <h2 className="text-3xl font-bold" style={darkBlueText}>
-            Users
+            Pengguna
           </h2>
           <div className="rounded-lg bg-white shadow-md flex-grow mr-4 ml-4">
             <input
@@ -135,7 +135,7 @@ function ManageUser() {
             onChange={(e) => setSelectedRole(e.target.value)}
             className="py-3 px-4 rounded-lg mr-4 shadow-md"
           >
-            <option value="">All Roles</option>
+            <option value="">Semua Role</option>
             <option value="Admin">Admin</option>
             <option value="General Affairs">General Affairs</option>
             <option value="Project Manager">Project Manager</option>
@@ -147,7 +147,7 @@ function ManageUser() {
               className="rounded-md bg-blue-700 text-white py-3 px-6"
               style={{ background: "var(--WF-Base-800, #2D3648)" }}
             >
-              <label className="font-bold">Tambah User</label>
+              <label className="font-bold">Tambah Pengguna</label>
             </button>
           </Link>
         </div>
@@ -156,9 +156,9 @@ function ManageUser() {
 
         <div className="flex justify-between">
           <div>
-            <p>Total users: {totalUsers}</p>
+            <p>Jumlah pengguna: {totalUsers}</p>
             <p>
-              Page {currentPage} of {totalPages}
+              Halaman {currentPage}/{totalPages}
             </p>
           </div>
           <div className="flex">
@@ -168,7 +168,7 @@ function ManageUser() {
               onChange={(e) => setShowDeleted(e.target.checked)}
               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-700 dark:focus:ring-blue-700 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-1 mt-1"
             />
-            <p>Tampilkan deleted user</p>
+            <p>Tampilkan pengguna yang dihapus</p>
           </div>
         </div>
 
@@ -180,7 +180,7 @@ function ManageUser() {
               <th style={thStyle}>Nama</th>
               <th style={thStyle}>No Telepon</th>
               <th style={thStyle}>Role</th>
-              <th style={thStyle}>Action</th>
+              <th style={thStyle}>Tindakan</th>
             </tr>
           </thead>
           <tbody>
@@ -199,7 +199,7 @@ function ManageUser() {
                         className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md"
                         style={{ background: "var(--WF-Base-800, #2D3648)" }}
                       >
-                        Edit
+                        Ubah
                       </button>
                       :
                       ""
@@ -210,29 +210,30 @@ function ManageUser() {
           </tbody>
         </table>
       </div>
-      <div className="flex justify-center mt-8">
+      <div className="flex justify-center mb-2">
         <button
           onClick={() => setCurrentPage((prevPage) => prevPage - 1)}
           disabled={currentPage === 1}
-          className={`py-2 px-4 rounded-md mr-2 ${
+          className={`text-3xl py-0 px-1 rounded-md mr-2 ${
             currentPage === 1
-              ? "bg-gray-400 text-gray-600 cursor-not-allowed"
-              : "bg-blue-500 hover:bg-blue-700 text-white"
+              ? "bg-transparent text-gray-600 cursor-not-allowed"
+              : "bg-transparent hover:bg-blue-100 text-blue-500"
           }`}
         >
-          Previous
+          ◀
         </button>
         <button
           onClick={() => setCurrentPage((prevPage) => prevPage + 1)}
           disabled={currentPage * 10 >= totalUsers}
-          className={`py-2 px-4 rounded-md ${
+          className={`text-3xl py-0 px-1 rounded-md ${
             currentPage * 10 >= totalUsers
-              ? "bg-gray-400 text-gray-600 cursor-not-allowed"
-              : "bg-blue-500 hover:bg-blue-700 text-white"
+              ? "bg-transparent text-gray-600 cursor-not-allowed"
+              : "bg-transparent hover:bg-blue-100 text-blue-500"
           }`}
         >
-          Next
+          ▶
         </button>
+
       </div>
     </div>
     </div>

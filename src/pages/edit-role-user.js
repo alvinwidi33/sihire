@@ -137,7 +137,7 @@ function EditRoleUser(props) {
                     cursor: "pointer",
                 }}
                 >
-                    <p style={{ display: "inline", marginLeft: "4px" }}>Manage Users</p>
+                    <p style={{ display: "inline", marginLeft: "4px" }}>Kelola Pengguna</p>
                 </Link>
                 <span style={{ display: "inline", marginLeft: "10px" }}>{">"}</span>
                 <Link
@@ -149,7 +149,7 @@ function EditRoleUser(props) {
                 }}
                 >
                     <p style={{ display: "inline", marginLeft: "10px" }}>
-                        Edit User
+                        Ubah Pengguna
                     </p>
                 </Link>
             </div>
@@ -160,7 +160,7 @@ function EditRoleUser(props) {
                     className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md"
                     style={{ boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)' }}
                 >
-                    <h2 className="text-lg font-semibold mb-4 text-center" style={darkBlueText}>Edit User</h2>
+                    <h2 className="text-lg font-semibold mb-4 text-center" style={darkBlueText}>Ubah Pengguna</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4">
                             <label htmlFor="email" className="block text-sm font-medium" style={darkBlueText}>Email</label>
@@ -228,7 +228,7 @@ function EditRoleUser(props) {
                                 className="w-full px-4 py-2 bg-indigo-800 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700"
                                 style={{ background: 'var(--WF-Base-800, #2D3648)' }}
                             >
-                                Update User
+                                Simpan Perubahan
                             </button>
                         </div>
                     </form>
@@ -237,7 +237,7 @@ function EditRoleUser(props) {
                                 className="w-full px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-700 focus:outline-none focus:bg-indigo-700"
                                 onClick={handleDeleteUser}
                             >
-                                Delete User
+                                Hapus Pengguna
                             </button>
                     </div>
                 </div>
@@ -249,7 +249,7 @@ function EditRoleUser(props) {
                 isVisible={deleteConfirmationVisible}
                 onAccept={handleConfirmDelete}
                 onClose={() => {setDeleteConfirmationVisible(false)}}
-                popupText="Apakah Anda yakin ingin menghapus user ini?"
+                popupText="Apakah Anda yakin ingin menghapus pengguna ini?"
                 needsConfirmation
                 acceptText="Ya"
                 declineText="Tidak"
@@ -262,7 +262,7 @@ function EditRoleUser(props) {
                 setEditSuccessVisible(false);
                 navigate('/manage-user');
             }}
-            popupText='Role berhasil diupdate'
+            popupText='Role berhasil diubah'
             needsConfirmation={false}
         />
         <NotificationPopup
@@ -273,7 +273,7 @@ function EditRoleUser(props) {
                 setDeleteConfirmationVisible(false);
                 navigate('/manage-user');
             }}
-            popupText='User berhasil dihapus'
+            popupText='Pengguna berhasil dihapus'
             needsConfirmation={false}
         />
     </React.Fragment>

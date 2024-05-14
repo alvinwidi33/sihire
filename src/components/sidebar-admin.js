@@ -132,7 +132,7 @@ function SidebarAdmin() {
                 }}
                 onClick={() => handleClickManageUsers()}
               >
-                Manage Users
+                Kelola Pengguna
               </button>
             </li>
             <li>
@@ -150,7 +150,7 @@ function SidebarAdmin() {
                 }}
                 onClick={() => handleClickManageProjects()}
               >
-                Manage Projects
+                Kelola Proyek
               </button>
             </li>
           </ul>
