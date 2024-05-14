@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/navbar';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import useEmblaCarousel from 'embla-carousel-react';
 import SidebarAdmin from '../components/sidebar-admin';
 
@@ -44,6 +44,15 @@ function OurProjectDetailAdmin() {
         <React.Fragment>
           
                 <><SidebarAdmin />
+                <div style={{ marginLeft: '22%', position: 'absolute', marginBottom: '40px', marginTop: '-200px' }}>
+                <Link to='/our-projects-admin'>
+                  <p style={{ display: 'inline', marginLeft: '4px' }}>Daftar Proyek</p>
+                </Link>
+                <span style={{ display: 'inline', marginLeft: '10px' }}>{'>'}</span>
+                <Link to={`/project-admin/${id}`}>
+                  <p style={{ display: 'inline', marginLeft: '4px' }}>Detail Proyek</p>
+                </Link>
+              </div>
                 <div style={{ marginTop: '-21%' }}></div>
                 <p
                     style={{
