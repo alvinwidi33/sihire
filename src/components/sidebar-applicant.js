@@ -127,7 +127,7 @@ function SidebarApplicant() {
                 }}
                 onClick={() => handleClickJobPosting()}
               >
-                Job Posting
+                Lowongan Pekerjaan
               </button>
             </li>
             <li>
@@ -145,7 +145,7 @@ function SidebarApplicant() {
                 }}
                 onClick={() => handleClickApplication()}
               >
-                Application
+                Lamaran Pekerjaan
               </button>
             </li>
           </ul>
