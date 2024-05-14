@@ -170,8 +170,17 @@ function JobApplicationDetailGA() {
 
   return (
     <React.Fragment>
-      <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>Job Application</p>
+      <p style={{ marginLeft: '22%', fontWeight: 'bold', fontSize: '32px', color: '#2A3E4B', position: 'absolute', marginTop: "12px" }}>Lamaran Pekerjaan</p>
       <SidebarGA />
+      <div style={{ marginLeft: '22%', position: 'absolute', marginBottom: '40px', marginTop: '-350px' }}>
+        <Link to='/applicants'>
+          <p style={{ display: 'inline', marginLeft: '4px' }}>Daftar Pelamar</p>
+        </Link>
+        <span style={{ display: 'inline', marginLeft: '10px' }}>{'>'}</span>
+        <Link to={`/job-application-detail-ga/${id}`}>
+          <p style={{ display: 'inline', marginLeft: '4px' }}>Detail Lamaran Pekerjaan</p>
+        </Link>
+      </div>
     <div className="min-h-screen flex" style={{ marginLeft:"18%", marginTop:"-26%"}}>
       <div className="container mx-auto mt-8 md:mt-16 w-11/12">
         <div className="p-4 bg-white rounded-lg shadow-md flex flex-col" style={{boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)'}}>
@@ -245,7 +254,7 @@ function JobApplicationDetailGA() {
                 </a>
               )}
               <br />
-              <strong>Cover Letter</strong>
+              <strong>Surat Lamaran</strong>
               {formData.coverLetter ? (
                 <a
                   href={formData.coverLetter}

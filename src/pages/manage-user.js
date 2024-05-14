@@ -107,12 +107,12 @@ function ManageUser() {
           position: "absolute",
         }}
       >
-        Manage User
+        Manage Users
       </p>
       <SidebarAdmin />
 
       <div
-        style={{ marginLeft: "22%", position: "absolute", marginTop: "-160px" }}
+        style={{ marginLeft: "22%", position: "absolute", marginTop: "-210px" }}
         className="w-9/12"
       >
     <div className="container mx-auto">
@@ -147,7 +147,7 @@ function ManageUser() {
               className="rounded-md bg-blue-700 text-white py-3 px-6"
               style={{ background: "var(--WF-Base-800, #2D3648)" }}
             >
-              <label className="font-bold">Add User</label>
+              <label className="font-bold">Tambah User</label>
             </button>
           </Link>
         </div>

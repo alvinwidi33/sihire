@@ -26,7 +26,7 @@ function SidebarOther() {
 
   const handleClickOnBoarding = () => {
     setActivePage("On Boarding");
-    navigate("/");
+    navigate("/get-list-onboarding-internals");
   };
   const handleClickInterview = () => {
     setActivePage("Interview");

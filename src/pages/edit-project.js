@@ -106,10 +106,10 @@ function EditProject() {
       if (!response.ok) {
         throw new Error("Failed to submit On Boarding schedule");
       }
-      setSuccessMessage("On Boarding berhasil dibuat!");
+      setSuccessMessage("Proyek berhasil diubah!");
       setTimeout(() => {
         setSuccessMessage("");
-        navigate("/our-projects");
+        navigate("/our-projects-admin");
       }, 5000);
     } catch (error) {
       console.error("Error:", error);
@@ -126,7 +126,7 @@ function EditProject() {
           fontSize: "32px",
           color: "#2A3E4B",
           position: "absolute",
-          marginTop: "-250px",
+          marginTop: "-290px",
         }}
       >
         Our Project

@@ -5,31 +5,12 @@ import useEmblaCarousel from 'embla-carousel-react';
 import SidebarAdmin from '../components/sidebar-admin';
 
 function OurProjectDetailAdmin() {
-    const [user, setUser] = useState(null);
     const { id } = useParams();
     const [project, setProject] = React.useState(null);
     const [highlightedImage, setHighlightedImage] = React.useState(null);
     const [selectedImage, setSelectedImage] = React.useState(null);
     const [emblaRef, emblaApi] = useEmblaCarousel()
 
-    useEffect(() => {
-        const getUser = async () => {
-            try {
-                const response = await fetch('https://sihire-be.vercel.app/api/users/logged-in/', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': 'Token ' + window.localStorage.getItem("token")
-                    },
-                  });
-                const data = await response.json();
-                setUser(data);
-                console.log("data",data)
-            } catch (error) {
-                console.error('Error fetching user:', error);
-            }
-        }
-        getUser();
-    })
 
     const scrollPrev = React.useCallback(() => {
       if (emblaApi) emblaApi.scrollPrev()
@@ -61,24 +42,21 @@ function OurProjectDetailAdmin() {
 
     return (
         <React.Fragment>
-          {user === null ? (
-            <Navbar />
-        ) : (
-            user.role === "Admin" && (
-                <><SidebarAdmin /><p
+          
+                <><SidebarAdmin />
+                <div style={{ marginTop: '-21%' }}></div>
+                <p
                     style={{
                         marginLeft: "22%",
                         fontWeight: "bold",
                         fontSize: "32px",
                         color: "#2A3E4B",
                         position: "absolute",
-                        marginTop: "-18%"
                     }}
                 >
                     Our Project
                 </p></>
-            )
-        )}
+          
 
           {
             !project && (
@@ -88,7 +66,7 @@ function OurProjectDetailAdmin() {
           {
             project && (
           <div className='bg-white-100 p-16 min-h-screen flex justify-center items-center'>
-            <div className='flex flex-col justify-center items-center rounded-lg shadow-lg w-2/4 h-full p-8'>
+            <div className='flex flex-col justify-center items-center rounded-lg shadow-lg w-3/4 h-full p-8 ml-auto'>
               <div className='flex gap-8 mt-16'>
                   <div className='flex flex-col gap-2'>
                       <div className="overflow-hidden" ref={emblaRef}>
