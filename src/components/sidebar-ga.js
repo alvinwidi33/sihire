@@ -145,7 +145,7 @@ function SidebarGA() {
                 }}
                 onClick={() => handleClickJobPosting()}
               >
-                Job Posting
+                Lowongan Pekerjaan
               </button>
             </li>
             <li>
@@ -199,7 +199,7 @@ function SidebarGA() {
                 }}
                 onClick={() => handleClickInterview()}
               >
-                Interview
+                Wawancara
               </button>
             </li>
             <li>

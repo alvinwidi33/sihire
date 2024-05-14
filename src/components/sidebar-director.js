@@ -169,7 +169,7 @@ function SidebarDirector() {
                 }}
                 onClick={() => handleClickJobPosting()}
               >
-                Job Posting
+                Lowongan Pekerjaan
               </button>
             </li>
             <li>
@@ -223,7 +223,7 @@ function SidebarDirector() {
                 }}
                 onClick={() => handleClickInterview()}
               >
-                Interview
+                Wawancara
               </button>
             </li>
             <li>
