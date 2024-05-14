@@ -73,7 +73,7 @@ function DetailHistoryInterview() {
           }}
         >
           List Wawancara
-          
+          <span>{`>`}</span>
         </p>
       </Link>
       <Link to='/get-list-history-interview'>
@@ -85,19 +85,15 @@ function DetailHistoryInterview() {
           }}
         >
           List History Wawancara
+          <span>{`>`}</span>
         </p>
         </Link>
-      <p
-        style={{ marginLeft: "42%", position: "absolute", marginTop: "-320px" }}
-      >
-        {">"}
-      </p>
       {interview && (
         <React.Fragment key={interview.id}>
           <Link to={`/get-list-history-interview/${id}`}>
             <p
               style={{
-                marginLeft: "43%",
+                marginLeft: "44%",
                 position: "absolute",
                 marginTop: "-320px",
               }}
