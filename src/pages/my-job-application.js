@@ -328,6 +328,52 @@ const MyJobApplication = () => {
     }
   `;
 
+const TooltipContainer = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+const TooltipButton = styled.button`
+  margin-left: 1rem;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  font-size: 1rem;
+  text-decoration: underline;
+  cursor: pointer;
+  
+  &:hover {
+    color: #0056b3;
+  }
+
+  &:focus {
+    outline: none;
+    color: #0056b3;
+    text-decoration: none;
+  }
+
+  &:focus + .tooltip-content {
+    visibility: visible;
+    opacity: 1;
+  }
+`;
+
+const TooltipContent = styled.div`
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: 100%; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 5px; /* Adjust as needed */
+  transition: opacity 0.3s, visibility 0.3s;
+  z-index: 10;
+  background-color: #333; /* Tooltip background color */
+  color: #fff; /* Tooltip text color */
+  padding: 5px; /* Tooltip padding */
+  border-radius: 4px; /* Tooltip border radius */
+`;
+
   return (
     <React.Fragment>
       <p
@@ -339,7 +385,7 @@ const MyJobApplication = () => {
           position: "absolute",
         }}
       >
-        Job Applications
+        Lamaran Pekerjaan
       </p>
       <SidebarApplicant />
 
@@ -423,10 +469,39 @@ const MyJobApplication = () => {
                     <Td>{interview.job_application_id.job.job_name}</Td>
                     <Td>{interview.datetime_start.split("T")[0]}</Td>
                     <Td>{interview.datetime_start.slice(11, 16)}</Td>
-                    <Td>{interview.confirm}</Td>
-                    {interview.confirm === "Confirm" && (
-                      <Button primary>Batalkan</Button>
+                    {interview.confirm === "Berhalangan" ? (
+                      <>
+                        <Td>
+                        <div className="tooltip-container">
+                          {/* <button
+                          data-tooltip-target="tooltip-click" data-tooltip-trigger="click" type="button"
+                          class="ms-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                          >
+                            Tooltip click
+                          </button>
+                          <div id="tooltip-click" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                              Tooltip content
+                              <div class="tooltip-arrow" data-popper-arrow></div>
+                          </div> */}
+
+                        </div>
+                          <TooltipContainer>
+                            <TooltipButton
+                              tabindex="0"
+                              type="button"
+                            >
+                              {interview.confirm}
+                            </TooltipButton>
+                            <TooltipContent className="tooltip-content">
+                              Alasan berhalangan: {interview.reschedule_comment}
+                            </TooltipContent>
+                          </TooltipContainer>
+                        </Td>
+                      </>
+                    ) : (
+                      <Td>{interview.confirm}</Td>
                     )}
+                    
                     <Td>
                       {interview.confirm === "Belum Dikonfirmasi" ? (
                         <Button
