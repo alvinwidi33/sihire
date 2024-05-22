@@ -117,7 +117,7 @@ function App() {
           <Route path="/get-list-feedback-ga" element={<ProtectedRoute child={<GetListFeedbackGA/>}/>}/>
           <Route path="/get-list-feedback-other" element={<ProtectedRoute child={<GetListFeedbackOther/>}/>}/>
           <Route path="/edit-my-profile" element={<ProtectedRoute child={<EditMyProfile />} />} />
-          <Route path="/add-project" element={<AddProject/>}/>
+          <Route path="/add-project" element={<ProtectedRoute child={<AddProject/>}/>}/>
           <Route path='/data-diri-detail/:id' element={<ProtectedRoute child={<DataDiriDetail />} />} />
           <Route path="/project/:id" element={<ProtectedRoute child={<OurProjectDetail />} />} />
           <Route path="/edit-project/:id" element={<ProtectedRoute child={<EditProject />} />} />
