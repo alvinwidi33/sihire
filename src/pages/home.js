@@ -252,7 +252,7 @@ const dataProject = [
         textAlign: 'center',
         fontWeight:'bold',
         fontFamily:'Inter, sans-serif'}}>Our Projects</p>
-            <div className='flex flex-wrap gap-8' style={{marginLeft:"15%"}}>
+            <div className='flex flex-wrap gap-8' style={{marginLeft:"20%"}}>
             {
                 projects &&
                 projects.filter(p => p.is_highlighted).map((project) => (
